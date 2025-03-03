@@ -16,8 +16,6 @@ const FeaturedProducts = () => {
     const router =useRouter()
     const {addItem, items} = useCart()
 
-    console.log(items)
-
     return ( 
         <div className="max-w-6xl py-4 mx-auto sm:py-16 sm:px-24">
             <h3 className="px-6 text-3xl sm:pb-8">Productos destacados</h3>
@@ -26,7 +24,7 @@ const FeaturedProducts = () => {
                 <CarouselContent className="-ml-2 md:-ml-4">
                     {loading && <SkeletonSchema grid={3} />}
                     {result != null && result.map((product: ProductType) => {
-                        const { id, images, productName, price, slug, tipo, category } = product;
+                        const { id, images, productName, slug, category } = product;
 
                         // Obtener la primera imagen si existe, de lo contrario, usar un placeholder
                         const imageUrl = images.length > 0 

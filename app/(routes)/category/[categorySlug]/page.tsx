@@ -12,11 +12,12 @@ import { useState } from "react";
 export default function Page (){
     const params = useParams();
     const {categorySlug}  = params
+    //const router = useRouter()
     if (!categorySlug) {
         return <p>No se encontró la categoría.</p>;
     }
     const{result, loading}: ResponseType = useGetCategoryProduct(categorySlug)
-    const router = useRouter()
+    
     
     const [FilterType, setFilterType] = useState('')
 

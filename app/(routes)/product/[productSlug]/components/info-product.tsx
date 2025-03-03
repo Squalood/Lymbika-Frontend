@@ -15,8 +15,6 @@ const InfoProduct = (props: InfoProductProps) => {
     const {addItem} = useCart()
     const {addLoveItem, lovedItems} = UseLovedProducts()
 
-    console.log(lovedItems)
-
     return ( 
         <div className="px-6">
             <div className="justify-between mb-3 sm:flex">
