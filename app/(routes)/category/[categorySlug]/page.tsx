@@ -1,54 +1,50 @@
-"use client"
-import { useGetCategoryProduct } from "@/api/useCategoryProduct"
+"use client";
+import { useGetCategoryProduct } from "@/api/useCategoryProduct";
 import { Separator } from "@/components/ui/separator";
-import { ResponseType } from "@/types/response"
-import { useParams, useRouter} from "next/navigation"
+import { ResponseType } from "@/types/response";
+import { useParams } from "next/navigation"; // Eliminé useRouter porque no se usa
 import FiltersControlsCategory from "./components/filters-controls-category";
 import SkeletonSchema from "@/components/skeletonSchema";
 import ProductCard from "./components/product-card";
 import { ProductType } from "@/types/product";
 import { useState } from "react";
 
-export default function Page (){
+export default function Page() {
     const params = useParams();
-    const {categorySlug}  = params
-    //const router = useRouter()
-    if (!categorySlug) {
-        return <p>No se encontró la categoría.</p>;
-    }
-    const{result, loading}: ResponseType = useGetCategoryProduct(categorySlug)
-    
-    
-    const [FilterType, setFilterType] = useState('')
+    const { categorySlug } = params;
 
-    const filteredProducts = result != null &&!loading &&(
-        FilterType == '' ? result : result.filter((product: ProductType) => product.tipo == FilterType)
-    )
+    // 🚨 Verifica que categorySlug exista antes de ejecutar el hook
+    const { result, loading }: ResponseType = useGetCategoryProduct(categorySlug ?? '');
 
-    return(
+    // useState siempre debe ir fuera de condicionales
+    const [FilterType, setFilterType] = useState('');
+
+    // 🚨 Evita evaluar `result` dentro de la constante de filtrado
+    const filteredProducts = result && !loading 
+        ? (FilterType === '' ? result : result.filter((product: ProductType) => product.tipo === FilterType)) 
+        : [];
+
+    return (
         <div className="max-w-6xl py-4 mx-auto sm:py-16 sm:px-24">
-            {result != null && !loading && (
+            {result && !loading && (
                 <h1 className="text-3xl font-medium">{result[0].category.categoryName}</h1>
             )}
-            <Separator/>
+            <Separator />
             <div className="sm:flex sm:justify-between">
-                <FiltersControlsCategory setFilterType={setFilterType}/>
+                <FiltersControlsCategory setFilterType={setFilterType} />
 
                 <div className="grid gap-5 mt-8 sm:grid-cols-2 md:grid-cols-3 md:gap-10">
-                    {loading && (
-                        <SkeletonSchema grid={3} />
-                    )}  
-                {filteredProducts != null && !loading && (
-                    filteredProducts.map((product:ProductType)=>(
-                        <ProductCard key={product.id} product={product}/>
-                    ))
-                )}
-                {filteredProducts != null && !loading && filteredProducts.length == 0 &&(
-                    <p>No hay Productos</p>
-                )}
+                    {loading && <SkeletonSchema grid={3} />}
+
+                    {filteredProducts.length > 0 ? (
+                        filteredProducts.map((product: ProductType) => (
+                            <ProductCard key={product.id} product={product} />
+                        ))
+                    ) : (
+                        !loading && <p>No hay Productos</p>
+                    )}
                 </div>
             </div>
         </div>
-        
-    )
+    );
 }
