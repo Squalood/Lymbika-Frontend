@@ -19,7 +19,7 @@ const MenuList = () => {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Sobre Nosotros</NavigationMenuTrigger>
+          <NavigationMenuTrigger>Pagina</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
               <li className="row-span-3">
@@ -40,7 +40,7 @@ const MenuList = () => {
               <ListItem href="/shop" title="Tienda">
                 Accede a nuestros articulos
               </ListItem>
-              <ListItem href="/services" title="Servicios">
+              <ListItem href="/services" title="Cirugias">
                 Tratamientos y servicios con doctores especializados.
               </ListItem>
               <ListItem href="/mediclub" title="MediClub">
