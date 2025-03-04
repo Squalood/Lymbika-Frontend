@@ -40,7 +40,7 @@ const MenuList = () => {
               <ListItem href="/shop" title="Tienda">
                 Accede a nuestros articulos
               </ListItem>
-              <ListItem href="/services" title="Servicios">
+              <ListItem href="/services" title="Cirugias">
                 Tratamientos y servicios con doctores especializados.
               </ListItem>
               <ListItem href="/mediclub" title="MediClub">
