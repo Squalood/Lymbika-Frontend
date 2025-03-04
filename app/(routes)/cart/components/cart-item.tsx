@@ -18,7 +18,7 @@ const CartItem = (props: CartItemProps) => {
     return ( 
         <li className="flex py-6 border-b">
             <div onClick={() => router.push(`/product/${product.slug}`)} className="cursor-pointer">
-                <Image 
+                <img 
                     src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${product.images[0].url}`} 
                     alt="product" 
                     className="w-24 h-24 overflow-hidden rounded-md sm:w-auto sm:h-32"
