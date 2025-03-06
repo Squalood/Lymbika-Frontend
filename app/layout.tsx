@@ -10,7 +10,7 @@ import NextTopLoader from 'nextjs-toploader'
 const urbanist = Urbanist({ subsets: ["latin"], display: "swap" });
 
 export const metadata: Metadata = {
-  title: "Lymika E-commerce",
+  title: "Lymbika E-commerce",
   description: "app web de agencia de salud",
 };
 
