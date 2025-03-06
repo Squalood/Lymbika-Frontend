@@ -28,7 +28,7 @@ const FeaturedProducts = () => {
 
                         // Obtener la primera imagen si existe, de lo contrario, usar un placeholder
                         const imageUrl = images.length > 0 
-                            ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${images[0].url}`
+                            ? `${images[0].url}`
                             : "/placeholder.jpg"; // Imagen por defecto
 
                         return (

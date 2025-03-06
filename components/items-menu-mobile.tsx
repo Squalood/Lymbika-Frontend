@@ -8,7 +8,7 @@ const ItemsMenuMobile = () => {
             <PopoverTrigger>
                 <Menu />
             </PopoverTrigger>
-            <PopoverContent>
+            <PopoverContent className="w-80">
                 <Link href="/category/medicamentos" className="block">Medicamentos</Link>
                 <Link href="/category/" className="block">Suplementos</Link>
                 <Link href="/category/" className="block">Pediátrico</Link>
