@@ -5,4 +5,5 @@ export type CategoryType = {
     mainImage: {
         url: string;
     };
+    description: string;
 };

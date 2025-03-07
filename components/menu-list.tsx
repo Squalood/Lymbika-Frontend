@@ -2,7 +2,6 @@
 
 import * as React from "react"
 import Link from "next/link"
-
 import { cn } from "@/lib/utils"
 import {
   NavigationMenu,
@@ -13,13 +12,22 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
+import { CategoryType } from "@/types/category"
+import {ResponseType} from '@/types/response';
+import { useGetCategories } from "@/api/getProduct" // Asegúrate de importar la función correctamente
 
 const MenuList = () => {
+  const { loading, result,}:ResponseType = useGetCategories(); // Usamos la función para obtener las categorías
+
+  if (loading) {
+    return <div>Cargando categorías...</div>; // Puedes agregar un loading spinner si lo prefieres
+  }
+
   return (
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Sobre Nostros</NavigationMenuTrigger>
+          <NavigationMenuTrigger>Sobre Nosotros</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
               <li className="row-span-3">
@@ -32,39 +40,41 @@ const MenuList = () => {
                       Lymbika
                     </div>
                     <p className="text-sm leading-tight text-muted-foreground">
-                    Hacemos la salud accesible: Procesos claros, precios transparentes y una experiencia diseñada para tu comodidad.
+                      Hacemos la salud accesible: Procesos claros, precios transparentes y una experiencia diseñada para tu comodidad.
                     </p>
                   </Link>
                 </NavigationMenuLink>
               </li>
               <ListItem href="/shop" title="Tienda">
-                Accede a nuestros articulos
+                Accede a nuestros artículos
               </ListItem>
-              <ListItem href="/services" title="Cirugias">
+              <ListItem href="/services" title="Cirugías">
                 Tratamientos y servicios con doctores especializados.
               </ListItem>
               <ListItem href="/mediclub" title="MediClub">
-              Con nuestra membresía MediClub, accede a medicamentos y productos de la salud a precio de proveedor. 
+                Con nuestra membresía MediClub, accede a medicamentos y productos de la salud a precio de proveedor. 
               </ListItem>
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
+
         <NavigationMenuItem>
           <NavigationMenuTrigger>Tienda</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-              {components.map((component) => (
+              {!loading &&result?.map((category: CategoryType) => (
                 <ListItem
-                  key={component.title}
-                  title={component.title}
-                  href={component.href}
+                  key={category.id}
+                  title={category.categoryName}
+                  href={`/category/${category.slug}`}
                 >
-                  {component.description}
+                {category.description}
                 </ListItem>
               ))}
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
+
         <NavigationMenuItem>
           <Link href="/docs" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
@@ -78,45 +88,6 @@ const MenuList = () => {
 }
 
 export default MenuList
-
-const components: { title: string; href: string; description: string }[] = [
-  
-    {
-      title: "Medicamentos",
-      href: "/category/medicamentos",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      title: "Suplementos",
-      href: "/category/suplementos",
-      description:
-        "Curabitur vel libero malesuada, porta urna non, molestie leo.",
-    },
-    {
-      title: "Pediatrico",
-      href: "/category/pediatrico",
-      description:
-        " Vestibulum enim neque, consequat id accumsan malesuada, varius id orci.",
-    },
-    {
-      title: "Cronicos",
-      href: "/category/cronicos",
-      description: "Morbi quis ligula tempor erat fringilla elementum nec a quam. Etiam quam sapien, fringilla eget risus et, rutrum consequat eros.",
-    },
-    {
-      title: "Cuidado y Belleza",
-      href: "/category/cuidado-belleza",
-      description:
-        "In ex purus, placerat id sodales vitae, auctor sit amet felis. Nulla facilisi.",
-    },
-    {
-      title: "Especiales",
-      href: "/category/especiales",
-      description:
-        "Morbi pellentesque, turpis vel gravida vulputate, sem diam rutrum orci, eu rutrum tortor mi quis elit.",
-    },
-  ]
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,

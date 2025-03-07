@@ -18,12 +18,10 @@ const Navbar = () => {
                 <span className="font-bold">bika</span>
             </h1>
             <div className="items-center justify-between hidden sm:flex">
-                <MenuList/>
+                <MenuList />
             </div>
-            <div className="flex sm:hidden">
-                <ItemsMenuMobile/>
-            </div>
-            <div className="flex items-center justify-between gap-2 sm:gap-7">
+            
+            <div className="items-center justify-between gap-2 sm:gap-7 hidden sm:flex">
                 {cart.items.length == 0 ? 
                     <ShoppingCart 
                         strokeWidth="1"
@@ -37,7 +35,6 @@ const Navbar = () => {
                         </div>
                     
                 )}
-                
                 <Heart 
                     strokeWidth="1" 
                     className={` ${lovedItems.length > 0 && 'fill-black dark:fill-white'}`}
@@ -45,7 +42,12 @@ const Navbar = () => {
                 />
                 <User strokeWidth={1} className="cursor-pointer" />
 
+                
+
                 {false && <ToggleTheme />}
+            </div>
+            <div className="flex sm:hidden">
+                <ItemsMenuMobile/>
             </div>
         </div>
      );
