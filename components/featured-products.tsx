@@ -10,7 +10,6 @@ import { Expand, ShoppingCart } from "lucide-react";
 import IconButtom from "./icon-button";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/hooks/use-cart";
-import Link from "next/link";
 
 const FeaturedProducts = () => {
     const { loading, result }: ResponseType = useGetFeaturedProducts();
@@ -35,7 +34,6 @@ const FeaturedProducts = () => {
                         return (
                             <CarouselItem key={id} className="md:basis-1/2 lg:basis-1/3 group">
                                 <div className="p-1">
-                                    <Link href={`/product/${product.slug}`}>
                                     <Card  className="py-4 border-gray-200 shadow-none">
                                         <CardContent className="relative flex flex-col items-center justify-center px-6 py-2">
                                             <img 
@@ -60,7 +58,6 @@ const FeaturedProducts = () => {
                                             </div>
                                         </div>
                                     </Card>
-                                    </Link>
                                 </div>
                             </CarouselItem>
                         );
