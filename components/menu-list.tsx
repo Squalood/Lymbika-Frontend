@@ -14,13 +14,18 @@ import {
 } from "@/components/ui/navigation-menu"
 import { CategoryType } from "@/types/category"
 import {ResponseType} from '@/types/response';
-import { useGetCategories } from "@/api/getProduct" // Asegúrate de importar la función correctamente
+import { useGetCategories } from "@/api/getProduct" 
+import { Skeleton } from "./ui/skeleton"
 
 const MenuList = () => {
   const { loading, result,}:ResponseType = useGetCategories(); // Usamos la función para obtener las categorías
 
   if (loading) {
-    return <div>Cargando categorías...</div>; // Puedes agregar un loading spinner si lo prefieres
+    return <div className="grid grid-cols-3 gap-4">
+            <Skeleton className=" w-[100px] h-[20px] rounded-full" />
+            <Skeleton className=" w-[100px] h-[20px] rounded-full" />
+            <Skeleton className=" w-[100px] h-[20px] rounded-full" />
+           </div>
   }
 
   return (
