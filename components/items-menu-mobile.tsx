@@ -15,88 +15,65 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import router from "next/router";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { CategoryType } from "@/types/category";
+import { useGetCategories } from "@/api/getProduct";
+import {ResponseType} from '@/types/response';
 
 const ItemsMenuMobile = () => {
-    return ( 
-        <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="outline"><Menu/></Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-56">
-          <DropdownMenuLabel>Sobre Nostros</DropdownMenuLabel>
+  const router = useRouter()
+  const { loading, result,}:ResponseType = useGetCategories();
+
+  return ( 
+      <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline"><Menu/></Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-56">
+        <DropdownMenuLabel>Sobre Nosotros</DropdownMenuLabel>
+        <DropdownMenuGroup>
+          <DropdownMenuItem>
+            <Link href="/">Lymbika</Link>
+          </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuGroup>
-            <DropdownMenuItem>
-              <span>Lymbika</span>
+          <DropdownMenuLabel>Tienda</DropdownMenuLabel>
+          {!loading && Array.isArray(result) && result.length > 0 && result.map((category: CategoryType) => (
+            <DropdownMenuItem key={category.id} className="cursor-pointer" onClick={() => router.push(`/category/${category.slug}`)}>
+              <p>{category.categoryName}</p>
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuLabel>Tienda</DropdownMenuLabel>
-            <DropdownMenuItem>
-              <span>Medicamentos</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <span>Suplementos</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <span>Pediatrico</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <span>Cronicos</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <span>Cuidado y Belleza</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <span>Especiales</span>
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuLabel>Servicios</DropdownMenuLabel>
-            <DropdownMenuItem>
-              <span>Cirugias</span>
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuLabel>Membresias</DropdownMenuLabel>
-            <DropdownMenuItem>
-              <span>MediClub</span>
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <span>Solicitar Cita</span>
-            </DropdownMenuItem>
+          ))}
+          <DropdownMenuSeparator />
+          <DropdownMenuLabel>Servicios</DropdownMenuLabel>
+          <DropdownMenuItem>
+            <span>Cirugias</span>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuLabel>Membresias</DropdownMenuLabel>
+          <DropdownMenuItem>
+            <span>MediClub</span>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem>
+            <span>Solicitar Cita</span>
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+          <DropdownMenuItem className="cursor-pointer" onClick={()=> router.push("/cart")}>
+            <ShoppingCart strokeWidth="1"/>Cart
+          </DropdownMenuItem>
+          <DropdownMenuItem className="cursor-pointer" onClick={()=> router.push("/loved-products")}>
+            <Heart strokeWidth="1"/>Mi lista
+          </DropdownMenuItem>
+          <DropdownMenuItem className="cursor-pointer" onClick={()=> router.push("/")}>
+            <User strokeWidth="1"/>
+            Usuario
+          </DropdownMenuItem>
           </DropdownMenuGroup>
-          <DropdownMenuSeparator />
-          <DropdownMenuGroup>
-            <DropdownMenuItem>
-              <ShoppingCart 
-                strokeWidth="1"
-                className="cursor-pointer"
-                onClick={()=> router.push ("/cart")}
-              />
-              <span>Cart</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Heart 
-                strokeWidth="1"
-                className="cursor-pointer"
-                onClick={()=> router.push ("/cart")}
-              />
-              <span>Mi lista</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <User 
-                strokeWidth="1"
-                className="cursor-pointer"
-              />
-              <span>Usuario</span>
-            </DropdownMenuItem>
-            </DropdownMenuGroup>
-        </DropdownMenuContent>
-      </DropdownMenu>
-     );
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
 }
 
-
-
- 
 export default ItemsMenuMobile;
