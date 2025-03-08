@@ -8,7 +8,6 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { useRouter } from "next/navigation";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { FilterTypes } from "@/types/filters";
 import { useGetProductField } from "@/api/getProductField";
@@ -20,8 +19,7 @@ type FilterTypeProps = {
 
 const ItemsFilterMobile = (props:FilterTypeProps) => {
     const {setFilterType} = props
-  const router = useRouter()
-  const {result, loading}:FilterTypes = useGetProductField()
+    const {result, loading}:FilterTypes = useGetProductField()
 
   return ( 
       <DropdownMenu>
