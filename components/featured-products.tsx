@@ -23,13 +23,11 @@ const FeaturedProducts = () => {
             <Carousel>
                 <CarouselContent className="-ml-2 md:-ml-4">
                     {loading && <SkeletonSchema grid={3} />}
-                    {result != null && result.map((product: ProductType) => {
+                    {result?.map((product: ProductType) => {
                         const { id, images, productName, slug, category } = product;
 
                         // Obtener la primera imagen si existe, de lo contrario, usar un placeholder
-                        const imageUrl = images.length > 0 
-                            ? `${images[0].url}`
-                            : "/placeholder.jpg"; // Imagen por defecto
+                        const imageUrl = images?.length > 0 ? images[0].url : "https://dummyimage.com/250x250/999799/ebebeb.jpg&text";
 
                         return (
                             <CarouselItem key={id} className="md:basis-1/2 lg:basis-1/3 group">
@@ -37,7 +35,7 @@ const FeaturedProducts = () => {
                                     <Card  className="py-4 border-gray-200 shadow-none">
                                         <CardContent className="relative flex flex-col items-center justify-center px-6 py-2">
                                             <img 
-                                                src={imageUrl}  alt="Image fearured"/>
+                                                src={imageUrl}  alt="Sin Imagen"/>
                                             <div className="absolute w-full px-6 transition duration-200 opacity-0 group-hover:opacity-100 bottom-5">
                                                 <div className="flex justify-center gap-x-6">
                                                     <IconButtom onClick={() => router.push(`product/${slug}`)}
@@ -54,7 +52,7 @@ const FeaturedProducts = () => {
                                         <div className="flex justify-between gap-4 px-8">
                                             <h3 className="text-lg font-bold">{productName}</h3>
                                             <div className="flex items-center justify-between gap-3">
-                                                <p className="px-2 py-1 text-white primary bg-sky-600 rounded-full w-fit">{category.categoryName}</p>
+                                                <p className="px-2 py-1 text-white primary bg-sky-600 rounded-full w-fit">{category?.categoryName ?? "Sin categoría"}</p>
                                             </div>
                                         </div>
                                     </Card>
