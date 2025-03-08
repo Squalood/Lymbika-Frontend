@@ -11,7 +11,7 @@ const urbanist = Urbanist({ subsets: ["latin"], display: "swap" });
 
 export const metadata: Metadata = {
   title: "Lymbika E-commerce",
-  description: "app web de agencia de salud",
+  description: "Agencia de salud",
 };
 
 export default function RootLayout({
