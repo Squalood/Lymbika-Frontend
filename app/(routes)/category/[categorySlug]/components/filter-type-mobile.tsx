@@ -1,25 +1,14 @@
 import {
-  User,
   Menu,
-  ShoppingCart,
-  Heart,
 } from "lucide-react"
 //import Link from "next/link";
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { CategoryType } from "@/types/category";
-import { useGetCategories } from "@/api/getProduct";
-import {ResponseType} from '@/types/response';
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { FilterTypes } from "@/types/filters";
 import { useGetProductField } from "@/api/getProductField";
