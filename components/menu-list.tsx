@@ -53,7 +53,7 @@ const MenuList = () => {
               <ListItem href="/shop" title="Tienda">
                 Accede a nuestros artículos
               </ListItem>
-              <ListItem href="/services" title="Cirugías">
+              <ListItem href="/service" title="Cirugías">
                 Tratamientos y servicios con doctores especializados.
               </ListItem>
               <ListItem href="/mediclub" title="MediClub">

@@ -14,6 +14,7 @@ export default function Page() {
     const params = useParams();
     const { categorySlug } = params;
 
+
     // 🚨 Verifica que categorySlug exista antes de ejecutar el hook
     const { result, loading }: ResponseType = useGetCategoryProduct(categorySlug ?? '');
 
