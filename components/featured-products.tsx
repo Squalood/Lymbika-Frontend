@@ -10,6 +10,7 @@ import { Expand, ShoppingCart } from "lucide-react";
 import IconButtom from "./icon-button";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/hooks/use-cart";
+import Image from "next/image";
 
 const FeaturedProducts = () => {
     const { loading, result }: ResponseType = useGetFeaturedProducts();
@@ -27,15 +28,20 @@ const FeaturedProducts = () => {
                         const { id, images, productName, slug, category } = product;
 
                         // Obtener la primera imagen si existe, de lo contrario, usar un placeholder
-                        const imageUrl = images?.length > 0 ? images[0].url : "https://dummyimage.com/250x250/999799/ebebeb.jpg&text";
+                        const imageUrl = images?.length > 0 ? images[0].url : "/placeholder-image.webp";
 
                         return (
                             <CarouselItem key={id} className="md:basis-1/2 lg:basis-1/3 group">
                                 <div className="p-1">
-                                    <Card  className="py-4 border-gray-200 shadow-none">
+                                    <Card className="h-[350px] py-4 border-gray-200 shadow-none">
                                         <CardContent className="relative flex flex-col items-center justify-center px-6 py-2">
-                                            <img 
-                                                src={imageUrl}  alt="Sin Imagen"/>
+                                            <Image 
+                                                src={imageUrl} 
+                                                alt="Sin Imagen" 
+                                                width={200} 
+                                                height={200} 
+                                                className="w-[200px] h-[200px] object-cover rounded-md"
+                                                />
                                             <div className="absolute w-full px-6 transition duration-200 opacity-0 group-hover:opacity-100 bottom-5">
                                                 <div className="flex justify-center gap-x-6">
                                                     <IconButtom onClick={() => router.push(`product/${slug}`)}

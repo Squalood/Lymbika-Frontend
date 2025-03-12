@@ -4,6 +4,7 @@ import { CategoryType } from "@/types/category";
 import {ResponseType} from '@/types/response';
 import Link from "next/link";
 import Image from "next/image";
+import { Skeleton } from "./ui/skeleton";
 
 const ChooseCategory = () => {
     const { result, loading }: ResponseType = useGetCategories()
@@ -12,7 +13,13 @@ const ChooseCategory = () => {
         <div className="max-w-6xl py-4 mx-auto sm:py-16 sm:px-24">
             <h3 className="px-6 pb-4 text-3xl sm:pb-8">Escoge una categoría</h3>
 
-            {loading && <p className="text-center">Cargando categorías...</p>}
+            {loading && 
+                <div className="grid grid-cols-3 gap-4">
+                    <Skeleton className=" w-[250px] h-[250px] rounded-full" />
+                    <Skeleton className=" w-[250px] h-[250px] rounded-full" />
+                    <Skeleton className=" w-[250px] h-[250px] rounded-full" />
+                </div>
+            }
 
             <div className="grid gap-5 sm:grid-cols-3">
                 {!loading && result?.map((category: CategoryType) => (

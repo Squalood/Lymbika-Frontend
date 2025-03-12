@@ -2,7 +2,7 @@
 import { useGetCategoryProduct } from "@/api/useCategoryProduct";
 import { Separator } from "@/components/ui/separator";
 import { ResponseType } from "@/types/response";
-import { useParams } from "next/navigation"; // Eliminé useRouter porque no se usa
+import { useParams } from "next/navigation"; 
 import FiltersControlsCategory from "./components/filters-controls-category";
 import SkeletonSchema from "@/components/skeletonSchema";
 import ProductCard from "./components/product-card";
@@ -50,7 +50,7 @@ export default function Page() {
                 <FiltersControlsCategory setFilterType={setFilterType} />
 
                 <div className="grid gap-5 mt-8 sm:grid-cols-2 md:grid-cols-3 md:gap-10">
-                    {loading && <SkeletonSchema grid={3} />}
+                    {loading && <SkeletonSchema grid={6} />}
 
                     {filteredProducts.length > 0 ? (
                         filteredProducts.map((product: ProductType) => (

@@ -13,7 +13,7 @@ export default function Page (){
     const { result }: ResponseType = useGetProductBySlug(productSlug ?? '')
 
     if (result == null){
-        return <SkeletonProduct/>
+        return <SkeletonProduct/> 
     }
 
     return(

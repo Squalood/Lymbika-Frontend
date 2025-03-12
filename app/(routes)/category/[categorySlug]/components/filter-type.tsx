@@ -15,11 +15,11 @@ const FilterType = (props:FilterTypeProps) => {
         <div className="my-5">
             <p className="mb-3 font-bold">Tipo</p>
             {loading && result == null && (
-                <p>cargando Origen....</p>
+                <p>cargando Tipos....</p>
             )}
             <RadioGroup onValueChange={(value) => setFilterType(value)}>
                 {result != null && result.schema.attributes.tipo.enum.map((tipo:string) => (
-                    <div key={tipo} className="flex itmes-center space space-x-2">
+                    <div key={tipo} className="flex items-center space-x-2">
                         <RadioGroupItem value={tipo} id={tipo}/>
                         <Label htmlFor={tipo}>{tipo}</Label>
                     </div>
