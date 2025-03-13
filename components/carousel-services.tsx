@@ -2,7 +2,7 @@
 import { ResponseType } from "@/types/response";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./ui/carousel";
 import SkeletonSchema from "./skeletonSchema";
-import { Card, CardContent } from "./ui/card";
+import { Card } from "./ui/card";
 import { useGetServices } from "@/api/getService";
 import { useGetSugery } from "@/api/getSugery";
 import { ServiceType } from "@/types/service";
