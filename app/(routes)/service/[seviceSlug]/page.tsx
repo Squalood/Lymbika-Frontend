@@ -3,7 +3,7 @@ import { Separator } from "@/components/ui/separator";
 import { ResponseType } from "@/types/response";
 import { useParams } from "next/navigation"; 
 import SkeletonSchema from "@/components/skeletonSchema";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useGetServiceDoctor } from "@/api/getServiceDoctor";
 import { DoctorType } from "@/types/doctor";
 import FiltersControlsService from "./components/filters-controls-service";
@@ -14,37 +14,39 @@ export default function Page() {
     const serviceSlug = typeof params.serviceSlug === "string" ? params.serviceSlug : ""; 
 
     const { result, loading, error }: ResponseType = useGetServiceDoctor(serviceSlug);
+    
+    // Estados para filtrar por servicio y cirugía
     const [serviceFilter, setServiceFilter] = useState("");
+    const [surgeryFilter, setSurgeryFilter] = useState("");
 
-    useEffect(() => {
-        console.log("Resultado de la API:", result);
-    }, [result]);
-
-    // Validación para asegurarse de que `result` es un array antes de filtrar/mapear
+    // Filtrado de doctores por servicio y cirugía
     const filteredDoctors = (Array.isArray(result) && !loading) 
-        ? (serviceFilter === "" 
-            ? result 
-            : result.filter((doctor: DoctorType) => doctor.service?.serviceName === serviceFilter)) 
+        ? result.filter((doctor: DoctorType) => 
+            (serviceFilter === "" || doctor.service?.serviceName === serviceFilter) &&
+            (surgeryFilter === "" || doctor.surgery?.surgeryName === surgeryFilter)
+        ) 
         : [];
 
     return (
         <div className="max-w-6xl py-4 mx-auto sm:py-16 sm:px-24">
             <Separator />
 
-            {/* Contenedor general con flexbox en pantallas grandes */}
             <div className="flex flex-col sm:flex-row sm:gap-10">
                 
-                {/* Filtros - Ocupa todo el ancho en móviles y 1/3 en desktop */}
+                {/* Filtros */}
                 <div className="w-full sm:w-1/3">
-                    <FiltersControlsService setFilterService={setServiceFilter} />
+                    <FiltersControlsService 
+                        setFilterService={setServiceFilter} 
+                        setFilterSurgery={setSurgeryFilter} 
+                        serviceFilter={serviceFilter}
+                        surgeryFilter={surgeryFilter}
+                    />
                 </div>
 
-                {/* Contenedor de doctores - Ocupa todo el ancho en móviles y 2/3 en desktop */}
+                {/* Contenedor de doctores */}
                 <div className="w-full sm:w-2/3">
-                    {/* Mensaje de error si la API falla */}
                     {error && <p className="text-red-500">Error al cargar los doctores: {error}</p>}
 
-                    {/* Contenedor de doctores */}
                     <div className="grid gap-5 mt-8 sm:grid-cols-2 md:grid-cols-3 md:gap-10">
                         {loading ? (
                             <SkeletonSchema grid={6} />
