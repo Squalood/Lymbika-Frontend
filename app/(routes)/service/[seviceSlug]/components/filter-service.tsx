@@ -5,20 +5,23 @@ import { ServiceType } from "@/types/service";
 
 type FilterServiceProps = {
     setFilterService: (value: string) => void;
+    serviceFilter: string; // Nuevo prop para el valor seleccionado
 };
 
-const FilterService = (props: FilterServiceProps) => {
-    const { setFilterService } = props;
-    const { result, loading } = useGetServices(); // Obtener los servicios
+const FilterService = ({ setFilterService, serviceFilter }: FilterServiceProps) => {
+    const { result, loading } = useGetServices();
 
     return (
         <div className="my-5">
             <p className="mb-3 font-bold">Servicios</p>
-            
+
             {loading && <p>Cargando servicios...</p>}
-            
+
             {!loading && result && (
-                <RadioGroup onValueChange={(value) => setFilterService(value)}>
+                <RadioGroup 
+                    value={serviceFilter} // Asegura que el RadioGroup refleje el estado actual
+                    onValueChange={(value) => setFilterService(value)}
+                >
                     {result.map((service: ServiceType) => (
                         <div key={service.id} className="flex items-center space-x-2">
                             <RadioGroupItem value={service.serviceName} id={service.serviceName} />

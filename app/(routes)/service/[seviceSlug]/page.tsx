@@ -1,9 +1,9 @@
 "use client";
 import { Separator } from "@/components/ui/separator";
 import { ResponseType } from "@/types/response";
-import { useParams } from "next/navigation"; 
+import { useParams } from "next/navigation";
 import SkeletonSchema from "@/components/skeletonSchema";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useGetServiceDoctor } from "@/api/getServiceDoctor";
 import { DoctorType } from "@/types/doctor";
 import FiltersControlsService from "./components/filters-controls-service";
@@ -11,28 +11,49 @@ import CardDoctor from "./components/doctor-card";
 
 export default function Page() {
     const params = useParams();
-    const serviceSlug = typeof params.serviceSlug === "string" ? params.serviceSlug : ""; 
+    const serviceSlug = typeof params.serviceSlug === "string" ? params.serviceSlug : "";
 
     const { result, loading, error }: ResponseType = useGetServiceDoctor(serviceSlug);
-    
-    // Estados para filtrar por servicio y cirugía
+
+    // Estados de filtros
     const [serviceFilter, setServiceFilter] = useState("");
     const [surgeryFilter, setSurgeryFilter] = useState("");
 
-    // Filtrado de doctores por servicio y cirugía
-    const filteredDoctors = (Array.isArray(result) && !loading) 
-        ? result.filter((doctor: DoctorType) => 
+    // Efecto para seleccionar automáticamente el filtro basado en el slug
+    useEffect(() => {
+        if (!loading && result?.length > 0) {
+            const firstDoctor = result[0]; // Tomamos el primer doctor para referencia
+
+            // Detectamos si el slug pertenece a un servicio o una cirugía y lo establecemos como filtro
+            if (firstDoctor.service?.slug === serviceSlug) {
+                setServiceFilter(firstDoctor.service.serviceName);
+                setSurgeryFilter(""); // Limpiamos el filtro de cirugía
+            } else if (firstDoctor.surgery?.slug === serviceSlug) {
+                setSurgeryFilter(firstDoctor.surgery.surgeryName);
+                setServiceFilter(""); // Limpiamos el filtro de servicio
+            }
+        }
+    }, [result, loading, serviceSlug]);
+
+    // Filtrar doctores según los filtros activos
+    const filteredDoctors = (Array.isArray(result) && !loading)
+        ? result.filter((doctor: DoctorType) =>
             (serviceFilter === "" || doctor.service?.serviceName === serviceFilter) &&
             (surgeryFilter === "" || doctor.surgery?.surgeryName === surgeryFilter)
-        ) 
+        )
         : [];
 
     return (
         <div className="max-w-6xl py-4 mx-auto sm:py-16 sm:px-24">
+            {/* Mostrar el título basado en el slug */}
+            {!loading && result?.length > 0 && (
+                <h1 className="text-3xl font-medium mb-4">
+                    {result[0].service?.serviceName || result[0].surgery?.surgeryName || "Servicio/Cirugía Desconocido"}
+                </h1>
+            )}
             <Separator />
 
             <div className="flex flex-col sm:flex-row sm:gap-10">
-                
                 {/* Filtros */}
                 <div className="w-full sm:w-1/3">
                     <FiltersControlsService 
@@ -59,7 +80,6 @@ export default function Page() {
                         )}
                     </div>
                 </div>
-                
             </div>
         </div>
     );

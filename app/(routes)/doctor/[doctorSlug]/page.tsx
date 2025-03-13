@@ -20,11 +20,11 @@ export default function Page (){
         <div className="max-w-6xl py-4 mx-auto sm:py-32 sm:px-24">
             <div className="grid sm:grid-cols-2">
                 <div>
-                    <CarouselDoctor />
+                    <CarouselDoctor images={result[0].image}/>
                 </div>
 
                 <div className="sm:px-12">
-                    <InfoDoctor product={result[0]}/>
+                    <InfoDoctor doctor={result[0]}/>
                 </div>
             </div>
             

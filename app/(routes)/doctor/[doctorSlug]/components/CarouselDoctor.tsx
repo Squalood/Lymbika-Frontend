@@ -1,13 +1,13 @@
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
 
-interface CarouselProductProps {
+interface CarouselDoctorProps {
     images?: {
         id: number;
         url: string | null;
     }[];
 }
 
-const CarouselProduct = ({ images }: CarouselProductProps) => {
+const CarouselDoctor = ({ images }: CarouselDoctorProps) => {
     const hasImages = images && images.length > 0;
 
     return (  
@@ -42,4 +42,4 @@ const CarouselProduct = ({ images }: CarouselProductProps) => {
     );
 };
 
-export default CarouselProduct;
+export default CarouselDoctor;

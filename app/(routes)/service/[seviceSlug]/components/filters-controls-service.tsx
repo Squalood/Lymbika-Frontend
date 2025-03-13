@@ -9,9 +9,7 @@ type FiltersControlsServiceProps = {
     surgeryFilter: string;
 };
 
-const FiltersControlsService = (props: FiltersControlsServiceProps) => {
-    const { setFilterService, setFilterSurgery, serviceFilter, surgeryFilter } = props;
-
+const FiltersControlsService = ({ setFilterService, setFilterSurgery, serviceFilter, surgeryFilter }: FiltersControlsServiceProps) => {
     const resetFilters = () => {
         setFilterService("");
         setFilterSurgery("");
@@ -19,10 +17,9 @@ const FiltersControlsService = (props: FiltersControlsServiceProps) => {
 
     return (
         <div className="sm:w-[350px] sm:mt-5 p-6">
-            <FilterService setFilterService={setFilterService} />
-            <FilterSurgery setFilterSurgery={setFilterSurgery} />
+            <FilterService setFilterService={setFilterService} serviceFilter={serviceFilter} />
+            <FilterSurgery setFilterSurgery={setFilterSurgery} surgeryFilter={surgeryFilter} />
 
-            {/* Botón de reset, solo se muestra si hay filtros activos */}
             {(serviceFilter || surgeryFilter) && (
                 <div className="mt-4 text-center">
                     <Button variant="outline" onClick={resetFilters}>
