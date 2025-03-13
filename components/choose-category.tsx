@@ -11,10 +11,10 @@ const ChooseCategory = () => {
 
     return ( 
         <div className="max-w-6xl py-4 mx-auto sm:py-16 sm:px-24">
-            <h3 className="px-6 pb-4 text-3xl sm:pb-8">Escoge una categoría</h3>
+            <h3 className="px-6 pb-4 text-3xl sm:pb-8">Farmacia</h3>
 
             {loading && 
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <Skeleton className=" w-[250px] h-[250px] rounded-full" />
                     <Skeleton className=" w-[250px] h-[250px] rounded-full" />
                     <Skeleton className=" w-[250px] h-[250px] rounded-full" />

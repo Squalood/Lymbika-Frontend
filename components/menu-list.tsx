@@ -16,6 +16,7 @@ import { CategoryType } from "@/types/category"
 import {ResponseType} from '@/types/response';
 import { useGetCategories } from "@/api/getProduct" 
 import { Skeleton } from "./ui/skeleton"
+import Image from "next/image"
 
 const MenuList = () => {
   const { loading, result,}:ResponseType = useGetCategories(); // Usamos la función para obtener las categorías
@@ -41,6 +42,13 @@ const MenuList = () => {
                     className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
                     href="/"
                   >
+                    <Image 
+                        src='/logo-lymbika.jpg'
+                        alt="imagen" 
+                        width={500}
+                        height={500}
+                        className="rounded-xl"
+                    />
                     <div className="mb-2 mt-4 text-lg font-medium">
                       Lymbika
                     </div>
@@ -50,7 +58,7 @@ const MenuList = () => {
                   </Link>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="/shop" title="Tienda">
+              <ListItem href="/shop" title="Farmacia">
                 Accede a nuestros artículos
               </ListItem>
               <ListItem href="/service" title="Cirugías">
@@ -64,7 +72,7 @@ const MenuList = () => {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Tienda</NavigationMenuTrigger>
+          <NavigationMenuTrigger>Farmacia</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
               {!loading &&result?.map((category: CategoryType) => (

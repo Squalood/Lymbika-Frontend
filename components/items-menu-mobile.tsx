@@ -45,8 +45,8 @@ const ItemsMenuMobile = () => {
           ))}
           <DropdownMenuSeparator />
           <DropdownMenuLabel>Servicios</DropdownMenuLabel>
-          <DropdownMenuItem>
-            <span>Cirugias</span>
+          <DropdownMenuItem className="cursor-pointer" onClick={()=> router.push("/service")}>
+            <span>Servicios medicos y cirugias</span>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuLabel>Membresias</DropdownMenuLabel>

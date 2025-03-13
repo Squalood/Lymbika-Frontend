@@ -46,11 +46,11 @@ export default function Page() {
     return (
         <div className="max-w-6xl py-4 mx-auto sm:py-16 sm:px-24">
             {/* Mostrar el título basado en el slug */}
-            {!loading && result?.length > 0 && (
+            {/*!loading && result?.length > 0 && (
                 <h1 className="text-3xl font-medium mb-4">
                     {result[0].service?.serviceName || result[0].surgery?.surgeryName || "Servicio/Cirugía Desconocido"}
                 </h1>
-            )}
+            )*/}
             <Separator />
 
             <div className="flex flex-col sm:flex-row sm:gap-10">
