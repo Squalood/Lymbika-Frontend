@@ -4,29 +4,29 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { FilterTypes } from "@/types/filters";
 
 type FilterTypeProps = {
-    setFilterType: (tipo: string) => void
-}
+    setFilterType: (tipo: string) => void;
+    typeFilter: string;
+};
 
-const FilterType = (props:FilterTypeProps) => {
-    const {setFilterType} = props
-    const {result, loading}:FilterTypes = useGetProductField()
+const FilterType = ({ setFilterType, typeFilter }: FilterTypeProps) => {
+    const { result, loading }: FilterTypes = useGetProductField();
 
     return ( 
         <div className="my-5">
             <p className="mb-3 font-bold">Tipo</p>
             {loading && result == null && (
-                <p>cargando Tipos....</p>
+                <p>Cargando tipos...</p>
             )}
-            <RadioGroup onValueChange={(value) => setFilterType(value)}>
-                {result != null && result.schema.attributes.tipo.enum.map((tipo:string) => (
+            <RadioGroup value={typeFilter} onValueChange={(value) => setFilterType(value)}>
+                {result != null && result.schema.attributes.tipo.enum.map((tipo: string) => (
                     <div key={tipo} className="flex items-center space-x-2">
-                        <RadioGroupItem value={tipo} id={tipo}/>
+                        <RadioGroupItem value={tipo} id={tipo} />
                         <Label htmlFor={tipo}>{tipo}</Label>
                     </div>
                 ))}
             </RadioGroup>
         </div>
-     );
-}
- 
+    );
+};
+
 export default FilterType;

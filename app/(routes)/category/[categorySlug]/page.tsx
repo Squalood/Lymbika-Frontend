@@ -1,44 +1,60 @@
 "use client";
 import { useGetCategoryProduct } from "@/api/useCategoryProduct";
 import { Separator } from "@/components/ui/separator";
-import { ResponseType } from "@/types/response";
 import { useParams } from "next/navigation"; 
 import FiltersControlsCategory from "./components/filters-controls-category";
 import SkeletonSchema from "@/components/skeletonSchema";
 import ProductCard from "./components/product-card";
 import { ProductType } from "@/types/product";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ItemsFilterMobile from "./components/filter-type-mobile";
 
 export default function Page() {
     const params = useParams();
     const { categorySlug } = params;
+    
+    const [page, setPage] = useState(1);
+    const [typeFilter, setFilterType] = useState<string>(''); // Define el estado de typeFilter
+    const [filteredProducts, setFilteredProducts] = useState<ProductType[]>([]);
+    const [totalFilteredPages, setTotalFilteredPages] = useState(1);
+    
+    // ✅ Llamamos a la API con todos los productos de la categoría
+    const { result, loading } = useGetCategoryProduct(categorySlug ?? '', 1); // 🚀 Traemos todos los productos en una sola petición
+    
+    const productsPerPage = 6; // 👈 Número de productos por página
 
+    // 🔹 Aplicamos el filtro antes de paginar
+    useEffect(() => {
+        if (result && !loading) {
+            let filtered = typeFilter === '' ? result : result.filter((product) => product.tipo === typeFilter);
 
-    // 🚨 Verifica que categorySlug exista antes de ejecutar el hook
-    const { result, loading }: ResponseType = useGetCategoryProduct(categorySlug ?? '');
+            setFilteredProducts(filtered);
+            
+            // 🔹 Calcular número de páginas según el resultado filtrado
+            setTotalFilteredPages(Math.ceil(filtered.length / productsPerPage));
 
-    // useState siempre debe ir fuera de condicionales
-    const [FilterType, setFilterType] = useState('');
+            // 🔹 Reiniciar a la página 1 si se cambia el filtro
+            setPage(1);
+        }
+    }, [result, typeFilter, loading]);
 
-    // 🚨 Evita evaluar `result` dentro de la constante de filtrado
-    const filteredProducts = result && !loading 
-        ? (FilterType === '' ? result : result.filter((product: ProductType) => product.tipo === FilterType)) 
-        : [];
+    // 🔹 Obtener productos de la página actual
+    const paginatedProducts = filteredProducts.slice((page - 1) * productsPerPage, page * productsPerPage);
 
     return (
         <div className="max-w-6xl py-4 mx-auto sm:py-16 sm:px-24">
-            {result && !loading && (
-                <h1 className="text-3xl font-medium">{result[0].category.categoryName}</h1>
+            {filteredProducts.length > 0 && !loading && (
+                <h1 className="text-3xl font-medium">{filteredProducts[0]?.category?.categoryName}</h1>
             )}
             <Separator />
+
             <div className="flex sm:hidden">
-                <ItemsFilterMobile setFilterType={setFilterType}/>
+                <ItemsFilterMobile setFilterType={setFilterType} />
                 <div className="grid gap-5 mt-8 sm:grid-cols-2 md:grid-cols-3 md:gap-10">
                     {loading && <SkeletonSchema grid={3} />}
 
-                    {filteredProducts.length > 0 ? (
-                        filteredProducts.map((product: ProductType) => (
+                    {paginatedProducts.length > 0 ? (
+                        paginatedProducts.map((product) => (
                             <ProductCard key={product.id} product={product} />
                         ))
                     ) : (
@@ -46,15 +62,15 @@ export default function Page() {
                     )}
                 </div>
             </div>
-            
+
             <div className="sm:flex sm:justify-between hidden">
-                <FiltersControlsCategory setFilterType={setFilterType} />
+                <FiltersControlsCategory setFilterType={setFilterType} typeFilter={typeFilter}/>
 
                 <div className="grid gap-5 mt-8 sm:grid-cols-2 md:grid-cols-3 md:gap-10">
                     {loading && <SkeletonSchema grid={6} />}
 
-                    {filteredProducts.length > 0 ? (
-                        filteredProducts.map((product: ProductType) => (
+                    {paginatedProducts.length > 0 ? (
+                        paginatedProducts.map((product) => (
                             <ProductCard key={product.id} product={product} />
                         ))
                     ) : (
@@ -62,6 +78,29 @@ export default function Page() {
                     )}
                 </div>
             </div>
+
+            {/* ✅ Paginación corregida */}
+            {totalFilteredPages > 1 && (
+                <div className="flex justify-between mt-6">
+                    <button 
+                        disabled={page === 1} 
+                        onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+                        className="px-4 py-2 border rounded"
+                    >
+                        ⬅ Anterior
+                    </button>
+
+                    <span className="px-4 py-2">Página {page} de {totalFilteredPages}</span>
+
+                    <button 
+                        disabled={page >= totalFilteredPages} 
+                        onClick={() => setPage((prev) => prev + 1)}
+                        className="px-4 py-2 border rounded"
+                    >
+                        Siguiente ➡
+                    </button>
+                </div>
+            )}
         </div>
     );
 }

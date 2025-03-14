@@ -41,8 +41,8 @@ const CarouselServices = () => {
                     {allItems.map((item) => (
                         <CarouselItem key={item.id} className="md:basis-1/2 lg:basis-1/3 group">
                         <div className="flex justify-center p-4">
-                            <Link href={`/service/${item.slug}`} className="relative w-40 h-40 sm:w-48 sm:h-48">
-                                <Card className="relative w-full h-full overflow-hidden rounded-full shadow-lg border-none">
+                            <Link href={`/service/${item.slug}`} className="relative w-52 h-52 sm:w-60 sm:h-60">
+                                <Card className="relative w-full h-full overflow-hidden rounded-full shadow-lg border-none transition duration-300 ease-in-out hover:scale-110">
                                     {/* Imagen de fondo */}
                                     {item.imageUrl && (
                                         <Image 
@@ -54,7 +54,7 @@ const CarouselServices = () => {
                                         />
                                     )}
                                     {/* Texto centrado con fondo semi-transparente */}
-                                    <div className="absolute inset-0 flex items-center justify-center">
+                                    <div className="absolute inset-0 flex items-end justify-center mb-10">
                                         <span className="text-white text-lg font-bold text-center bg-black/60 px-3 py-1 rounded-lg">
                                             {item.name}
                                         </span>

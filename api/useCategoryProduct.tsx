@@ -1,24 +1,29 @@
 import { useEffect, useState } from "react";
+import { ProductType } from "@/types/product";
 
-export function useGetCategoryProduct(slug: string | string[]){
-    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products?populate=*&filters[category][slug][$eq]=${slug}`
-        const [result, setResult] = useState(null);
-        const [loading, setLoading] = useState(true);
-        const [error, setError] = useState('');
-    
-        useEffect(() => {
-            (async() => {
-                try {
-                    const res = await fetch (url)
-                    const json = await res.json()
-                    setResult(json.data)
-                    setLoading(false)
-                } catch (error: any){
-                    setError(error)
-                    setLoading(false)
-                }
-            })()
-        }, [url])
-    
-        return { loading, result, error};
+export function useGetCategoryProduct(slug: string | string[], page: number) {
+    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products?populate=*&filters[category][slug][$eq]=${slug}&pagination[page]=${page}&pagination[pageSize]=1000`;
+
+    const [result, setResult] = useState<ProductType[]>([]);  // ✅ Se especifica el tipo correcto
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    const [totalPages, setTotalPages] = useState(1);
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const res = await fetch(url);
+                const json = await res.json();
+                
+                setResult(json.data || []);  // ✅ Aseguramos que siempre sea un array
+                setTotalPages(json.meta.pagination.pageCount || 1); // ✅ Obtenemos el total de páginas correctamente
+                setLoading(false);
+            } catch (error: any) {
+                setError(error.message);
+                setLoading(false);
+            }
+        })();
+    }, [url]);
+
+    return { loading, result, error, totalPages };  // ✅ Se devuelve totalPages correctamente
 }
