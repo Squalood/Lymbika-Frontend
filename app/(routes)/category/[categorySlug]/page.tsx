@@ -26,7 +26,8 @@ export default function Page() {
     // 🔹 Aplicamos el filtro antes de paginar
     useEffect(() => {
         if (result && !loading) {
-            let filtered = typeFilter === '' ? result : result.filter((product) => product.tipo === typeFilter);
+            // Usar 'const' porque no vamos a reasignar el valor de 'filtered'
+            const filtered = typeFilter === '' ? result : result.filter((product) => product.tipo === typeFilter);
 
             setFilteredProducts(filtered);
             
