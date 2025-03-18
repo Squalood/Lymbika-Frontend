@@ -13,7 +13,7 @@ const Navbar = () => {
     const {lovedItems} = UseLovedProducts()
 
     return ( 
-        <div className="absolute top-6 left-0 right-0 z-50 flex items-center justify-between p-4 mx-auto sm-max-w-4xl md:max-w-6xl">
+        <div className="absolute top-8 left-0 right-0 z-50 flex items-center justify-between p-4 mx-auto sm-max-w-4xl md:max-w-6xl">
             <h1 className="text-3xl text-background cursor-pointer" onClick={() => router.push("/")}>Lym
                 <span className="font-bold">bika</span>
             </h1>

@@ -3,7 +3,7 @@ import { Separator } from "@/components/ui/separator";
 
 const FlashContact = () => {
     return ( 
-        <div className="hidden sm:absolute sm:top-0 xl:left-[200px] xl:right-[200px] sm:left-[50px] sm:right-[50px] sm:block z-50 text-white py-2">
+        <div className="hidden sm:absolute sm:top-0 xl:left-[200px] xl:right-[200px] sm:left-[50px] sm:right-[50px] sm:block z-50 text-gray-200 py-2">
             <div className="w-full flex justify-start">
                 <ul className="flex space-x-6">
                     <li>
@@ -20,7 +20,7 @@ const FlashContact = () => {
                     </li>
                 </ul>
             </div>
-            <Separator />
+            <Separator className="mt-1 opacity-50"/>
         </div>
     );
 }
