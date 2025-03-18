@@ -32,6 +32,7 @@ const MenuList = () => {
   return (
     <NavigationMenu>
       <NavigationMenuList>
+
         <NavigationMenuItem>
           <NavigationMenuTrigger>Sobre Nosotros</NavigationMenuTrigger>
           <NavigationMenuContent>
@@ -88,13 +89,14 @@ const MenuList = () => {
           </NavigationMenuContent>
         </NavigationMenuItem>
 
-        <NavigationMenuItem>
+        <NavigationMenuItem >
           <Link href="/docs" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Solicitar cita
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
+
       </NavigationMenuList>
     </NavigationMenu>
   )
