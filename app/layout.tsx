@@ -6,7 +6,6 @@ import Footer from "@/components/footer";
 //import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/sonner"
 import NextTopLoader from 'nextjs-toploader'
-import FlashContact from "@/components/flash-contact";
 
 const urbanist = Urbanist({ subsets: ["latin"], display: "swap" });
 
@@ -24,7 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={urbanist.className}>
           <NextTopLoader/>
-          <FlashContact/>
+          
           <Navbar />
           {children}
           <Toaster richColors/>

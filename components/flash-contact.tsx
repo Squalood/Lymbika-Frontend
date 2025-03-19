@@ -21,6 +21,7 @@ const FlashContact = () => {
                     </li>
                 </ul>
             </div>
+            
             <Separator className="mt-1 opacity-50"/>
         </div>
     );

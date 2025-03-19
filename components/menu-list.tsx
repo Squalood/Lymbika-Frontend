@@ -17,9 +17,13 @@ import {ResponseType} from '@/types/response';
 import { useGetCategories } from "@/api/getProduct" 
 import { Skeleton } from "./ui/skeleton"
 import Image from "next/image"
+import { usePathname } from "next/navigation"
 
 const MenuList = () => {
   const { loading, result,}:ResponseType = useGetCategories(); // Usamos la función para obtener las categorías
+  const pathname = usePathname(); // 🔹 Obtener la ruta actual
+
+  const navStyle = pathname === "/" ? "" : "text-black"
 
   if (loading) {
     return <div className="grid grid-cols-3 gap-4">
@@ -34,7 +38,7 @@ const MenuList = () => {
       <NavigationMenuList>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Sobre Nosotros</NavigationMenuTrigger>
+          <NavigationMenuTrigger className={navStyle}>Sobre Nosotros</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
               <li className="row-span-3">
@@ -65,7 +69,7 @@ const MenuList = () => {
               <ListItem href="/service" title="Cirugías">
                 Tratamientos y servicios con doctores especializados.
               </ListItem>
-              <ListItem href="/mediclub" title="MediClub">
+              <ListItem href="/membership" title="MediClub">
                 Con nuestra membresía MediClub, accede a medicamentos y productos de la salud a precio de proveedor. 
               </ListItem>
             </ul>
@@ -73,7 +77,7 @@ const MenuList = () => {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Farmacia</NavigationMenuTrigger>
+          <NavigationMenuTrigger className={navStyle}>Farmacia</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
               {!loading &&result?.map((category: CategoryType) => (
@@ -90,9 +94,9 @@ const MenuList = () => {
         </NavigationMenuItem>
 
         <NavigationMenuItem >
-          <Link href="/docs" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Solicitar cita
+          <Link href="https://wa.me/526561100446" legacyBehavior passHref>
+            <NavigationMenuLink className={`${navigationMenuTriggerStyle()} ${navStyle}`}>
+              Solicitar cita 
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>

@@ -1,20 +1,21 @@
-"use client"
-import { useGetCategories } from "@/api/getProduct";
-import { CategoryType } from "@/types/category";
-import {ResponseType} from '@/types/response';
+"use client";
 import Link from "next/link";
 import Image from "next/image";
-import { Skeleton } from "./ui/skeleton";
+import { CategoryType } from "@/types/category";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useGetCategories } from "@/api/getProduct";
+import {ResponseType} from '@/types/response';
 
-const ChooseCategory = () => {
-    const { result, loading }: ResponseType = useGetCategories()
+export default function Page() {
+    const { result, loading}: ResponseType = useGetCategories();
 
-    return ( 
+    return(  
+    
         <div className="max-w-6xl py-4 mx-auto sm:py-16 sm:px-24">
-            <h3 className="px-6 pb-4 text-3xl sm:pb-8">Farmacia</h3>
+            <h3 className="px-6 pb-4 text-3xl sm:pb-8">Productos Farmaceuticos</h3>
 
             {loading && 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="grid grid-cols-3 gap-4">
                     <Skeleton className=" w-[250px] h-[250px] rounded-2xl" />
                     <Skeleton className=" w-[250px] h-[250px] rounded-2xl" />
                     <Skeleton className=" w-[250px] h-[250px] rounded-2xl" />
@@ -46,9 +47,7 @@ const ChooseCategory = () => {
                         </p>
                     </Link>
                 ))}
-            </div>
-        </div>
-     );
+            </div>   
+        </div>        
+    );
 }
- 
-export default ChooseCategory;
