@@ -1,5 +1,6 @@
 import { MapPin, Phone } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
 
 const FlashContact = () => {
     return ( 
@@ -9,13 +10,13 @@ const FlashContact = () => {
                     <li>
                         <div className="flex items-center">
                             <MapPin className="w-5 h-5" />
-                            <span className="ml-2">Av. Paseo de la Victoria 9350, Partido Senecú, Juárez, Chih.</span>
+                            <Link href={"https://maps.app.goo.gl/wddxisYk7CM7cGVg6"} className="ml-2">Av. Paseo de la Victoria 9350, Partido Senecú, Juárez, Chih.</Link>
                         </div>
                     </li>
                     <li>
                         <div className="flex items-center">
                             <Phone className="w-5 h-5" />
-                            <span className="ml-2">+52-656-110-0446</span>
+                            <Link href={"https://wa.me/526561100446"} className="ml-2">+52-656-110-0446</Link>
                         </div>
                     </li>
                 </ul>
