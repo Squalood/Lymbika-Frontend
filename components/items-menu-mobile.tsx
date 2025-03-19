@@ -50,12 +50,12 @@ const ItemsMenuMobile = () => {
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuLabel>Membresias</DropdownMenuLabel>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={()=> router.push("/membership")}>
             <span>MediClub</span>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem>
-            <span>Solicitar Cita</span>
+            <Link href={"https://wa.me/526561100446"}>Solicitar Cita</Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />

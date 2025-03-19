@@ -35,7 +35,7 @@ const Navbar = () => {
                 ) : (
                     <div className="flex gap-1" onClick={() => router.push("/cart")}>
                         <ShoppingCart strokeWidth={1} className={`cursor-pointer ${strokeColor}`} />
-                        <span>{cart.items.length}</span>
+                        <span className={textColor}>{cart.items.length}</span>
                     </div>
                 )}
                 <Heart strokeWidth="1" className={`${fillColor} ${strokeColor}`} onClick={() => router.push("/loved-products")} />
