@@ -9,26 +9,20 @@ import Autoplay from "embla-carousel-autoplay"
 export const dataCarouselTop = [
     {
         id: 1,
-        title: "Envio en 24/48 h",
-        description: "Como miembro, tus envios en  24/48 horas. Obtén mas info",
+        title: "SOLICITA TU CREMA Y TE LLEGA EN 24 HORAS ",
+        description: "",
         link: "#!"
     },
     {
         id: 2,
-        title: "Lorem ipsum",
-        description: "Cras sed nibh a lorem vulputate lacinia. Nullam a purus quis ante sollicitudin efficitur. Vestibulum condimentum mattis iaculis.",
+        title: "COMPRA TU MEDICAMENTO A PRECIO DE PROVEEDOR",
+        description: "",
         link: "#!"
     },
     {
         id: 3,
-        title: "Morbi blandit sapien",
-        description: "Suspendisse pretium tellus sit amet nibh fermentum sagittis.",
-        link: "#!"
-    },
-    {
-        id: 4,
-        title: "Morbi interdum magna urna",
-        description: "Nunc cursus, enim vitae ullamcorper sollicitudin, sem urna mattis libero, quis imperdiet risus augue a turpis",
+        title: "PAGA TU CIRUGIA A MESES",
+        description: "",
         link: "#!"
     },
 ]

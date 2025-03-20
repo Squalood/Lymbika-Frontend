@@ -36,12 +36,12 @@ const CarouselServices = () => {
             <h3 className="px-6 text-3xl sm:pb-8">Servicios Médicos y Cirugías</h3>
 
             <Carousel>
-                <CarouselContent className="-ml-2 md:-ml-4">
+                <CarouselContent className="-ml-2 sm:-ml-4">
                     {(servicesLoading || surgeryLoading) && <SkeletonSchema grid={3} />}
                     {allItems.map((item) => (
-                        <CarouselItem key={item.id} className="md:basis-1/2 lg:basis-1/3 group">
+                        <CarouselItem key={item.id} className="basis-3/5 md:basis-1/2 lg:basis-1/3 group">
                         <div className="flex justify-center p-4">
-                            <Link href={`/service/${item.slug}`} className="relative w-52 h-52 sm:w-60 sm:h-60">
+                            <Link href={`/service/${item.slug}`} className="relative w-48 h-48 sm:w-60 sm:h-60">
                                 <Card className="relative w-full h-full overflow-hidden rounded-full shadow-lg border-none transition duration-300 ease-in-out hover:scale-110">
                                     {/* Imagen de fondo */}
                                     {item.imageUrl && (

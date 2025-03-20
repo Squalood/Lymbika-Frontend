@@ -16,4 +16,5 @@ export type ProductType = {
         categoryName: string;
         slug: string;
     };
+    priceMember: number;
 };
