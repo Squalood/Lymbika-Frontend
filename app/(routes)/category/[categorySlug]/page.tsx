@@ -8,6 +8,8 @@ import ProductCard from "./components/product-card";
 import { ProductType } from "@/types/product";
 import { useState, useEffect } from "react";
 import ItemsFilterMobile from "./components/filter-type-mobile";
+import PaginationControls from "./components/pagination";
+import PaginationControlsMobile from "./components/paginationMobile";
 
 export default function Page() {
     const params = useParams();
@@ -80,28 +82,15 @@ export default function Page() {
                 </div>
             </div>
 
-            {/* ✅ Paginación corregida */}
-            {totalFilteredPages > 1 && (
-                <div className="flex justify-between mt-6">
-                    <button 
-                        disabled={page === 1} 
-                        onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-                        className="px-4 py-2 border rounded"
-                    >
-                        ⬅ Anterior
-                    </button>
+            {/* paginación */}
+            <div className="hidden sm:block">
+            <PaginationControls page={page} totalFilteredPages={totalFilteredPages} setPage={setPage} />
+            </div>
 
-                    <span className="px-4 py-2">Página {page} de {totalFilteredPages}</span>
+            <div className="block sm:hidden">
+            <PaginationControlsMobile page={page} totalFilteredPages={totalFilteredPages} setPage={setPage} />
+            </div>
 
-                    <button 
-                        disabled={page >= totalFilteredPages} 
-                        onClick={() => setPage((prev) => prev + 1)}
-                        className="px-4 py-2 border rounded"
-                    >
-                        Siguiente ➡
-                    </button>
-                </div>
-            )}
         </div>
     );
 }

@@ -37,7 +37,7 @@ const InfoProduct = (props: InfoProductProps) => {
                     <p className="text-2xl">{formatPrice(product.price)}</p>
                 </div>
                 <div>
-                    <p className="text-xs">Precio de Miembro</p>
+                    <p className="text-xs">Precio MediClub</p>
                     <p className="text-2xl text-green-400">{formatPrice(product.priceMember)}</p>
                 </div>
             </div>
