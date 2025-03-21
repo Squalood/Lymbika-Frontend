@@ -23,7 +23,7 @@ export default function Page() {
     // ✅ Llamamos a la API con todos los productos de la categoría
     const { result, loading } = useGetCategoryProduct(categorySlug ?? '', 1); // 🚀 Traemos todos los productos en una sola petición
     
-    const productsPerPage = 6; // 👈 Número de productos por página
+    const productsPerPage = 9; // 👈 Número de productos por página
 
     // 🔹 Aplicamos el filtro antes de paginar
     useEffect(() => {
