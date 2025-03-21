@@ -1,4 +1,3 @@
-import BannerDiscount from "@/components/banner-discount"
 import BannerProduct from "@/components/banner-product"
 import CarouselServices from "@/components/carousel-services"
 import CarouselTextBanner from "@/components/carousel-text-banner"
