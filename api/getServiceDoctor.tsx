@@ -11,8 +11,6 @@ export function useGetServiceDoctor(slug: string) {
     const [error, setError] = useState("");
 
     useEffect(() => {
-        console.log("📌 Slug recibido:", slug); 
-        console.log("🔗 URL generada:", url);
 
         (async () => {
             try {

@@ -39,7 +39,7 @@ const Navbar = () => {
                     </div>
                 )}
                 <Heart strokeWidth="1" className={`${fillColor} ${strokeColor}`} onClick={() => router.push("/loved-products")} />
-                <User strokeWidth={1} className={`cursor-pointer ${strokeColor}`} onClick={() => router.push("/login")}/>
+                <User strokeWidth={1} className={`cursor-pointer ${strokeColor}`} onClick={() => router.push("/dashboard")}/>
                 {false && <ToggleTheme />}
             </div>
             <div className="flex sm:hidden">

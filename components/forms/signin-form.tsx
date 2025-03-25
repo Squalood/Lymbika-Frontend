@@ -1,41 +1,59 @@
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Eye, EyeOff } from "lucide-react"
-import { useState } from "react"
+"use client";
 
-export function LoginForm({
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
+import { useState } from "react";
+import Link from "next/link";
+import { useActionState } from "react";
+import { loginUserAction } from "@/app/data/actions/auth-actions";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { Eye, EyeOff } from "lucide-react";
+import { ZodErrors } from "@/app/data/actions/zod-errors";
+import { StrapiErrors } from "@/app/data/actions/strapi-errors";
+
+const INITIAL_STATE = {
+  zodErrors: null,
+  strapiErrors: null,
+  data: null,
+  message: null,
+};
+
+export function SigninForm({ className, ...props }: React.ComponentProps<"div">) {
+  const [formState, formAction] = useActionState(loginUserAction, INITIAL_STATE);
   const [showPassword, setShowPassword] = useState(false);
+
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
+    <div className={"flex flex-col gap-6 " + className} {...props}>
       <Card className="overflow-hidden">
         <CardContent className="grid p-0 md:grid-cols-2">
-          <form className="p-6 md:p-8">
+          <form className="p-6 md:p-8" action={formAction}>
             <div className="flex flex-col gap-6">
               <div className="flex flex-col items-center text-center">
                 <h1 className="text-2xl font-bold">Bienvenido</h1>
                 <p className="text-balance text-muted-foreground">
-                Inicie sesión en su cuenta de Lymbika.
+                  Inicie sesión en su cuenta de Lymbika.
                 </p>
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="identifier">Email o usuario</Label>
                 <Input
-                  id="email"
-                  type="email"
-                  placeholder="m@example.com"
-                  required
+                  id="identifier"
+                  name="identifier"
+                  type="text"
+                  placeholder="username o email"
                 />
+                <ZodErrors error={formState?.zodErrors?.identifier} />
               </div>
               <div className="grid gap-2 relative">
                 <Label htmlFor="password">Contraseña</Label>
                 <div className="relative">
-                  <Input id="password" type={showPassword ? "text" : "password"} required />
+                  <Input
+                    id="password"
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="••••••••"
+                  />
                   <Button
                     type="button"
                     variant="ghost"
@@ -46,10 +64,13 @@ export function LoginForm({
                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                   </Button>
                 </div>
+                <ZodErrors error={formState?.zodErrors?.password} />
               </div>
               <Button type="submit" className="w-full">
                 Inicia sesión
               </Button>
+              <StrapiErrors error={formState?.strapiErrors} />
+              {/*
               <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
                 <span className="relative z-10 bg-background px-2 text-muted-foreground">
                     O continuar con
@@ -84,11 +105,12 @@ export function LoginForm({
                   <span className="sr-only">Login with Meta</span>
                 </Button>
               </div>
+              */ }
               <div className="text-center text-sm">
-                Don&apos;t have an account?{" "}
-                <a href="/sign-in" className="underline underline-offset-4">
-                Regístrate
-                </a>
+                ¿No tienes una cuenta? {" "}
+                <Link className="underline" href="/signup">
+                  Regístrate
+                </Link>
               </div>
             </div>
           </form>
@@ -101,10 +123,9 @@ export function LoginForm({
           </div>
         </CardContent>
       </Card>
-      <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
+      <div className="text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary">
+        Al continuar, aceptas nuestros <a href="#">Términos de servicio</a> y nuestra <a href="#">Política de privacidad</a>.
       </div>
     </div>
-  )
+  );
 }
