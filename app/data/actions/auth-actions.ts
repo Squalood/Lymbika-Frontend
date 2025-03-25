@@ -9,26 +9,36 @@ import {
 } from "@/app/data/services/auth-service";
 
 const config = {
-  maxAge: 60 * 60 * 24 * 7, // 1 week
+  maxAge: 60 * 60 * 24 * 7, // 1 semana
   path: "/",
   domain: process.env.HOST ?? "localhost",
   httpOnly: true,
   secure: process.env.NODE_ENV === "production",
 };
 
+// 📌 Definimos un tipo para `prevState`
+interface AuthState {
+  zodErrors?: Record<string, string[]>;
+  strapiErrors?: string | null;
+  message?: string;
+}
+
 const schemaRegister = z.object({
   username: z.string().min(3).max(20, {
-    message: "Username must be between 3 and 20 characters",
+    message: "El usuario debe tener entre 3 y 20 caracteres.",
   }),
   password: z.string().min(6).max(100, {
-    message: "Password must be between 6 and 100 characters",
+    message: "La contraseña debe tener entre 6 y 100 caracteres.",
   }),
   email: z.string().email({
-    message: "Please enter a valid email address",
+    message: "Por favor, ingrese un correo electrónico válido.",
   }),
 });
 
-export async function registerUserAction(prevState: any, formData: FormData) {
+export async function registerUserAction(
+  prevState: AuthState, 
+  formData: FormData
+): Promise<AuthState> {
   const validatedFields = schemaRegister.safeParse({
     username: formData.get("username"),
     password: formData.get("password"),
@@ -40,27 +50,21 @@ export async function registerUserAction(prevState: any, formData: FormData) {
       ...prevState,
       zodErrors: validatedFields.error.flatten().fieldErrors,
       strapiErrors: null,
-      message: "Missing Fields. Failed to Register.",
+      message: "Faltan campos. No se pudo registrar.",
     };
   }
 
-  const responseData = await registerUserService(validatedFields.data);
+  // 📌 Definimos el tipo de `responseData`
+  type RegisterResponse = { jwt: string } | { error: string };
 
-  if (!responseData) {
+  const responseData: RegisterResponse = await registerUserService(validatedFields.data);
+
+  if (!responseData || "error" in responseData) {
     return {
       ...prevState,
-      strapiErrors: null,
-      zodErrors: null,
-      message: "Ops! Something went wrong. Please try again.",
-    };
-  }
-
-  if (responseData.error) {
-    return {
-      ...prevState,
-      strapiErrors: responseData.error,
-      zodErrors: null,
-      message: "Failed to Register.",
+      strapiErrors: responseData?.error || "Error desconocido.",
+      zodErrors: undefined,
+      message: "Error al registrarse.",
     };
   }
 
@@ -70,26 +74,30 @@ export async function registerUserAction(prevState: any, formData: FormData) {
   redirect("/dashboard");
 }
 
+// ---------------- LOGIN -----------------
 const schemaLogin = z.object({
   identifier: z
     .string()
     .min(3, {
-      message: "Identifier must have at least 3 or more characters",
+      message: "El identificador debe tener al menos 3 caracteres.",
     })
-    .max(20, {
-      message: "Please enter a valid username or email address",
+    .max(50, {
+      message: "Ingrese un usuario o correo electrónico válido.",
     }),
   password: z
     .string()
     .min(6, {
-      message: "Password must have at least 6 or more characters",
+      message: "La contraseña debe tener al menos 6 caracteres.",
     })
     .max(100, {
-      message: "Password must be between 6 and 100 characters",
+      message: "La contraseña debe tener entre 6 y 100 caracteres.",
     }),
 });
 
-export async function loginUserAction(prevState: any, formData: FormData) {
+export async function loginUserAction(
+  prevState: AuthState, 
+  formData: FormData
+): Promise<AuthState> {
   const validatedFields = schemaLogin.safeParse({
     identifier: formData.get("identifier"),
     password: formData.get("password"),
@@ -99,30 +107,21 @@ export async function loginUserAction(prevState: any, formData: FormData) {
     return {
       ...prevState,
       zodErrors: validatedFields.error.flatten().fieldErrors,
-      message: "Missing Fields. Failed to Login.",
+      message: "Faltan campos. No se pudo iniciar sesión.",
     };
   }
 
-  const responseData = await loginUserService(validatedFields.data);
+  type LoginResponse = { jwt: string } | { error: string };
+  const responseData: LoginResponse = await loginUserService(validatedFields.data);
 
-  if (!responseData) {
+  if (!responseData || "error" in responseData) {
     return {
       ...prevState,
-      strapiErrors: responseData.error,
-      zodErrors: null,
-      message: "Ops! Something went wrong. Please try again.",
+      strapiErrors: responseData?.error || "Error desconocido.",
+      zodErrors: undefined,
+      message: "Error al iniciar sesión.",
     };
   }
-
-  if (responseData.error) {
-    return {
-      ...prevState,
-      strapiErrors: responseData.error,
-      zodErrors: null,
-      message: "Failed to Login.",
-    };
-  }
-
 
   const cookieStore = await cookies();
   cookieStore.set("jwt", responseData.jwt, config);
@@ -130,6 +129,7 @@ export async function loginUserAction(prevState: any, formData: FormData) {
   redirect("/dashboard");
 }
 
+// ---------------- LOGOUT -----------------
 export async function logoutAction() {
   const cookieStore = await cookies();
   cookieStore.set("jwt", "", { ...config, maxAge: 0 });
