@@ -9,36 +9,27 @@ import {
 } from "@/app/data/services/auth-service";
 
 const config = {
-  maxAge: 60 * 60 * 24 * 7, // 1 semana
+  maxAge: 60 * 60 * 24 * 7, // 1 week
   path: "/",
   domain: process.env.HOST ?? "localhost",
   httpOnly: true,
   secure: process.env.NODE_ENV === "production",
 };
 
-// 📌 Definimos un tipo para `prevState`
-interface AuthState {
-  zodErrors?: Record<string, string[]>;
-  strapiErrors?: string | null;
-  message?: string;
-}
 
 const schemaRegister = z.object({
   username: z.string().min(3).max(20, {
-    message: "El usuario debe tener entre 3 y 20 caracteres.",
+    message: "Username must be between 3 and 20 characters",
   }),
   password: z.string().min(6).max(100, {
-    message: "La contraseña debe tener entre 6 y 100 caracteres.",
+    message: "Password must be between 6 and 100 characters",
   }),
   email: z.string().email({
-    message: "Por favor, ingrese un correo electrónico válido.",
+    message: "Please enter a valid email address",
   }),
 });
 
-export async function registerUserAction(
-  prevState: AuthState, 
-  formData: FormData
-): Promise<AuthState> {
+export async function registerUserAction(prevState: any, formData: FormData) {
   const validatedFields = schemaRegister.safeParse({
     username: formData.get("username"),
     password: formData.get("password"),
@@ -50,21 +41,27 @@ export async function registerUserAction(
       ...prevState,
       zodErrors: validatedFields.error.flatten().fieldErrors,
       strapiErrors: null,
-      message: "Faltan campos. No se pudo registrar.",
+      message: "Missing Fields. Failed to Register.",
     };
   }
 
-  // 📌 Definimos el tipo de `responseData`
-  type RegisterResponse = { jwt: string } | { error: string };
+  const responseData = await registerUserService(validatedFields.data);
 
-  const responseData: RegisterResponse = await registerUserService(validatedFields.data);
-
-  if (!responseData || "error" in responseData) {
+  if (!responseData) {
     return {
       ...prevState,
-      strapiErrors: responseData?.error || "Error desconocido.",
-      zodErrors: undefined,
-      message: "Error al registrarse.",
+      strapiErrors: null,
+      zodErrors: null,
+      message: "Ops! Something went wrong. Please try again.",
+    };
+  }
+
+  if (responseData.error) {
+    return {
+      ...prevState,
+      strapiErrors: responseData.error,
+      zodErrors: null,
+      message: "Failed to Register.",
     };
   }
 
@@ -74,30 +71,26 @@ export async function registerUserAction(
   redirect("/dashboard");
 }
 
-// ---------------- LOGIN -----------------
 const schemaLogin = z.object({
   identifier: z
     .string()
     .min(3, {
-      message: "El identificador debe tener al menos 3 caracteres.",
+      message: "Identifier must have at least 3 or more characters",
     })
-    .max(50, {
-      message: "Ingrese un usuario o correo electrónico válido.",
+    .max(20, {
+      message: "Please enter a valid username or email address",
     }),
   password: z
     .string()
     .min(6, {
-      message: "La contraseña debe tener al menos 6 caracteres.",
+      message: "Password must have at least 6 or more characters",
     })
     .max(100, {
-      message: "La contraseña debe tener entre 6 y 100 caracteres.",
+      message: "Password must be between 6 and 100 characters",
     }),
 });
 
-export async function loginUserAction(
-  prevState: AuthState, 
-  formData: FormData
-): Promise<AuthState> {
+export async function loginUserAction(prevState: any, formData: FormData) {
   const validatedFields = schemaLogin.safeParse({
     identifier: formData.get("identifier"),
     password: formData.get("password"),
@@ -107,21 +100,30 @@ export async function loginUserAction(
     return {
       ...prevState,
       zodErrors: validatedFields.error.flatten().fieldErrors,
-      message: "Faltan campos. No se pudo iniciar sesión.",
+      message: "Missing Fields. Failed to Login.",
     };
   }
 
-  type LoginResponse = { jwt: string } | { error: string };
-  const responseData: LoginResponse = await loginUserService(validatedFields.data);
+  const responseData = await loginUserService(validatedFields.data);
 
-  if (!responseData || "error" in responseData) {
+  if (!responseData) {
     return {
       ...prevState,
-      strapiErrors: responseData?.error || "Error desconocido.",
-      zodErrors: undefined,
-      message: "Error al iniciar sesión.",
+      strapiErrors: responseData.error,
+      zodErrors: null,
+      message: "Ops! Something went wrong. Please try again.",
     };
   }
+
+  if (responseData.error) {
+    return {
+      ...prevState,
+      strapiErrors: responseData.error,
+      zodErrors: null,
+      message: "Failed to Login.",
+    };
+  }
+
 
   const cookieStore = await cookies();
   cookieStore.set("jwt", responseData.jwt, config);
@@ -129,7 +131,6 @@ export async function loginUserAction(
   redirect("/dashboard");
 }
 
-// ---------------- LOGOUT -----------------
 export async function logoutAction() {
   const cookieStore = await cookies();
   cookieStore.set("jwt", "", { ...config, maxAge: 0 });
