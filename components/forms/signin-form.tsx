@@ -11,11 +11,16 @@ import { Button } from "@/components/ui/button";
 import { Eye, EyeOff } from "lucide-react";
 import { ZodErrors } from "@/app/data/actions/zod-errors";
 import { StrapiErrors } from "@/app/data/actions/strapi-errors";
+import { AuthState } from "@/types/auth";
 
-const INITIAL_STATE = {
+const INITIAL_STATE: AuthState = {
+  formData: {
+    username: '',
+    password: '',
+    email: ''
+  },
   zodErrors: null,
   strapiErrors: null,
-  data: null,
   message: null,
 };
 
@@ -43,7 +48,7 @@ export function SigninForm({ className, ...props }: React.ComponentProps<"div">)
                   type="text"
                   placeholder="username o email"
                 />
-                <ZodErrors error={formState?.zodErrors?.identifier} />
+                <ZodErrors error={formState?.zodErrors?.identifier || []} />
               </div>
               <div className="grid gap-2 relative">
                 <Label htmlFor="password">Contraseña</Label>
@@ -64,7 +69,7 @@ export function SigninForm({ className, ...props }: React.ComponentProps<"div">)
                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                   </Button>
                 </div>
-                <ZodErrors error={formState?.zodErrors?.password} />
+                <ZodErrors error={formState?.zodErrors?.password || []} />
               </div>
               <Button type="submit" className="w-full">
                 Inicia sesión

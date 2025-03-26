@@ -13,12 +13,22 @@ import { useState, useTransition } from "react";
 import { ZodErrors } from "@/app/data/actions/zod-errors";
 import { StrapiErrors } from "@/app/data/actions/strapi-errors";
 import { SubmitButton } from "../submit-button";
+import { AuthState } from "@/types/auth";
 
-const INITIAL_STATE = { data: null };
+const INITIAL_STATE: AuthState = {
+  formData: {
+    username: '',
+    password: '',
+    email: ''
+  },
+  zodErrors: null,
+  strapiErrors: null,
+  message: null,
+};
 
 export function SignupForm({ className, ...props }: React.ComponentProps<"div">) {
   const [formState, formAction] = useActionState(registerUserAction, INITIAL_STATE);
-  
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   
@@ -37,7 +47,6 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
 
     setPasswordError("");
 
-    // Asegurar que `useActionState` se ejecute dentro de un `startTransition`
     startTransition(() => {
       formAction(formData);
     });
@@ -59,12 +68,12 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
               <div className="grid gap-2">
                 <Label htmlFor="username">Usuario</Label>
                 <Input id="username" name="username" type="text" placeholder="username" required />
-                <ZodErrors error={formState?.zodErrors?.username} />
+                <ZodErrors error={formState?.zodErrors?.username || []} />
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input id="email" name="email" type="email" placeholder="name@example.com" required />
-                <ZodErrors error={formState?.zodErrors?.email} />
+                <ZodErrors error={formState?.zodErrors?.email || []} />
               </div>
 
               {/* Campo de contraseña */}
@@ -82,7 +91,7 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                   </Button>
                 </div>
-                <ZodErrors error={formState?.zodErrors?.password} />
+                <ZodErrors error={formState?.zodErrors?.password || []} />
               </div>
 
               {/* Campo de confirmar contraseña */}

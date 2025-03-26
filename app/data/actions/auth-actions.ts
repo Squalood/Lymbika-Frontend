@@ -7,6 +7,7 @@ import {
   registerUserService,
   loginUserService,
 } from "@/app/data/services/auth-service";
+import { AuthState } from "@/types/auth";
 
 const config = {
   maxAge: 60 * 60 * 24 * 7, // 1 week
@@ -15,7 +16,6 @@ const config = {
   httpOnly: true,
   secure: process.env.NODE_ENV === "production",
 };
-
 
 const schemaRegister = z.object({
   username: z.string().min(3).max(20, {
@@ -29,11 +29,14 @@ const schemaRegister = z.object({
   }),
 });
 
-export async function registerUserAction(prevState: any, formData: FormData) {
+export async function registerUserAction(
+  prevState: AuthState,
+  payload: FormData
+): Promise<AuthState> {
   const validatedFields = schemaRegister.safeParse({
-    username: formData.get("username"),
-    password: formData.get("password"),
-    email: formData.get("email"),
+    username: payload.get("username"),
+    password: payload.get("password"),
+    email: payload.get("email"),
   });
 
   if (!validatedFields.success) {
@@ -67,8 +70,15 @@ export async function registerUserAction(prevState: any, formData: FormData) {
 
   const cookieStore = await cookies();
   cookieStore.set("jwt", responseData.jwt, config);
-  
+
   redirect("/dashboard");
+
+  return {
+    ...prevState,
+    strapiErrors: null,
+    zodErrors: null,
+    message: null,
+  };
 }
 
 const schemaLogin = z.object({
@@ -90,10 +100,13 @@ const schemaLogin = z.object({
     }),
 });
 
-export async function loginUserAction(prevState: any, formData: FormData) {
+export async function loginUserAction(
+  prevState: AuthState,
+  payload: FormData
+): Promise<AuthState> {
   const validatedFields = schemaLogin.safeParse({
-    identifier: formData.get("identifier"),
-    password: formData.get("password"),
+    identifier: payload.get("identifier"),
+    password: payload.get("password"),
   });
 
   if (!validatedFields.success) {
@@ -109,7 +122,7 @@ export async function loginUserAction(prevState: any, formData: FormData) {
   if (!responseData) {
     return {
       ...prevState,
-      strapiErrors: responseData.error,
+      strapiErrors: null,
       zodErrors: null,
       message: "Ops! Something went wrong. Please try again.",
     };
@@ -124,11 +137,17 @@ export async function loginUserAction(prevState: any, formData: FormData) {
     };
   }
 
-
   const cookieStore = await cookies();
   cookieStore.set("jwt", responseData.jwt, config);
 
   redirect("/dashboard");
+
+  return {
+    ...prevState,
+    strapiErrors: null,
+    zodErrors: null,
+    message: null,
+  };
 }
 
 export async function logoutAction() {
