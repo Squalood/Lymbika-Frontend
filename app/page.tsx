@@ -10,11 +10,10 @@ export default function Home() {
     <main>
       <FlashContact/>
       <FrontPage />
-      <CarouselTextBanner />
       <CarouselServices/>
+      <CarouselTextBanner />
       <ChooseCategory />
       <BannerProduct />
     </main>
   )
 }
-
