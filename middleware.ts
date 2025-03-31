@@ -1,39 +1,29 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { getUserMeLoader } from "@/app/data/services/get-user-me-loader";
 
-// Define an array of protected routes
-const protectedRoutes = [
-  "/dashboard",
-  // Add more protected routes here
-];
+// Define las rutas protegidas
+const protectedRoutes = ["/dashboard"];
 
-// Helper function to check if a path is protected
+// Verifica si la ruta es protegida
 function isProtectedRoute(path: string): boolean {
   return protectedRoutes.some((route) => path.startsWith(route));
 }
 
-export async function middleware(request: NextRequest) {
-  const user = await getUserMeLoader();
+export function middleware(request: NextRequest) {
+  const token = request.cookies.get("jwt")?.value; // Obtiene el token JWT de las cookies
   const currentPath = request.nextUrl.pathname;
 
-  if (isProtectedRoute(currentPath) && user.ok === false) {
+  // Si la ruta es protegida y no hay token, redirigir a /signin
+  if (isProtectedRoute(currentPath) && !token) {
     return NextResponse.redirect(new URL("/signin", request.url));
   }
 
   return NextResponse.next();
 }
 
-// Optionally, you can add a matcher to optimize performance
+// Configuración del matcher para evitar afectar rutas específicas
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     */
     "/((?!api|_next/static|_next/image|favicon.ico).*)",
   ],
 };
