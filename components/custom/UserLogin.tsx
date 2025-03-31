@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link";
-import { LogoutButton } from "../forms/logout-button";
 import { usePathname } from "next/navigation";
 
 
