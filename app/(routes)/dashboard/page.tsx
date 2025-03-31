@@ -4,7 +4,6 @@ import { LogoutButton } from "@/components/forms/logout-button";
 
 export default async function DashboardLayout() {
   const user = await getUserMeLoader();
-  console.log(user);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">

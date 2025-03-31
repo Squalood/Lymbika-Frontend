@@ -17,17 +17,14 @@ export function useGetServiceDoctor(slug: string) {
                 const res = await fetch(url);
                 const json = await res.json();
 
-                console.log("📡 Respuesta de la API:", json);
 
                 if (json.data && Array.isArray(json.data)) {
                     setResult(json.data);
                 } else {
-                    console.warn("⚠️ La API no devolvió un array en 'data'", json);
                     setResult([]);
                 }
                 setLoading(false);
             } catch (error: any) {
-                console.error("❌ Error al obtener los doctores:", error);
                 setError("No se pudo obtener los datos de los doctores");
                 setLoading(false);
             }
