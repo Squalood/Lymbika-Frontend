@@ -12,9 +12,9 @@ import { AuthState } from "@/types/auth";
 const config = {
   maxAge: 60 * 60 * 24 * 7, // 1 week
   path: "/",
-  domain: process.env.HOST ?? "localhost",
+  domain: undefined,
   httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
+  secure: process.env.NODE_ENV === "production" && process.env.HOST !== "localhost",
 };
 
 const schemaRegister = z.object({
