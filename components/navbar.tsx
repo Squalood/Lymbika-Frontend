@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import { Heart, ShoppingCart, User } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import MenuList from "./menu-list";
@@ -6,19 +6,28 @@ import ItemsMenuMobile from "./items-menu-mobile";
 import ToggleTheme from "./toggle-theme";
 import { useCart } from "@/hooks/use-cart";
 import { UseLovedProducts } from "@/hooks/use-loved-products";
+import { LoggedInUser } from "./custom/UserLogin";
 
-const Navbar = () => {
+interface AuthUserProps {
+    username: string;
+    email: string;
+  }
+  
+  interface NavbarProps {
+    user: AuthUserProps | null;
+  }
+
+
+  const Navbar = ({ user }: NavbarProps) => {
     const router = useRouter();
-    const pathname = usePathname(); // 🔹 Obtener la ruta actual
+    const pathname = usePathname();
     const cart = useCart();
     const { lovedItems } = UseLovedProducts();
 
-    // 🔹 Si estamos en la página principal, usamos color `background`, en las demás `text-black`
     const textColor = pathname === "/" ? "text-background" : "text-black";
     const strokeColor = pathname === "/" ? "stroke-background" : "stroke-black";
     const fillColor = lovedItems.length > 0 ? (pathname === "/" ? "fill-background" : "fill-black") : "";
     const positionAbs = pathname === "/" ? "absolute top-8 left-0 right-0 z-50" : "";
-
 
     return (
         <div className={`${positionAbs} flex items-center justify-between p-4 mx-auto sm-max-w-4xl md:max-w-6xl`}>
@@ -39,7 +48,13 @@ const Navbar = () => {
                     </div>
                 )}
                 <Heart strokeWidth="1" className={`${fillColor} ${strokeColor}`} onClick={() => router.push("/loved-products")} />
-                <User strokeWidth={1} className={`cursor-pointer ${strokeColor}`} onClick={() => router.push("/dashboard")}/>
+                
+                {/* Icono de usuario con nombre */}
+                <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push("/dashboard")}>
+                    <User strokeWidth={1} className={strokeColor} />
+                    {user ? <LoggedInUser userData={user} /> : null}
+                </div>
+
                 {false && <ToggleTheme />}
             </div>
             <div className="flex sm:hidden">

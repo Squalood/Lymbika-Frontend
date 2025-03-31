@@ -6,6 +6,7 @@ import Footer from "@/components/footer";
 //import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/sonner"
 import NextTopLoader from 'nextjs-toploader'
+import { getUserMeLoader } from "./data/services/get-user-me-loader";
 
 const urbanist = Urbanist({ subsets: ["latin"], display: "swap" });
 
@@ -14,17 +15,18 @@ export const metadata: Metadata = {
   description: "Agencia de salud",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const userData = await getUserMeLoader();
+
   return (
     <html lang="en">
       <body className={urbanist.className}>
           <NextTopLoader/>
-          
-          <Navbar />
+          <Navbar user={userData.ok ? userData.data : null} />
           {children}
           <Toaster richColors/>
           <Footer />
