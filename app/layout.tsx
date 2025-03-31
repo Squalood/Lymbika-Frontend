@@ -11,7 +11,7 @@ import { getUserMeLoader } from "./data/services/get-user-me-loader";
 const urbanist = Urbanist({ subsets: ["latin"], display: "swap" });
 
 export const metadata: Metadata = {
-  title: "Lymbika E-commerce",
+  title: "Lymbika Healthcare",
   description: "Agencia de salud",
 };
 
@@ -21,7 +21,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const userData = await getUserMeLoader();
-  console.log(userData)
 
   return (
     <html lang="en">
