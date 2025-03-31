@@ -120,7 +120,7 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
             </div>
           </form>
           <div className="relative hidden bg-muted md:block">
-            <img src="/mediCLub-2.jpg" alt="Image" className="absolute inset-0 dark:brightness-[0.2] dark:grayscale" />
+            <img src="/logo-lymbika.jpg" alt="Image" className="absolute inset-0 dark:brightness-[0.2] dark:grayscale" />
           </div>
         </CardContent>
       </Card>
