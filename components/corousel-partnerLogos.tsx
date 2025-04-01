@@ -9,7 +9,7 @@ import Image from "next/image";
 export const dataCarouselTop = [
     {
         id: 1,
-        title: "Title 1",
+        title: "StarMedica",
         link: "#!",
         imageUrl: "https://www.starmedica.com/resource/1685036771000/iconosFooter/LogoFooterStarMedica.svg"
     },

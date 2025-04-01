@@ -10,7 +10,7 @@ const BannerProduct = () => {
             <p>despierta tus sentidos</p>
             <Link href="#" className={buttonVariants()}>Comprar</Link>
         </div>
-        <div className="h-[350px] bg-cover md:h-[600px] bg-[url('/slider-image.jpg')] bg-center mt-5" />
+        <div className="h-[250px] bg-cover md:h-[400px] bg-[url('/slider-image.jpg')] bg-center mt-5" />
         </>
      );
 }
