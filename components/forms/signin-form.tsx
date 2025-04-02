@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import Link from "next/link";
 import { useActionState } from "react";
 import { loginUserAction } from "@/app/data/actions/auth-actions";
@@ -12,6 +12,7 @@ import { Eye, EyeOff } from "lucide-react";
 import { ZodErrors } from "@/app/data/actions/zod-errors";
 import { StrapiErrors } from "@/app/data/actions/strapi-errors";
 import { AuthState } from "@/types/auth";
+import { SubmitButton } from "../submit-button";
 
 const INITIAL_STATE: AuthState = {
   formData: {
@@ -27,6 +28,7 @@ const INITIAL_STATE: AuthState = {
 export function SigninForm({ className, ...props }: React.ComponentProps<"div">) {
   const [formState, formAction] = useActionState(loginUserAction, INITIAL_STATE);
   const [showPassword, setShowPassword] = useState(false);
+  const [isPending] = useTransition();
 
   return (
     <div className={"flex flex-col gap-6 " + className} {...props}>
@@ -71,9 +73,7 @@ export function SigninForm({ className, ...props }: React.ComponentProps<"div">)
                 </div>
                 <ZodErrors error={formState?.zodErrors?.password || []} />
               </div>
-              <Button type="submit" className="w-full">
-                Inicia sesión
-              </Button>
+              <SubmitButton className="w-full" text="Inicia sesión" loadingText="Cargando..." loading={isPending}/>
               <StrapiErrors error={formState?.strapiErrors} />
               {/*
               <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
