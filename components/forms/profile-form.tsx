@@ -1,6 +1,5 @@
-// profile-form.tsx
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { SubmitButton } from "../submit-button";
@@ -10,11 +9,12 @@ import { updateProfileAction } from "@/app/data/actions/profile-actions";
 import { StrapiErrors } from "@/app/data/actions/strapi-errors";
 import { ProfileState } from "@/app/data/actions/profile-actions";
 import { Switch } from "@/components/ui/switch";
+import { useRouter } from "next/navigation";
 
 // ✅ Definir el estado inicial con el tipo correcto
 const INITIAL_STATE: ProfileState = {
   data: null,
-  strapiErrors: null, // Debe coincidir con StrapiErrorsProps | null
+  strapiErrors: null, 
   message: null,
 };
 
@@ -35,9 +35,27 @@ export function ProfileForm({
   readonly data: ProfileFormProps;
   readonly className?: string;
 }) {
-  // ✅ useActionState con el estado inicial correcto
+  const router = useRouter();
   const [formState, formAction] = useActionState(updateProfileAction, INITIAL_STATE);
+  const [firstName, setFirstName] = useState(data.firstName);
+  const [lastName, setLastName] = useState(data.lastName);
+  const [bio, setBio] = useState(data.bio);
   const [isMediClubRegular, setIsMediClubRegular] = React.useState(data.mediClubRegular);
+
+  // 🔄 Actualiza los estados cuando formState.data cambia
+  useEffect(() => {
+    if (formState.data) {
+      setFirstName(formState.data.firstName);
+      setLastName(formState.data.lastName);
+      setBio(formState.data.bio);
+      setIsMediClubRegular(formState.data.mediClubRegular);
+    }
+  }, [formState.data]);
+
+  async function handleFormAction(formData: FormData) {
+    await formAction(formData);
+    router.refresh();
+  }
 
   return (
     <form className={cn("space-y-4", className)} action={formAction}>
@@ -50,8 +68,8 @@ export function ProfileForm({
       </div>
 
       <div className="grid grid-cols-2 gap-4">
-        <Input id="firstName" name="firstName" placeholder="First Name" defaultValue={data?.firstName || ""} />
-        <Input id="lastName" name="lastName" placeholder="Last Name" defaultValue={data?.lastName || ""} />
+        <Input id="firstName" name="firstName" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+        <Input id="lastName" name="lastName" placeholder="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} />
       </div>
 
       <Textarea
@@ -59,7 +77,8 @@ export function ProfileForm({
         name="bio"
         placeholder="Write your bio here..."
         className="resize-none border rounded-md w-full h-[224px] p-2"
-        defaultValue={data?.bio || ""}
+        value={bio}
+        onChange={(e) => setBio(e.target.value)}
         required
       />
 
