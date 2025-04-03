@@ -52,11 +52,6 @@ export function ProfileForm({
     }
   }, [formState.data]);
 
-  async function handleFormAction(formData: FormData) {
-    await formAction(formData);
-    router.refresh();
-  }
-
   return (
     <form className={cn("space-y-4", className)} action={formAction}>
     <input type="hidden" name="id" value={data.id} />  {/* ✅ Agregamos el ID aquí */}
