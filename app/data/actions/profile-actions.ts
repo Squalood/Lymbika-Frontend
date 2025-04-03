@@ -2,46 +2,47 @@
 import { revalidatePath } from "next/cache";
 import { mutateData } from "../services/mutate-data";
 
-// Definimos un tipo para el estado del formulario
+interface UserProfile {
+  id: string;
+  username: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  bio: string;
+  mediClubRegular: boolean;
+}
+
 interface ProfileState {
-  data: any | null; // Puedes mejorar esto con el tipo adecuado
-  strapiErrors: any | null;
+  data: UserProfile | null;
+  strapiErrors: string | null; 
   message: string | null;
 }
 
 export async function updateProfileAction(
   userId: string,
-  prevState: ProfileState, // ✅ Usamos el tipo en lugar de "any"
+  prevState: ProfileState, 
   formData: FormData
 ) {
   const rawFormData = Object.fromEntries(formData);
 
-  const payload = {
+  const payload: Partial<UserProfile> = {
     firstName: rawFormData.firstName as string,
     lastName: rawFormData.lastName as string,
     bio: rawFormData.bio as string,
-    mediClubRegular: rawFormData.mediClubRegular === "true", // ✅ Asegura que sea un booleano
+    mediClubRegular: rawFormData.mediClubRegular === "true",
   };
 
-  const responseData = await mutateData(
+  const responseData: { data?: UserProfile; error?: any } = await mutateData(
     "PUT",
     `/api/users/${userId}?populate=*`,
     payload
   );
 
-  if (!responseData) {
+  if (!responseData?.data) {
     return {
       ...prevState,
-      strapiErrors: null,
+      strapiErrors: responseData?.error || null,
       message: "Ops! Something went wrong. Please try again.",
-    };
-  }
-
-  if (responseData.error) {
-    return {
-      ...prevState,
-      strapiErrors: responseData.error,
-      message: "Failed to Update Profile.",
     };
   }
 
@@ -50,7 +51,7 @@ export async function updateProfileAction(
   return {
     ...prevState,
     message: "Profile Updated",
-    data: responseData,
+    data: responseData.data, 
     strapiErrors: null,
   };
 }
