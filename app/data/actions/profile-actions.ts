@@ -13,47 +13,64 @@ interface UserProfile {
   mediClubRegular: boolean;
 }
 
-interface ProfileState {
+export interface ProfileState {
   data: UserProfile | null;
-  strapiErrors: string | null; 
+  strapiErrors: StrapiErrorsProps | null; 
   message: string | null;
 }
 
 export async function updateProfileAction(
-  userId: string,
   prevState: ProfileState, 
   formData: FormData
 ) {
-  const rawFormData = Object.fromEntries(formData);
+  try {
+    const userId = formData.get("id") as string;
 
-  const payload: Partial<UserProfile> = {
-    firstName: rawFormData.firstName as string,
-    lastName: rawFormData.lastName as string,
-    bio: rawFormData.bio as string,
-    mediClubRegular: rawFormData.mediClubRegular === "true",
-  };
+    const rawFormData = Object.fromEntries(formData);
+    const payload: Partial<UserProfile> = {
+      firstName: rawFormData.firstName as string,
+      lastName: rawFormData.lastName as string,
+      bio: rawFormData.bio as string,
+      mediClubRegular: rawFormData.mediClubRegular === "true",
+    };
 
-  const responseData: { data?: UserProfile; error?: StrapiErrorsProps } = await mutateData(
-    "PUT",
-    `/api/users/${userId}?populate=*`,
-    payload
-  );
-  
+    if (!payload.firstName && !payload.lastName && !payload.bio && payload.mediClubRegular === undefined) {
+      return {
+        ...prevState,
+        message: "No changes detected.",
+        strapiErrors: null, // ✅ Evita que devuelva un tipo incorrecto
+      };
+    }
 
-  if (!responseData?.data) {
+    const responseData: { data?: UserProfile; error?: StrapiErrorsProps } = await mutateData(
+      "PUT",
+      `/api/users/${userId}?populate=*`,
+      payload
+    );
+
+    if (!responseData?.data) {
+      return {
+        ...prevState,
+        strapiErrors: responseData?.error || null,
+        message: "Ops! Something went wrong. Please try again.",
+      };
+    }
+
+    revalidatePath("/dashboard/account");
+
     return {
       ...prevState,
-      strapiErrors: responseData?.error || null,
-      message: "Ops! Something went wrong. Please try again.",
+      message: "Profile Updated",
+      data: responseData.data, 
+      strapiErrors: null,
+    };
+  } catch (error) {
+    console.error("Error updating profile:", error);
+
+    return {
+      ...prevState,
+      message: "Unexpected error occurred.",
+      strapiErrors: { message: "An unexpected error occurred. Please try again later." } as StrapiErrorsProps,
     };
   }
-
-  revalidatePath("/dashboard/account");
-
-  return {
-    ...prevState,
-    message: "Profile Updated",
-    data: responseData.data, 
-    strapiErrors: null,
-  };
 }
