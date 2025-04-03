@@ -1,6 +1,7 @@
 "use server";
 import { revalidatePath } from "next/cache";
 import { mutateData } from "../services/mutate-data";
+import { StrapiErrorsProps } from "./strapi-errors";
 
 interface UserProfile {
   id: string;
@@ -14,7 +15,7 @@ interface UserProfile {
 
 interface ProfileState {
   data: UserProfile | null;
-  strapiErrors: string | null; 
+  strapiErrors: any | null; 
   message: string | null;
 }
 
@@ -32,11 +33,12 @@ export async function updateProfileAction(
     mediClubRegular: rawFormData.mediClubRegular === "true",
   };
 
-  const responseData: { data?: UserProfile; error?: any } = await mutateData(
+  const responseData: { data?: UserProfile; error?: StrapiErrorsProps } = await mutateData(
     "PUT",
     `/api/users/${userId}?populate=*`,
     payload
   );
+  
 
   if (!responseData?.data) {
     return {
