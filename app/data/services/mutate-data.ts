@@ -1,6 +1,10 @@
 import { getAuthToken } from "./get-token";
 
-export async function mutateData(method: string, path: string, payload?: any) {
+export async function mutateData(
+  method: string,
+  path: string,
+  payload?: Record<string, unknown> 
+) {
   const baseUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}`;
   const authToken = await getAuthToken();
   const url = new URL(path, baseUrl);
@@ -14,17 +18,17 @@ export async function mutateData(method: string, path: string, payload?: any) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${authToken}`,
       },
-      body: JSON.stringify({ ...payload }),
+      body: payload ? JSON.stringify(payload) : undefined, 
     });
 
-    if (method === 'DELETE') {
+    if (method === "DELETE") {
       return response.ok;
     }
 
-    const data = await response?.json();
+    const data = await response.json();
     return data;
   } catch (error) {
-    console.log("error", error);
+    console.error("Error in mutateData:", error);
     throw error;
   }
 }
