@@ -63,13 +63,13 @@ const MenuList = () => {
                   </Link>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="/shop" title="Farmacia">
+              <ListItem href="/shop" title="Farmacia y tienda">
                 Accede a nuestros artículos
               </ListItem>
-              <ListItem href="/service" title="Cirugías">
+              <ListItem href="/service" title="Cirugías y procedimientos">
                 Tratamientos y servicios con doctores especializados.
               </ListItem>
-              <ListItem href="/membership" title="MediClub">
+              <ListItem href="/membership" title="Planes y Membresíass">
                 Con nuestra membresía MediClub, accede a medicamentos y productos de la salud a precio de proveedor. 
               </ListItem>
             </ul>

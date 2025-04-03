@@ -28,11 +28,11 @@ const CarouselServices = () => {
     return (
         <div className="max-w-6xl py-4 mx-auto sm:py-16 sm:px-24">
             {/* Carrusel de Servicios Médicos */}
-            <h3 className="px-6 text-3xl sm:pb-8">Servicios Médicos</h3>
+            <h3 className="px-6 text-3xl sm:pb-8">Especialidades</h3>
             <CarouselComponent items={serviceItems} loading={servicesLoading} />
 
             {/* Carrusel de Cirugías */}
-            <h3 className="px-6 text-3xl sm:pb-8 mt-10">Cirugías</h3>
+            <h3 className="px-6 text-3xl sm:pb-8 mt-10">Cirugías destacadas</h3>
             <CarouselComponent items={surgeryItems} loading={surgeryLoading} />
         </div>
     );

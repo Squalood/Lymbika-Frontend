@@ -3,7 +3,6 @@ import { formatPrice } from "@/lib/formatPrice";
 import { cn } from "@/lib/utils";
 import { ProductType } from "@/types/product";
 import { X } from "lucide-react";
-//import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 interface CartItemProps {
@@ -27,7 +26,8 @@ const CartItem = (props: CartItemProps) => {
             <div className="flex justify-between flex-1 px-6">
                 <div>
                     <h2 className="text-lg font-bold">{product.productName}</h2>
-                    <p className="font-bold">{formatPrice (product.price)}</p>
+                    <p className="font-bold line-through">{formatPrice (product.price)}</p>
+                    <p className="font-bold text-green-400">{formatPrice (product.priceMember)}</p>
                     <div className="flex items-center justify-between gap-3">
                         <p className="px-2 py-1 text-white bg-teal-600 rounded-full dark:bg-white dark:text-black">{product.category.categoryName}</p>
                     </div>
