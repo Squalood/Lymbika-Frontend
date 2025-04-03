@@ -9,7 +9,6 @@ import { updateProfileAction } from "@/app/data/actions/profile-actions";
 import { StrapiErrors } from "@/app/data/actions/strapi-errors";
 import { ProfileState } from "@/app/data/actions/profile-actions";
 import { Switch } from "@/components/ui/switch";
-import { useRouter } from "next/navigation";
 
 // ✅ Definir el estado inicial con el tipo correcto
 const INITIAL_STATE: ProfileState = {
