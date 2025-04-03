@@ -35,7 +35,6 @@ export function ProfileForm({
   readonly data: ProfileFormProps;
   readonly className?: string;
 }) {
-  const router = useRouter();
   const [formState, formAction] = useActionState(updateProfileAction, INITIAL_STATE);
   const [firstName, setFirstName] = useState(data.firstName);
   const [lastName, setLastName] = useState(data.lastName);
