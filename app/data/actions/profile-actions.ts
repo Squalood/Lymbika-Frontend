@@ -15,7 +15,7 @@ interface UserProfile {
 
 interface ProfileState {
   data: UserProfile | null;
-  strapiErrors: any | null; 
+  strapiErrors: string | null; 
   message: string | null;
 }
 
