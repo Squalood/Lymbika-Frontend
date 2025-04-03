@@ -2,18 +2,25 @@
 import { revalidatePath } from "next/cache";
 import { mutateData } from "../services/mutate-data";
 
+// Definimos un tipo para el estado del formulario
+interface ProfileState {
+  data: any | null; // Puedes mejorar esto con el tipo adecuado
+  strapiErrors: any | null;
+  message: string | null;
+}
+
 export async function updateProfileAction(
   userId: string,
-  prevState: any,
+  prevState: ProfileState, // ✅ Usamos el tipo en lugar de "any"
   formData: FormData
 ) {
   const rawFormData = Object.fromEntries(formData);
 
   const payload = {
-    firstName: rawFormData.firstName,
-    lastName: rawFormData.lastName,
-    bio: rawFormData.bio,
-    mediClubRegular: rawFormData.mediClubRegular === "true", // ✅ Convierte el string en booleano
+    firstName: rawFormData.firstName as string,
+    lastName: rawFormData.lastName as string,
+    bio: rawFormData.bio as string,
+    mediClubRegular: rawFormData.mediClubRegular === "true", // ✅ Asegura que sea un booleano
   };
 
   const responseData = await mutateData(
@@ -46,5 +53,4 @@ export async function updateProfileAction(
     data: responseData,
     strapiErrors: null,
   };
-
 }
