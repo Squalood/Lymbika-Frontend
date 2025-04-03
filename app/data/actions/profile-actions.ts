@@ -16,7 +16,7 @@ interface UserProfile {
 export interface ProfileState {
   data: UserProfile | null;
   strapiErrors: StrapiErrorsProps | null; 
-  message: string | null;
+  message: string;
 }
 
 export async function updateProfileAction(prevState: ProfileState, formData: FormData) {
@@ -38,27 +38,29 @@ export async function updateProfileAction(prevState: ProfileState, formData: For
     mediClubRegular: rawFormData.mediClubRegular === "true",
   };
 
-  const responseData: { data?: UserProfile; error?: StrapiErrorsProps } = await mutateData(
+  const responseData = await mutateData(
     "PUT",
     `/api/users/${userId}?populate=*`,
     payload
   );
 
-  if (!responseData?.data) {
+
+  // ✅ Ajustar la forma en que se extraen los datos
+  if (!responseData) {
     return {
       ...prevState,
-      strapiErrors: responseData?.error || null,
+      strapiErrors: { message: "No data received from API." } as StrapiErrorsProps,
       message: "Ops! Something went wrong. Please try again.",
     };
   }
 
-  // ✅ Aseguramos la revalidación de la caché
+  // ✅ Asignar directamente los datos del usuario sin `data`
   revalidatePath("/dashboard/account");
 
   return {
     ...prevState,
     message: "Profile Updated",
-    data: responseData.data,
+    data: responseData, // Ahora sí contiene los datos correctos
     strapiErrors: null,
   };
 }
