@@ -4,15 +4,15 @@ import { useRouter } from "next/navigation";
 import { Carousel, CarouselContent, CarouselItem } from "./ui/carousel";
 import { Card, CardContent } from "./ui/card";
 import Autoplay from "embla-carousel-autoplay"
-import { ShoppingBag, CreditCard, Ambulance } from "lucide-react";
+import { ShoppingBag, BadgeCheck, Clock, GraduationCap, Shield } from "lucide-react";
 import React from "react";
 
 export const dataCarouselTop = [
     {
         id: 1,
-        title: "Solicita tu crema y te llega en 24 horas",
+        title: "Más del 90% de satisfacción",
         link: "#!",
-        icon: <Ambulance size={32}/>
+        icon: <BadgeCheck size={32}/>
     },
     {
         id: 2,
@@ -22,9 +22,21 @@ export const dataCarouselTop = [
     },
     {
         id: 3,
-        title: "Paga tu cirugía a meses",
+        title: "No más esperas",
         link: "#!",
-        icon: <CreditCard size={32}/>, // Ícono de tarjeta de crédito
+        icon: <Clock size={32}/>, // Ícono de tarjeta de crédito
+    },
+    {
+        id: 4,
+        title: "Especialistas certificados",
+        link: "#!",
+        icon: <GraduationCap size={32}/>, // Ícono de tarjeta de crédito
+    },
+    {
+        id: 5,
+        title: "No se requiere aseguranza",
+        link: "#!",
+        icon: <Shield size={32}/>, // Ícono de tarjeta de crédito
     },
 ];
 
@@ -37,7 +49,7 @@ const CarouselTextBanner = () => {
         <div className="bg-gray-200 dark:bg-primary ">
             <Carousel 
                 className="w-full max-w-4xl mx-auto py-5"
-                plugins={[Autoplay({ delay: 1500 })]}
+                plugins={[Autoplay({ delay: 2500 })]}
             >
                 <CarouselContent>
                     {dataCarouselTop.map(({ id, title, link, icon }) => (

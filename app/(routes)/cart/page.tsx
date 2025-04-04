@@ -70,7 +70,7 @@ const buyStripe = async () => {
                         <div className="flex items-center justify-center w-full mt-3">
                             <Button className="w-full" onClick={buyStripe} >Comprar <ShoppingCart/></Button>
                         </div>
-                        <Button className="w-full mt-4" onClick={removeAll} variant="destructive">Remover todo <Trash2/></Button>
+                        <Button className="w-full mt-4" onClick={removeAll} variant="outline">Vaciar Carrito<Trash2/></Button>
                     </div>
                 </div>
             </div>

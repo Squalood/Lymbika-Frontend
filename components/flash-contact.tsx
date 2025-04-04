@@ -4,19 +4,19 @@ import Link from "next/link";
 
 const FlashContact = () => {
     return ( 
-        <div className="hidden sm:absolute sm:top-0 xl:left-[200px] xl:right-[200px] sm:left-[50px] sm:right-[50px] sm:block z-50 text-gray-200 py-2">
+        <div className="hidden sm:absolute sm:top-0 xl:left-[200px] xl:right-[200px] sm:left-[10px] sm:right-[10px] sm:block z-50 text-gray-200 py-2">
             <div className="flex justify-between">
                 <ul className="flex space-x-6">
                     <li>
                         <div className="flex items-center">
                             <MapPin className="w-5 h-5" />
-                            <Link href={"https://maps.app.goo.gl/wddxisYk7CM7cGVg6"} className="ml-2" target="_blank" rel="noopener noreferrer">Av. Paseo de la Victoria 9350, Partido Senecú, Juárez, Chih.</Link>
+                            <Link href={"https://maps.app.goo.gl/wddxisYk7CM7cGVg6"} className="ml-2 hidden lg:block" target="_blank" rel="noopener noreferrer">Av. Paseo de la Victoria 9350, Partido Senecú, Juárez, Chih.</Link>
                         </div>
                     </li>
                     <li>
                         <div className="flex items-center">
                             <Phone className="w-5 h-5" />
-                            <Link href={"https://wa.me/526561100446"} className="ml-2">+52-656-110-0446</Link>
+                            <Link href={"https://wa.me/526561100446"} className="ml-2 hidden lg:block">+52-656-110-0446</Link>
                         </div>
                     </li>
                     

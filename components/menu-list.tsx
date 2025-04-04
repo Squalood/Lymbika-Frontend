@@ -63,10 +63,10 @@ const MenuList = () => {
                   </Link>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="/shop" title="Farmacia y tienda">
+              <ListItem href="/shop" title="Farmacia y Tienda">
                 Accede a nuestros artículos
               </ListItem>
-              <ListItem href="/service" title="Cirugías y procedimientos">
+              <ListItem href="/service" title="Cirugías y Procedimientos">
                 Tratamientos y servicios con doctores especializados.
               </ListItem>
               <ListItem href="/membership" title="Planes y Membresíass">

@@ -16,7 +16,7 @@ export default function Page (){
     return(  
     
         <div className="max-w-6xl py-4 mx-auto sm:py-16 sm:px-24">
-            <h3 className="px-6 pb-4 text-3xl sm:pb-8">Servicios</h3>
+            <h3 className="px-6 pb-4 text-3xl sm:pb-8">Especialidades</h3>
 
             {servicesLoading && 
                 <div className="grid grid-cols-3 gap-4">
@@ -54,7 +54,7 @@ export default function Page (){
             </div>
             
             <br/><br/>
-            <h3 className="px-6 pb-4 text-3xl sm:pb-8">Cirugias</h3>
+            <h3 className="px-6 pb-4 text-3xl sm:pb-8">Cirugías destacadas</h3>
 
             {surgeryLoading && 
                 <div className="grid grid-cols-3 gap-4">
