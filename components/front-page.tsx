@@ -14,11 +14,11 @@ const FrontPage = () => {
 
             {/* Contenido del texto */}
             <div className="relative z-10 lg:w-3/4 xl:w-2/4">
-                <h1 className="text-white text-4xl md:text-5xl xl:text-6xl font-bold leading-tight">
-                    Lymbika
+                <h1 className="text-white text-3xl md:text-5xl xl:text-6xl font-bold leading-tight">
+                    Lymbika Healthcare
                 </h1>
-                <p className="text-blue-100 text-xl md:text-2xl leading-snug mt-4">
-                    Agencia de Salud.
+                <p className="text-blue-100 text-sm md:text-2xl leading-snug mt-4">
+                    Ofrecemos productos farmacéuticos, servicios médicos, orientación personalizada y soluciones accesibles para cuidar de ti y tu familia.
                 </p>
             </div>
         </div>
