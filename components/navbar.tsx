@@ -17,7 +17,6 @@ interface AuthUserProps {
     user: AuthUserProps | null;
   }
 
-
   const Navbar = ({ user }: NavbarProps) => {
     const router = useRouter();
     const pathname = usePathname();
@@ -30,7 +29,7 @@ interface AuthUserProps {
     const positionAbs = pathname === "/" ? "absolute top-8 left-0 right-0 z-50" : "";
 
     return (
-        <div className={`${positionAbs} flex items-center justify-between p-4 mx-auto sm-max-w-4xl md:max-w-6xl`}>
+        <div className={`${positionAbs} flex items-center justify-between p-4 mx-auto sm:max-w-4xl md:max-w-6xl`}>
             <h1 className={`text-3xl ${textColor} cursor-pointer`} onClick={() => router.push("/")}>
                 Lym<span className="font-bold">bika</span>
             </h1>

@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const FlashContact = () => {
     return ( 
-        <div className="hidden sm:absolute sm:top-0 xl:left-[200px] xl:right-[200px] sm:left-[10px] sm:right-[10px] sm:block z-50 text-gray-200 py-2">
+        <div className="hidden sm:absolute sm:top-0 sm:left-1/2 sm:-translate-x-1/2 sm:block z-50 text-gray-200 py-2 w-full max-w-6xl px-4">
             <div className="flex justify-between">
                 <ul className="flex space-x-6">
                     <li>
