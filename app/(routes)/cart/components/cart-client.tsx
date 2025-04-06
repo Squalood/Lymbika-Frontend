@@ -72,7 +72,7 @@ export default function CartClientPage({ user }: CartClientPageProps) {
                 {user?.mediClubRegular ? (
                 <p className="my-3 mx-auto w-full flex items-center justify-center gap-2 text-sm font-semibold text-green-600 bg-green-100 py-2 px-3 rounded-full">
                     <CheckCircle size={16} className="text-green-600" />
-                    Precio miembro aplicado
+                    Precio MediClub aplicado
                 </p>
                 ) : (
                 <Button className="my-3 mx-auto w-2/3" onClick={() => router.push("/membership")}>
