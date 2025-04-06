@@ -39,7 +39,7 @@ interface AuthUserProps {
 
             <div className="items-center justify-between gap-2 sm:gap-7 hidden sm:flex">
                 {cart.items.length === 0 ? (
-                    <ShoppingCart strokeWidth="1" className={`cursor-pointer ${strokeColor}`} onClick={() => router.push("/cart")} />
+                <ShoppingCart strokeWidth="1" className={`cursor-pointer ${strokeColor}`} onClick={() => router.push("/cart")} />
                 ) : (
                     <div className="flex gap-1" onClick={() => router.push("/cart")}>
                         <ShoppingCart strokeWidth={1} className={`cursor-pointer ${strokeColor}`} />
