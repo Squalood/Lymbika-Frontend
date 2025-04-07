@@ -24,7 +24,7 @@ const DoctorTop = (props: InfoDoctorProps) => {
 
       {/* Información del doctor */}
       <div>
-        <h2 className="text-base font-semibold text-black">{doctor.doctorName}</h2>
+        <h2 className="text-xl font-semibold text-black">{doctor.doctorName}</h2>
 
         {/* Calificación */}
         <div className="flex items-center text-sm text-gray-600 mt-1">

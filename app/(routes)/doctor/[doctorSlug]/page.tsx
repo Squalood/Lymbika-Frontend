@@ -7,6 +7,7 @@ import { useParams } from "next/navigation"
 import DoctorTop from "./components/doctor-top";
 import { Separator } from "@/components/ui/separator";
 import DoctorAbout from "./components/doctor-about";
+import CalendarAvailability from "./components/doctor-schedule";
 
 export default function Page (){
     const params = useParams()
@@ -22,13 +23,14 @@ export default function Page (){
             <DoctorTop doctor={result[0]}/>
             <Separator/>
             <DoctorAbout
-                description="mucha descripcion"
+                description="Morbi vitae dui tincidunt, consectetur urna ultrices, egestas leo. Cras et vehicula lorem. Suspendisse consequat libero a enim lobortis vestibulum. Etiam a imperdiet leo. Aliquam erat volutpat. Cras hendrerit convallis sem at sodales. Donec turpis augue, venenatis nec sapien vitae, euismod facilisis nisl. Maecenas lacinia rhoncus eros at mattis. Duis ut diam a dolor vestibulum sodales a a nisi. Nulla eget scelerisque tortor. Vestibulum vehicula massa sem, in aliquet tellus dictum quis. Donec pretium felis nec."
                 specialties="Internal medicine"
                 licensedToPractice="TX"
                 practiceName="Michael Omotola, DMSc, PA-C"
                 languagesSpoken="English"
             />
             <Separator/>
+            <CalendarAvailability/>
         </div>
     )
 }
