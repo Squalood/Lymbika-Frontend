@@ -11,7 +11,7 @@ const CarouselDoctor = ({ images }: CarouselDoctorProps) => {
     const hasImages = images && images.length > 0;
 
     return (  
-        <div className="sm:px-16">
+        <div className="sm:px-16 ">
             <Carousel>
                 <CarouselContent>
                     {hasImages ? (
@@ -20,7 +20,7 @@ const CarouselDoctor = ({ images }: CarouselDoctorProps) => {
                                 <img 
                                     src={image.url || "/placeholder-image.webp"} 
                                     alt="Imagen del producto" 
-                                    className="rounded-lg"
+                                    className="rounded-full"
                                 />
                             </CarouselItem>
                         ))
