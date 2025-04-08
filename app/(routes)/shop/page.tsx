@@ -2,30 +2,8 @@
 import ChooseCategory from "@/components/choose-category";
 import FeaturedProducts from "@/components/featured-products";
 import Image from "next/image";
-import { useState } from "react";
-import { X } from "lucide-react";
-
-const promoImages = [
-    "/promos/Promo-1.jpg",
-    "/promos/Promo-2.jpg",
-    "/promos/Promo-2.jpg",
-  ];
 
 export default function Page() {
-    
-    const [modalOpen, setModalOpen] = useState(false);
-    const [selectedImage, setSelectedImage] = useState<string | null>(null);
-
-    const openModal = (src: string) => {
-        setSelectedImage(src);
-        setModalOpen(true);
-    };
-
-    const closeModal = () => {
-        setModalOpen(false);
-        setSelectedImage(null);
-    };
-
     return(  
         <div>
             <FeaturedProducts />
