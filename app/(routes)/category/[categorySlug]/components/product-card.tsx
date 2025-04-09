@@ -20,8 +20,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       : "/placeholder-image.webp";
 
   return (
-    <div className="p-1">
-      <Card className="group h-[370px] py-4 border-gray-200 shadow-none relative overflow-hidden">
+      <Card className="group max-w-60 h-[360px] py-4 border-gray-200 shadow-none relative overflow-hidden">
         <CardContent className="flex flex-col items-center justify-center px-6 py-2">
         <span className="text-xs px-3 py-1 bg-primary text-white rounded-full">
             {product.category?.categoryName ?? "Sin categoría"}
@@ -57,7 +56,6 @@ const ProductCard = ({ product }: ProductCardProps) => {
           
         </div>
       </Card>
-    </div>
   );
 };
 

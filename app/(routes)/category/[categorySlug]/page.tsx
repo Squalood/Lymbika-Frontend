@@ -44,50 +44,55 @@ export default function Page() {
     // 🔹 Obtener productos de la página actual
     const paginatedProducts = filteredProducts.slice((page - 1) * productsPerPage, page * productsPerPage);
 
+    const renderProductList = (skeletonCount: number) => {
+        if (loading) {
+          return <SkeletonSchema grid={skeletonCount} />;
+        }
+      
+        if (paginatedProducts.length > 0) {
+          return paginatedProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ));
+        }
+      
+        return <p className="col-span-full text-center text-gray-500">No hay Productos</p>;
+      };
+
     return (
         <div id="title" className="max-w-6xl py-4 mx-auto sm:py-16 sm:px-24">
+            {/* Título de categoría */}
             {filteredProducts.length > 0 && !loading && (
-                <h1 className="text-3xl font-medium">{filteredProducts[0]?.category?.categoryName}</h1>
+                <h1 className="text-3xl font-medium">
+                {filteredProducts[0]?.category?.categoryName}
+                </h1>
             )}
             <Separator />
 
-            <div className="flex sm:hidden">
+            {/* Modo móvil */}
+            <div className="flex flex-col mt-4 sm:hidden">
                 <ItemsFilterMobile setFilterType={setFilterType} />
-                <div className="grid gap-5 mt-8 sm:grid-cols-2 md:grid-cols-3 md:gap-10">
-                    {loading && <SkeletonSchema grid={3} />}
-
-                    {paginatedProducts.length > 0 ? (
-                        paginatedProducts.map((product) => (
-                            <ProductCard key={product.id} product={product} />
-                        ))
-                    ) : (
-                        !loading && <p>No hay Productos</p>
-                    )}
+                <div className="flex flex-wrap justify-center gap-4 mt-4">
+                {renderProductList(3)}
                 </div>
             </div>
 
-            <div className="sm:flex sm:justify-between hidden">
-                <FiltersControlsCategory setFilterType={setFilterType} typeFilter={typeFilter}/>
-
-                <div className="grid gap-5 mt-8 sm:grid-cols-2 md:grid-cols-3 md:gap-10">
-                    {loading && <SkeletonSchema grid={6} />}
-
-                    {paginatedProducts.length > 0 ? (
-                        paginatedProducts.map((product) => (
-                            <ProductCard key={product.id} product={product} />
-                        ))
-                    ) : (
-                        !loading && <p>No hay Productos</p>
-                    )}
+            {/* Modo escritorio */}
+            <div className="hidden sm:flex sm:justify-between">
+                <FiltersControlsCategory
+                setFilterType={setFilterType}
+                typeFilter={typeFilter}
+                />
+                <div className="grid gap-5 mt-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
+                {renderProductList(6)}
                 </div>
             </div>
 
             {/* paginación */}
-            <div className="hidden sm:block">
+            <div className="hidden lg:block">
             <PaginationControls page={page} totalFilteredPages={totalFilteredPages} setPage={setPage}/>
             </div>
 
-            <div className="block sm:hidden">
+            <div className="block lg:hidden">
             <PaginationControlsMobile page={page} totalFilteredPages={totalFilteredPages} setPage={setPage} />
             </div>
 
