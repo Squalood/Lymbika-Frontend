@@ -17,4 +17,7 @@ export type DoctorType = {
         surgeryName: string;
         slug: string;
     };
+    about: string;
+    languagesSpoken: string;
+    location: string;
 };
