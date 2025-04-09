@@ -19,7 +19,7 @@ export default function Page (){
     }
 
     return(
-        <div className="max-w-6xl py-4 mx-auto sm:py-32 sm:px-24">
+        <div className="max-w-6xl py-4 mx-auto sm:py-20 sm:px-24">
             <DoctorTop doctor={result[0]}/>
             <Separator/>
             <DoctorAbout doctor={result[0]}/>

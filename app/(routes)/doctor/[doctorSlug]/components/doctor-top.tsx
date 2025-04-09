@@ -1,5 +1,6 @@
+import { Button } from "@/components/ui/button";
 import { DoctorType } from "@/types/doctor"
-import { SquareActivity, Star, Stethoscope } from "lucide-react";
+import { CalendarCheck, SquareActivity, Star, Stethoscope } from "lucide-react";
 
 export type InfoDoctorProps = {
   doctor: DoctorType;
@@ -14,13 +15,14 @@ const DoctorTop = (props: InfoDoctorProps) => {
       : "/placeholder-image.webp";
 
   return (
-    <div className="flex items-start gap-4 p-6">
+    <div className="flex flex-col md:flex-row md:justify-between">
+      <div className="flex items-start gap-4 p-6">
       {/* Imagen del doctor */}
-      <img
-        src={imageUrl}
-        alt={doctor.doctorName}
-        className="w-16 h-16 rounded-full object-cover"
-      />
+        <img
+          src={imageUrl}
+          alt={doctor.doctorName}
+          className="w-16 h-16 rounded-full object-cover"
+        />
 
       {/* Información del doctor */}
       <div>
@@ -50,6 +52,9 @@ const DoctorTop = (props: InfoDoctorProps) => {
           )}
         </div>
       </div>
+      
+    </div>
+      <Button className="mx-auto md:mr-16 w-1/2 md:w-1/4 mb-6 md:mt-auto md:mb-auto" onClick={() => window.open("https://wa.me/526561100446", "_blank")}><CalendarCheck />Solicitar cita</Button>
     </div>
   );
 };
