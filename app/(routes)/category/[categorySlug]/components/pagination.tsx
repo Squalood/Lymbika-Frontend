@@ -48,7 +48,7 @@ import {
             <PaginationEllipsis />
           ) : (
             <PaginationLink
-              href="#"
+              href="#title"
               isActive={page === pageNumber}
               onClick={(e) => {
                 e.preventDefault();
@@ -68,7 +68,7 @@ import {
           {/* Botón Anterior */}
           <PaginationItem>
             <PaginationPrevious
-              href="#"
+              href="#title"
               onClick={(e) => {
                 e.preventDefault();
                 if (page > 1) setPage(page - 1);
@@ -83,7 +83,7 @@ import {
           {/* Botón Siguiente */}
           <PaginationItem>
             <PaginationNext
-              href="#"
+              href="#title"
               onClick={(e) => {
                 e.preventDefault();
                 if (page < totalFilteredPages) setPage(page + 1);

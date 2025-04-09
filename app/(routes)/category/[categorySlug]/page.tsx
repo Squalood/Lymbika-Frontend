@@ -45,7 +45,7 @@ export default function Page() {
     const paginatedProducts = filteredProducts.slice((page - 1) * productsPerPage, page * productsPerPage);
 
     return (
-        <div className="max-w-6xl py-4 mx-auto sm:py-16 sm:px-24">
+        <div id="title" className="max-w-6xl py-4 mx-auto sm:py-16 sm:px-24">
             {filteredProducts.length > 0 && !loading && (
                 <h1 className="text-3xl font-medium">{filteredProducts[0]?.category?.categoryName}</h1>
             )}
@@ -84,7 +84,7 @@ export default function Page() {
 
             {/* paginación */}
             <div className="hidden sm:block">
-            <PaginationControls page={page} totalFilteredPages={totalFilteredPages} setPage={setPage} />
+            <PaginationControls page={page} totalFilteredPages={totalFilteredPages} setPage={setPage}/>
             </div>
 
             <div className="block sm:hidden">

@@ -9,10 +9,7 @@ export type InfoDoctorProps = {
 const DoctorTop = (props: InfoDoctorProps) => {
   const { doctor } = props;
 
-  const imageUrl =
-    doctor.image && doctor.image.length > 0
-      ? doctor.image[0].url
-      : "/placeholder-image.webp";
+  const imageUrl = doctor.image && doctor.image.length > 0 ? doctor.image[0].url : "/placeholder-image.webp";
 
   return (
     <div className="flex flex-col md:flex-row md:justify-between">
