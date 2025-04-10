@@ -20,4 +20,8 @@ export type DoctorType = {
     about: string;
     languagesSpoken: string;
     location: string;
+    bannerImage: {
+        url: string;
+    };
+    priceCon: number;
 };
