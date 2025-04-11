@@ -9,8 +9,8 @@ import {
   Hospital,
   PillBottle,
   UsersRound,
+  SquareActivity,
 } from "lucide-react"
-//import Link from "next/link";
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -52,6 +52,20 @@ const ItemsMenuMobile = () => {
           <DropdownMenuItem onClick={()=> router.push("/membership")}>
             <span>MediClub</span>
           </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuLabel className="flex flex-row"><SquareActivity className="mr-2"/>Programas</DropdownMenuLabel>
+            <DropdownMenuItem className="flex" onClick={()=> router.push("/membership")}>
+              <span>Control de Peso Integral</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="flex" onClick={()=> router.push("/membership")}>
+              <span>Agente Médico</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="flex" onClick={()=> router.push("/membership")}>
+              <span>Salud Hormonal</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="flex" onClick={()=> router.push("/membership")}>
+              <span>Medicina Estética</span>
+            </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuLabel className="flex flex-row"><PillBottle className="mr-2"/>Farmacia</DropdownMenuLabel>
           {!loading && Array.isArray(result) && result.length > 0 && result.map((category: CategoryType) => (

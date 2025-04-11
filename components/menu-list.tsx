@@ -26,7 +26,8 @@ const MenuList = () => {
   const navStyle = pathname === "/" ? "" : "text-black"
 
   if (loading) {
-    return <div className="grid grid-cols-3 gap-4">
+    return <div className="grid grid-cols-4 gap-4">
+            <Skeleton className=" w-[100px] h-[20px] rounded-full" />
             <Skeleton className=" w-[100px] h-[20px] rounded-full" />
             <Skeleton className=" w-[100px] h-[20px] rounded-full" />
             <Skeleton className=" w-[100px] h-[20px] rounded-full" />
@@ -40,8 +41,8 @@ const MenuList = () => {
         <NavigationMenuItem>
           <NavigationMenuTrigger className={navStyle}>Sobre Nosotros</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-              <li className="row-span-3">
+            <ul className="grid gap-2 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+              <li className="row-span-4">
                 <NavigationMenuLink asChild>
                   <Link
                     className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
@@ -69,9 +70,44 @@ const MenuList = () => {
               <ListItem href="/service" title="Cirugías y Procedimientos">
                 Tratamientos y servicios con doctores especializados.
               </ListItem>
+              <ListItem href="/service" title="Consultas"> 
+                ........ 
+              </ListItem>
               <ListItem href="/membership" title="Planes y Membresíass">
                 Con nuestra membresía MediClub, accede a medicamentos y productos de la salud a precio de proveedor. 
               </ListItem>
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+
+        <NavigationMenuItem>
+          <NavigationMenuTrigger className={navStyle}>Programas</NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className="grid w-[400px] gap-3 p-4 md:w-[300px] md:grid-cols">         
+                <ListItem
+                  title="Control de Peso Integral" //kkk
+                  href="/"
+                >
+                  Mejoramos tu salud desde el metabolismo.
+                </ListItem>
+                <ListItem
+                  title="Cirugía Asistida por Agente Médico" //
+                  href="/"
+                >
+                  Cirugías seguras, acompañadas de principio a fin.
+                </ListItem>
+                <ListItem
+                  title="Salud Hormonal y Menopausia Activa" //
+                  href="/"
+                >
+                  Bienestar femenino para una nueva etapa.
+                </ListItem>
+                <ListItem
+                  title="Medicina Estética Avanzada" //
+                  href="/"
+                >
+                  Tratamientos seguros para verte y sentirte mejor.
+                </ListItem>
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
