@@ -67,11 +67,11 @@ const MenuList = () => {
               <ListItem href="/shop" title="Farmacia y Tienda">
                 Accede a nuestros artículos
               </ListItem>
-              <ListItem href="/service" title="Cirugías y Procedimientos">
+              <ListItem href="/service" title="Especialidades Medicas">
                 Tratamientos y servicios con doctores especializados.
               </ListItem>
-              <ListItem href="/service" title="Consultas"> 
-                ........ 
+              <ListItem href="/surgery" title="Especialidades quirúrgicas"> 
+              Tratamiento de enfermedades o condiciones a través de procedimientos quirúrgicos.
               </ListItem>
               <ListItem href="/membership" title="Planes y Membresíass">
                 Con nuestra membresía MediClub, accede a medicamentos y productos de la salud a precio de proveedor. 
@@ -111,6 +111,7 @@ const MenuList = () => {
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
+        
 
         <NavigationMenuItem>
           <NavigationMenuTrigger className={navStyle}>Farmacia</NavigationMenuTrigger>
