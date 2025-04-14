@@ -6,6 +6,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import Link from "next/link";
 import Image from "next/image";
 import { ServiceType } from "@/types/service";
+import es from "@/locals/es.json";
 
 const Specialties= () => {
     const { result: servicesResult, loading: servicesLoading }: ResponseType = useGetServices();
@@ -13,7 +14,7 @@ const Specialties= () => {
     return(  
     
         <div>
-            <h3 className="px-6 pb-4 text-3xl sm:pb-8">Especialidades Médicas</h3>
+            <h3 className="px-6 pb-4 text-3xl sm:pb-8">{es.titleServices}</h3>
 
             {servicesLoading && 
                 <div className="grid grid-cols-3 gap-4">
