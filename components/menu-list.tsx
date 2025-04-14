@@ -67,7 +67,7 @@ const MenuList = () => {
               <ListItem href="/shop" title="Farmacia y Tienda">
                 Accede a nuestros artículos
               </ListItem>
-              <ListItem href="/service" title="Especialidades Medicas">
+              <ListItem href="/service" title="Especialidades Médicas">
                 Tratamientos y servicios con doctores especializados.
               </ListItem>
               <ListItem href="/surgery" title="Especialidades quirúrgicas"> 
@@ -83,7 +83,7 @@ const MenuList = () => {
         <NavigationMenuItem>
           <NavigationMenuTrigger className={navStyle}>Programas</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 md:w-[300px] md:grid-cols">         
+            <ul className="grid gap-3 p-4 md:w-[500px] md:grid-cols justify-center">         
                 <ListItem
                   title="Control de Peso Integral" //kkk
                   href="/"
@@ -129,6 +129,8 @@ const MenuList = () => {
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
+
+        
 
         <NavigationMenuItem >
           <Link href="https://wa.me/526561100446" legacyBehavior passHref>
