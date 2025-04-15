@@ -6,28 +6,29 @@ import { Skeleton } from "@/components/ui/skeleton"
 import Link from "next/link";
 import Image from "next/image";
 import { SugeryType } from "@/types/sugery";
+import es from "@/locals/es.json";
 
 const Surgery = () => {
     const { result: surgeryResult, loading: surgeryLoading }: ResponseType = useGetSugery();
 
     return(  
-    
         <div>
-            
-            <h3 className="px-6 pb-4 text-3xl sm:pb-8">Especialidades quirúrgicas</h3>
-
+            <h3 className="px-6 pb-4 text-3xl sm:pb-8">{es.titlesurgery}</h3>
             {surgeryLoading && 
                 <div className="grid grid-cols-3 gap-4">
-                    <Skeleton className=" w-[250px] h-[250px] rounded-2xl" />
-                    <Skeleton className=" w-[250px] h-[250px] rounded-2xl" />
-                    <Skeleton className=" w-[250px] h-[250px] rounded-2xl" />
+                    <Skeleton className=" w-[250px] h-[200px] rounded-lg" />
+                    <Skeleton className=" w-[250px] h-[200px] rounded-lg" />
+                    <Skeleton className=" w-[250px] h-[200px] rounded-lg" />
+                    <Skeleton className=" w-[250px] h-[200px] rounded-lg" />
+                    <Skeleton className=" w-[250px] h-[200px] rounded-lg" />
+                    <Skeleton className=" w-[250px] h-[200px] rounded-lg" />
                 </div>
             }
             <div className="grid gap-5 sm:grid-cols-3">
             {!surgeryLoading && surgeryResult?.map((sugery: SugeryType) => (
                 <Link 
                     key={sugery.id} 
-                    href={`/surgery/${sugery.slug}`}
+                    href={`/doctor-catalog/${sugery.slug}`}
                     className="relative max-w-xs mx-auto overflow-hidden bg-no-repeat bg-cover rounded-lg"
                 >
                     {sugery.image?.url ? (

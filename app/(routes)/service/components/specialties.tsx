@@ -28,7 +28,7 @@ const Specialties= () => {
                 {!servicesLoading && servicesResult?.map((service: ServiceType) => (
                     <Link 
                         key={service.id} 
-                        href={`/service/${service.slug}`}
+                        href={`/doctor-catalog/${service.slug}`}
                         className="relative max-w-xs mx-auto overflow-hidden bg-no-repeat bg-cover rounded-lg"
                     >
                         {service.image?.url ? (

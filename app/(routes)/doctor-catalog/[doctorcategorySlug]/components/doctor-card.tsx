@@ -16,16 +16,27 @@ const CardDoctor = ({ doctor }: ProductDoctorProps) => {
         >
             {/* Servicio y cirugía del doctor */}
             <div className="absolute flex flex-col gap-1 px-2 z-[1] top-4 left-2 bg-white bg-opacity-70 p-1 rounded-md">
-                {doctor.service?.serviceName && (
-                    <p className="px-2 py-1 text-xs font-semibold text-gray-700 flex flex-row">
-                        <Stethoscope size={16}/>{doctor.service.serviceName}
-                    </p>
-                )}
-                {doctor.surgery?.surgeryName && (
-                    <p className="px-2 py-1 text-xs font-semibold text-gray-500 flex flex-row">
-                        <SquareActivity size={16}/>{doctor.surgery.surgeryName}
-                    </p>
-                )}
+            {doctor.services?.length > 0 &&
+                doctor.services.map((s) => (
+                <p
+                    key={s.id}
+                    className="px-2 py-1 text-xs font-semibold text-gray-700 flex flex-row items-center gap-1"
+                >
+                    <Stethoscope size={16} />
+                    {s.serviceName}
+                </p>
+                ))}
+
+            {doctor.surgeries?.length > 0 &&
+                doctor.surgeries.map((s) => (
+                <p
+                    key={s.id}
+                    className="px-2 py-1 text-xs font-semibold text-gray-500 flex flex-row items-center gap-1"
+                >
+                    <SquareActivity size={16} />
+                    {s.surgeryName}
+                </p>
+                ))}
             </div>
 
             {/* Carrusel de imágenes */}

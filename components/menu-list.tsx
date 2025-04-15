@@ -83,7 +83,7 @@ const MenuList = () => {
         <NavigationMenuItem>
           <NavigationMenuTrigger className={navStyle}>Programas</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid gap-3 p-4 md:w-[500px] md:grid-cols justify-center">         
+            <ul className="grid gap-3 p-4 md:w-[480px] md:grid-cols justify-center">         
                 <ListItem
                   title="Control de Peso Integral" //kkk
                   href="/"

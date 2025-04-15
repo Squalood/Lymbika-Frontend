@@ -6,35 +6,36 @@ import { Card, CardContent } from "./ui/card";
 import Autoplay from "embla-carousel-autoplay"
 import { ShoppingBag, BadgeCheck, Clock, GraduationCap, Shield } from "lucide-react";
 import React from "react";
+import es from "@/locals/es.json";
 
 export const dataCarouselTop = [
     {
         id: 1,
-        title: "Más del 90% de satisfacción",
+        title: es.autoCarrouselBanner.id1,
         link: "#!",
         icon: <BadgeCheck size={32}/>
     },
     {
         id: 2,
-        title: "Compra tu medicamento a precio de proveedor",
+        title: es.autoCarrouselBanner.id2,
         link: "#!",
         icon: <ShoppingBag size={32}/>, 
     },
     {
         id: 3,
-        title: "No más esperas",
+        title: es.autoCarrouselBanner.id3,
         link: "#!",
         icon: <Clock size={32}/>, 
     },
     {
         id: 4,
-        title: "Especialistas certificados",
+        title: es.autoCarrouselBanner.id4,
         link: "#!",
         icon: <GraduationCap size={32}/>, 
     },
     {
         id: 5,
-        title: "No se requiere aseguranza",
+        title: es.autoCarrouselBanner.id5,
         link: "#!",
         icon: <Shield size={32}/>, 
     },

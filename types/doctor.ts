@@ -3,25 +3,26 @@ export type DoctorType = {
     doctorName: string;
     slug: string;
     image: {
-        id: number;
-        url: string;
+      id: number;
+      url: string;
     }[];
     review: number;
-    service: {
-        id: number;
-        serviceName: string;
-        slug: string;
-    };
-    surgery: {
-        id: number;
-        surgeryName: string;
-        slug: string;
-    };
+    services: {
+      id: number;
+      serviceName: string;
+      slug: string;
+    }[];
+    surgeries: {
+      id: number;
+      surgeryName: string;
+      slug: string;
+    }[];
     about: string;
     languagesSpoken: string;
     location: string;
     bannerImage: {
-        url: string;
+      url: string;
     };
-    priceCon: number;
-};
+    priceCon: number | null;
+  };
+  

@@ -1,24 +1,25 @@
 import { useEffect, useState } from "react";
 
-export function useGetDoctorBySlug(slug:string | string []){
-    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/doctors?filters[slug][$eq]=${slug}&populate=*`
+export function useGetDoctorBySlug(slug: string | string[]) {
+    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/doctors?filters[slug][$eq]=${slug}&populate=*`;
     const [result, setResult] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
 
     useEffect(() => {
-        (async() => {
+        (async () => {
             try {
-                const res = await fetch (url)
-                const json = await res.json()
-                setResult(json.data)
-                setLoading(false)
-            } catch (error: any){
-                setError(error)
-                setLoading(false)
+                const res = await fetch(url);
+                const json = await res.json();
+                
+                setResult(json.data); 
+                setLoading(false);
+            } catch (error: any) {
+                setError(error);
+                setLoading(false);
             }
-        })()
-    }, [url])
+        })();
+    }, [url]);
 
-    return { loading, result, error};
+    return { loading, result, error };
 }
