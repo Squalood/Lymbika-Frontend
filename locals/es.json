@@ -1,5 +1,8 @@
 {
-  "titleServices": "Atención Primaria y Especialidades Médicas",
+  "navbar":{
+    "botton4":"Colaboradores"
+  },
+  "titleServices": "Atención Primaria y Especialidades",
   "titlesurgery": "Cirugías y Procedimientos",
   "autoCarrouselBanner":{
     "id1":"Más del 90% de satisfacción",

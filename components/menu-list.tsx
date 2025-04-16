@@ -134,7 +134,7 @@ const MenuList = () => {
         <NavigationMenuItem>
           <NavigationMenuLink asChild>
             <Link href={`/doctor-catalog/`} className={`${navigationMenuTriggerStyle()} ${navStyle}`}>
-              Nuestros colaboradores
+              {es.navbar.botton4}
             </Link>
           </NavigationMenuLink>
         </NavigationMenuItem>

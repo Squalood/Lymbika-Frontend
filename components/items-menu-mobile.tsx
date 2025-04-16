@@ -26,6 +26,7 @@ import { useRouter } from "next/navigation";
 import { CategoryType } from "@/types/category";
 import { useGetCategories } from "@/api/getProduct";
 import {ResponseType} from '@/types/response';
+import es from "@/locals/es.json";
 
 const ItemsMenuMobile = () => {
   const router = useRouter()
@@ -42,16 +43,20 @@ const ItemsMenuMobile = () => {
           <DropdownMenuItem>
             <Link href="/">Lymbika</Link>
           </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuLabel className="flex flex-row"><Hospital className="mr-2"/>Servicios</DropdownMenuLabel>
-          <DropdownMenuItem className="cursor-pointer" onClick={()=> router.push("/service")}>
-            <span>Servicios medicos y cirugias</span>
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuLabel className="flex flex-row"><SquareAsterisk className="mr-2"/>Membresias</DropdownMenuLabel>
           <DropdownMenuItem onClick={()=> router.push("/membership")}>
-            <span>MediClub</span>
+            <span>Membresías</span>
           </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuLabel className="flex flex-row"><Hospital className="mr-2"/>Doctores</DropdownMenuLabel>
+            <DropdownMenuItem className="cursor-pointer" onClick={()=> router.push("/doctor-catalog")}>
+              <span>{es.navbar.botton4}</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer" onClick={()=> router.push("/service")}>
+              <span>{es.titleServices}</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer" onClick={()=> router.push("/surgery")}>
+              <span>{es.titlesurgery}</span>
+            </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuLabel className="flex flex-row"><SquareActivity className="mr-2"/>Programas</DropdownMenuLabel>
             <DropdownMenuItem className="flex" onClick={()=> router.push("/membership")}>
@@ -73,10 +78,6 @@ const ItemsMenuMobile = () => {
               <p>{category.categoryName}</p>
             </DropdownMenuItem>
           ))}
-          <DropdownMenuSeparator />
-          <DropdownMenuItem>
-            <Link className="flex flex-row" href={"https://wa.me/526561100446"}><Phone className="mr-2"/>Solicitar Cita </Link>
-          </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
