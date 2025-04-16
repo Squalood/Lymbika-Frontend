@@ -18,6 +18,7 @@ import { useGetCategories } from "@/api/getProduct"
 import { Skeleton } from "./ui/skeleton"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
+import es from "@/locals/es.json";
 
 const MenuList = () => {
   const { loading, result,}:ResponseType = useGetCategories(); // Usamos la función para obtener las categorías
@@ -67,10 +68,10 @@ const MenuList = () => {
               <ListItem href="/shop" title="Farmacia y Tienda">
                 Accede a nuestros artículos
               </ListItem>
-              <ListItem href="/service" title="Especialidades Médicas">
+              <ListItem href="/service" title={es.titleServices}>
                 Tratamientos y servicios con doctores especializados.
               </ListItem>
-              <ListItem href="/surgery" title="Especialidades quirúrgicas"> 
+              <ListItem href="/surgery" title= {es.titlesurgery}> 
               Tratamiento de enfermedades o condiciones a través de procedimientos quirúrgicos.
               </ListItem>
               <ListItem href="/membership" title="Planes y Membresíass">
@@ -130,14 +131,12 @@ const MenuList = () => {
           </NavigationMenuContent>
         </NavigationMenuItem>
 
-        
-
-        <NavigationMenuItem >
-          <Link href="https://wa.me/526561100446" legacyBehavior passHref>
-            <NavigationMenuLink className={`${navigationMenuTriggerStyle()} ${navStyle}`}>
-              Solicitar cita 
-            </NavigationMenuLink>
-          </Link>
+        <NavigationMenuItem>
+          <NavigationMenuLink asChild>
+            <Link href={`/doctor-catalog/`} className={`${navigationMenuTriggerStyle()} ${navStyle}`}>
+              Nuestros colaboradores
+            </Link>
+          </NavigationMenuLink>
         </NavigationMenuItem>
 
       </NavigationMenuList>
@@ -154,7 +153,7 @@ const ListItem = React.forwardRef<
   return (
     <li>
       <NavigationMenuLink asChild>
-        <a
+        <a 
           ref={ref}
           className={cn(
             "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",

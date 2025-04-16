@@ -12,7 +12,6 @@ const Specialties= () => {
     const { result: servicesResult, loading: servicesLoading }: ResponseType = useGetServices();
 
     return(  
-    
         <div>
             <h3 className="px-6 pb-4 text-3xl sm:pb-8">{es.titleServices}</h3>
 
@@ -28,7 +27,7 @@ const Specialties= () => {
                 {!servicesLoading && servicesResult?.map((service: ServiceType) => (
                     <Link 
                         key={service.id} 
-                        href={`/doctor-catalog/${service.slug}`}
+                        href={`/service/${service.slug}`}
                         className="relative max-w-xs mx-auto overflow-hidden bg-no-repeat bg-cover rounded-lg"
                     >
                         {service.image?.url ? (

@@ -28,7 +28,7 @@ const Surgery = () => {
             {!surgeryLoading && surgeryResult?.map((sugery: SugeryType) => (
                 <Link 
                     key={sugery.id} 
-                    href={`/doctor-catalog/${sugery.slug}`}
+                    href={`/surgery/${sugery.slug}`}
                     className="relative max-w-xs mx-auto overflow-hidden bg-no-repeat bg-cover rounded-lg"
                 >
                     {sugery.image?.url ? (

@@ -3,8 +3,8 @@ import { DoctorType } from "@/types/doctor";
 
 export function useGetServiceDoctor(slug: string) {
     const url = slug 
-        ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/doctors?populate=*&filters[service][slug][$eq]=${slug}`
-        : `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/doctors?populate=*`; // Si no hay slug, trae todos
+        ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/doctors?populate=*&filters[$or][0][services][slug][$eq]=${slug}&filters[$or][1][surgeries][slug][$eq]=${slug}`
+        : `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/doctors?populate=*`;
 
     const [result, setResult] = useState<DoctorType[]>([]);
     const [loading, setLoading] = useState(true);

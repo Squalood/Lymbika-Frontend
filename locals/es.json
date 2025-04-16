@@ -1,11 +1,15 @@
 {
-  "titleServices": "Especialidades Médicas",
-  "titlesurgery": "Especialidades Quirúrgicas",
+  "titleServices": "Atención Primaria y Especialidades Médicas",
+  "titlesurgery": "Cirugías y Procedimientos",
   "autoCarrouselBanner":{
     "id1":"Más del 90% de satisfacción",
     "id2":"Compra tu medicamento a precio de proveedor",
     "id3":"No más esperas",
     "id4":"Especialistas certificados",
     "id5":"No se requiere aseguranza"
+  },
+  "frontpage":{
+    "title": "Lymbika Healthcare",
+    "description": "Bienvenido al futuro del cuidado de tu salud. Conectamos medicina, tecnología y humanidad para que tú y tu familia vivan mejor sin complicaciones, sin esperas, sin límites."
   }
 }
