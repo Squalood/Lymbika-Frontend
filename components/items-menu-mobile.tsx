@@ -4,8 +4,6 @@ import {
   Menu,
   ShoppingCart,
   Heart,
-  Phone,
-  SquareAsterisk,
   Hospital,
   PillBottle,
   UsersRound,
