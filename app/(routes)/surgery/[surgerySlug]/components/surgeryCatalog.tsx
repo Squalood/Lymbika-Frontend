@@ -1,19 +1,18 @@
 "use client";
 
 import { Separator } from "@/components/ui/separator";
-import { ResponseType } from "@/types/response";
 import { useParams } from "next/navigation";
 import SkeletonSchema from "@/components/skeletonSchema";
 import { useEffect, useState } from "react";
 import { DoctorType } from "@/types/doctor";
 import CardDoctor from "./doctor-card";
-import { useGetSurgeryDoctors } from "@/api/getSurgeryDoctors";
+import { useGetDoctorsByCategory } from "@/api/getDoctorsByCategory";
 
 const SurgeryCatalog = () => {
   const params = useParams();
   const categorySlug = typeof params.surgerySlug === "string" ? params.surgerySlug : "";
 
-  const { result, loading, error }: ResponseType = useGetSurgeryDoctors(categorySlug);
+  const { result, loading, error } = useGetDoctorsByCategory(categorySlug, "surgery");
   const [surgeryTitle, setSurgeryTitle] = useState("Cargando...");
 
   // Establecer el título de la cirugía basada en el slug

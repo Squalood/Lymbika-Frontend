@@ -1,19 +1,19 @@
 "use client";
 
 import { Separator } from "@/components/ui/separator";
-import { ResponseType } from "@/types/response";
 import { useParams } from "next/navigation";
 import SkeletonSchema from "@/components/skeletonSchema";
 import { useEffect, useState } from "react";
-import { useGetServiceDoctor } from "@/api/getServiceDoctor";
 import { DoctorType } from "@/types/doctor";
 import CardDoctor from "./doctor-card";
+import { useGetDoctorsByCategory } from "@/api/getDoctorsByCategory";
 
 const ServiceCatalog = () => {
   const params = useParams();
   const categorySlug = typeof params.serviceSlug === "string" ? params.serviceSlug : "";
 
-  const { result, loading, error }: ResponseType = useGetServiceDoctor(categorySlug);
+  const { result, loading, error } = useGetDoctorsByCategory(categorySlug, "service");
+
   const [serviceTitle, setServiceTitle] = useState("Cargando....");
 
   // Establecer el título del servicio basado en el slug
