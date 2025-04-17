@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { DoctorType } from "@/types/doctor";
-import { CalendarCheck, SquareActivity, Star, Stethoscope } from "lucide-react";
+import { CalendarCheck, CheckCircle, SquareActivity, Star, Stethoscope } from "lucide-react";
 import Image from "next/image";
 
 export type InfoDoctorProps = {
@@ -44,9 +44,19 @@ const DoctorTop = (props: InfoDoctorProps) => {
           />
           {/* Información del doctor */}
           <div>
-            <h2 className="text-xl font-semibold text-black">
-              {doctor.doctorName}
-            </h2>
+            <div className="flex flex-col lg:flex-row">
+              <h2 className="text-xl font-semibold text-black">
+                {doctor.doctorName}
+              </h2>
+              {/* Mostrar "Agente Médico" solo si tiene Medicina General */}
+              {doctor.services?.some((s) => s.serviceName === "Medicina General ") && (
+                <p className="ml-3 mx-auto w-40 flex justify-center gap-2 text-xs lg:text-sm font-semibold text-primary bg-blue-100 py-2 px-2 rounded-full">
+                  <CheckCircle size={16} className="text-primary" />
+                  Agente Médico
+                </p>
+              )}
+            </div>
+            
 
             {/* Calificación */}
             <div className="flex items-center text-sm text-gray-600 mt-1">
@@ -78,7 +88,6 @@ const DoctorTop = (props: InfoDoctorProps) => {
                   ))}
                 </div>
               )}
-
             </div>
           </div>
         </div>

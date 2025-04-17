@@ -37,7 +37,6 @@ doctor.image && doctor.image.length > 0
                     <h2 className="text-xl font-semibold text-black">
                     {doctor.doctorName}
                     </h2>
-
                     {/* Calificación */}
                     <div className="flex items-center text-sm text-gray-600 mt-1">
                     <span className="mr-1">

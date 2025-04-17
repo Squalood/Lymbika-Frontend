@@ -45,7 +45,7 @@ const ItemsMenuMobile = () => {
             <span>Membresías</span>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuLabel className="flex flex-row"><Hospital className="mr-2"/>Doctores</DropdownMenuLabel>
+          <DropdownMenuLabel className="flex flex-row"><Hospital className="mr-2"/>Servicios</DropdownMenuLabel>
             <DropdownMenuItem className="cursor-pointer" onClick={()=> router.push("/doctor-catalog")}>
               <span>{es.navbar.botton4}</span>
             </DropdownMenuItem>
