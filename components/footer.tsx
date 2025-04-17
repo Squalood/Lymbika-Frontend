@@ -21,6 +21,11 @@ const dataFooter = [
     },
     {
         id: 4,
+        name: "Colaboradores",
+        link: "/doctor-catalog/"
+    },
+    {
+        id: 5,
         name: "Politica de privacidad",
         link: "#"
     }
