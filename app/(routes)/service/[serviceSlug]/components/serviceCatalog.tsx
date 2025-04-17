@@ -13,7 +13,9 @@ const ServiceCatalog = () => {
   const { result, loading, error } = useGetDoctorsByCategory(categorySlug, "service");
 
   return (
-      <div className="grid gap-5 mt-8 sm:grid-cols-2 md:grid-cols-1 md:gap-10">
+    <div className="max-w-6xl py-4 mx-auto sm:px-32">
+      <h2 className="text-2xl font-medium mb-2">Especialistas</h2>
+      <div className="grid gap-5 mt-8 md:grid-cols-1 md:gap-10">
         {error && <p className="text-red-500">Error al cargar los doctores: {error}</p>}
 
         {loading ? (
@@ -24,6 +26,7 @@ const ServiceCatalog = () => {
           <p className="col-span-full text-center">No hay Doctores Disponibles</p>
         )}
       </div>
+    </div>
   );
 };
 

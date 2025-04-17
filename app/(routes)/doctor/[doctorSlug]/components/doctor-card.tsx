@@ -68,7 +68,6 @@ doctor.image && doctor.image.length > 0
                         ))}
                         </div>
                     )}
-
                     </div>
                 </div>
                 </div>

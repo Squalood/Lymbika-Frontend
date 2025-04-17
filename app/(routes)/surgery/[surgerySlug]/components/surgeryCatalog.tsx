@@ -1,8 +1,6 @@
 "use client";
 
-import { Separator } from "@/components/ui/separator";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
 import { DoctorType } from "@/types/doctor";
 import { useGetDoctorsByCategory } from "@/api/getDoctorsByCategory";
 import CardDoctor from "@/app/(routes)/doctor/[doctorSlug]/components/doctor-card";
@@ -13,28 +11,10 @@ const SurgeryCatalog = () => {
   const categorySlug = typeof params.surgerySlug === "string" ? params.surgerySlug : "";
 
   const { result, loading, error } = useGetDoctorsByCategory(categorySlug, "surgery");
-  const [surgeryTitle, setSurgeryTitle] = useState("Cargando...");
-
-  // Establecer el título de la cirugía basada en el slug
-  useEffect(() => {
-    if (!loading && Array.isArray(result)) {
-      for (const doctor of result as DoctorType[]) {
-        const matchedSurgery = doctor.surgeries?.find((s) => s.slug === categorySlug);
-        if (matchedSurgery) {
-          setSurgeryTitle(matchedSurgery.surgeryName);
-          return;
-        }
-      }
-      // Si no se encontró coincidencia, fallback
-      setSurgeryTitle("Categoría Desconocida");
-    }
-  }, [result, loading, categorySlug]);
 
   return (
-    <div className="max-w-6xl py-4 mx-auto sm:py-16 sm:px-24">
-      <h1 className="text-3xl font-medium mb-4">{surgeryTitle}</h1>
-      <Separator />
-
+    <div className="max-w-6xl py-4 mx-auto sm:px-32">
+      <h2 className="text-2xl font-medium mb-2">Especialistas</h2>
       <div className="grid gap-5 mt-8 sm:grid-cols-2 md:grid-cols-1 md:gap-10">
         {error && <p className="text-red-500">Error al cargar los doctores: {error}</p>}
 

@@ -8,8 +8,7 @@ import ServiceTitle from "./components/serviceTitle";
 export default function Page() {
 
   return (
-    <div className="max-w-6xl py-4 mx-auto sm:py-16 sm:px-24">
-
+    <div className="w-full py-4 mx-auto sm:py-16 sm:px-24">
       <ServiceTitle/>
       <ServiceInfo />
       <Separator />

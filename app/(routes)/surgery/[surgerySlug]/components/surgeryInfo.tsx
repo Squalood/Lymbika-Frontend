@@ -3,29 +3,29 @@
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { ServiceType } from "@/types/service";
-import { useGetServices } from "@/api/getService";
 import SkeletonInfo from "@/components/skeleton/catInfoSkeleton";
+import { useGetSugery } from "@/api/getSugery";
+import { SugeryType } from "@/types/sugery";
 
-const ServiceInfo = () => {
-  const { serviceSlug } = useParams();
-  const { result, loading } = useGetServices();
-  const [service, setService] = useState<ServiceType | null>(null);
+const SurgeryInfo = () => {
+  const { surgerySlug } = useParams();
+  const { result, loading } = useGetSugery();
+  const [surgery, setSurgery] = useState<SugeryType | null>(null);
 
   useEffect(() => {
     if (!loading && Array.isArray(result)) {
       const found = result.find(
-        (s: ServiceType) => s.slug === serviceSlug
+        (s: SugeryType) => s.slug === surgerySlug
       );
-      if (found) setService(found);
+      if (found) setSurgery(found);
     }
-  }, [loading, result, serviceSlug]);
+  }, [loading, result, surgerySlug]);
 
   if (loading) return <SkeletonInfo />;
-  if (!service) return null;
+  if (!surgery) return null;
 
-  const imageUrl = service.image?.url || "/placeholder-image.webp";
-  const description = service.description?.trim();
+  const imageUrl = surgery.image?.url || "/placeholder-image.webp";
+  const description = surgery.description?.trim();
 
   
   return (
@@ -48,7 +48,7 @@ const ServiceInfo = () => {
         <div className="flex-shrink-0 md:w-1/2">
           <Image
             src={imageUrl}
-            alt={service.serviceName}
+            alt={surgery.surgeryName}
             width={800}
             height={800}
             className="object-cover w-full h-auto rounded-xl"
@@ -59,4 +59,4 @@ const ServiceInfo = () => {
   );
 };
 
-export default ServiceInfo;
+export default SurgeryInfo;

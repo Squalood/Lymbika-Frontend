@@ -23,7 +23,9 @@ const ServiceTitle = () => {
   }, [loading, result, serviceSlug]);
 
   return (
-    <h1 className="text-3xl font-medium mb-4">{serviceName}</h1>
+    <div className="max-w-xs md:max-w-4xl mx-auto">
+      <h1 className="text-3xl font-medium mb-4">{serviceName}</h1>
+    </div>
   );
 };
 
