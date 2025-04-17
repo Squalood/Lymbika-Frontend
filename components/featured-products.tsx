@@ -3,7 +3,7 @@
 import { useGetFeaturedProducts } from "@/api/useGetFeaturedProducts";
 import { ResponseType } from "@/types/response";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./ui/carousel";
-import SkeletonSchema from "./skeletonSchema";
+import SkeletonSchema from "./skeleton/skeletonSchema";
 import { ProductType } from "@/types/product";
 import { Card, CardContent } from "./ui/card";
 import { Expand, ShoppingCart } from "lucide-react";

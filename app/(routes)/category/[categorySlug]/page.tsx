@@ -3,7 +3,7 @@ import { useGetCategoryProduct } from "@/api/useCategoryProduct";
 import { Separator } from "@/components/ui/separator";
 import { useParams } from "next/navigation"; 
 import FiltersControlsCategory from "./components/filters-controls-category";
-import SkeletonSchema from "@/components/skeletonSchema";
+import SkeletonSchema from "@/components/skeleton/skeletonSchema";
 import ProductCard from "./components/product-card";
 import { ProductType } from "@/types/product";
 import { useState, useEffect } from "react";

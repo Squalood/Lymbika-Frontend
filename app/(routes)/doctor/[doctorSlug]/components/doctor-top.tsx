@@ -28,17 +28,19 @@ const DoctorTop = (props: InfoDoctorProps) => {
             priority
           />
         ) : (
-          <div className="w-full h-40 sm:h-56 bg-gray-200" />
+          <div />
         )}
       </div>
 
       <div className="flex flex-col md:flex-row md:justify-between">
         <div className="flex items-start gap-4 p-6">
           {/* Imagen del doctor */}
-          <img
-            src={imageUrl}
-            alt={doctor.doctorName}
-            className="w-16 h-16 rounded-full object-cover"
+          <Image
+              src={imageUrl}
+              alt={doctor.doctorName}
+              width={100}
+              height={100}
+              className="w-24 h-24 rounded-full object-cover"
           />
           {/* Información del doctor */}
           <div>
@@ -54,28 +56,29 @@ const DoctorTop = (props: InfoDoctorProps) => {
               <span className="font-semibold text-black">{doctor.review}</span>
             </div>
 
-            {/* Especialidades */}
+            {/* Especialidades y cirujias */}
             <div className="flex flex-col gap-1 text-sm text-gray-500 mt-2">
-              {doctor.services?.length > 0 && (
-                <div className="flex items-center gap-2">
-                  <Stethoscope />
-                  <div className="flex gap-1 flex-wrap">
-                    {doctor.services.map((s) => (
-                      <span key={s.id}>{s.serviceName}</span>
-                    ))}
-                  </div>
+            {doctor.services?.length > 0 && (
+                <div className="flex flex-col gap-1">
+                  {doctor.services.map((s) => (
+                    <div key={s.id} className="flex items-center gap-1 text-gray-500 text-sm">
+                      <Stethoscope className="w-4 h-4" />
+                      <span>{s.serviceName}</span>
+                    </div>
+                  ))}
                 </div>
               )}
               {doctor.surgeries?.length > 0 && (
-                <div className="flex items-center gap-2">
-                  <SquareActivity />
-                  <div className="flex gap-1 flex-wrap">
-                    {doctor.surgeries.map((s) => (
-                      <span key={s.id}>{s.surgeryName}</span>
-                    ))}
-                  </div>
+                <div className="flex flex-col gap-1">
+                  {doctor.surgeries.map((s) => (
+                    <div key={s.id} className="flex items-center gap-1 text-gray-500 text-sm">
+                      <SquareActivity className="w-4 h-4" />
+                      <span>{s.surgeryName}</span>
+                    </div>
+                  ))}
                 </div>
               )}
+
             </div>
           </div>
         </div>

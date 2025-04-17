@@ -2,11 +2,11 @@
 
 import { useGetSugery } from "@/api/getSugery"
 import {ResponseType} from '@/types/response';
-import { Skeleton } from "@/components/ui/skeleton"
 import Link from "next/link";
 import Image from "next/image";
 import { SugeryType } from "@/types/sugery";
 import es from "@/locals/es.json";
+import SkeletonGalleryCol3 from "@/components/skeleton/skeletonGalleryCol3";
 
 const Surgery = () => {
     const { result: surgeryResult, loading: surgeryLoading }: ResponseType = useGetSugery();
@@ -14,16 +14,9 @@ const Surgery = () => {
     return(  
         <div>
             <h3 className="px-6 pb-4 text-3xl sm:pb-8">{es.titlesurgery}</h3>
-            {surgeryLoading && 
-                <div className="grid grid-cols-3 gap-4">
-                    <Skeleton className=" w-[250px] h-[200px] rounded-lg" />
-                    <Skeleton className=" w-[250px] h-[200px] rounded-lg" />
-                    <Skeleton className=" w-[250px] h-[200px] rounded-lg" />
-                    <Skeleton className=" w-[250px] h-[200px] rounded-lg" />
-                    <Skeleton className=" w-[250px] h-[200px] rounded-lg" />
-                    <Skeleton className=" w-[250px] h-[200px] rounded-lg" />
-                </div>
-            }
+            {surgeryLoading ? (
+            <SkeletonGalleryCol3 grid={9}/>
+            ) : (
             <div className="grid gap-5 sm:grid-cols-3">
             {!surgeryLoading && surgeryResult?.map((sugery: SugeryType) => (
                 <Link 
@@ -50,6 +43,7 @@ const Surgery = () => {
                 </Link>
             ))}
             </div>
+            )}
         </div>
     );
 }

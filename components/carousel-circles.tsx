@@ -1,7 +1,7 @@
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./ui/carousel";
 
 import Link from "next/link";
-import SkeletonSchema from "./skeletonSchema";
+import SkeletonSchema from "./skeleton/skeletonSchema";
 import { Card } from "./ui/card";
 import Image from "next/image";
 

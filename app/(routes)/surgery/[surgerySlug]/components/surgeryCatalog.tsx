@@ -2,11 +2,11 @@
 
 import { Separator } from "@/components/ui/separator";
 import { useParams } from "next/navigation";
-import SkeletonSchema from "@/components/skeletonSchema";
 import { useEffect, useState } from "react";
 import { DoctorType } from "@/types/doctor";
-import CardDoctor from "./doctor-card";
 import { useGetDoctorsByCategory } from "@/api/getDoctorsByCategory";
+import CardDoctor from "@/app/(routes)/doctor/[doctorSlug]/components/doctor-card";
+import SkeletonDoctorCard from "@/components/skeleton/doctorCardSkeleton";
 
 const SurgeryCatalog = () => {
   const params = useParams();
@@ -39,7 +39,7 @@ const SurgeryCatalog = () => {
         {error && <p className="text-red-500">Error al cargar los doctores: {error}</p>}
 
         {loading ? (
-          <SkeletonSchema grid={6} />
+          <SkeletonDoctorCard grid={3} />
         ) : Array.isArray(result) && result.length > 0 ? (
           result.map((doctor: DoctorType) => <CardDoctor key={doctor.id} doctor={doctor} />)
         ) : (
