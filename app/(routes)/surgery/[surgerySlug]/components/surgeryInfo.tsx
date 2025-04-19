@@ -27,9 +27,8 @@ const SurgeryInfo = () => {
   const imageUrl = surgery.image?.url || "/placeholder-image.webp";
   const description = surgery.description?.trim();
 
-  
   return (
-    <div className="py-12">
+    <div className="py-12 px-24 bg-muted">
       <div className="mx-auto flex flex-col lg:flex-row items-center justify-evenly gap-8">
         {/* Texto */}
         <div className="max-w-xs md:max-w-xl">
@@ -45,13 +44,13 @@ const SurgeryInfo = () => {
         </div>
 
         {/* Imagen */}
-        <div className="flex-shrink-0 md:w-1/2">
+        <div className="flex-shrink-0 md:max-w-xl">
           <Image
             src={imageUrl}
             alt={surgery.surgeryName}
             width={800}
             height={800}
-            className="object-cover w-full h-auto rounded-xl"
+            className="object-cover rounded-xl"
           />
         </div>
       </div>
