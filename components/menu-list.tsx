@@ -104,7 +104,7 @@ const MenuList = () => {
                   Bienestar femenino para una nueva etapa.
                 </ListItem>
                 <ListItem
-                  title="Medicina Estética Avanzada" //
+                  title={es.navbar.programas["program 4"]}
                   href="/"
                 >
                   Tratamientos seguros para verte y sentirte mejor.

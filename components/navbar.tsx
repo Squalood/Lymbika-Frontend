@@ -33,11 +33,11 @@ interface AuthUserProps {
             <h1 className={`text-3xl ${textColor} cursor-pointer`} onClick={() => router.push("/")}>
                 Lym<span className="font-bold">bika</span>
             </h1>
-            <div className="items-center justify-between hidden sm:flex">
+            <div className="items-center justify-between hidden lg:flex">
                 <MenuList />
             </div>
 
-            <div className="items-center justify-between gap-2 sm:gap-7 hidden sm:flex">
+            <div className="items-center justify-between gap-2 sm:gap-7 hidden lg:flex">
                 {cart.items.length === 0 ? (
                 <ShoppingCart strokeWidth="1" className={`cursor-pointer ${strokeColor}`} onClick={() => router.push("/cart")} />
                 ) : (
@@ -56,7 +56,7 @@ interface AuthUserProps {
 
                 {false && <ToggleTheme />}
             </div>
-            <div className="flex sm:hidden">
+            <div className="flex lg:hidden">
                 <ItemsMenuMobile />
             </div>
         </div>

@@ -6,7 +6,7 @@ import { ServiceType } from "@/types/service";
 import { SugeryType } from "@/types/sugery";
 import CarouselComponent from "./carousel-circles";
 
-const CarouselServices = () => {
+const CarouselServices = () => {  //separar ese componente indicando si es de services o surgeries con interface
     const { result: servicesResult, loading: servicesLoading }: ResponseType = useGetServices();
     const { result: surgeryResult, loading: surgeryLoading }: ResponseType = useGetSugery();
 

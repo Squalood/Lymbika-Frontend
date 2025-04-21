@@ -28,12 +28,12 @@ const ServiceInfo = () => {
   const description = service.description?.trim();
   
   return (
-    <div className="py-12 px-24 bg-muted">
+    <div className="py-12 px-6 md:px-24 bg-muted">
       <div className="mx-auto flex flex-col lg:flex-row items-center justify-evenly gap-8">
         {/* Texto */}
-        <div className="max-w-xs md:max-w-xl">
+        <div className="max-w-xl">
           {description ? (
-              <ul className="list-disc list-inside text-gray-700 text-lg space-y-3">
+              <ul className="list-disc list-inside text-gray-700 text-sm sm:text-base md:text-lg space-y-3">
                 {description.split("\n").map((line, index) => (
                   <li key={index}>{line}</li>
                 ))}

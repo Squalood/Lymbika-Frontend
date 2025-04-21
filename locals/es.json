@@ -1,6 +1,12 @@
 {
   "navbar":{
-    "botton4":"Eres Doctor?"
+    "programas":{
+      "program 1": "Neuroterapia",
+      "program 2": "Neuroterapia",
+      "program 3": "Neuroterapia",
+      "program 4": "Neuroterapia"
+    },
+    "botton4":"Profesionales de Salud"
   },
   "titleServices": "Atención Primaria y Especialidades",
   "titlesurgery": "Cirugías y Procedimientos",
