@@ -11,7 +11,7 @@ const Specialties = () => {
   const { result: servicesResult, loading: servicesLoading }: ResponseType = useGetServices();
 
   // IDs de servicios principales
-  const primaryIds = [109, 114, 119, 123];
+  const primaryIds = [107, 114, 119, 123];
 
   // Separar servicios
     const primaryServices: ServiceType[] =
@@ -26,7 +26,6 @@ const Specialties = () => {
 
   return (
     <div>
-        
       <h3 className="px-6 pb-4 text-3xl sm:pb-8">Atención Primaria</h3>
 
       {servicesLoading ? (
