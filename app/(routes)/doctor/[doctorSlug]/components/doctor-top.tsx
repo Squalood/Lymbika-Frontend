@@ -63,7 +63,7 @@ const DoctorTop = (props: InfoDoctorProps) => {
               <span className="mr-1">
                 <Star color="#e4e802" strokeWidth={2.25} />
               </span>
-              <span className="font-semibold text-black">{doctor.review}</span>
+              <span className="font-semibold text-black">{doctor.review + ".0"}</span>
             </div>
 
             {/* Especialidades y cirujias */}

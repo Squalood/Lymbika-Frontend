@@ -17,6 +17,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import clsx from "clsx";
+import DoctorPrice from "./components/doctor-price";
+import DoctorReviews from "./components/doctor-reviews";
 
 export default function Page() {
   const params = useParams();
@@ -42,7 +44,7 @@ export default function Page() {
 
       {/* Mobile Select */}
       <div className="block lg:hidden max-w-xs mb-6">
-        <Select value={activeTab} onValueChange={(value) => setActiveTab(value as "about" | "calendar")}>
+        <Select value={activeTab} onValueChange={(value) => setActiveTab(value as "about" | "calendar" | "prices")}>
           <SelectTrigger>
             <SelectValue placeholder="Selecciona una opción" />
           </SelectTrigger>
@@ -55,7 +57,7 @@ export default function Page() {
       </div>
 
       {/* Desktop Tabs */}
-      <div className="hidden lg:flex bg-muted p-1 rounded-full w-fit mb-8 gap-1">
+      <div className="hidden lg:flex bg-muted p-1 rounded-full w-fit mb-2 gap-1">
         {[
           { key: "about", label: "Sobre el Doctor" },
           { key: "calendar", label: "Disponibilidad" },
@@ -78,10 +80,12 @@ export default function Page() {
 
     {activeTab === "about" && <DoctorAbout doctor={doctor} />}
     {activeTab === "calendar" && <CalendarAvailability />}
+    {activeTab === "prices" && <DoctorPrice doctor={doctor}/>}
 
     <Separator className="mt-6" />
 
-    <CalendarAvailability />
+    <DoctorReviews average={5} waitingTime={5} recommend={5} bedsideManner={5} visitAgain={5}/>
+
     </div>
   );
 }

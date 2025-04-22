@@ -11,7 +11,7 @@ const Specialties = () => {
   const { result: servicesResult, loading: servicesLoading }: ResponseType = useGetServices();
 
   // IDs de servicios principales
-  const primaryIds = [107, 114, 119, 123];
+  const primaryIds = [107, 114, 119, 123, 128];
 
   // Separar servicios
     const primaryServices: ServiceType[] =
@@ -24,12 +24,14 @@ const Specialties = () => {
     !primaryIds.includes(Number(service.id))
     ) || [];
 
+    //console.log("Todos los servicios:", servicesResult);
+
   return (
     <div>
       <h3 className="px-6 pb-4 text-3xl sm:pb-8">Atención Primaria</h3>
 
       {servicesLoading ? (
-        <SkeletonGalleryCol3 grid={4} />
+        <SkeletonGalleryCol3 grid={5} />
       ) : (
         <div className="grid gap-5 sm:grid-cols-3 grid-cols">
           {primaryServices.map((service) => (

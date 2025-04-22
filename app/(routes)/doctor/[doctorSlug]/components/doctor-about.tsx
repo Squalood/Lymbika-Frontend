@@ -8,9 +8,7 @@ const DoctorAbout = (props: InfoDoctorProps) => {
   const { doctor } = props;
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl mb-6">Acerca de</h1>
-
+    <div className="p-4">
       {/* Descripción larga */}
       <div className="space-y-4 mb-6">
         <p className="text-sm leading-relaxed">
