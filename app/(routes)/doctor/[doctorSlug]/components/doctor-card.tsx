@@ -34,7 +34,7 @@ const CardDoctor = ({ doctor }: ProductDoctorProps) => {
             <h2 className="text-xl font-semibold text-black">{doctor.doctorName}</h2>
             <div className="flex items-center text-sm text-gray-600 mt-1">
               <Star color="#e4e802" strokeWidth={2.25} className="mr-1" />
-              <span className="font-semibold text-black">{doctor.review}</span>
+              <span className="font-semibold text-black">{doctor.review + ".0"}</span>
             </div>
           </div>
         </CardHeader>

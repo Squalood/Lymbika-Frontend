@@ -57,7 +57,6 @@ const DoctorTop = (props: InfoDoctorProps) => {
               )}
             </div>
             
-
             {/* Calificación */}
             <div className="flex items-center text-sm text-gray-600 mt-1">
               <span className="mr-1">
