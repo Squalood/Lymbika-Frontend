@@ -34,16 +34,11 @@ const NeuroterapiaPage = () => {
                 src="/images/neurotherapy-front.png" 
                 alt="Neuroterapia"
                 fill
-                priority
                 className="object-cover grayscale brightness-90"
             />
 
-            {/* Capa oscura sutil */}
-            <div className="absolute inset-0 bg-black/30 z-10" />
-
             {/* Contenido centrado */}
-            <div className="absolute z-20 inset-0 flex flex-col items-center justify-center text-center px-6 text-white">
-                {/* Ícono de rayos (puedes personalizar esto con SVG o un componente de ícono) */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 text-white">
                 <div className="mb-2">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -100,7 +95,6 @@ const NeuroterapiaPage = () => {
                     alt="Smiling woman"
                     fill
                     className="object-cover"
-                    priority
                 />
                 </div>
             </div>
