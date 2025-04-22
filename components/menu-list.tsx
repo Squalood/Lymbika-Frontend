@@ -105,7 +105,7 @@ const MenuList = () => {
                 </ListItem>
                 <ListItem
                   title={es.navbar.programas["program 4"]}
-                  href="/"
+                  href="/neurotherapy"
                 >
                   Tratamientos seguros para verte y sentirte mejor.
                 </ListItem>
