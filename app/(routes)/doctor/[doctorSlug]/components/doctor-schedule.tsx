@@ -39,7 +39,7 @@ const CalendarAvailability = () => {
   };
 
   return (
-    <div className="bg-white p-4 rounded-md shadow-md">
+    <div className="bg-white p-4">
       {/* Navigation */}
       <div className="flex justify-between items-center mb-4">
         <button onClick={handlePrev} disabled={!canGoBack} className={canGoBack ? "" : "opacity-30 cursor-not-allowed"}>
@@ -54,7 +54,7 @@ const CalendarAvailability = () => {
       </div>
 
       {/* Grid */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols sm:grid-cols-3 gap-4">
         {days.map((day, i) => {
           const isExpanded = expandedDayIndex === i;
           const hoursToShow = isExpanded ? fullHours : fullHours.slice(0, 8);
@@ -65,7 +65,7 @@ const CalendarAvailability = () => {
                 {format(day, "EEE, MMM d")}
               </h4>
 
-              <div className="flex flex-col items-center gap-2">
+              <div className="grid grid-cols-3 sm:grid-cols-1 items-center gap-2">
                 {hoursToShow.map((hour, j) => {
                   const fullDate = `${format(day, "yyyy-MM-dd")} ${hour}`;
                   return (

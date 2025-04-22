@@ -43,7 +43,7 @@ export default function Page() {
       <Separator className="my-6" />
 
       {/* Mobile Select */}
-      <div className="block lg:hidden max-w-xs mb-6">
+      <div className="block lg:hidden max-w-48 mb-6 ml-2">
         <Select value={activeTab} onValueChange={(value) => setActiveTab(value as "about" | "calendar" | "prices")}>
           <SelectTrigger>
             <SelectValue placeholder="Selecciona una opción" />
