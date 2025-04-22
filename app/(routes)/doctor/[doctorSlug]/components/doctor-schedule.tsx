@@ -60,7 +60,7 @@ const CalendarAvailability = () => {
           const hoursToShow = isExpanded ? fullHours : fullHours.slice(0, 8);
 
           return (
-            <div key={i} className="border-r last:border-r-0 pr-3">
+            <div key={i}>
               <h4 className="text-center font-semibold text-gray-700 mb-2">
                 {format(day, "EEE, MMM d")}
               </h4>
