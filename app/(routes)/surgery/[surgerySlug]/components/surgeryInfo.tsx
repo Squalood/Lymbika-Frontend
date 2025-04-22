@@ -6,6 +6,8 @@ import Image from "next/image";
 import SkeletonInfo from "@/components/skeleton/catInfoSkeleton";
 import { useGetSugery } from "@/api/getSugery";
 import { SugeryType } from "@/types/sugery";
+import { Button } from "@/components/ui/button";
+import { Stethoscope } from "lucide-react";
 
 const SurgeryInfo = () => {
   const { surgerySlug } = useParams();
@@ -41,7 +43,14 @@ const SurgeryInfo = () => {
             ) : (
               <p className="text-gray-500 italic">Descripción no disponible.</p>
             )}
+            <div className="mt-6 flex justify-center">
+              <Button variant="outline" onClick={() => window.open("https://wa.me/526561100446", "_blank")}>
+                <Stethoscope />Solicitar Agente Medico
+              </Button>
+            </div>
         </div>
+
+        
 
         {/* Imagen */}
         <div className="flex-shrink-0 md:max-w-xl">
