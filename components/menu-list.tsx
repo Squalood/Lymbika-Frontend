@@ -133,7 +133,7 @@ const MenuList = () => {
 
         <NavigationMenuItem>
           <NavigationMenuLink asChild>
-            <Link href={`/neurotherapy/`} className={`${navigationMenuTriggerStyle()} ${navStyle}`}>
+            <Link href={`/healthHubs/`} className={`${navigationMenuTriggerStyle()} ${navStyle}`}>
               {es.navbar.botton4}
             </Link>
           </NavigationMenuLink>

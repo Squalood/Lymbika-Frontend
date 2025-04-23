@@ -1,14 +1,16 @@
 "use client";
 import es from "@/locals/es.json";
+import Image from "next/image";
 
 const FrontPage = () => {
     return (
         <div className="relative rounded-br-[5rem] bg-primary px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 overflow-hidden lg:py-[18rem] py-48 flex items-center">
             {/* Imagen de fondo */}
             <div className="absolute inset-0 z-0">
-                <img 
+                <Image 
                     src="/front-page.jpg" 
                     alt="imagen" 
+                    fill
                     className="w-full h-full object-cover opacity-25"
                 />
             </div>
