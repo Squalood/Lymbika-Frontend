@@ -20,5 +20,30 @@
   "frontpage":{
     "title": "Lymbika Healthcare",
     "description": "Bienvenido al futuro del cuidado de tu salud. Conectamos medicina, tecnología y humanidad para que tú y tu familia vivan mejor sin complicaciones, sin esperas, sin límites."
+  },
+  "NeuroterapiaPage":{
+    "section1":{
+      "title": "NEUROTERAPIA",
+      "description": "TERAPIA TRANSCRANEAL ELECTROMAGNÉTICA"
+    },
+    "section2":{
+      "title": "Controla lo incontrolable",
+      "description": "La estimulación magnética transcraneal (rTMS) permite regular la actividad cerebral sin medicamentos. Es una terapia eficaz en casos de ansiedad resistente, secuelas neurológicas y trastornos cognitivos funcionales, con mejoras visibles desde las primeras sesiones."
+    },
+    "section3":{
+      "title": "Servicios Ofrecidos",
+      "item1": {
+        "title": "🧘‍♀️ Ansiedad y Depresión",
+        "description": "Trastorno de ansiedad generalizada y depresión mayor, resistentes a tratamiento farmacológico."
+      },
+      "item2": {
+        "title": "🧠 Secuelas Neurológicas Post-EVC",
+        "description": "Secuelas motoras y cognitivas tras evento vascular cerebral (EVC), con activación de neuroplasticidad y recuperación funcional."
+      },
+      "item3": {
+        "title": "🧩 Trastornos Ejecutivos",
+        "description": "Disfunciones cognitivas como lentitud mental, desregulación emocional y fatiga cerebral."
+      }
+    }
   }
 }

@@ -3,27 +3,28 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
+import es from "@/locals/es.json";
 
-    const services = [
-      {
-        title: "Horizon Scanning and Foresight",
-        image: "/images/neuro-1.jpg",
-        alt: "Horizon Scanning",
-        description: "Looking ahead and using the power of foresight for future-readiness",
-      },
-      {
-        title: "Strategic Insight and Innovation",
-        image: "/images/neuro-2.jpg",
-        alt: "Strategic Insight",
-        description: "Analysing data to create a sustainable way forward",
-      },
-      {
-        title: "Participatory Planning",
-        image: "/images/neuro-3.jpg",
-        alt: "Participatory Planning",
-        description: "Collaborating with stakeholders for better impact",
-      },
-    ];
+const services = [
+    {
+    title: es.NeuroterapiaPage.section3.item1.title,
+    image: "/images/neuro-4.jpg",
+    alt: "Horizon Scanning",
+    description: es.NeuroterapiaPage.section3.item1.description,
+    },
+    {
+    title: es.NeuroterapiaPage.section3.item2.title,
+    image: "/images/neuro-5.jpg",
+    alt: "Strategic Insight",
+    description: es.NeuroterapiaPage.section3.item3.description,
+    },
+    {
+    title: es.NeuroterapiaPage.section3.item3.title,
+    image: "/images/neuro-6.jpg",
+    alt: "Participatory Planning",
+    description: es.NeuroterapiaPage.section3.item3.description,
+    },
+];
 
 const NeuroterapiaPage = () => {
   return (
@@ -53,12 +54,12 @@ const NeuroterapiaPage = () => {
 
                 {/* Título principal */}
                 <h1 className="text-5xl md:text-7xl font-light tracking-wider mb-3">
-                <span className="font-serif">NEUROTERAPIA</span>
+                <span className="font-serif">{es.NeuroterapiaPage.section1.title}</span>
                 </h1>
 
                 {/* Subtítulo */}
                 <p className="text-xl md:text-2xl tracking-wide font-light mb-10">
-                TERAPIA TRANSCRANEAL ELECTROMAGNÉTICA
+                    {es.NeuroterapiaPage.section1.description}
                 </p>
 
                 {/* Botón */}
@@ -78,12 +79,10 @@ const NeuroterapiaPage = () => {
             {/* Texto */}
             <div className="flex-1 text-center md:text-left">
                 <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-                Get <span className="text-teal-500">future-ready</span>
+                <span className="text-teal-500">{es.NeuroterapiaPage.section2.title}</span>
                 </h2>
                 <p className="text-lg text-gray-700 leading-relaxed">
-                Change is on the horizon and everyone needs to adapt to this fast-paced world. With over 15 years in consultancy, I have
-                helped businesses of all kinds thrive amid change, through strategic innovation and bold vision. Work with me and get
-                future-ready!
+                    {es.NeuroterapiaPage.section2.description}
                 </p>
             </div>
 
@@ -107,7 +106,7 @@ const NeuroterapiaPage = () => {
                 {/* Título */}
                 <div className="flex justify-center items-center mb-12">
                 <div className="w-12 h-1 bg-gray-700"></div>
-                <h2 className="text-3xl font-bold mx-4 text-dark-gray">Services Offered</h2>
+                <h2 className="text-3xl font-bold mx-4 text-dark-gray">{es.NeuroterapiaPage.section3.title}</h2>
                 <div className="w-12 h-1 bg-gray-700"></div>
                 </div>
 
@@ -115,7 +114,7 @@ const NeuroterapiaPage = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                 {services.map((service, index) => (
                     <div key={index} className="text-center">
-                    <div className="w-48 h-48 mx-auto mb-6 relative rounded-full overflow-hidden shadow-lg grayscale">
+                    <div className="w-48 h-48 mx-auto mb-6 relative rounded-full overflow-hidden shadow-lg">
                         <Image
                         src={service.image}
                         alt={service.alt}
