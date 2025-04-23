@@ -2,29 +2,29 @@
 
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useGetDoctorsByCategory } from "@/api/getDoctorsByCategory";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useGetSugery } from "@/api/getSugery";
+import { SugeryType } from "@/types/sugery";
 
 const SurgeryTitle = () => {
   const { surgerySlug } = useParams() as { surgerySlug: string };
-  const { result, loading } = useGetDoctorsByCategory(surgerySlug, "surgery");
-
-  const [surgeryTitle, setSurgeryTitle] = useState("Cargando...");
+  const { result, loading } = useGetSugery();
+  const [surgery, setSurgery] = useState<SugeryType | null>(null);
 
   useEffect(() => {
     if (!loading && Array.isArray(result)) {
-      for (const doctor of result) {
-        const matched = doctor.surgeries?.find((s) => s.slug === surgerySlug);
-        if (matched) {
-            setSurgeryTitle(matched.surgeryName);
-          break;
-        }
-      }
+      const found = result.find((s: SugeryType) => s.slug === surgerySlug);
+      if (found) setSurgery(found);
     }
   }, [loading, result, surgerySlug]);
 
   return (
     <div className="max-w-xs md:max-w-4xl mx-auto">
-      <h1 className="text-3xl font-medium mb-4">{surgeryTitle}</h1>
+      {loading || !surgery ? (
+        <Skeleton className="h-10 w-64" />
+      ) : (
+        <h1 className="text-3xl font-medium mb-4">{surgery.surgeryName}</h1>
+      )}
     </div>
   );
 };

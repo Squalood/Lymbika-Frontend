@@ -2,29 +2,29 @@
 
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useGetDoctorsByCategory } from "@/api/getDoctorsByCategory";
+import { useGetServices } from "@/api/getService";
+import { ServiceType } from "@/types/service";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const ServiceTitle = () => {
   const { serviceSlug } = useParams() as { serviceSlug: string };
-  const { result, loading } = useGetDoctorsByCategory(serviceSlug, "service");
-
-  const [serviceName, setServiceName] = useState("Cargando...");
+  const { result, loading } = useGetServices();
+  const [service, setService] = useState<ServiceType | null>(null);
 
   useEffect(() => {
     if (!loading && Array.isArray(result)) {
-      for (const doctor of result) {
-        const matched = doctor.services?.find((s) => s.slug === serviceSlug);
-        if (matched) {
-          setServiceName(matched.serviceName);
-          break;
-        }
-      }
+      const found = result.find((s: ServiceType) => s.slug === serviceSlug);
+      if (found) setService(found);
     }
   }, [loading, result, serviceSlug]);
 
   return (
     <div className="max-w-xs md:max-w-4xl mx-auto">
-      <h1 className="text-3xl font-medium mb-4">{serviceName}</h1>
+      {loading || !service ? (
+        <Skeleton className="h-10 w-64" />
+      ) : (
+        <h1 className="text-3xl font-medium mb-4">{service.serviceName}</h1>
+      )}
     </div>
   );
 };
