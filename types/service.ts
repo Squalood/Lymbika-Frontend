@@ -6,4 +6,5 @@ export type ServiceType = {
         url: string;
     };
     description: string;
+    atePrimary: boolean;
 };

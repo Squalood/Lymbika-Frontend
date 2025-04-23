@@ -10,28 +10,20 @@ import SkeletonGalleryCol3 from "@/components/skeleton/skeletonGalleryCol3";
 const Specialties = () => {
   const { result: servicesResult, loading: servicesLoading }: ResponseType = useGetServices();
 
-  // IDs de servicios principales
-  const primaryIds = [107, 114, 119, 123, 128];
+  // Separar servicios según atePrimary
+  const primaryServices: ServiceType[] =
+    servicesResult?.filter((service: ServiceType) => service.atePrimary) || [];
 
-  // Separar servicios
-    const primaryServices: ServiceType[] =
-    servicesResult?.filter((service: ServiceType) =>
-    primaryIds.includes(Number(service.id))
-    ) || [];
+  const specialtyServices: ServiceType[] =
+    servicesResult?.filter((service: ServiceType) => !service.atePrimary) || [];
 
-    const specialtyServices: ServiceType[] =
-    servicesResult?.filter((service: ServiceType) =>
-    !primaryIds.includes(Number(service.id))
-    ) || [];
-
-    //console.log("Todos los servicios:", servicesResult);
+  //console.log("Todos los servicios:", primaryServices.length);
 
   return (
     <div>
       <h3 className="px-6 pb-4 text-3xl sm:pb-8">Atención Primaria</h3>
 
-      {servicesLoading ? (
-        <SkeletonGalleryCol3 grid={5} />
+      {servicesLoading ? (<SkeletonGalleryCol3 grid={6} />
       ) : (
         <div className="grid gap-5 sm:grid-cols-3 grid-cols">
           {primaryServices.map((service) => (
@@ -42,8 +34,7 @@ const Specialties = () => {
 
       <h3 className="px-6 pt-10 pb-4 text-3xl sm:pb-8">Especialidades Médicas</h3>
 
-      {servicesLoading ? (
-        <SkeletonGalleryCol3 grid={14} />
+      {servicesLoading ? (<SkeletonGalleryCol3 grid={14} />
       ) : (
         <div className="grid gap-5 sm:grid-cols-3 grid-cols">
           {specialtyServices.map((service) => (
