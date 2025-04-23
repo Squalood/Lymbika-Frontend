@@ -48,8 +48,8 @@ import {
             <PaginationEllipsis />
           ) : (
             <PaginationLink
-              href="#title"
               isActive={page === pageNumber}
+              className="min-w-9 text-sm"
               onClick={(e) => {
                 e.preventDefault();
                 setPage(pageNumber);
@@ -63,17 +63,16 @@ import {
     };
   
     return (
-      <Pagination className="mt-6">
-        <PaginationContent>
+      <Pagination className="mt-6 justify-center">
+        <PaginationContent className="flex flex-wrap justify-center gap-2 sm:gap-4">
           {/* Botón Anterior */}
           <PaginationItem>
             <PaginationPrevious
-              href="#title"
               onClick={(e) => {
                 e.preventDefault();
                 if (page > 1) setPage(page - 1);
               }}
-              className={page === 1 ? "pointer-events-none opacity-50" : ""}
+              className={`min-w-9 text-sm ${page === 1 ? "pointer-events-none opacity-50" : ""}`}
             />
           </PaginationItem>
   
@@ -83,7 +82,6 @@ import {
           {/* Botón Siguiente */}
           <PaginationItem>
             <PaginationNext
-              href="#title"
               onClick={(e) => {
                 e.preventDefault();
                 if (page < totalFilteredPages) setPage(page + 1);
@@ -95,4 +93,3 @@ import {
       </Pagination>
     );
   }
-  

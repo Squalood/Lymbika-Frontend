@@ -9,7 +9,6 @@ import { ProductType } from "@/types/product";
 import { useState, useEffect } from "react";
 import ItemsFilterMobile from "./components/filter-type-mobile";
 import PaginationControls from "./components/pagination";
-import PaginationControlsMobile from "./components/paginationMobile";
 
 export default function Page() {
     const params = useParams();
@@ -40,6 +39,14 @@ export default function Page() {
             setPage(1);
         }
     }, [result, typeFilter, loading]);
+
+    // 🔹 Hacer scroll hacia arriba al cambiar de página
+    useEffect(() => {
+    const titleElement = document.getElementById("title");
+    if (titleElement) {
+        titleElement.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    }, [page]);
 
     // 🔹 Obtener productos de la página actual
     const paginatedProducts = filteredProducts.slice((page - 1) * productsPerPage, page * productsPerPage);
@@ -88,14 +95,7 @@ export default function Page() {
             </div>
 
             {/* paginación */}
-            <div className="hidden lg:block">
             <PaginationControls page={page} totalFilteredPages={totalFilteredPages} setPage={setPage}/>
-            </div>
-
-            <div className="block lg:hidden">
-            <PaginationControlsMobile page={page} totalFilteredPages={totalFilteredPages} setPage={setPage} />
-            </div>
-
         </div>
     );
 }

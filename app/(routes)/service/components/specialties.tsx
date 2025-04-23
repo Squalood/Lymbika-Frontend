@@ -16,7 +16,7 @@ const Specialties = () => {
   const specialtyServices: ServiceType[] =
     servicesResult?.filter((service: ServiceType) => !service.atePrimary) || [];
 
-  //console.log("Todos los servicios:", primaryServices.length);
+  console.log("Todos los servicios:", primaryServices);
 
   return (
     <div>

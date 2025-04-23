@@ -8,7 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import DoctorAbout from "./components/doctor-about";
 import CalendarAvailability from "./components/doctor-schedule";
 import SkeletonDoctor from "@/components/skeleton/doctorSkeletor";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -28,6 +28,12 @@ export default function Page() {
   const doctor = result && result.length > 0 ? result[0] : null;
 
   const [activeTab, setActiveTab] = useState<"about" | "calendar" | "prices">("about");
+
+  useEffect(() => {
+    if (!loading && doctor) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [loading, doctor]);
 
   if (loading || !doctor) {
     return (

@@ -38,8 +38,7 @@ const CardDoctor = ({ doctor }: ProductDoctorProps) => {
             </div>
           </div>
         </CardHeader>
-      </Link>
-
+      
       <CardContent className="flex flex-row md:items-center justify-between gap-4 pt-0 pb-4 px-6">
         {/* Servicios y cirugías */}
         <div className="flex flex-col gap-1 text-sm text-gray-500">
@@ -75,6 +74,7 @@ const CardDoctor = ({ doctor }: ProductDoctorProps) => {
           </Button>
         </div>
       </CardContent>
+      </Link>
     </Card>
   );
 };
