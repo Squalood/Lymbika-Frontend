@@ -21,7 +21,7 @@ const ServiceCard = ({ service }: { service: ServiceType }) => {
             <span className="text-gray-700">Sin imagen</span>
           </div>
         )}
-        <p className="absolute w-full py-2 text-lg font-bold text-center text-white bottom-5 backdrop-blur-lg">
+        <p className="absolute w-full py-0 sm:py-2 text-base sm:text-lg font-bold text-center text-white bottom-5 backdrop-blur-lg">
           {service.serviceName}
         </p>
       </Link>

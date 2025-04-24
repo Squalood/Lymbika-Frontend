@@ -17,7 +17,7 @@ const Surgery = () => {
             {surgeryLoading ? (
             <SkeletonGalleryCol3 grid={9}/>
             ) : (
-            <div className="grid gap-5 sm:grid-cols-3">
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-5 px-4">
             {!surgeryLoading && surgeryResult?.map((sugery: SugeryType) => (
                 <Link 
                     key={sugery.id} 
@@ -37,7 +37,7 @@ const Surgery = () => {
                             <span className="text-gray-700">Sin imagen</span>
                         </div>
                     )}
-                    <p className="absolute w-full py-2 text-lg font-bold text-center text-white bottom-5 backdrop-blur-lg">
+                    <p className="absolute w-full py-0 sm:py-2 text-base sm:text-lg font-bold text-center text-white bottom-5 backdrop-blur-lg">
                         {sugery.surgeryName}
                     </p>
                 </Link>

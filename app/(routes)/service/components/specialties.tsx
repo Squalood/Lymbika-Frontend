@@ -20,22 +20,22 @@ const Specialties = () => {
 
   return (
     <div>
-      <h3 className="px-6 pb-4 text-3xl sm:pb-8">Atención Primaria</h3>
+      <h3 className="px-6 pb-4 text-2xl sm:text-3xl sm:pb-8">Atención Primaria</h3>
 
       {servicesLoading ? (<SkeletonGalleryCol3 grid={6} />
       ) : (
-        <div className="grid gap-5 sm:grid-cols-3 grid-cols">
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-5 px-4">
           {primaryServices.map((service) => (
             <ServiceCard key={service.id} service={service} />
           ))}
         </div>
       )}
 
-      <h3 className="px-6 pt-10 pb-4 text-3xl sm:pb-8">Especialidades Médicas</h3>
+      <h3 className="px-6 pt-10 pb-4 text-2xl sm:text-3xl sm:pb-8">Especialidades Médicas</h3>
 
       {servicesLoading ? (<SkeletonGalleryCol3 grid={14} />
       ) : (
-        <div className="grid gap-5 sm:grid-cols-3 grid-cols">
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-5 px-4">
           {specialtyServices.map((service) => (
             <ServiceCard key={service.id} service={service} />
           ))}
