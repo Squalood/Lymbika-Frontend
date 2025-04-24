@@ -104,7 +104,7 @@ const MenuList = () => {
                   Bienestar femenino para una nueva etapa.
                 </ListItem>
                 <ListItem
-                  title={es.navbar.programas["program 4"]}
+                  title={es.navbar.programas.program4}
                   href="/neurotherapy"
                 >
                   Tratamientos seguros para verte y sentirte mejor.

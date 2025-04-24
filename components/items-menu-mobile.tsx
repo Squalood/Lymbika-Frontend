@@ -44,11 +44,11 @@ const ItemsMenuMobile = () => {
           <DropdownMenuItem onClick={()=> router.push("/membership")}>
             <span>Membresías</span>
           </DropdownMenuItem>
+          <DropdownMenuItem onClick={()=> router.push("/healthHubs")}>
+            <span>{es.navbar.botton4}</span>
+          </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuLabel className="flex flex-row"><Hospital className="mr-2"/>Servicios</DropdownMenuLabel>
-            <DropdownMenuItem className="cursor-pointer" onClick={()=> router.push("/doctor-catalog")}>
-              <span>{es.navbar.botton4}</span>
-            </DropdownMenuItem>
             <DropdownMenuItem className="cursor-pointer" onClick={()=> router.push("/service")}>
               <span>{es.titleServices}</span>
             </DropdownMenuItem>
@@ -58,16 +58,16 @@ const ItemsMenuMobile = () => {
           <DropdownMenuSeparator />
           <DropdownMenuLabel className="flex flex-row"><SquareActivity className="mr-2"/>Programas</DropdownMenuLabel>
             <DropdownMenuItem className="flex" onClick={()=> router.push("/membership")}>
-              <span>Control de Peso Integral</span>
+              <span>{es.navbar.programas.program1}</span>
             </DropdownMenuItem>
             <DropdownMenuItem className="flex" onClick={()=> router.push("/membership")}>
-              <span>Agente Médico</span>
+              <span>{es.navbar.programas.program2}</span>
             </DropdownMenuItem>
             <DropdownMenuItem className="flex" onClick={()=> router.push("/membership")}>
-              <span>Salud Hormonal</span>
+              <span>{es.navbar.programas.program3}</span>
             </DropdownMenuItem>
-            <DropdownMenuItem className="flex" onClick={()=> router.push("/membership")}>
-              <span>Medicina Estética</span>
+            <DropdownMenuItem className="flex" onClick={()=> router.push("/neurotherapy")}>
+              <span>{es.navbar.programas.program4}</span>
             </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuLabel className="flex flex-row"><PillBottle className="mr-2"/>Farmacia</DropdownMenuLabel>

@@ -1,10 +1,10 @@
 {
   "navbar":{
     "programas":{
-      "program 1": "Neuroterapia",
-      "program 2": "Neuroterapia",
-      "program 3": "Neuroterapia",
-      "program 4": "Neuroterapia"
+      "program1": "Control de Peso Integral",
+      "program2": "Agente Médico",
+      "program3": "Salud Hormonal",
+      "program4": "Neuroterapia"
     },
     "botton4":"Profesionales de Salud"
   },
@@ -43,6 +43,21 @@
       "item3": {
         "title": "🧩 Trastornos Ejecutivos",
         "description": "Disfunciones cognitivas como lentitud mental, desregulación emocional y fatiga cerebral."
+      }
+    },
+    "section4":{
+      "title": "¿Que dice la ciencia?",
+      "item1": {
+        "title": "📚 Evidéncia Clinica",
+        "description": "La estimulación magnética transcraneal repetitiva (rTMS) ha sido avalada por la FDA (EE.UU.) y la Asociación Psiquiátrica Americana como tratamiento eficaz para la depresión resistente y trastornos de ansiedad."
+      },
+      "item2": {
+        "title": "🔬 Neuroplasticidad Real",
+        "description": "Estudios neurofisiológicos han demostrado que rTMS modula la corteza cerebral, mejorando conexiones neuronales afectadas por eventos como EVC o disfunciones emocionales crónicas (Lancet Neurology, 2020)."
+      },
+      "item3": {
+        "title": "🌍 Aplicación Global",
+        "description": "Utilizada en hospitales de alto nivel en Europa y EE.UU., rTMS es una terapia en expansión por su seguridad, eficacia y tolerancia, aplicada cada vez más como alternativa o complemento a tratamientos farmacológicos tradicionales."
       }
     }
   }
