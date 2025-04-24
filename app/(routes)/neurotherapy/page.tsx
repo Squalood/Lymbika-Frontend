@@ -93,11 +93,11 @@ const NeuroterapiaPage = () => {
         <div className="w-full px-6 py-16 my-8">
             <div className="max-w-6xl mx-auto flex flex-col-reverse md:flex-row items-center gap-10">
                 {/* Texto */}
-                <div className="flex-1 text-center md:text-left">
+                <div className="flex-1 text-left">
                     <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-                    <span className="text-teal-500">{es.NeuroterapiaPage.section2.title}</span>
+                        <span className="text-teal-500">{es.NeuroterapiaPage.section2.title}</span>
                     </h2>
-                    <p className="text-lg text-gray-700 leading-relaxed">
+                    <p className="text-lg text-gray-700 leading-relaxed text-justify sm:text-left">
                         {es.NeuroterapiaPage.section2.description}
                     </p>
                 </div>

@@ -15,7 +15,7 @@ const Surgery = () => {
         <div>
             <h3 className="px-6 pb-4 text-3xl sm:pb-8">{es.titlesurgery}</h3>
             {surgeryLoading ? (
-            <SkeletonGalleryCol3 grid={9}/>
+            <SkeletonGalleryCol3 grid={16}/>
             ) : (
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-5 px-4">
             {!surgeryLoading && surgeryResult?.map((sugery: SugeryType) => (
