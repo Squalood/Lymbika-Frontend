@@ -157,12 +157,12 @@ const NeuroterapiaPage = () => {
                         {/* Bloque visual con imagen y título */}
                         <div className="w-full lg:w-1/2">
                             <div className="aspect-video flex flex-col items-center justify-center p-6">
-                            <div className="relative w-full h-full max-h-[320px] rounded-lg overflow-hidden">
+                            <div className="relative w-full h-full max-h-[420px] rounded-lg overflow-hidden">
                                 <Image
-                                src="/images/neuro-3.jpg"
+                                src="/logos/isotipo-lymbika.svg"
                                 alt="Neuroterapia"
                                 fill
-                                className="object-cover"
+                                className="object-fill text-slate-100"
                                 />
                             </div>
                             <h1 className="mt-6 text-4xl font-medium text-center">
