@@ -1,4 +1,3 @@
-
 import { Separator } from "@/components/ui/separator"
 
 import Link from "next/link";
@@ -7,17 +6,17 @@ const dataFooter = [
     {
         id: 1,
         name: "Sobre nosotros",
-        link: "#"
+        link: "/about"
     },
     {
         id: 2,
         name: "Productos",
-        link: "#"
+        link: "/shop"
     },
     {
         id: 3,
         name: "Mi cuenta",
-        link: "#"
+        link: "/dashboard"
     },
     {
         id: 4,

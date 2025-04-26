@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 400 400" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(0.589744,0,0,0.589744,82.0513,25.0513)">
+        <path d="M200,5C307.623,5 395,92.377 395,200C395,307.623 307.623,395 200,395C92.377,395 5,307.623 5,200C5,92.377 92.377,5 200,5ZM275.769,332.474C275.411,331.152 275.069,329.9 274.762,328.763C271.688,317.343 260.997,321.558 265.978,295.82C272.762,260.763 312.813,290.35 312.813,290.35C330.821,189.247 258.071,123.562 201.815,124.44C145.558,125.319 92.919,192.082 131.572,249.183C170.225,306.283 222.493,278.172 222.493,278.172C214.766,322.43 226.982,342.812 232.187,349.201C221.812,351.433 211.042,352.609 200,352.609C115.773,352.609 47.391,284.227 47.391,200C47.391,115.773 115.773,47.391 200,47.391C284.227,47.391 352.609,115.773 352.609,200C352.609,256.66 321.664,306.149 275.769,332.474ZM234.127,172.392C257.281,200.841 251.275,235.08 251.275,235.08C251.275,235.08 265.612,227.945 279.386,230.95C273.948,196.946 250.852,176.332 234.127,172.392ZM180.873,194.027C188.984,189.027 200.362,192.742 206.263,202.318C212.165,211.894 210.371,223.727 202.259,228.726C194.148,233.726 182.77,230.011 176.869,220.435C170.967,210.859 172.761,199.026 180.873,194.027Z" style="fill:url(#_Radial1);"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-405,-667.5)">
+        <g transform="matrix(1,0,0,1,50.25,175)">
+            <text x="352px" y="837.023px" style="font-family:'Ebrima-Bold', 'Ebrima';font-weight:700;font-size:100px;fill:white;">Lymbika</text>
+        </g>
+        <g transform="matrix(1,0,0,1,150.659,258)">
+            <text x="352px" y="774.104px" style="font-family:'Ebrima';font-size:15px;fill:white;">T<tspan x="365.709px 381.864px 391.823px 405.642px 415.483px 429.302px 443.011px 456.449px 475.768px 491.293px 501.252px 517.62px 531.058px 541.017px 556.154px 572.309px 582.151px 598.518px 614.044px 630.411px 647.57px " y="774.104px 774.104px 774.104px 774.104px 774.104px 774.104px 774.104px 774.104px 774.104px 774.104px 774.104px 774.104px 774.104px 774.104px 774.104px 774.104px 774.104px 774.104px 774.104px 774.104px 774.104px ">U SISTEMA DE CUIDADO.</tspan></text>
+        </g>
+    </g>
+    <defs>
+        <radialGradient id="_Radial1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(154.304,0,0,154.304,200,200)"><stop offset="0" style="stop-color:rgb(215,223,34);stop-opacity:1"/><stop offset="1" style="stop-color:rgb(63,105,178);stop-opacity:1"/></radialGradient>
+    </defs>
+</svg>

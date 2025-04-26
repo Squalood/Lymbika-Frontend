@@ -46,11 +46,11 @@ const MenuList = () => {
               <li className="row-span-4">
                 <NavigationMenuLink asChild>
                   <Link
-                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                    href="/"
+                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-gray-300 to-muted/50 p-6 no-underline outline-none focus:shadow-md"
+                    href="/about"
                   >
                     <Image 
-                        src='/logo-lymbika.jpg'
+                        src='/logos/logo-lymbika.svg'
                         alt="imagen" 
                         width={500}
                         height={500}

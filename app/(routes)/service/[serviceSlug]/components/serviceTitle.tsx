@@ -23,7 +23,11 @@ const ServiceTitle = () => {
   return (
     <div className="max-w-xs md:max-w-4xl mx-auto">
       {loading || !service ? (
-        <Skeleton className="h-10 w-64" />
+        <div className="relative flex items-center justify-between mb-4">
+          <Skeleton className="h-10 w-24" />
+          <Skeleton className="h-10 w-52" />
+          <Skeleton className="h-10 w-24" />
+        </div>
       ) : (
         <div className="relative flex items-center justify-between mb-4">
           <div>

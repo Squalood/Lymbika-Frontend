@@ -8,6 +8,25 @@
     },
     "botton4":"Profesionales de Salud"
   },
+  "about":{
+    "mission":{
+      "title":"Misión",
+      "description":"Nos dedicamos a desarrollar el mejor sistema de salud del mundo, brindando un servicio integral de la más alta calidad. Nuestra objetivo es mejorar la comunicación y el abordaje entre profesionales de la salud y pacientes, con el fin de optimizar los resultados y la experiencia de atención médica. Nos comprometemos a eliminar gastos innecesarios y triangulaciones que puedan retrasar la mejoría, para así garantizar que nuestros pacientes  reciban una atención médica eficiente y efectiva que esté a la altura de los estándares más elevados a costos razonables."
+    },
+    "vision":{
+      "title":"Visión",
+      "description":"En Lymbika estamos construyendo el puente digital de la nueva era de la salud, conectando a pacientes con y sin seguro en la franja fronteriza con médicos certificados, tecnología de vanguardia y procesos humanizados. Nuestra misión es proteger al paciente, empoderar al médico y estandarizar la atención médica de alta calidad, eliminando abusos, gastos innecesarios y barreras que históricamente han limitado el acceso. Somos la interfaz entre el futuro y la salud digna que todos merecen."
+    },
+    "Securities":{
+      "title":"Valores",
+      "item1":"Calidad",
+      "item2":"Transparencia",
+      "item3":"Ética",
+      "item4":"Empatía",
+      "item5":"Responsabilidad",
+      "item6":"Honestidad"
+    }
+  },
   "titleServices": "Atención Primaria y Especialidades",
   "titlesurgery": "Cirugías y Procedimientos",
   "autoCarrouselBanner":{

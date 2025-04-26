@@ -97,7 +97,7 @@ const NeuroterapiaPage = () => {
                     <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
                         <span className="text-teal-500">{es.NeuroterapiaPage.section2.title}</span>
                     </h2>
-                    <p className="text-lg text-gray-700 leading-relaxed text-justify sm:text-left">
+                    <p className="text-lg text-gray-700 leading-relaxed sm:text-left">
                         {es.NeuroterapiaPage.section2.description}
                     </p>
                 </div>
