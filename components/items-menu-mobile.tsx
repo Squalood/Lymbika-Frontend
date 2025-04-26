@@ -39,7 +39,7 @@ const ItemsMenuMobile = () => {
         <DropdownMenuLabel className="flex flex-row"><UsersRound className="mr-2"/> Sobre Nosotros</DropdownMenuLabel>
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            <Link href="/">Lymbika</Link>
+            <Link href="/about">Lymbika</Link>
           </DropdownMenuItem>
           <DropdownMenuItem onClick={()=> router.push("/membership")}>
             <span>Membresías</span>

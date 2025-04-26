@@ -59,8 +59,8 @@ const AboutPage = () => {
                 </h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-x-10 gap-y-12">
                 {securities.map((securities, index) => (
-                    <div key={index} className="flex flex-col items-center">
-                        {securities.icon}
+                    <div key={index} className="flex flex-col items-center text-slate-800">
+                        {securities.icon}  
                         <p className="text-xl md:text-2xl font-semibold tracking-tight text-left">
                         {securities.title}
                         </p>
