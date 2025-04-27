@@ -57,16 +57,16 @@ const ItemsMenuMobile = () => {
             </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuLabel className="flex flex-row"><SquareActivity className="mr-2"/>Programas</DropdownMenuLabel>
-            <DropdownMenuItem className="flex" onClick={()=> router.push("/membership")}>
+            <DropdownMenuItem className="flex" onClick={()=> router.push("/programs/weightControl")}>
               <span>{es.navbar.programas.program1}</span>
             </DropdownMenuItem>
-            <DropdownMenuItem className="flex" onClick={()=> router.push("/membership")}>
+            <DropdownMenuItem className="flex" onClick={()=> router.push("/programs/medicalAgent")}>
               <span>{es.navbar.programas.program2}</span>
             </DropdownMenuItem>
             <DropdownMenuItem className="flex" onClick={()=> router.push("/membership")}>
               <span>{es.navbar.programas.program3}</span>
             </DropdownMenuItem>
-            <DropdownMenuItem className="flex" onClick={()=> router.push("/neurotherapy")}>
+            <DropdownMenuItem className="flex" onClick={()=> router.push("/programs/neurotherapy")}>
               <span>{es.navbar.programas.program4}</span>
             </DropdownMenuItem>
           <DropdownMenuSeparator />

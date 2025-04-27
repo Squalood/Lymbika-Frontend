@@ -7,64 +7,107 @@
       "program4": "Neuroterapia"
     },
     "botton4":"Profesionales de Salud"
-  },
-  "about":{
-    "mission":{
-      "title":"Misión",
-      "description":"Nos dedicamos a desarrollar el mejor sistema de salud del mundo, brindando un servicio integral de la más alta calidad. Nuestra objetivo es mejorar la comunicación y el abordaje entre profesionales de la salud y pacientes, con el fin de optimizar los resultados y la experiencia de atención médica. Nos comprometemos a eliminar gastos innecesarios y triangulaciones que puedan retrasar la mejoría, para así garantizar que nuestros pacientes  reciban una atención médica eficiente y efectiva que esté a la altura de los estándares más elevados a costos razonables."
     },
-    "vision":{
-      "title":"Visión",
-      "description":"En Lymbika estamos construyendo el puente digital de la nueva era de la salud, conectando a pacientes con y sin seguro en la franja fronteriza con médicos certificados, tecnología de vanguardia y procesos humanizados. Nuestra misión es proteger al paciente, empoderar al médico y estandarizar la atención médica de alta calidad, eliminando abusos, gastos innecesarios y barreras que históricamente han limitado el acceso. Somos la interfaz entre el futuro y la salud digna que todos merecen."
-    },
-    "Securities":{
-      "title":"Valores",
-      "item1":"Calidad",
-      "item2":"Transparencia",
-      "item3":"Ética",
-      "item4":"Empatía",
-      "item5":"Responsabilidad",
-      "item6":"Honestidad"
-    }
-  },
-  "titleServices": "Atención Primaria y Especialidades",
-  "titlesurgery": "Cirugías y Procedimientos",
-  "autoCarrouselBanner":{
-    "id1":"Más del 90% de satisfacción",
-    "id2":"Medicamentos a precio de proveedor",
-    "id3":"No más esperas",
-    "id4":"Especialistas certificados",
-    "id5":"No se requiere aseguranza"
-  },
-  "frontpage":{
-    "title": "Lymbika Healthcare",
-    "description": "Bienvenido al futuro del cuidado de tu salud. Conectamos medicina, tecnología y humanidad para que tú y tu familia vivan mejor sin complicaciones, sin esperas, sin límites."
-  },
-  "MedicalAgentPage":{
-      "title":"Agente Médico",
-      "section1":{
-        "title": "Te ayudamos a encontrar tu círugia."
+    "about":{
+      "mission":{
+        "title":"Misión",
+        "description":"Nos dedicamos a desarrollar el mejor sistema de salud del mundo, brindando un servicio integral de la más alta calidad. Nuestra objetivo es mejorar la comunicación y el abordaje entre profesionales de la salud y pacientes, con el fin de optimizar los resultados y la experiencia de atención médica. Nos comprometemos a eliminar gastos innecesarios y triangulaciones que puedan retrasar la mejoría, para así garantizar que nuestros pacientes  reciban una atención médica eficiente y efectiva que esté a la altura de los estándares más elevados a costos razonables."
       },
-      "section2":{
-        "title": "¿Qué es un Agente Médico?",
-        "description": "Tu Guía de Confianza antes, durante y después de la cirugía. Un profesional capacitado que te informa, te acompaña y te protege en cada paso del proceso quirúrgico."
+      "vision":{
+        "title":"Visión",
+        "description":"En Lymbika estamos construyendo el puente digital de la nueva era de la salud, conectando a pacientes con y sin seguro en la franja fronteriza con médicos certificados, tecnología de vanguardia y procesos humanizados. Nuestra misión es proteger al paciente, empoderar al médico y estandarizar la atención médica de alta calidad, eliminando abusos, gastos innecesarios y barreras que históricamente han limitado el acceso. Somos la interfaz entre el futuro y la salud digna que todos merecen."
       },
-      "section3":{
-        "title": "Preguntas frecuentes",
-        "item1": {
-          "title": "¿Que hace por ti?",
-          "description": "Te ayuda a entender lo que sigue. Revisa que no te falte ningún estudio o documento. Está presente el día de tu cirugía. Da seguimiento médico real y humano. Te acompaña en tus dudas, tus miedos y tu recuperación."
-        },
-        "item2": {
-          "title": "¿Cuanto cuesta?",
-          "description": "Porque los cirujanos no pueden estar en todo. Porque las familias no siempre saben qué hacer. Porque mereces una cirugía con respaldo completo. Porque nadie debería estar solo en un momento así. "
-        }
-      },
-      "section4":{
-        "title": "¿Qué es un Agente Médico?",
-        "p1": "Solo $200 MXN o $10 USD",
-        "p2": "El precio de una consulta, la tranquilidad de todo un proceso."
+      "Securities":{
+        "title":"Valores",
+        "item1":"Calidad",
+        "item2":"Transparencia",
+        "item3":"Ética",
+        "item4":"Empatía",
+        "item5":"Responsabilidad",
+        "item6":"Honestidad"
       }
+    },
+    "titleServices": "Atención Primaria y Especialidades",
+    "titlesurgery": "Cirugías y Procedimientos",
+    "autoCarrouselBanner":{
+      "id1":"Más del 90% de satisfacción",
+      "id2":"Medicamentos a precio de proveedor",
+      "id3":"No más esperas",
+      "id4":"Especialistas certificados",
+      "id5":"No se requiere aseguranza"
+    },
+    "frontpage":{
+      "title": "Lymbika Healthcare",
+      "description": "Bienvenido al futuro del cuidado de tu salud. Conectamos medicina, tecnología y humanidad para que tú y tu familia vivan mejor sin complicaciones, sin esperas, sin límites."
+    },
+    "WeightControlPage":{
+        "title":"Tu salud no empieza con una dieta. Empieza con un plan médico real.",
+        "section1":{
+          "title": "¿En que consiste e programa de control de peso?",
+          "description": "Un plan de 6 meses de atención médica y nutricional combinada, diseñado para lograr una pérdida mínima de 20 kg en pacientes con sobrepeso u obesidad. Seguimiento integral, seguro y personalizado."
+        },
+        "section2":{
+          "title": "Equipo multidisciplinario",
+          "item1": {
+            "title": "Medicina General",
+            "description": "Manejo farmacologico "
+          },
+          "item2": {
+            "title": "nutriologia",
+            "description": "Dieta personalizada"
+          },
+          "item3": {
+            "title": "psicología",
+            "description": "Opcional: apoyo emocional"
+          }
+        },
+        "section3":{
+          "title": "¿Para quién es?",
+          "description": "Ideal si: Has intentado bajar de peso sin éxito Buscas un enfoque médico real, no solo dietas Tienes más de 10 kg por perder Estás comprometido con tu salud"
+        },
+        "section4":{
+          "title": "¿Qué incluye?",
+          "description": "Valoración médica y nutricional inicial Plan de alimentación y ajustes mensuales Monitoreo de peso y progresos cada 15 días Opciones farmacológicas y prequirúrgicas si es necesario Evaluación de metas bimestrales"
+          },
+        "Testimonials":{
+          "user": "User",
+          "Testimonial1": "Solo $200 MXN o $10 USD",
+          "Testimonial2": "Solo $200 MXN o $10 USD",
+          "Testimonial3": "Solo $200 MXN o $10 USD",
+          "Testimonial4": "Solo $200 MXN o $10 USD"
+        },
+        "cost":{
+          "title": "¿Listos para el cambio?",
+          "p1": "Consulta inicial: $300 MXN",
+          "p2": "Programa integral desde $1400/mes",
+          "p3": "Resultados visibles desde el primer mes"
+        }
+    },
+    "MedicalAgentPage":{
+        "title":"Agente Médico",
+        "section1":{
+          "title": "Te ayudamos a encontrar tu círugia."
+        },
+        "section2":{
+          "title": "¿Qué es un Agente Médico?",
+          "description": "Tu Guía de Confianza antes, durante y después de la cirugía. Un profesional capacitado que te informa, te acompaña y te protege en cada paso del proceso quirúrgico."
+        },
+        "section3":{
+          "title": "Preguntas frecuentes",
+          "item1": {
+            "title": "¿Que hace por ti?",
+            "description": "Te ayuda a entender lo que sigue. Revisa que no te falte ningún estudio o documento. Está presente el día de tu cirugía. Da seguimiento médico real y humano. Te acompaña en tus dudas, tus miedos y tu recuperación."
+          },
+          "item2": {
+            "title": "¿Cuanto cuesta?",
+            "description": "Porque los cirujanos no pueden estar en todo. Porque las familias no siempre saben qué hacer. Porque mereces una cirugía con respaldo completo. Porque nadie debería estar solo en un momento así. "
+          }
+        },
+        "section4":{
+          "title": "¿Qué es un Agente Médico?",
+          "p1": "Solo $200 MXN o $10 USD",
+          "p2": "El precio de una consulta, la tranquilidad de todo un proceso."
+        }
     },
     "NeuroterapiaPage":{
       "section1":{

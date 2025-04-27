@@ -1,4 +1,5 @@
 import es from "@/locals/es.json"
+import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 
 const section3 = [
@@ -14,7 +15,7 @@ const section3 = [
 
 const MedicalAgentPage = () => {
     return ( 
-        <div className="w-full py-10 px-20 lg:py-10 lg:px-40">
+        <div className="w-full py-10 px-10 lg:py-10 lg:px-40">
             {/* section1 */}
             <div className="max-w-4xl mx-auto">
                 <h2>{es.MedicalAgentPage.title}</h2>
@@ -26,7 +27,14 @@ const MedicalAgentPage = () => {
                             </h1>
                         </div>
                     </div>
-                    <div className="bg-muted rounded-md aspect-square"></div>
+                    <div className="relative bg-muted rounded-md aspect-square overflow-hidden">
+                        <Image
+                            src="/images/medicalAgentHero.jpg"
+                            alt="foto"
+                            fill
+                            className="object-cover"
+                        />
+                    </div>
                 </div>
             </div>
             {/* section2 */}
