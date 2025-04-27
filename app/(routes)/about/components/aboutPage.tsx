@@ -53,7 +53,6 @@ const AboutPage = () => {
                     </p>
                 </div>
                 ))}
-                
                 <h2 className="text-3xl text-gray-300 font-bold lg:text-4xl">
                     {es.about.Securities.title}
                 </h2>

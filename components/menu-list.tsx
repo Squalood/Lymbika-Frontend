@@ -86,26 +86,26 @@ const MenuList = () => {
           <NavigationMenuContent>
             <ul className="grid gap-3 p-4 md:w-[480px] md:grid-cols justify-center">         
                 <ListItem
-                  title="Control de Peso Integral" //kkk
-                  href="/"
+                  title="Control de Peso Integral"
+                  href="/programs/weightControl"
                 >
                   Mejoramos tu salud desde el metabolismo.
                 </ListItem>
                 <ListItem
-                  title="Cirugía Asistida por Agente Médico" //
-                  href="/"
+                  title="Cirugía Asistida por Agente Médico" 
+                  href="/programs/medicalAgent"
                 >
                   Cirugías seguras, acompañadas de principio a fin.
                 </ListItem>
                 <ListItem
-                  title="Salud Hormonal y Menopausia Activa" //
-                  href="/"
+                  title="Salud Hormonal y Menopausia Activa" 
+                  href="/programs/"
                 >
                   Bienestar femenino para una nueva etapa.
                 </ListItem>
                 <ListItem
                   title={es.navbar.programas.program4}
-                  href="/neurotherapy"
+                  href="/programs/neurotherapy"
                 >
                   Tratamientos seguros para verte y sentirte mejor.
                 </ListItem>
