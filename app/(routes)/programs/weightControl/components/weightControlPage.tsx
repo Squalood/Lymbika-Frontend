@@ -58,7 +58,7 @@ const WeightControlPage = () => {
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                         {cards.map((cards, index) => (
-                        <div className="flex flex-col gap-2">
+                        <div key={index} className="flex flex-col gap-2">
                             <div className="bg-muted rounded-md aspect-video mb-2"></div>
                             <h3 className="text-xl tracking-tight">{cards.title}</h3>
                             <p className="text-muted-foreground text-base">

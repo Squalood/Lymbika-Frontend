@@ -1,21 +1,22 @@
 import { CircleUserRound } from "lucide-react";
+import es from "@/locals/es.json"
 
 const cards = [
     {
-    user: "",
-    Testimonial: "",
+    user: es.WeightControlPage.Testimonials.user,
+    Testimonial: es.WeightControlPage.Testimonials.Testimonial1,
     },
     {
-    user: "",
-    Testimonial: "",
+    user: es.WeightControlPage.Testimonials.user,
+    Testimonial: es.WeightControlPage.Testimonials.Testimonial2,
     },
     {
-    user: "",
-    Testimonial: "",
+    user: es.WeightControlPage.Testimonials.user,
+    Testimonial: es.WeightControlPage.Testimonials.Testimonial3,
     },
     {
-    user: "",
-    Testimonial: "",
+    user: es.WeightControlPage.Testimonials.user,
+    Testimonial: es.WeightControlPage.Testimonials.Testimonial4,
     },
 ]
 
@@ -35,11 +36,11 @@ const Testimonials = () => {
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 {/* Card */}
                 {cards.map((cards, index) => (
-                <div className="flex h-auto">
+                <div key={index} className="flex h-auto">
                     <div className="flex flex-col bg-gray-100 rounded-xl">
                         <div className="flex-auto p-4 md:p-6">
                             <p className="text-base italic md:text-lg text-gray-800">
-                            " With Preline, we're able to easily track our performance in full detail. It's become an essential tool for us to grow and engage with our audience. "
+                            "{cards.Testimonial}"
                             </p>
                         </div>
 
@@ -51,7 +52,7 @@ const Testimonials = () => {
 
                                 <div className="grow">
                                     <p className="text-sm sm:text-base font-semibold text-gray-800">
-                                    User
+                                    {cards.user}
                                     </p>
                                     <p className="text-xs text-gray-500">
                                     Lymbika user
