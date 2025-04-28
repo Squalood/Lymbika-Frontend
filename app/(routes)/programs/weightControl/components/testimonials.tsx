@@ -35,7 +35,7 @@ const Testimonials = () => {
                     <div className="flex flex-col bg-gray-100 rounded-xl">
                         <div className="flex-auto p-4 md:p-6">
                             <p className="text-base italic md:text-lg text-gray-800">
-                            &quot;{cards.Testimonial}&quot;
+                            &#34;{cards.Testimonial}&quot;
                             </p>
                         </div>
 

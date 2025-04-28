@@ -14,6 +14,7 @@ import { ZodErrors } from "@/app/data/actions/zod-errors";
 import { StrapiErrors } from "@/app/data/actions/strapi-errors";
 import { SubmitButton } from "../submit-button";
 import { AuthState } from "@/types/auth";
+import Image from "next/image";
 
 const INITIAL_STATE: AuthState = {
   formData: {
@@ -119,8 +120,15 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
               </div>
             </div>
           </form>
-          <div className="relative hidden bg-muted md:block">
-            <img src="/logo-lymbika.jpg" alt="Image" className="absolute inset-0 dark:brightness-[0.2] dark:grayscale" />
+          <div className="relative hidden md:block bg-slate-800 px-16">
+            <div className="relative w-full h-full">
+              <Image
+                src="/logos/logo-lymbika.svg"
+                alt="imagen"
+                fill
+                className="object-contain"
+              />
+            </div>
           </div>
         </CardContent>
       </Card>

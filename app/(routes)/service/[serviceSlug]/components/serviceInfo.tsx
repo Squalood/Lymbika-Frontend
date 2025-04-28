@@ -6,6 +6,8 @@ import Image from "next/image";
 import { ServiceType } from "@/types/service";
 import { useGetServices } from "@/api/getService";
 import SkeletonInfo from "@/components/skeleton/catInfoSkeleton";
+import { Button } from "@/components/ui/button";
+import { Stethoscope } from "lucide-react";
 
 const ServiceInfo = () => {
   const { serviceSlug } = useParams();
@@ -41,6 +43,11 @@ const ServiceInfo = () => {
             ) : (
               <p className="text-gray-500 italic">Descripción no disponible.</p>
             )}
+            <div className="mt-6 flex justify-center">
+              <Button variant="outline" onClick={() => window.open("https://wa.me/526561100446", "_blank")}>
+                <Stethoscope />Solicitar Agente Médico
+              </Button>
+            </div>
         </div>
 
         {/* Imagen */}

@@ -45,7 +45,7 @@ const SurgeryInfo = () => {
             )}
             <div className="mt-6 flex justify-center">
               <Button variant="outline" onClick={() => window.open("https://wa.me/526561100446", "_blank")}>
-                <Stethoscope />Solicitar Agente Medico
+                <Stethoscope />Solicitar Agente Médico
               </Button>
             </div>
         </div>

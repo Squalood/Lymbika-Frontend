@@ -46,7 +46,7 @@ const MenuList = () => {
               <li className="row-span-4">
                 <NavigationMenuLink asChild>
                   <Link
-                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-gray-300 to-muted/50 p-6 no-underline outline-none focus:shadow-md"
+                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted to-primary p-6 no-underline outline-none focus:shadow-md"
                     href="/about"
                   >
                     <Image 
@@ -56,10 +56,10 @@ const MenuList = () => {
                         height={500}
                         className="rounded-xl"
                     />
-                    <div className="mb-2 mt-4 text-lg font-medium">
+                    <div className="mb-2 mt-4 text-lg font-medium text-muted">
                       Lymbika
                     </div>
-                    <p className="text-sm leading-tight text-muted-foreground">
+                    <p className="text-sm leading-tight text-muted">
                       Hacemos la salud accesible: Procesos claros, precios transparentes y una experiencia diseñada para tu comodidad.
                     </p>
                   </Link>
