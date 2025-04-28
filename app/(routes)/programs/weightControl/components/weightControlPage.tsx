@@ -49,7 +49,7 @@ const WeightControlPage = () => {
             </div>
 
             {/* section1 */}
-            <div className="max-w-4xl mx-auto mt-40">
+            <div className="max-w-4xl mx-auto mt-40 px-10">
                 <div className="flex flex-col-reverse lg:flex-row gap-10 lg:items-center">
                     <div className="relative bg-muted rounded-md w-full aspect-square h-full flex-1 overflow-hidden">
                     <Image
@@ -73,7 +73,7 @@ const WeightControlPage = () => {
             </div>
 
             {/* section2 */}
-            <div className="max-w-4xl mx-auto mt-20">
+            <div className="max-w-4xl mx-auto mt-20 px-10">
                 <div className="flex flex-col gap-10">
                     <div className="flex gap-4 flex-col items-start">
                         <div className="flex gap-2 flex-col">
@@ -104,11 +104,10 @@ const WeightControlPage = () => {
             </div>
 
             {/* section3 */}
-            <div className="relative mt-20 py-20 px-10">
+            <div className="relative mt-20 py-20 px-10 sm:px-20">
                 <div className="absolute inset-0 bg-purple-200 w-full h-full -z-10" />
-
                 {/* Contenido centrado */}
-                <div className="max-w-4xl mx-auto relative px-4">
+                <div className="max-w-4xl mx-auto relative">
                     <div className="flex flex-col-reverse lg:flex-row gap-10 lg:items-center">
                         <div className="bg-muted rounded-md w-full aspect-square h-full flex-1 relative overflow-hidden">
                             <Image
@@ -133,10 +132,10 @@ const WeightControlPage = () => {
             </div>
 
             {/* section4 */}
-            <div className="relative py-32 px-10">
+            <div className="relative py-20 md:py-32 px-10 sm:px-20">
                 <div className="absolute inset-0 bg-violet-300 w-full h-full -z-10" />
 
-                <div className="max-w-4xl mx-auto relative px-4">
+                <div className="max-w-4xl mx-auto relative">
                     <div className="flex flex-col-reverse lg:flex-row gap-10 lg:items-center">
                         <div className="flex gap-4 pl-0 lg:pl-20 flex-col  flex-1">
                             <div className="flex gap-2 flex-col">

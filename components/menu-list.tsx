@@ -38,7 +38,6 @@ const MenuList = () => {
   return (
     <NavigationMenu>
       <NavigationMenuList>
-
         <NavigationMenuItem>
           <NavigationMenuTrigger className={navStyle}>Sobre Nosotros</NavigationMenuTrigger>
           <NavigationMenuContent>
@@ -99,7 +98,7 @@ const MenuList = () => {
                 </ListItem>
                 <ListItem
                   title="Salud Hormonal y Menopausia Activa" 
-                  href="/programs/"
+                  href="/programs/menopause"
                 >
                   Bienestar femenino para una nueva etapa.
                 </ListItem>
