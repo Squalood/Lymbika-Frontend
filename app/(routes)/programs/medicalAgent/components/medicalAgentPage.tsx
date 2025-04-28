@@ -40,7 +40,14 @@ const MedicalAgentPage = () => {
             {/* section2 */}
             <div className="max-w-4xl mx-auto mt-40">
                 <div className="flex flex-col-reverse lg:flex-row gap-10 lg:items-center">
-                    <div className="bg-muted rounded-md w-full aspect-video h-full flex-1"></div>
+                    <div className="bg-muted rounded-md w-full aspect-square h-full flex-1 relative overflow-hidden">
+                        <Image
+                            src="/images/agent-1.png"
+                            alt="imagen"
+                            fill
+                            className="object-cover"
+                        />
+                    </div>
                     <div className="flex gap-4 pl-0 lg:pl-20 flex-col  flex-1">
                         <div className="flex gap-2 flex-col">
                             <h2 className="text-xl sm:text-3xl md:text-5xl tracking-tighter lg:max-w-xl font-regular text-left">
@@ -77,7 +84,7 @@ const MedicalAgentPage = () => {
                 </div>
             </div>
         </div>
-     );
+    );
 }
  
 export default MedicalAgentPage;

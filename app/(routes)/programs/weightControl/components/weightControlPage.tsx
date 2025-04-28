@@ -147,7 +147,7 @@ const WeightControlPage = () => {
                                 {es.WeightControlPage.section4.description}
                                 </p>
                             </div>
-                            <Button className="w-2/4 mx-8">aparta consulta</Button>
+                            <Button variant={"outline"} className="w-2/4 mx-4 bg-purple-200">Aparta consulta</Button>
                         </div>
                         <div className="bg-muted rounded-md w-full aspect-video h-full flex-1 relative overflow-hidden">
                             <Image
