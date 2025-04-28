@@ -24,23 +24,18 @@ const Testimonials = () => {
     return ( 
     <div className="overflow-hidden">
         <div className="relative max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-            {/* Title */}
             <div className="max-w-2xl w-3/4 lg:w-1/2 mb-6 sm:mb-10 md:mb-16">
                 <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold">
                     Client Testimonials
                 </h2>
             </div>
-            {/* End Title */}
-
-            {/* Grid */}
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                {/* Card */}
                 {cards.map((cards, index) => (
                 <div key={index} className="flex h-auto">
                     <div className="flex flex-col bg-gray-100 rounded-xl">
                         <div className="flex-auto p-4 md:p-6">
                             <p className="text-base italic md:text-lg text-gray-800">
-                            "{cards.Testimonial}"
+                            &quot;{cards.Testimonial}&quot;
                             </p>
                         </div>
 
@@ -63,7 +58,6 @@ const Testimonials = () => {
                     </div>
                 </div>
                 ))}
-                {/* End Card */}
             </div>
         </div>
     </div>
