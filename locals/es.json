@@ -6,7 +6,7 @@
       "program3": "Salud Hormonal",
       "program4": "Neuroterapia"
     },
-    "botton4":"Profesionales de Salud"
+    "botton4":"HealtHub"
     },
     "about":{
       "mission":{
@@ -165,6 +165,29 @@
       "item3": {
         "title": "🌍 Aplicación Global",
         "description": "Utilizada en hospitales de alto nivel en Europa y EE.UU., rTMS es una terapia en expansión por su seguridad, eficacia y tolerancia, aplicada cada vez más como alternativa o complemento a tratamientos farmacológicos tradicionales."
+      }
+    }
+  },
+  "HealtHub":{
+    "HeroSection":{
+      "title": "Lymbika Health Hubs ",
+      "subtitle": "for Doctors",
+      "description": "Forma parte del nuevo ecosistema de salud en la frontera."
+    },
+    "Section1":{
+      "title":"¿Como funciona?",
+      "Description":"Lymbika Healthcare System es una red de salud que conecta profesionales, hospitales, farmacias, laboratorios y pacientes a través de un ecosistema físico y digital único.",
+      "item1":{
+        "title":"1.Más pacientes, menos fricción",
+        "Description":"Atrae nuevos pacientes a través de nuestra red y mejora la experiencia con herramientas digitales para agendar, comunicar y fidelizar.."
+      },
+      "item2":{
+        "title":"2. Ecosistema inteligente y flexible",
+        "Description":"Conéctate a una red donde tú eliges con quién colaborar: farmacia, laboratorios, cirujanos, especialistas y más. "
+      },
+      "item3":{
+        "title":"3. Crea tu nuevo sistema de salud",
+        "Description":"Sé parte del nuevo modelo de salud. Crece con nosotros, sin altas inversiones y con impacto real."
       }
     }
   }

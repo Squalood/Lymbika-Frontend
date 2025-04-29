@@ -51,14 +51,12 @@ const Cost = () => {
                         {card.p1}
                         </span>
                         </li>
-
                         <li className="flex gap-x-2">
                         <Check size={20} color="#2819f5" strokeWidth={1.5} />
                         <span className="text-gray-800">
                         {card.p2}
                         </span>
                         </li>
-
                         <li className="flex gap-x-2">
                         <Check size={20} color="#2819f5" strokeWidth={1.5} />
                         <span className="text-gray-800">
