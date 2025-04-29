@@ -109,6 +109,25 @@
           "p2": "El precio de una consulta, la tranquilidad de todo un proceso."
         }
     },
+    "MenopausePage":{
+      "hero":{
+        "title": "Transforma tu salud, redescubre tu equilibrio.",
+        "description": "TERAPIA TRANSCRANEAL ELECTROMAGNÉTICA"
+      },
+      "section1":{
+        "title": "¿Qué es Renacer?",
+        "description": "Un programa médico diseñado para mujeres en perimenopausia o menopausia, donde el médico general se convierte en tu guía confiable, apoyado por especialistas en nutrición, ginecología, salud emocional y medicina estética si así lo requieres."
+      },
+      "section2":{
+        "title":"¿Que ofrece?",
+        "item1":"Control de Peso",
+        "item2":"Orientacion Estetica",
+        "item3":"Valoracion Médica",
+        "item4":"Orientacion Dermatologíca",
+        "item5":"Control de Ansiedad",
+        "item6":"Mejoria Habitos Nocturnos"
+      }
+    },
     "NeuroterapiaPage":{
       "section1":{
         "title": "NEUROTERAPIA",
