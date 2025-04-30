@@ -11,7 +11,6 @@ import { User } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import es from "@/locals/es.json"
 
-
 const Testimonials = () => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
@@ -120,7 +119,7 @@ const Testimonials = () => {
                       <p className="flex flex-row gap-2 text-sm items-center">
                         <span className="text-muted-foreground">By</span>
                           <Avatar className="h-6 w-6">
-                            <AvatarImage src="https://github.com/shadcn.png" /> //imagen del doctor
+                            <AvatarImage src="https://lymbika.org/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fdzarkfmnl%2Fimage%2Fupload%2Fv1744735891%2F14_66751d9425.png&w=128&q=75" />
                             <AvatarFallback>CN</AvatarFallback>
                           </Avatar>
                         <span>{text.user}</span>
