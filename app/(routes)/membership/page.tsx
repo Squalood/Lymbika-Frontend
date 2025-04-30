@@ -6,7 +6,6 @@ import Image from "next/image";
 export default function Page() {
     return (
         //<PlansMemberPage/>
-        
         <div className="flex flex-col items-center max-w-6xl mx-auto p-4">
             <h1 className="text-3xl font-bold text-center mb-8">Membresía</h1>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-10">

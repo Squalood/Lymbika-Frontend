@@ -187,6 +187,7 @@ const NeuroterapiaPage = () => {
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
   );
