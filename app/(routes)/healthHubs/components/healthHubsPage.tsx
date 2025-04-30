@@ -66,9 +66,6 @@ const HealthHubsPage = () => {
                     <p className="mb-6 max-w-md">
                     {es.HealtHub.Section1.Description}
                     </p>
-                    <button className="border border-white px-6 py-2 text-white hover:bg-white hover:text-[#A84409] transition">
-                    LEARN MORE
-                    </button>
                 </div>
             </div>
             <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">

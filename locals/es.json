@@ -53,11 +53,11 @@
             "description": "Manejo farmacologico "
           },
           "item2": {
-            "title": "nutriologia",
+            "title": "Nutrición",
             "description": "Dieta personalizada"
           },
           "item3": {
-            "title": "psicología",
+            "title": "Psicología",
             "description": "Opcional: apoyo emocional"
           }
         },
@@ -188,6 +188,24 @@
       "item3":{
         "title":"3. Crea tu nuevo sistema de salud",
         "Description":"Sé parte del nuevo modelo de salud. Crece con nosotros, sin altas inversiones y con impacto real."
+      }
+    },
+    "Testimonials":{
+      "title":"Que dicen nuestros médicos",
+      "item1":{
+        "user":"Dr. Jose Orlando Guinto",
+        "sub": "Neurocírujano",
+        "comentary":"Gracias a Lymbika he podido moverme con facilidad entre diferentes hospitales y coordinar mis cirugías  y pacientes con mayor autonomía. El sistema se adapta a mi forma de trabajar."
+      },
+      "item2":{
+        "user":"Dr. Andrea Manjarrez",
+        "sub": "Medicina general ",
+        "comentary":"Con Lymbika he podido conectar a mis pacientes con cirugías, laboratorios y especialistas de forma rápida. Es como tener una red completa al alcance de mi consulta."
+      },
+      "item3":{
+        "user":"Dra. Bonny Muñoz",
+        "sub": "Medicina interna",
+        "comentary":"Con Lymbika he encontrado acceso rápido a medicamentos de alta especialidad para mis pacientes, además de soporte en estudios y referencias."
       }
     }
   }
