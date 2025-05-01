@@ -6,7 +6,6 @@ import { useParams } from "next/navigation";
 import DoctorTop from "./components/doctor-top";
 import { Separator } from "@/components/ui/separator";
 import DoctorAbout from "./components/doctor-about";
-import CalendarAvailability from "./components/doctor-schedule";
 import SkeletonDoctor from "@/components/skeleton/doctorSkeletor";
 import { useEffect, useState } from "react";
 import {
@@ -19,6 +18,7 @@ import {
 import clsx from "clsx";
 import DoctorPrice from "./components/doctor-price";
 import DoctorReviews from "./components/doctor-reviews";
+import CalendlyWidget from "@/components/calendlyWidget";
 
 export default function Page() {
   const params = useParams();
@@ -85,7 +85,7 @@ export default function Page() {
       </div>
 
     {activeTab === "about" && <DoctorAbout doctor={doctor} />}
-    {activeTab === "calendar" && <CalendarAvailability />}
+    {activeTab === "calendar" && <CalendlyWidget />}
     {activeTab === "prices" && <DoctorPrice doctor={doctor}/>}
 
     <Separator className="mt-6" />

@@ -60,7 +60,7 @@ const PlansMemberPage = () => {
                     </div>
                   ))}
                 </div>
-                <Button variant={`${plan.button.variant === "outline" ? "outline": "default"}`} className="gap-4">
+                <Button variant={`${plan.button.variant === "outline" ? "outline" : "default"}`} className="gap-4">
                   {plan.button.label}
                   {iconMap[plan.button.icon as keyof typeof iconMap]}
                 </Button>
