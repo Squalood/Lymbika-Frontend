@@ -27,6 +27,81 @@
         "item6":"Honestidad"
       }
     },
+    "PlansMemberPage": {
+      "title": "Membresías",
+      "description": "Con nuestra membresía mensual MediClub, accede a medicamentos y productos de la salud a precio de proveedor, diseñado para cuidar la economía de nuestros pacientes.",
+      "plans": [
+        {
+          "name": "Lymbika Cuida",
+          "icon": "Stethoscope",
+          "priceP": 450,
+          "priceM": 850,
+          "description": "Atención médica primaria para ti o tu familia.",
+          "button": {
+            "label": "Sign up today",
+            "icon": "MoveRight",
+            "variant": "default"
+          },
+          "features": [
+            {
+              "title": "Consultas médicas y nutricionales ilimitadas"
+            },
+            {
+              "title": "Seguimiento y recetas sin costo adicional"
+            },
+            {
+              "title": "Ideal para chequeos, enfermedades comunes y control de"
+            }
+          ]
+        },
+        {
+          "name": "Mediclub",
+          "icon": "Pill",
+          "priceP": 200,
+          "priceM": 350,
+          "description": "Para quienes quieren ahorrar en farmacia y servicios básicos.",
+          "button": {
+            "label": "Sign up today",
+            "icon": "MoveRight",
+            "variant": "outline"
+          },
+          "features": [
+            {
+              "title": "Medicamentos a precio de proveedor"
+            },
+            {
+              "title": "Descuentos en laboratorios, sueros y consultas"
+            },
+            {
+              "title": " Ideal para pacientes con tratamientos crónicos"
+            }
+          ]
+        },
+        {
+          "name": "Lymbika Empresas",
+          "icon": "Building2",
+          "priceP": 390,
+          "priceM": 690,
+          "description": "Salud accesible para tu equipo de trabajo.",
+          "button": {
+            "label": "Book a meeting",
+            "icon": "PhoneCall",
+            "variant": "outline"
+          },
+          "features": [
+            {
+              "title": "Planes por empleado o grupo"
+            },
+            {
+              "title": "Consultas y medicamentos subsidiados"
+            },
+            {
+              "title": "Reduce ausentismo, mejora productividad"
+            }
+          ]
+        }
+      ]
+    },    
     "titleServices": "Atención Primaria y Especialidades",
     "titlesurgery": "Cirugías y Procedimientos",
     "autoCarrouselBanner":{
