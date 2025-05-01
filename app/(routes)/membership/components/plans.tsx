@@ -4,11 +4,11 @@ import { Button } from "@/components/ui/button";
 import es from "@/locals/es.json";
 
 const iconMap = {
-  MoveRight: <MoveRight className="w-4 h-4" />,
-  PhoneCall: <PhoneCall className="w-4 h-4" />,
-  Stethoscope: <Stethoscope className="w-4 h-4"/>,
-  Building2: <Building2 className="w-4 h-4"/>,
-  Pill: <Pill className="w-4 h-4"/>
+  MoveRight: <MoveRight size={16} />,
+  PhoneCall: <PhoneCall size={16} />,
+  Stethoscope: <Stethoscope size={20} className="stroke-primary"/>,
+  Building2: <Building2 size={20} className="stroke-primary"/>,
+  Pill: <Pill size={20} className="stroke-primary" />
 };
 
 const PlansMemberPage = () => {
@@ -60,7 +60,7 @@ const PlansMemberPage = () => {
                     </div>
                   ))}
                 </div>
-                <Button variant={plan.button.variant as any} className="gap-4">
+                <Button variant={`${plan.button.variant === "outline" ? "outline": "default"}`} className="gap-4">
                   {plan.button.label}
                   {iconMap[plan.button.icon as keyof typeof iconMap]}
                 </Button>
