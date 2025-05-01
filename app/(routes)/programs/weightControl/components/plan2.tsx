@@ -4,12 +4,12 @@ import { formatPrice } from "@/lib/formatPrice";
 import es from "@/locals/es.json";
 
 const plans = [
-  es.MenopausePage.Plans.card1,
-  es.MenopausePage.Plans.card2,
+  es.WeightControlPage.Plans.card3,
+  es.WeightControlPage.Plans.card4,
 ].map(plan => ({
   title: plan.title,
   price: plan.price,
-  features: [plan.p1, plan.p2, plan.p3, plan.p4, plan.p5, plan.p6],
+  features: [plan.p1, plan.p2, plan.p3, plan.p4],
 }));
 
 const Plan1 = () => {
@@ -17,7 +17,7 @@ const Plan1 = () => {
     <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
       <div className="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
         <h2 className="text-2xl font-bold md:text-3xl md:leading-tight">
-          {es.MenopausePage.Plans.title}
+          {es.WeightControlPage.Plans.title2}
         </h2>
       </div>
       <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-2 gap-6 lg:items-center">

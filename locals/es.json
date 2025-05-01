@@ -76,6 +76,42 @@
           "Testimonial3": "With Preline, we're able to easily track our performance in full detail. It's become an essential tool for us to grow and engage with our audience.",
           "Testimonial4": "With Preline, we're able to easily track our performance in full detail. It's become an essential tool for us to grow and engage with our audience."
         },
+        "Plans":{
+          "title1": "Opción 1 – Plan estándar (con tratamiento oral)",
+          "title2": "Opción 2 – Plan con medicamento inyectable (GLP-1)",
+          "card1": {
+            "title": "Sin membresía",
+            "price": 1500,
+            "p1": "Consulta médica mensual",
+            "p2": "Consulta nutricional mensual",
+            "p3": "Tratamiento oral",
+            "p4": "No incluye suplementos"
+          },
+          "card2": {
+            "title": "Con membresía Mediclub",
+            "price": 1250,
+            "p1": "Consulta médica mensual",
+            "p2": "Consulta nutricional mensual",
+            "p3": "Tratamiento oral ",
+            "p4": "Suplementos a precio proveedor"
+          },
+          "card3": {
+            "title": "Sin membresía",
+            "price": 6849,
+            "p1": "Consulta médica mensual",
+            "p2": "Consulta nutricional mensual",
+            "p3": "Tratamiento escalonado de  GLP-1",
+            "p4": "No incluye suplementos"
+          },
+          "card4": {
+            "title": "Con membresía Mediclub",
+            "price": 6499,
+            "p1": "Consulta médica mensual",
+            "p2": "Consulta nutricional mensual",
+            "p3": "Tratamiento escalonado de GLP-1",
+            "p4": "Suplementos a precio proveedor"
+          }
+        },
         "cost":{
           "title": "¿Listos para el cambio?",
           "p1": "Consulta inicial: $300 MXN",
@@ -126,6 +162,29 @@
         "item4":"Orientacion Dermatologíca",
         "item5":"Control de Ansiedad",
         "item6":"Mejoria Habitos Nocturnos"
+      },
+      "Plans":{
+        "title": "Precios",
+        "card1": {
+          "title": "Sin membresía",
+          "price": 4699,
+          "p1": "Consulta médica mensual",
+          "p2": "Consulta nutricional mensual",
+          "p3": "Tratamiento farmacologico ",
+          "p4": "Laboratorios femeninos",
+          "p5": "Terapia complementaria I.V.",
+          "p6": "Seguimiento digital"
+        },
+        "card2": {
+          "title": "Con membresía Mediclub",
+          "price": 3999,
+          "p1": "Consulta médica mensual",
+          "p2": "Consulta nutricional mensual",
+          "p3": "Tratamiento farmacológico",
+          "p4": "Laboratorios femeninos",
+          "p5": "Terapia complementaria I.V.",
+          "p6": "Seguimiento digital "
+        }
       }
     },
     "NeuroterapiaPage":{
@@ -152,21 +211,32 @@
           "description": "Disfunciones cognitivas como lentitud mental, desregulación emocional y fatiga cerebral."
         }
       },
-    "section4":{
-      "title": "¿Que dice la ciencia?",
-      "item1": {
-        "title": "📚 Evidéncia Clinica",
-        "description": "La estimulación magnética transcraneal repetitiva (rTMS) ha sido avalada por la FDA (EE.UU.) y la Asociación Psiquiátrica Americana como tratamiento eficaz para la depresión resistente y trastornos de ansiedad."
+      "section4":{
+        "title": "¿Que dice la ciencia?",
+        "item1": {
+          "title": "📚 Evidéncia Clinica",
+          "description": "La estimulación magnética transcraneal repetitiva (rTMS) ha sido avalada por la FDA (EE.UU.) y la Asociación Psiquiátrica Americana como tratamiento eficaz para la depresión resistente y trastornos de ansiedad."
+        },
+        "item2": {
+          "title": "🔬 Neuroplasticidad Real",
+          "description": "Estudios neurofisiológicos han demostrado que rTMS modula la corteza cerebral, mejorando conexiones neuronales afectadas por eventos como EVC o disfunciones emocionales crónicas (Lancet Neurology, 2020)."
+        },
+        "item3": {
+          "title": "🌍 Aplicación Global",
+          "description": "Utilizada en hospitales de alto nivel en Europa y EE.UU., rTMS es una terapia en expansión por su seguridad, eficacia y tolerancia, aplicada cada vez más como alternativa o complemento a tratamientos farmacológicos tradicionales."
+        }
       },
-      "item2": {
-        "title": "🔬 Neuroplasticidad Real",
-        "description": "Estudios neurofisiológicos han demostrado que rTMS modula la corteza cerebral, mejorando conexiones neuronales afectadas por eventos como EVC o disfunciones emocionales crónicas (Lancet Neurology, 2020)."
-      },
-      "item3": {
-        "title": "🌍 Aplicación Global",
-        "description": "Utilizada en hospitales de alto nivel en Europa y EE.UU., rTMS es una terapia en expansión por su seguridad, eficacia y tolerancia, aplicada cada vez más como alternativa o complemento a tratamientos farmacológicos tradicionales."
+      "sectionPromo":{
+        "title": "Promo",
+        "items": [
+          { "title": "Evaluación inicial gratuita" },
+          { "title": "30 sesiones en promedio" },
+          { "title": "Se aplican 1 o 2 veces por semana, según tu diagnóstico." },
+          { "title": "💰 Precio promocional: $1,000 MXN por sesión en las primeras 5 " },
+          { "title": "Respuesta clinica a las 5 sesiones" },
+          { "title": "SIN EFECTOS ADVERSOS significativos." }
+        ]
       }
-    }
   },
   "HealtHub":{
     "HeroSection":{

@@ -14,7 +14,7 @@ const contact = [
 
 const Contact = () => {
     return ( 
-        <div className="max-w-4xl mx-auto px-4">
+        <div className="max-w-4xl mx-auto px-4 py-4">
             <div className="flex flex-col-reverse lg:flex-row gap-16 lg:items-center">
 
                 {/* Bloque visual con imagen y título */}

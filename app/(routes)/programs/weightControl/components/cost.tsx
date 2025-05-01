@@ -14,7 +14,6 @@ const Cost = () => {
         />
         <div className="absolute inset-0 bg-black/10" /> {/* Capa de oscurecimiento */}
       </div>
-
       {/* Contenido encima de la imagen */}
       <div className="relative z-1">
         <div className="container mx-auto px-4">
