@@ -1,13 +1,7 @@
 import { CircleUserRound } from "lucide-react";
 import es from "@/locals/es.json";
 
-// Extraer dinámicamente todos los testimonios
-const testimonials = Object.entries(es.WeightControlPage.Testimonials)
-  .filter(([key]) => key.toLowerCase().startsWith("testimonial"))
-  .map(([, testimonial]) => ({
-    user: es.WeightControlPage.Testimonials.user,
-    testimonial,
-  }));
+const { testimonials } = es.WeightControlPage;
 
 const Testimonials = () => {
   return (
@@ -24,7 +18,7 @@ const Testimonials = () => {
               <div className="flex flex-col bg-gray-100 rounded-xl">
                 <div className="flex-auto p-4 md:p-6">
                   <p className="text-base italic md:text-lg text-gray-800">
-                    &#34;{item.testimonial}&quot;
+                    &#34;{item.commenary}&quot;
                   </p>
                 </div>
                 <div className="p-4 bg-gray-300 rounded-b-xl md:px-7">
@@ -36,7 +30,7 @@ const Testimonials = () => {
                       <p className="text-sm sm:text-base font-semibold text-gray-800">
                         {item.user}
                       </p>
-                      <p className="text-xs text-gray-500">Lymbika user</p>
+                      <p className="text-xs text-gray-500">{item.city}</p>
                     </div>
                   </div>
                 </div>

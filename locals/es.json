@@ -144,16 +144,36 @@
           "title": "¿Qué incluye?",
           "description": "Valoración médica y nutricional inicial Plan de alimentación y ajustes mensuales Monitoreo de peso y progresos cada 15 días Opciones farmacológicas y prequirúrgicas si es necesario Evaluación de metas bimestrales"
           },
-        "Testimonials":{
-          "user": "User",
-          "Testimonial1": "With Preline, we're able to easily track our performance in full detail. It's become an essential tool for us to grow and engage with our audience.",
-          "Testimonial2": "With Preline, we're able to easily track our performance in full detail. It's become an essential tool for us to grow and engage with our audience.",
-          "Testimonial3": "With Preline, we're able to easily track our performance in full detail. It's become an essential tool for us to grow and engage with our audience.",
-          "Testimonial4": "With Preline, we're able to easily track our performance in full detail. It's become an essential tool for us to grow and engage with our audience."
-        },
+        "testimonials":[
+          {
+            "user": " Alejandra Ortega",
+            "city": "Ciudad Juárez, Chih",
+            "commenary": "Perdí 16 kilos en 4 meses. Nunca imaginé lograrlo sin sufrimiento ni obsesión. Lo que más me gustó fue el trato humano, el seguimiento constante y la confianza que me dieron desde el primer día" 
+          },
+          {
+            "user": "Elena De la Rosa",
+            "city": "Chihuahua, Chih.",
+            "commenary": "Bajé 18 kilos en 90 días. Lo mejor no fue solo el peso perdido, sino lo que recuperé: mi salud, mi ánimo, y mi confianza. La guía médica y el enfoque humano hicieron toda la diferencia."
+          },
+          {
+            "user": "Lluvia Lamelas",
+            "city": "Ciudad Delicias, Chih.",
+            "commenary": "Después de años de intentar dietas sin resultados duraderos, encontré un programa que realmente entiende a las mujeres. En 4 meses bajé 17 kilos sin sentirme restringida. Me siento con más energía, más segura… y feliz de volver a verme al espejo."
+          },
+          {
+            "user": "Guillermina Mendoza",
+            "city": "El Paso, TX",
+            "commenary": "Perdí 10 kilos en 2 meses. Lo que más me sorprendió fue lo personalizado del acompañamiento. No solo te dan una dieta, te enseñan a cambiar tu vida sin extremos."
+          },
+          {
+            "user": "Laura Moncada",
+            "city": "Las Cruces, NM",
+            "commenary": "En solo 90 días bajé 12 kilos, pero lo más valioso fue sentirme acompañada. No es solo un programa de peso, es un cambio de vida. Ahora tengo más energía y equilibrio, sin sentirme sola en el proceso."
+          }
+        ],
         "Plans":{
-          "title1": "Opción 1 – Plan estándar (con tratamiento oral)",
-          "title2": "Opción 2 – Plan con medicamento inyectable (GLP-1)",
+          "title1": "Opción 1: Plan estándar (con tratamiento oral)",
+          "title2": "Opción 2: Plan con medicamento inyectable (GLP-1)",
           "card1": {
             "title": "Sin membresía",
             "price": 1500,
