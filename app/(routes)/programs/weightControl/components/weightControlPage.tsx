@@ -6,17 +6,17 @@ const cards = [
     {
     title: es.WeightControlPage.section2.item1.title,
     description: es.WeightControlPage.section2.item1.description,
-    image: "/images/peso-1.webp",
+    image: "/svg/stethoscope.svg",
     },
     {
     title: es.WeightControlPage.section2.item2.title,
     description: es.WeightControlPage.section2.item2.description,
-    image: "/images/peso-2.webp",
+    image: "/svg/healthy-food.svg",
     },
     {
     title: es.WeightControlPage.section2.item3.title,
     description: es.WeightControlPage.section2.item3.description,
-    image: "/images/peso-3.webp",
+    image: "/svg/psychology.svg",
     }
 ]
 
@@ -85,12 +85,11 @@ const WeightControlPage = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                         {cards.map((cards, index) => (
                         <div key={index} className="flex flex-col gap-2">
-                            <div className="relative bg-muted rounded-md aspect-video mb-2 overflow-hidden">
+                            <div className="relative h-32 rounded-md aspect-auto mb-2 overflow-hidden">
                             <Image
                                 src={cards.image}
                                 alt="imagen"
                                 fill
-                                className="object-cover"
                             />
                             </div>
                             <h3 className="text-xl tracking-tight">{cards.title}</h3>

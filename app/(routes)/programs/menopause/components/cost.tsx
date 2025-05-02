@@ -27,9 +27,12 @@ const Plan1 = () => {
             className="flex flex-col border border-gray-200 text-center rounded-xl p-8"
           >
             <h4 className="font-medium text-lg text-gray-800">{plan.title}</h4>
-            <span className="mt-5 font-bold text-5xl text-gray-800">
+            <div>
+              <span className="mt-5 font-bold text-5xl text-gray-800">
               {formatPrice(plan.price)}
-            </span>
+              </span>
+              <span className="text-sm text-muted-foreground">/ mes</span>
+            </div>
             <ul className="mt-7 space-y-2.5 text-sm">
               {plan.features.map((feature, i) => (
                 <li key={i} className="flex gap-x-2">
