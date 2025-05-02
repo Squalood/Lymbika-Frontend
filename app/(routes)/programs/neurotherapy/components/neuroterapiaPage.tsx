@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import Link from "next/link";
 import es from "@/locals/es.json";
 import { MoveRight } from "lucide-react";
 
