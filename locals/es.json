@@ -167,8 +167,8 @@
           }
         ],
         "Plans":{
-          "title1": "Opción 1: Plan estándar (con tratamiento oral)",
-          "title2": "Opción 2: Plan con medicamento inyectable (GLP-1)",
+          "title1": "Plan estándar (con tratamiento oral)",
+          "title2": "Plan con medicamento inyectable (GLP-1)",
           "card1": {
             "title": "Sin membresía",
             "price": 1599,

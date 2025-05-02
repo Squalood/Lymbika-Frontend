@@ -75,9 +75,9 @@ const WeightControlPage = () => {
             {/* section2 */}
             <div className="max-w-4xl mx-auto mt-20 px-10">
                 <div className="flex flex-col gap-10">
-                    <div className="flex gap-4 flex-col items-start">
-                        <div className="flex gap-2 flex-col">
-                            <h2 className="text-3xl md:text-5xl tracking-tighter max-w-xl font-regular text-left">
+                    <div className="flex gap-4 flex-col">
+                        <div className="flex justify-center sm:justify-start">
+                            <h2 className="text-3xl md:text-5xl tracking-tighter max-w-xl font-regular">
                             {es.WeightControlPage.section2.title}
                             </h2>
                         </div>
@@ -92,10 +92,12 @@ const WeightControlPage = () => {
                                 fill
                             />
                             </div>
-                            <h3 className="text-xl tracking-tight">{cards.title}</h3>
-                            <p className="text-muted-foreground text-base">
-                            {cards.description}
-                            </p>
+                            <div className="text-center">
+                                <h3 className="text-xl tracking-tight">{cards.title}</h3>
+                                <p className="text-muted-foreground text-base">
+                                {cards.description}
+                                </p>    
+                            </div>
                         </div>
                         ))}
                     </div>

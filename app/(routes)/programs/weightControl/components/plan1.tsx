@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 import { formatPrice } from "@/lib/formatPrice";
 import es from "@/locals/es.json";

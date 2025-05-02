@@ -16,7 +16,7 @@ const plans = [
   pX:plan.pX
 }));
 
-const Plan1 = () => {
+const Plan2 = () => {
   return (
     <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
       <div className="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
@@ -28,7 +28,7 @@ const Plan1 = () => {
         {plans.map((plan, index) => (
           <div
             key={index}
-            className="flex flex-col border border-gray-200 text-left rounded-xl p-8"
+            className="flex flex-col border border-gray-200 text-center rounded-xl p-8"
           >
             <h4 className="font-medium text-lg text-gray-800">{plan.title}</h4>
             <div>
@@ -69,4 +69,4 @@ const Plan1 = () => {
   );
 };
 
-export default Plan1;
+export default Plan2;
