@@ -41,8 +41,8 @@ const Plan1 = () => {
                 </li>
               ))}
             </ul>
-            <Button variant="outline" className="my-4">
-              Sign up
+            <Button variant="outline" className="my-4" onClick={() => window.open("https://calendly.com/lymbikagroup/30min", "_blank")}>
+              Agendar Cita
             </Button>
           </div>
         ))}

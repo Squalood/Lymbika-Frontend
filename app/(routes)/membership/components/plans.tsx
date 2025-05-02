@@ -1,4 +1,6 @@
-import { Building2, Check, MoveRight, PhoneCall, Pill, Stethoscope } from "lucide-react";
+"use client";
+
+import { Building2, Check, IdCard, MoveRight, PhoneCall, Pill, Stethoscope } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import es from "@/locals/es.json";
@@ -20,7 +22,11 @@ const PlansMemberPage = () => {
   return (
     <div className="max-w-6xl px-6 lg:px-12 py-20 mx-auto">
       <div className="text-center max-w-xl mx-auto space-y-4">
-        <h2 className="text-3xl md:text-5xl tracking-tighter font-semibold">{title}</h2>
+        <div className="flex flex-row gap-2 justify-center">
+          <IdCard className="stroke-primary w-8 h-8 sm:w-12 sm:h-12" />
+          <h2 className="text-3xl md:text-5xl tracking-tighter font-semibold">{title}</h2>
+        </div>
+        
         <p className="text-lg text-muted-foreground">{description}</p>
       </div>
       <div className="flex flex-col items-center justify-center pt-12 gap-2">

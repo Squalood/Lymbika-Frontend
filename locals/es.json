@@ -28,7 +28,7 @@
       }
     },
     "PlansMemberPage": {
-      "title": "Membresías",
+      "title": "MediClub",
       "description": "Con nuestra membresía mensual MediClub, accede a medicamentos y productos de la salud a precio de proveedor, diseñado para cuidar la economía de nuestros pacientes.",
       "plans": [
         {
@@ -242,7 +242,7 @@
     "MenopausePage":{
       "hero":{
         "title": "Transforma tu salud, redescubre tu equilibrio.",
-        "description": "TERAPIA TRANSCRANEAL ELECTROMAGNÉTICA"
+        "description": "Un plan integral mensual diseñado para acompañarte en una etapa vital de cambio, con atención cálida, personalizada y profesional."
       },
       "section1":{
         "title": "¿Qué es Renacer?",

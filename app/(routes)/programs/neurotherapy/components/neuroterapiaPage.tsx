@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import es from "@/locals/es.json";
+import { MoveRight } from "lucide-react";
 
 const services = [
     {
@@ -77,12 +78,9 @@ const NeuroterapiaPage = () => {
                 </p>
 
                 {/* Botón */}
-                <Link
-                href="/citas"
-                className="px-6 py-2 border border-white text-white hover:bg-white hover:text-black transition rounded-md text-sm tracking-widest"
-                >
-                APARTA UNA CITA
-                </Link>
+                <Button size="lg" className="gap-4 text-primary" variant="outline" onClick={() => window.open("https://calendly.com/lymbikagroup/30min", "_blank")}>
+                    Agendar Cita <MoveRight className="w-4 h-4" />
+                </Button>
             </div>
         </div>
 

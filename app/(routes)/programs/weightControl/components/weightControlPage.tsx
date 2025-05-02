@@ -43,6 +43,7 @@ const WeightControlPage = () => {
                                 {es.WeightControlPage.title}
                             </h1>
                             </div>
+                            <Button size={"lg"} variant={"secondary"} className="mt-4" onClick={() => window.open("https://calendly.com/lymbikagroup/30min", "_blank")}>Agendar Cita</Button>
                         </div>
                     </div>
                 </div>
@@ -147,7 +148,6 @@ const WeightControlPage = () => {
                                 {es.WeightControlPage.section4.description}
                                 </p>
                             </div>
-                            <Button variant={"outline"} className="w-2/4 mx-4 bg-purple-200">Aparta consulta</Button>
                         </div>
                         <div className="bg-muted rounded-md w-full aspect-video h-full flex-1 relative overflow-hidden">
                             <Image
