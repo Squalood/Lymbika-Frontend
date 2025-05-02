@@ -171,7 +171,7 @@
           "title2": "Opción 2: Plan con medicamento inyectable (GLP-1)",
           "card1": {
             "title": "Sin membresía",
-            "price": 1500,
+            "price": 1599,
             "p1": "Consulta médica mensual",
             "p2": "Consulta nutricional mensual",
             "p3": "Tratamiento oral",
@@ -179,7 +179,7 @@
           },
           "card2": {
             "title": "Con membresía Mediclub",
-            "price": 1250,
+            "price": 1249,
             "p1": "Consulta médica mensual",
             "p2": "Consulta nutricional mensual",
             "p3": "Tratamiento oral ",
@@ -187,19 +187,23 @@
           },
           "card3": {
             "title": "Sin membresía",
-            "price": 6849,
+            "price": 4500,
             "p1": "Consulta médica mensual",
             "p2": "Consulta nutricional mensual",
             "p3": "Tratamiento escalonado de  GLP-1",
-            "p4": "No incluye suplementos"
+            "p3sub": "(1 pluma de 0.25 mg – microdosis)",
+            "p4": "Escalamiento de dosis disponible si es indicado médicamente (con costo adicional)",
+            "pX": "No incluye suplementos"
           },
           "card4": {
             "title": "Con membresía Mediclub",
-            "price": 6499,
+            "price": 4000,
             "p1": "Consulta médica mensual",
             "p2": "Consulta nutricional mensual",
             "p3": "Tratamiento escalonado de GLP-1",
-            "p4": "Suplementos a precio proveedor"
+            "p3sub": "(1 pluma de 0.25 mg – microdosis)",
+            "p4": "Posibilidad de escalar dosis con precio preferencial",
+            "pX": "Suplementos a precio de proveedor"
           }
         },
         "cost":{

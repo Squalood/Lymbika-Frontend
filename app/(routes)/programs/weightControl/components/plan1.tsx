@@ -41,9 +41,6 @@ const Plan1 = () => {
                 </li>
               ))}
             </ul>
-            <Button variant="outline" className="my-4">
-              Sign up
-            </Button>
           </div>
         ))}
       </div>

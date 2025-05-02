@@ -54,10 +54,10 @@ const FeaturedProducts = () => {
                                                 </div>
                                             </div>
                                         </CardContent>
-                                        <div className="flex justify-between gap-4 px-8">
+                                        <div className="flex flex-col justify-center gap-4 px-8">
                                             <h3 className="text-lg font-bold">{productName}</h3>
                                             <div className="flex items-center justify-between gap-3">
-                                                <p className="px-2 py-1 text-white primary bg-sky-600 rounded-full w-fit">{category?.categoryName ?? "Sin categoría"}</p>
+                                                <p className="px-2 py-1 text-white primary bg-primary rounded-full w-fit">{category?.categoryName ?? "Sin categoría"}</p>
                                             </div>
                                         </div>
                                     </Card>

@@ -63,7 +63,7 @@ const ItemsMenuMobile = () => {
             <DropdownMenuItem className="flex" onClick={()=> router.push("/programs/medicalAgent")}>
               <span>{es.navbar.programas.program2}</span>
             </DropdownMenuItem>
-            <DropdownMenuItem className="flex" onClick={()=> router.push("/membership")}>
+            <DropdownMenuItem className="flex" onClick={()=> router.push("/programs/menopause")}>
               <span>{es.navbar.programas.program3}</span>
             </DropdownMenuItem>
             <DropdownMenuItem className="flex" onClick={()=> router.push("/programs/neurotherapy")}>

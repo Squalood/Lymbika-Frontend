@@ -41,7 +41,7 @@ const PlansMemberPage = () => {
             <CardContent>
               <div className="flex flex-col gap-8">
                 <div className="flex flex-col gap-4">
-                  <div className="text-xl flex items-center gap-2 justify-star">
+                  <div className="text-xl flex items-center gap-2 justify-center sm:justify-start">
                     <span className="text-4xl">
                       ${isFamilyPlan ? plan.priceM : plan.priceP}
                     </span>

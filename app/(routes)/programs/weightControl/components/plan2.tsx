@@ -1,5 +1,4 @@
-import { Button } from "@/components/ui/button";
-import { Check } from "lucide-react";
+import { Check, RefreshCcw, X } from "lucide-react";
 import { formatPrice } from "@/lib/formatPrice";
 import es from "@/locals/es.json";
 
@@ -9,7 +8,12 @@ const plans = [
 ].map(plan => ({
   title: plan.title,
   price: plan.price,
-  features: [plan.p1, plan.p2, plan.p3, plan.p4],
+  p1:plan.p1,
+  p2:plan.p2,
+  p3:plan.p3,
+  p3sub:plan.p3sub,
+  p4:plan.p4,
+  pX:plan.pX
 }));
 
 const Plan1 = () => {
@@ -24,7 +28,7 @@ const Plan1 = () => {
         {plans.map((plan, index) => (
           <div
             key={index}
-            className="flex flex-col border border-gray-200 text-center rounded-xl p-8"
+            className="flex flex-col border border-gray-200 text-left rounded-xl p-8"
           >
             <h4 className="font-medium text-lg text-gray-800">{plan.title}</h4>
             <div>
@@ -34,16 +38,30 @@ const Plan1 = () => {
               <span className="text-sm text-muted-foreground">/ mes</span>
             </div>
             <ul className="mt-7 space-y-2.5 text-sm">
-              {plan.features.map((feature, i) => (
-                <li key={i} className="flex gap-x-2">
+                <li className="flex gap-x-2">
                   <Check size={20} color="#2819f5" strokeWidth={1.5} />
-                  <span className="text-gray-800">{feature}</span>
+                  <span className="text-gray-800">{plan.p1}</span>
                 </li>
-              ))}
+                <li className="flex gap-x-2">
+                  <Check size={20} color="#2819f5" strokeWidth={1.5} />
+                  <span className="text-gray-800">{plan.p2}</span>
+                </li>
+                <li className="flex gap-x-2 flex-row">
+                  <Check size={20} color="#2819f5" strokeWidth={1.5} />
+                  <div className="flex flex-col">
+                    <span className="text-gray-800">{plan.p3}</span>
+                    <span className="text-muted-foreground">{plan.p3sub}</span>
+                  </div>
+                </li>
+                <li className="flex gap-x-2">
+                  <RefreshCcw size={20} color="#2819f5" strokeWidth={1.5} />
+                  <span className="text-gray-800">{plan.p4}</span>
+                </li>
+                <li className="flex gap-x-2">
+                  <X size={20} color="#f50f0f" strokeWidth={1.5} />
+                  <span className="text-gray-800">{plan.pX}</span>
+                </li>
             </ul>
-            <Button variant="outline" className="my-4">
-              Sign up
-            </Button>
           </div>
         ))}
       </div>
