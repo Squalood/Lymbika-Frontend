@@ -2,6 +2,8 @@ import { Building2, Check, MoveRight, PhoneCall, Pill, Stethoscope } from "lucid
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import es from "@/locals/es.json";
+import { Switch } from "@/components/ui/switch";
+import { useState } from "react";
 
 const iconMap = {
   MoveRight: <MoveRight size={16} />,
@@ -13,6 +15,7 @@ const iconMap = {
 
 const PlansMemberPage = () => {
   const { title, description, plans } = es.PlansMemberPage;
+  const [isFamilyPlan, setIsFamilyPlan] = useState(false);
 
   return (
     <div className="max-w-6xl px-6 lg:px-12 py-20 mx-auto">
@@ -20,8 +23,13 @@ const PlansMemberPage = () => {
         <h2 className="text-3xl md:text-5xl tracking-tighter font-semibold">{title}</h2>
         <p className="text-lg text-muted-foreground">{description}</p>
       </div>
-
-      <div className="grid pt-20 grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="flex flex-col items-center justify-center pt-12 gap-2">
+      <span>
+        {isFamilyPlan ? "Planes por Familia" : "Planes por Persona"}
+      </span>
+        <Switch checked={isFamilyPlan} onCheckedChange={setIsFamilyPlan}/>
+      </div>
+      <div className="grid pt-4 grid-cols-1 lg:grid-cols-3 gap-8">
         {plans.map((plan, idx) => (
           <Card key={idx} className={`w-full rounded-md ${idx === 1 ? "shadow-2xl" : ""}`}>
             <CardHeader>
@@ -33,22 +41,12 @@ const PlansMemberPage = () => {
             <CardContent>
               <div className="flex flex-col gap-8">
                 <div className="flex flex-col gap-4">
-                    <div className="text-xl flex items-center gap-2 justify-center">
-                        <div className="flex flex-col text-center text-xs text-muted-foreground">
-                            <span>Por</span>
-                            <span>Persona</span>
-                        </div>
-                        <span className="text-4xl">${plan.priceP}</span>
-                        <span className="text-sm text-muted-foreground">/ mes</span>
-                    </div>
-                    <div className="text-xl flex items-center gap-2 justify-center">
-                        <div className="flex flex-col text-center text-xs text-muted-foreground">
-                            <span>Por</span>
-                            <span>Familia</span>
-                        </div>
-                        <span className="text-4xl">${plan.priceM}</span>
-                        <span className="text-sm text-muted-foreground">/ mes</span>
-                    </div> 
+                  <div className="text-xl flex items-center gap-2 justify-star">
+                    <span className="text-4xl">
+                      ${isFamilyPlan ? plan.priceM : plan.priceP}
+                    </span>
+                    <span className="text-sm text-muted-foreground">/ mes</span>
+                  </div>
                 </div>
                 <div className="flex flex-col gap-4">
                   {plan.features.map((feature, fIdx) => (
