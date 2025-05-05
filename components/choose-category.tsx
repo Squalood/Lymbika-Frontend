@@ -14,7 +14,7 @@ const ChooseCategory = () => {
             <h3 className="px-6 pb-4 text-3xl sm:pb-8">Farmacia</h3>
 
             {loading && 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                     <Skeleton className=" w-[250px] h-[250px] rounded-lg" />
                     <Skeleton className=" w-[250px] h-[250px] rounded-lg" />
                     <Skeleton className=" w-[250px] h-[250px] rounded-lg" />

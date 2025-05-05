@@ -18,8 +18,7 @@ const FlashContact = () => {
                             <Phone className="w-5 h-5" />
                             <Link href={"https://wa.me/526561100446"} className="ml-2 hidden lg:block">+52-656-110-0446</Link>
                         </div>
-                    </li>
-                    
+                    </li>     
                 </ul>
                 <ul className="flex space-x-6">
                     <li>
@@ -51,9 +50,7 @@ const FlashContact = () => {
                         </div>
                     </li>
                 </ul>
-            </div>
-                
-            
+            </div>    
             <Separator className="mt-1 opacity-50"/>
         </div>
     );

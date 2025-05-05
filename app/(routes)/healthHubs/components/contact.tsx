@@ -1,14 +1,17 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 
 const contact = [
     {
     title: "Dirección",
-    description: "Ave. Paseo de la Vicitoria #9350 ",
+    description: "Av. Paseo de la Victoria 9350, Partido Senecú, Juárez, Chih.",
+    link: "https://maps.app.goo.gl/wddxisYk7CM7cGVg6",
     },
     {
     title: "Correo electrónico",
-    description: "gabriel.parra@lymbika.com",
+    description: "lymbikagroup@gmail.com​",
+    link: "mailto:lymbikagroup@gmail.com"
     },
 ]
 
@@ -42,7 +45,7 @@ const Contact = () => {
                         {contact.title}
                     </h2>
                     <p className="text-base md:text-lg leading-relaxed text-muted-foreground max-w-xl text-left">
-                        {contact.description}
+                        <Link href={contact.link} target="_blank" rel="noopener noreferrer">{contact.description}</Link>
                     </p>
                     </div>
                 ))}
