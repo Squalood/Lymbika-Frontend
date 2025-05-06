@@ -1,4 +1,4 @@
-import { Check, RefreshCcw, X } from "lucide-react";
+import { Check, Info, RefreshCcw } from "lucide-react";
 import { formatPrice } from "@/lib/formatPrice";
 import es from "@/locals/es.json";
 
@@ -58,7 +58,7 @@ const Plan2 = () => {
                   <span className="text-gray-800">{plan.p4}</span>
                 </li>
                 <li className="flex gap-x-2">
-                  <X size={20} color="#f50f0f" strokeWidth={1.5} />
+                  <Info size={20} color="#2819f5" strokeWidth={1.5} />
                   <span className="text-gray-800">{plan.pX}</span>
                 </li>
             </ul>

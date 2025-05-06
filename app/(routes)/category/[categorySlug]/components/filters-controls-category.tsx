@@ -14,7 +14,7 @@ const FiltersControlsCategory = ({ setFilterType, typeFilter }: FiltersControlsC
     };
 
     return ( 
-        <div className="sm:w-[350px] sm:mt-5 p-6">
+        <div className="sm:w-1/5 sm:mt-5 p-6">
             <FilterType setFilterType={setFilterType} typeFilter={typeFilter} />
 
             {(typeFilter) && (
