@@ -4,7 +4,7 @@ import { CategoryType } from "@/types/category";
 import {ResponseType} from '@/types/response';
 import Link from "next/link";
 import Image from "next/image";
-import { Skeleton } from "./ui/skeleton";
+import SkeletonGalleryCol3 from "./skeleton/skeletonGalleryCol3";
 
 const ChooseCategory = () => {
     const { result, loading }: ResponseType = useGetCategories()
@@ -14,11 +14,7 @@ const ChooseCategory = () => {
             <h3 className="px-6 pb-4 text-3xl sm:pb-8">Farmacia</h3>
 
             {loading && 
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                    <Skeleton className=" w-[250px] h-[250px] rounded-lg" />
-                    <Skeleton className=" w-[250px] h-[250px] rounded-lg" />
-                    <Skeleton className=" w-[250px] h-[250px] rounded-lg" />
-                </div>
+                <SkeletonGalleryCol3 grid={6} />
             }
 
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-5">
