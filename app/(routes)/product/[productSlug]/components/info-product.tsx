@@ -15,6 +15,8 @@ const InfoProduct = (props: InfoProductProps) => {
     const {addItem} = useCart()
     const {addLoveItem} = UseLovedProducts()
 
+    const hasMemberPrice = product.priceMember > 0;
+
     return ( 
         <div className="px-6">
             <div className="justify-between mb-3 sm:flex">
@@ -31,15 +33,17 @@ const InfoProduct = (props: InfoProductProps) => {
             <Separator className="my-4"/>
             <p>{product.description}</p>
             <Separator className="my-4"/>
-            <div className="flex justify-around my-4">
-                <div>
-                    <p className="text-xs">Precio normal</p>
+            <div className={`flex my-4 ${!hasMemberPrice ? "justify-start" : "justify-evenly"}`}>
+                <div className={`${!hasMemberPrice ? "flex flex-row gap-3 items-center" : ""}`}>
+                    <p className="text-xs">Precio Regular</p>
                     <p className="text-2xl">{formatPrice(product.price)}</p>
                 </div>
+                {hasMemberPrice && (
                 <div>
                     <p className="text-xs">Precio MediClub</p>
                     <p className="text-2xl text-green-400">{formatPrice(product.priceMember)}</p>
                 </div>
+                )}
             </div>
             <div className="flex items-center gap-5">
                 <Button className="w-full" onClick={() => addItem(product)}>Comprar</Button>

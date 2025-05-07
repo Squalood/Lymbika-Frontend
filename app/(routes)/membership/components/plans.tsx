@@ -70,6 +70,7 @@ const PlansMemberPage = () => {
                         plan.button.variant === "outline" ? "outline" : "default"
                       }
                       className="gap-4"
+                      onClick={() => window.open(`${plan.button.link}`, "_blank")}
                     >
                       {plan.button.label}
                       {iconMap[plan.button.icon as keyof typeof iconMap]}

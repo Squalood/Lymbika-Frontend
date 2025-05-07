@@ -38,9 +38,10 @@
           "priceM": 850,
           "description": "Atención médica primaria para ti o tu familia.",
           "button": {
-            "label": "Sign up today",
+            "label": "Regístrate ahora",
             "icon": "MoveRight",
-            "variant": "default"
+            "variant": "default",
+            "link": "https://wa.me/526561100446"
           },
           "features": [
             {
@@ -61,9 +62,10 @@
           "priceM": 350,
           "description": "Para quienes quieren ahorrar en farmacia y servicios básicos.",
           "button": {
-            "label": "Sign up today",
+            "label": "Regístrate ahora",
             "icon": "MoveRight",
-            "variant": "outline"
+            "variant": "outline",
+            "link": "https://wa.me/526561100446"
           },
           "features": [
             {
@@ -84,9 +86,10 @@
           "priceM": 690,
           "description": "Salud accesible para tu equipo de trabajo.",
           "button": {
-            "label": "Book a meeting",
+            "label": "Reservar una reunión",
             "icon": "PhoneCall",
-            "variant": "outline"
+            "variant": "outline",
+            "link": "https://wa.me/526561100446"
           },
           "features": [
             {
