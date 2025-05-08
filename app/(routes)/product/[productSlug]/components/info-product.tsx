@@ -16,18 +16,21 @@ const InfoProduct = (props: InfoProductProps) => {
     const {addLoveItem} = UseLovedProducts()
 
     const hasMemberPrice = product.priceMember > 0;
+    const hasTipo = typeof product.tipo === "string";
 
     return ( 
         <div className="px-6">
-            <div className="justify-between mb-3 sm:flex">
+            <div className="justify-between flex flex-col gap-6">
                 <h1 className="text-2xl">{product.productName}</h1>
-                <div className="flex items-center justify-between gap-3">
+                <div className={`flex items-center gap-3 ${!hasTipo ? "justify-center": "justify-evenly"}`} >
                     <p className="px-2 py-1 text-xs text-white bg-black rounded-full dark:bg-white dark:text-black w-fit">
                         {product.category?.categoryName || "Sin categoría"}
                     </p>
+                    {hasTipo && (
                     <p className="px-2 py-1 text-xs text-white bg-teal-400 rounded-full w-fit">
                         {product.tipo}
                     </p>
+                    )}
                 </div>
             </div>
             <Separator className="my-4"/>
