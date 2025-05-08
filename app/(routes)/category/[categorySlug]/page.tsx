@@ -13,6 +13,7 @@ import { Search } from "@/components/searchBar";
 import { Skeleton } from "@/components/ui/skeleton";
 import SkeletonList from "@/components/skeleton/skeletonList";
 
+
 export default function Page() {
     const params = useParams();
     const { categorySlug } = params;

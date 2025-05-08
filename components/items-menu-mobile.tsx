@@ -22,7 +22,7 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { CategoryType } from "@/types/category";
-import { useGetCategories } from "@/api/getProduct";
+import { useGetCategories } from "@/api/getCategories";
 import {ResponseType} from '@/types/response';
 import es from "@/locals/es.json";
 

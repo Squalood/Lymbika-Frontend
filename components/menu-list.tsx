@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/navigation-menu"
 import { CategoryType } from "@/types/category"
 import {ResponseType} from '@/types/response';
-import { useGetCategories } from "@/api/getProduct" 
+import { useGetCategories } from "@/api/getCategories" 
 import { Skeleton } from "./ui/skeleton"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
