@@ -3,15 +3,15 @@ import { Skeleton } from "@/components/ui/skeleton";
 const SkeletonProduct = () => {
     return ( 
         <div className="px-6">
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-4">
                 {/* Título */}
-                <Skeleton className="h-5 w-3/4" />
-                <Skeleton className="h-5 w-3/4" />
+                <Skeleton className="h-7 w-full" />
+                <Skeleton className="h-7 w-3/4" />
 
                 {/* Etiquetas */}
-                <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center justify-evenly mt-2 gap-3">
                     <Skeleton className="h-6 w-32 rounded-full" />
-                    <Skeleton className="h-6 w-24 rounded-full" />
+                    <Skeleton className="h-6 w-32 rounded-full" />
                 </div>
             </div>
 
@@ -37,7 +37,7 @@ const SkeletonProduct = () => {
             </div>
 
             {/* Precios */}
-            <div className="flex justify-evenly my-4">
+            <div className="flex justify-evenly my-4 gap-2">
                 <div>
                 <Skeleton className="h-4 w-24 mb-1" />
                 <Skeleton className="h-6 w-28" />

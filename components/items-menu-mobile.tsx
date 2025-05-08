@@ -70,7 +70,7 @@ const ItemsMenuMobile = () => {
               <span>{es.navbar.programas.program4}</span>
             </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuLabel className="flex flex-row"><PillBottle className="mr-2"/>Farmacia</DropdownMenuLabel>
+          <DropdownMenuLabel className="flex flex-row" onClick={() => router.push(`/shop`)}><PillBottle className="mr-2"/>Farmacia</DropdownMenuLabel>
           {!loading && Array.isArray(result) && result.length > 0 && result.map((category: CategoryType) => (
             <DropdownMenuItem key={category.id} className="cursor-pointer" onClick={() => router.push(`/category/${category.slug}`)}>
               <p>{category.categoryName}</p>

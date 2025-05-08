@@ -23,7 +23,7 @@ const InfoProduct = (props: InfoProductProps) => {
             <div className="justify-between flex flex-col gap-6">
                 <h1 className="text-2xl">{product.productName}</h1>
                 <div className={`flex items-center gap-3 ${!hasTipo ? "justify-center": "justify-evenly"}`} >
-                    <p className="px-2 py-1 text-xs text-white bg-black rounded-full dark:bg-white dark:text-black w-fit">
+                    <p className="px-2 py-1 text-sm text-white bg-primary rounded-full dark:bg-primary dark:text-primary w-fit">
                         {product.category?.categoryName || "Sin categoría"}
                     </p>
                     {hasTipo && (

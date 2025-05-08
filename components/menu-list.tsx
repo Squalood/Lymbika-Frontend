@@ -55,7 +55,7 @@ const MenuList = () => {
                         height={500}
                         className="rounded-xl"
                     />
-                    <div className="mb-2 mt-4 text-lg font-medium text-muted">
+                    <div className="mb-2 mt-4 text-lg font-bold text-muted">
                       Lymbika
                     </div>
                     <p className="text-sm leading-tight text-muted">
