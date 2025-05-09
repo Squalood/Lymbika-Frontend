@@ -1,5 +1,5 @@
 "use client"
-import { Heart, ShoppingCart, User } from "lucide-react";
+import { Heart, Search, ShoppingCart, User } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import MenuList from "./menu-list";
 import ItemsMenuMobile from "./items-menu-mobile";
@@ -7,6 +7,7 @@ import ToggleTheme from "./toggle-theme";
 import { useCart } from "@/hooks/use-cart";
 import { UseLovedProducts } from "@/hooks/use-loved-products";
 import { LoggedInUser } from "./custom/UserLogin";
+import { Button } from "./ui/button";
 
 interface AuthUserProps {
     username: string;
@@ -24,7 +25,6 @@ interface AuthUserProps {
     const { lovedItems } = UseLovedProducts();
 
     const textColor = pathname === "/" ? "text-background" : "text-black";
-    const strokeColor = pathname === "/" ? "stroke-background" : "stroke-black";
     const fillColor = lovedItems.length > 0 ? (pathname === "/" ? "fill-background" : "fill-black") : "";
     const positionAbs = pathname === "/" ? "absolute top-8 left-0 right-0 z-50" : "";
 
@@ -37,21 +37,33 @@ interface AuthUserProps {
                 <MenuList />
             </div>
 
-            <div className="items-center justify-between gap-2 sm:gap-7 hidden lg:flex">
+            <div className="items-center justify-between gap-2 sm:gap-2 hidden lg:flex">
+                <Button variant="ghost" size="icon" className={`${textColor} hover:${!textColor}`}>
+                    <Search/>
+                </Button>
+
                 {cart.items.length === 0 ? (
-                <ShoppingCart strokeWidth="1" className={`cursor-pointer ${strokeColor}`} onClick={() => router.push("/cart")} />
+                <Button variant="ghost" size="icon" className={`${textColor} hover:${!textColor}`} onClick={() => router.push("/cart")}>
+                    <ShoppingCart />
+                </Button>
                 ) : (
-                    <div className="flex gap-1" onClick={() => router.push("/cart")}>
-                        <ShoppingCart strokeWidth={1} className={`cursor-pointer ${strokeColor}`} />
-                        <span className={textColor}>{cart.items.length}</span>
-                    </div>
+                <div className="flex gap-1" onClick={() => router.push("/cart")}>
+                    <Button variant="ghost" size="sm" className={`${textColor} hover:${!textColor}`}>
+                        <ShoppingCart />
+                        <span>{cart.items.length}</span>
+                    </Button>
+                </div>
                 )}
-                <Heart strokeWidth="1" className={`${fillColor} ${strokeColor}`} onClick={() => router.push("/loved-products")} />
+                <Button variant="ghost" size={"icon"} className={`${textColor} hover:${!textColor}`} onClick={() => router.push("/loved-products")}>
+                    <Heart className={`${fillColor}`}/>
+                </Button>
                 
                 {/* Icono de usuario con nombre */}
                 <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push("/dashboard")}>
-                    <User strokeWidth={1} className={strokeColor} />
-                    {user ? <LoggedInUser userData={user} /> : null}
+                    <Button variant="ghost" size="sm" className={`${textColor} hover:${!textColor}`}>
+                        <User />
+                        {user ? <LoggedInUser userData={user} /> : null}
+                    </Button>
                 </div>
 
                 {false && <ToggleTheme />}
