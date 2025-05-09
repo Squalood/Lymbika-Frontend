@@ -29,15 +29,13 @@ interface AuthUserProps {
     const { lovedItems } = UseLovedProducts();
     const { products, loading } = useGetProducts();
 
-    if (loading) return <p>Cargando productos...</p>;
+    const [showSearch, setShowSearch] = useState(false);
+    const searchRef = useRef<HTMLDivElement>(null)
 
     const textColor = pathname === "/" ? "text-background" : "text-black";
     const fillColor = lovedItems.length > 0 ? (pathname === "/" ? "fill-background" : "fill-black") : "";
     const positionAbs = pathname === "/" ? "absolute top-8 left-0 right-0 z-50" : "";
     const positionSea = pathname === "/" ? "absolute top-24 left-0 right-0 z-50" : "";
-
-    const [showSearch, setShowSearch] = useState(false);
-    const searchRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -54,6 +52,8 @@ interface AuthUserProps {
         document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [showSearch]);
+
+    if (loading) return <p>Cargando productos...</p>;
 
     return (
         <div ref={searchRef}>
@@ -97,8 +97,6 @@ interface AuthUserProps {
 
                     {false && <ToggleTheme />}
                 </div>
-
-                
 
                 <div className="flex gap-3 lg:hidden">
                     <Button variant="ghost" size="icon" className={`${textColor} hover:${!textColor}`} onClick={() => setShowSearch((prev) => !prev)} aria-label="Mostrar búsqueda">
