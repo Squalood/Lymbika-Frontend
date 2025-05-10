@@ -5,7 +5,11 @@ import { Input } from "@/components/ui/input";
 import { X } from "lucide-react";
 import { useEffect, useState } from "react";
 
-export function Search() {
+interface Props {
+  category: string;
+}
+
+export function Search({category}:Props) {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
   const pathname = usePathname();
@@ -42,7 +46,7 @@ export function Search() {
     <div className="relative w-full sm:w-1/3">
       <Input
         type="text"
-        placeholder="Buscar productos..."
+        placeholder={`Buscar ${category}`} //
         value={searchTerm}
         onChange={(e) => {
           setSearchTerm(e.target.value);

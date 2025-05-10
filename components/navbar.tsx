@@ -12,6 +12,7 @@ import { useEffect, useRef, useState } from "react";
 import { SearchGeneral } from "./searchGeneral";
 import { useGetProducts } from "@/api/getProducts";
 import { AnimatePresence, motion } from "framer-motion";
+import { useGetDoctors } from "@/api/getDoctor";
 
 interface AuthUserProps {
     username: string;
@@ -27,7 +28,10 @@ interface AuthUserProps {
     const pathname = usePathname();
     const cart = useCart();
     const { lovedItems } = UseLovedProducts();
-    const { products, loading } = useGetProducts();
+    
+    const { products } = useGetProducts();
+    const { doctors } = useGetDoctors();
+    
 
     const [showSearch, setShowSearch] = useState(false);
     const searchRef = useRef<HTMLDivElement>(null)
@@ -53,7 +57,6 @@ interface AuthUserProps {
         };
     }, [showSearch]);
 
-    if (loading) return <p>Cargando productos...</p>;
 
     return (
         <div ref={searchRef}>
@@ -116,7 +119,7 @@ interface AuthUserProps {
                         transition={{ duration: 0.3 }}
                         className="absolute top-full right-1 w-96 z-50 mt-2"
                     >
-                        <SearchGeneral allProducts={products} />
+                        <SearchGeneral allProducts={products} allDoctors={doctors} />
                     </motion.div>
                     )}
                 </AnimatePresence>

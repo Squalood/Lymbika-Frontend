@@ -100,7 +100,7 @@ export default function Page() {
                 {loading ? (
                     <Skeleton className="w-full sm:w-1/3 h-10"/>
                 ) : (
-                <Search />
+                <Search category={filteredProducts[0]?.category?.categoryName} />
                 )}
             </div>
             <Separator />

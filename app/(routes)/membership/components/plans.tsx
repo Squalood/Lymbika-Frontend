@@ -4,9 +4,10 @@ import { Building2, Check, IdCard, MoveRight, PhoneCall, Pill, Stethoscope } fro
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import es from "@/locals/es.json";
-import { Switch } from "@/components/ui/switch";
 import { useState } from "react";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import clsx from "clsx";
+import { AnimatePresence, motion } from "framer-motion";
 
 const iconMap = {
   MoveRight: <MoveRight size={16} />,
@@ -29,10 +30,55 @@ const PlansMemberPage = () => {
         </div>
         <p className="text-lg text-muted-foreground">{description}</p>
       </div>
-      <div className="flex flex-col items-center justify-center py-12 gap-2">
-        <span>{isFamilyPlan ? "Planes por Familia" : "Planes por Persona"}</span>
-        <Switch checked={isFamilyPlan} onCheckedChange={setIsFamilyPlan}/>
+
+      <div className="relative flex bg-muted rounded-full w-fit gap-1 mx-auto my-8">
+        <AnimatePresence>
+          <motion.div
+            key={isFamilyPlan ? "familia" : "persona"}
+            layoutId="active-pill"
+            className="absolute rounded-full bg-muted shadow z-0"
+            initial={false}
+            animate={{ width: "100%", height: "100%" }}
+            transition={{ type: "spring", stiffness: 500, damping: 30 }}
+          />
+        </AnimatePresence>
+
+        <div className="relative z-10 flex gap-1 w-full">
+          <button
+            onClick={() => setIsFamilyPlan(false)}
+            className={clsx(
+              "relative z-10 px-4 py-3 text-sm font-medium rounded-full transition",
+              !isFamilyPlan ? "text-black" : "text-muted-foreground"
+            )}
+          >
+            {!isFamilyPlan && (
+              <motion.div
+                layoutId="highlight"
+                className="absolute inset-0 bg-white rounded-full shadow"
+                transition={{ type: "spring", stiffness: 500, damping: 30 }}
+              />
+            )}
+            <span className="relative z-10">Plan por Persona</span>
+          </button>
+          <button
+            onClick={() => setIsFamilyPlan(true)}
+            className={clsx(
+              "relative z-10 px-4 py-3 text-sm font-medium rounded-full transition",
+              isFamilyPlan ? "text-black" : "text-muted-foreground"
+            )}
+          >
+            {isFamilyPlan && (
+              <motion.div
+                layoutId="highlight"
+                className="absolute inset-0 bg-white rounded-full shadow"
+                transition={{ type: "spring", stiffness: 500, damping: 30 }}
+              />
+            )}
+            <span className="relative z-10"> Plan por Familia</span>
+          </button>
+        </div>
       </div>
+
       <Carousel
         opts={{
           startIndex: 1,

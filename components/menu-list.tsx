@@ -71,9 +71,9 @@ const MenuList = () => {
                 Tratamientos y servicios con doctores especializados.
               </ListItem>
               <ListItem href="/surgery" title= {es.titlesurgery}> 
-              Tratamiento de enfermedades o condiciones a través de procedimientos quirúrgicos.
+                Tratamiento de enfermedades o condiciones a través de procedimientos quirúrgicos.
               </ListItem>
-              <ListItem href="/membership" title="Planes y Membresíass">
+              <ListItem href="/membership" title="Planes y Membresías">
                 Con nuestra membresía MediClub, accede a medicamentos y productos de la salud a precio de proveedor. 
               </ListItem>
             </ul>

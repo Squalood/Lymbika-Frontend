@@ -18,9 +18,7 @@ const [activeTab, setActiveTab] = useState<"opcion-1" | "opcion-2" | "prices">("
             <div className="flex flex-col items-center gap-4">
                 <h2 className="text-lg">Planes de Precios</h2>
                 <div className="flex bg-muted p-1 rounded-full w-fit mb-2 gap-1">
-                {[
-                    { key: "opcion-1", label: "Opción 1" },
-                    { key: "opcion-2", label: "Opción 2" },
+                {[{ key: "opcion-1", label: "Opción 1" },{ key: "opcion-2", label: "Opción 2" },
                 ].map((tab) => (
                     <button
                     key={tab.key}
@@ -30,8 +28,7 @@ const [activeTab, setActiveTab] = useState<"opcion-1" | "opcion-2" | "prices">("
                         activeTab === tab.key
                         ? "bg-white text-black shadow"
                         : "text-muted-foreground"
-                    )}
-                    >
+                )}>
                     {tab.label}
                     </button>
                 ))}

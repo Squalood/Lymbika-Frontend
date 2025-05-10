@@ -1,9 +1,9 @@
+import { DoctorType } from "@/types/doctor";
 import { useEffect, useState } from "react";
-import { ProductType } from "@/types/product";
 
-export function useGetProducts() {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products?populate=*`;
-  const [products, setResult] = useState<ProductType[]>([]);
+export function useGetDoctors() {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/doctors?populate=*`;
+  const [doctors, setResult] = useState<DoctorType[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -19,12 +19,12 @@ export function useGetProducts() {
           setResult([]);
         }
       } catch (error: any) {
-        setError(error.message || "Error al obtener productos");
+        setError(error.message || "Error al obtener doctores");
       } finally {
         setLoading(false);
       }
     })();
   }, [url]);
 
-  return { loading, products, error };
+  return { loading, doctors, error };
 }
