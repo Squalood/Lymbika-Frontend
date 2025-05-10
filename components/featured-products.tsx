@@ -11,22 +11,14 @@ import IconButtom from "./icon-button";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/hooks/use-cart";
 import Image from "next/image";
-import { SearchGeneral } from "./searchGeneral";
-import { useGetProducts } from "@/api/getProducts";
 
 const FeaturedProducts = () => {
     const { loading, result }: ResponseType = useGetFeaturedProducts();
-    const { products} = useGetProducts();
     const router =useRouter()
     const {addItem} = useCart()
 
     return ( 
         <div className="max-w-6xl py-4 mx-auto sm:py-8 sm:px-24">
-            <div className="py-8">
-                <h1>Search</h1>
-                <SearchGeneral allProducts={products} />
-            </div>
-            
             <h3 className="px-6 text-3xl sm:pb-8">Productos del mes</h3>
             <Carousel>
                 <CarouselContent className="-ml-2 md:-ml-4">
