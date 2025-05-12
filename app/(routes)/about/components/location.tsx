@@ -7,12 +7,20 @@ const LymbikaLocation = () => {
                 <div className="flex gap-4 flex-col flex-1">
                     <div className="flex gap-4 flex-col items-center">
                         <h2 className="text-xl sm:text-3xl md:text-5xl tracking-tighter lg:max-w-xl font-regular text-center">
-                            Farmacia Ciudad Juárez
+                            Lymbika Health Hub
                         </h2>
+                        <h3>
+                            Tu punto de acceso a salud
+                        </h3>
+                        
                         <p className="text-base leading-relaxed">
                             <strong className="font-semibold">Lunes a sábado:</strong><br />
                             <span>08:00 - 21:30</span><br />
-                            <em className="text-muted-foreground">Domingo cerrado</em>
+                            {/*<em className="text-muted-foreground">Domingo cerrado</em>*/}
+                        </p>
+                        <p className="text-center">
+                            Resolveremos tus dudas de salud frente a frente, con atención humana, sin filas ni complicaciones.
+Consultas médicas bajo cita, surtido de medicamentos y orientación personalizada.
                         </p>
                     </div>
                 </div>

@@ -27,7 +27,7 @@ const HeroWide = () => {
                                 Farmacia Online
                             </h1>
                             <p className="text-lg md:text-xl leading-relaxed tracking-tight text-muted max-w-2xl text-center">
-                                Descubre una farmacia en línea confiable con productos de calidad, envíos rápidos y atención personalizada. Compra medicamentos, suplementos y cuidado personal desde la comodidad de tu hogar.
+                                Tu salud empieza aquí: busca, compara y recoge tu medicina fácil y rápido.
                             </p>
                         </div>
                         <div className="flex w-full lg:w-1/3 text-black px-8">

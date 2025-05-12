@@ -6,105 +6,152 @@
       "program3": "Salud Hormonal",
       "program4": "Neuroterapia"
     },
-    "botton4":"HealtHub"
+    "botton4":"HealthHubs"
     },
-    "about":{
-      "mission":{
-        "title":"Misión",
-        "description":"Nos dedicamos a desarrollar el mejor sistema de salud del mundo, brindando un servicio integral de la más alta calidad. Nuestra objetivo es mejorar la comunicación y el abordaje entre profesionales de la salud y pacientes, con el fin de optimizar los resultados y la experiencia de atención médica. Nos comprometemos a eliminar gastos innecesarios y triangulaciones que puedan retrasar la mejoría, para así garantizar que nuestros pacientes  reciban una atención médica eficiente y efectiva que esté a la altura de los estándares más elevados a costos razonables."
+  "programsNavs":{
+    "title": "Programas Lymbika",
+    "description": "Stay in the know with insights from industry experts.",
+    "cards": [
+      {
+        "type": "normal",
+        "title": "Control de Peso Integral",
+        "description": "Produce professional, reliable streams easily leveraging Preline's broadcast studio.",
+        "image": "/images/peso-footer.png",
+        "cta": "Read more",
+        "link": "#"
       },
-      "vision":{
-        "title":"Visión",
-        "description":"En Lymbika estamos construyendo el puente digital de la nueva era de la salud, conectando a pacientes con y sin seguro en la franja fronteriza con médicos certificados, tecnología de vanguardia y procesos humanizados. Nuestra misión es proteger al paciente, empoderar al médico y estandarizar la atención médica de alta calidad, eliminando abusos, gastos innecesarios y barreras que históricamente han limitado el acceso. Somos la interfaz entre el futuro y la salud digna que todos merecen."
+      {
+        "type": "normal",
+        "title": "Agente Médico",
+        "description": "Optimize your in-person experience with badge printing and lead retrieval.",
+        "image": "/images/medicalAgentHero.jpg",
+        "cta": "Read more",
+        "link": "#"
       },
-      "Securities":{
-        "title":"Valores",
-        "item1":"Calidad",
-        "item2":"Transparencia",
-        "item3":"Ética",
-        "item4":"Empatía",
-        "item5":"Responsabilidad",
-        "item6":"Honestidad"
+      {
+        "type": "background",
+        "titleBold": "HealthHubs",
+        "titleRest": "Press publishes books about tech and economics.",
+        "image": "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=560&q=80",
+        "cta": "Visit the site",
+        "link": "#"
+      },
+      {
+        "type": "normal",
+        "title": "Salud Hormonal",
+        "description": "Analyze performance metrics in real-time to boost engagement.",
+        "image": "/images/meno-1.png",
+        "cta": "Read more",
+        "link": "#"
+      },
+      {
+        "type": "normal",
+        "title": "Neuroterapia",
+        "description": "Easily connect with third-party tools for marketing and automation.",
+        "image": "/images/neuro-2.jpg",
+        "cta": "Read more",
+        "link": "#"
       }
+      
+    ]
+  },
+  "about":{
+    "mission":{
+      "title":"Misión",
+      "description":"Nos dedicamos a desarrollar el mejor sistema de salud del mundo, brindando un servicio integral de la más alta calidad. Nuestra objetivo es mejorar la comunicación y el abordaje entre profesionales de la salud y pacientes, con el fin de optimizar los resultados y la experiencia de atención médica. Nos comprometemos a eliminar gastos innecesarios y triangulaciones que puedan retrasar la mejoría, para así garantizar que nuestros pacientes  reciban una atención médica eficiente y efectiva que esté a la altura de los estándares más elevados a costos razonables."
     },
-    "PlansMemberPage": {
-      "title": "MediClub",
-      "description": "Con nuestra membresía mensual MediClub, accede a medicamentos y productos de la salud a precio de proveedor, diseñado para cuidar la economía de nuestros pacientes.",
-      "plans": [
-        {
-          "name": "Lymbika Cuida",
-          "icon": "Stethoscope",
-          "priceP": 450,
-          "priceM": 850,
-          "description": "Atención médica primaria para ti o tu familia.",
-          "button": {
-            "label": "Regístrate ahora",
-            "icon": "MoveRight",
-            "variant": "default",
-            "link": "https://wa.me/526561100446"
-          },
-          "features": [
-            {
-              "title": "Consultas médicas y nutricionales ilimitadas"
-            },
-            {
-              "title": "Seguimiento y recetas sin costo adicional"
-            },
-            {
-              "title": "Ideal para chequeos, enfermedades comunes y control de"
-            }
-          ]
+    "vision":{
+      "title":"Visión",
+      "description":"En Lymbika estamos construyendo el puente digital de la nueva era de la salud, conectando a pacientes con y sin seguro en la franja fronteriza con médicos certificados, tecnología de vanguardia y procesos humanizados. Nuestra misión es proteger al paciente, empoderar al médico y estandarizar la atención médica de alta calidad, eliminando abusos, gastos innecesarios y barreras que históricamente han limitado el acceso. Somos la interfaz entre el futuro y la salud digna que todos merecen."
+    },
+    "Securities":{
+      "title":"Valores",
+      "item1":"Calidad",
+      "item2":"Transparencia",
+      "item3":"Ética",
+      "item4":"Empatía",
+      "item5":"Responsabilidad",
+      "item6":"Honestidad"
+    }
+  },
+  "PlansMemberPage": {
+    "title": "MediClub",
+    "description": "Con nuestra membresía mensual MediClub, accede a medicamentos y productos de la salud a precio de proveedor, diseñado para cuidar la economía de nuestros pacientes.",
+    "plans": [
+      {
+        "name": "Lymbika Cuida",
+        "icon": "Stethoscope",
+        "priceP": 450,
+        "priceM": 850,
+        "description": "Atención médica primaria para ti o tu familia.",
+        "button": {
+          "label": "Regístrate ahora",
+          "icon": "MoveRight",
+          "variant": "default",
+          "link": "https://wa.me/526561100446"
         },
-        {
-          "name": "Mediclub",
-          "icon": "Pill",
-          "priceP": 200,
-          "priceM": 350,
-          "description": "Para quienes quieren ahorrar en farmacia y servicios básicos.",
-          "button": {
-            "label": "Regístrate ahora",
-            "icon": "MoveRight",
-            "variant": "outline",
-            "link": "https://wa.me/526561100446"
+        "features": [
+          {
+            "title": "Consultas médicas y nutricionales ilimitadas"
           },
-          "features": [
-            {
-              "title": "Medicamentos a precio de proveedor"
-            },
-            {
-              "title": "Descuentos en laboratorios, sueros y consultas"
-            },
-            {
-              "title": " Ideal para pacientes con tratamientos crónicos"
-            }
-          ]
+          {
+            "title": "Seguimiento y recetas sin costo adicional"
+          },
+          {
+            "title": "Ideal para chequeos, enfermedades comunes y control de"
+          }
+        ]
+      },
+      {
+        "name": "Mediclub",
+        "icon": "Pill",
+        "priceP": 200,
+        "priceM": 350,
+        "description": "Para quienes quieren ahorrar en farmacia y servicios básicos.",
+        "button": {
+          "label": "Regístrate ahora",
+          "icon": "MoveRight",
+          "variant": "outline",
+          "link": "https://wa.me/526561100446"
         },
-        {
-          "name": "Lymbika Empresas",
-          "icon": "Building2",
-          "priceP": 390,
-          "priceM": 690,
-          "description": "Salud accesible para tu equipo de trabajo.",
-          "button": {
-            "label": "Reservar una reunión",
-            "icon": "PhoneCall",
-            "variant": "outline",
-            "link": "https://wa.me/526561100446"
+        "features": [
+          {
+            "title": "Medicamentos a precio de proveedor"
           },
-          "features": [
-            {
-              "title": "Planes por empleado o grupo"
-            },
-            {
-              "title": "Consultas y medicamentos subsidiados"
-            },
-            {
-              "title": "Reduce ausentismo, mejora productividad"
-            }
-          ]
-        }
-      ]
-    },    
+          {
+            "title": "Descuentos en laboratorios, sueros y consultas"
+          },
+          {
+            "title": " Ideal para pacientes con tratamientos crónicos"
+          }
+        ]
+      },
+      {
+        "name": "Lymbika Empresas",
+        "icon": "Building2",
+        "priceP": 390,
+        "priceM": 690,
+        "description": "Salud accesible para tu equipo de trabajo.",
+        "button": {
+          "label": "Reservar una reunión",
+          "icon": "PhoneCall",
+          "variant": "outline",
+          "link": "https://wa.me/526561100446"
+        },
+        "features": [
+          {
+            "title": "Planes por empleado o grupo"
+          },
+          {
+            "title": "Consultas y medicamentos subsidiados"
+          },
+          {
+            "title": "Reduce ausentismo, mejora productividad"
+          }
+        ]
+      }
+    ]
+  },    
     "titleServices": "Atención Primaria y Especialidades",
     "titlesurgery": "Cirugías y Procedimientos",
     "autoCarrouselBanner":{
