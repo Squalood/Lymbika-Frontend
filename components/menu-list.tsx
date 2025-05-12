@@ -17,12 +17,13 @@ import {ResponseType} from '@/types/response';
 import { useGetCategories } from "@/api/getCategories" 
 import { Skeleton } from "./ui/skeleton"
 import Image from "next/image"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import es from "@/locals/es.json";
 
 const MenuList = () => {
   const { loading, result,}:ResponseType = useGetCategories(); // Usamos la función para obtener las categorías
   const pathname = usePathname(); // 🔹 Obtener la ruta actual
+  const router = useRouter();
 
   const navStyle = pathname === "/" ? "" : "text-black"
 
@@ -114,7 +115,7 @@ const MenuList = () => {
         
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger className={navStyle}>Farmacia</NavigationMenuTrigger>
+          <NavigationMenuTrigger className={navStyle} onClick={() => router.push("/shop")}>Farmacia</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
               {!loading &&result?.map((category: CategoryType) => (

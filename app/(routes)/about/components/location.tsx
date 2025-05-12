@@ -6,8 +6,8 @@ const LymbikaLocation = () => {
             <div className="flex flex-col lg:flex-row gap-10 lg:items-center">
                 <div className="flex gap-4 flex-col flex-1">
                     <div className="flex gap-4 flex-col items-center">
-                        <h2 className="text-xl sm:text-3xl md:text-5xl tracking-tighter lg:max-w-xl font-regular text-left">
-                        Ubicación
+                        <h2 className="text-xl sm:text-3xl md:text-5xl tracking-tighter lg:max-w-xl font-regular text-center">
+                            Farmacia Ciudad Juárez
                         </h2>
                         <p className="text-base leading-relaxed">
                             <strong className="font-semibold">Lunes a sábado:</strong><br />

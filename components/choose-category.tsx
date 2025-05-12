@@ -11,7 +11,7 @@ const ChooseCategory = () => {
 
     return ( 
         <div className="max-w-6xl py-4 mx-4 sm:mx-auto sm:py-16 sm:px-24">
-            <h3 className="px-6 pb-4 text-3xl sm:pb-8">Farmacia</h3>
+            <h3 className="px-6 pb-4 text-3xl sm:pb-8">Categorías de la Farmacia</h3>
 
             {loading && 
                 <SkeletonGalleryCol3 grid={6} />
