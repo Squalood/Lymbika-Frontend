@@ -31,7 +31,7 @@ const HeroWide = () => {
                             </p>
                         </div>
                         <div className="flex w-full lg:w-1/3 text-black px-8">
-                            <SearchGeneral allProducts={products} allDoctors={doctors}/>
+                            <SearchGeneral allProducts={products} allDoctors={doctors} allServices={[]} allSurgeries={[]} allCategories={[]}/>
                         </div> 
                     </div>
                 </div>

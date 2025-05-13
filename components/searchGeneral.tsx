@@ -6,44 +6,104 @@ import { ChevronRight, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { ProductType } from "@/types/product";
 import { DoctorType } from "@/types/doctor";
-import Image from "next/image";
+import { ServiceType } from "@/types/service";
+import { SugeryType } from "@/types/sugery";
+import { CategoryType } from "@/types/category";
 import Link from "next/link";
 import { Button } from "./ui/button";
+import SearchPreview from "./searchPreview";
 
 type Props = {
   allProducts: ProductType[];
   allDoctors: DoctorType[];
+  allServices: ServiceType[];
+  allSurgeries: SugeryType[];
+  allCategories: CategoryType[];
 };
 
-export function SearchGeneral({ allProducts, allDoctors }: Props) {
+type SearchableItem = {
+  type: "product" | "doctor" | "service" | "surgery" | "category";
+  id: number;
+  name: string;
+  slug: string;
+  imageUrl: string;
+};
+
+export function SearchGeneral({
+  allProducts,
+  allDoctors,
+  allServices,
+  allSurgeries,
+  allCategories,
+}: Props) {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
   const pathname = usePathname();
 
   const [searchTerm, setSearchTerm] = useState(searchParams.get("query") || "");
-  const [filteredProducts, setFilteredProducts] = useState<ProductType[]>([]);
-  const [filteredDoctors, setFilteredDoctors] = useState<DoctorType[]>([]);
+  const [filteredResults, setFilteredResults] = useState<SearchableItem[]>([]);
 
-  const handleSearch = useDebouncedCallback((term: string) => {
+  const filterItems = useDebouncedCallback((term: string) => {
     const params = new URLSearchParams(searchParams);
     params.set("page", "1");
 
     if (term.trim()) {
       params.set("query", term);
 
-      const productResults = allProducts.filter((p) =>
-        p.productName.toLowerCase().includes(term.toLowerCase())
-      );
-      const doctorResults = allDoctors.filter((d) =>
-        d.doctorName.toLowerCase().includes(term.toLowerCase())
-      );
+      const lowerTerm = term.toLowerCase();
 
-      setFilteredProducts(productResults);
-      setFilteredDoctors(doctorResults);
+      const results: SearchableItem[] = [
+        ...allProducts.filter(p =>
+          p.productName.toLowerCase().includes(lowerTerm)
+        ).map(p => ({
+          type: "product" as const,
+          id: p.id,
+          name: p.productName,
+          slug: p.slug,
+          imageUrl: p.images?.[0]?.url || "/placeholder.png",
+        })),
+        ...allDoctors.filter(d =>
+          d.doctorName.toLowerCase().includes(lowerTerm)
+        ).map(d => ({
+          type: "doctor" as const,
+          id: d.id,
+          name: d.doctorName,
+          slug: d.slug,
+          imageUrl: d.image?.[0]?.url || "/placeholder.png",
+        })),
+        ...allServices.filter(s =>
+          s.serviceName.toLowerCase().includes(lowerTerm)
+        ).map(s => ({
+          type: "service" as const,
+          id: s.id,
+          name: s.serviceName,
+          slug: s.slug,
+          imageUrl: s.image?.url || "/placeholder.png",
+        })),
+        ...allSurgeries.filter(s =>
+          s.surgeryName.toLowerCase().includes(lowerTerm)
+        ).map(s => ({
+          type: "surgery" as const,
+          id: s.id,
+          name: s.surgeryName,
+          slug: s.slug,
+          imageUrl: s.image?.url || "/placeholder.png",
+        })),
+        ...allCategories.filter(c =>
+          c.categoryName.toLowerCase().includes(lowerTerm)
+        ).map(c => ({
+          type: "category" as const,
+          id: c.id,
+          name: c.categoryName,
+          slug: c.slug,
+          imageUrl: c.mainImage?.url || "/placeholder.png",
+        })),
+      ];
+
+      setFilteredResults(results);
     } else {
       params.delete("query");
-      setFilteredProducts([]);
-      setFilteredDoctors([]);
+      setFilteredResults([]);
     }
 
     replace(`${pathname}?${params.toString()}`);
@@ -55,8 +115,7 @@ export function SearchGeneral({ allProducts, allDoctors }: Props) {
 
   const clearSearch = () => {
     setSearchTerm("");
-    setFilteredProducts([]);
-    setFilteredDoctors([]);
+    setFilteredResults([]);
     const params = new URLSearchParams(searchParams);
     params.delete("query");
     params.set("page", "1");
@@ -67,11 +126,11 @@ export function SearchGeneral({ allProducts, allDoctors }: Props) {
     <div className="relative w-full">
       <Input
         type="text"
-        placeholder="Buscar productos o doctores..."
+        placeholder="Buscar productos, doctores, servicios..."
         value={searchTerm}
         onChange={(e) => {
           setSearchTerm(e.target.value);
-          handleSearch(e.target.value);
+          filterItems(e.target.value);
         }}
         onKeyDown={(e) => {
           if (e.key === "Enter" && searchTerm.trim()) {
@@ -102,47 +161,19 @@ export function SearchGeneral({ allProducts, allDoctors }: Props) {
         </div>
       )}
 
-      {(filteredProducts.length > 0 || filteredDoctors.length > 0) && (
+      {filteredResults.length > 0 && (
         <div className="absolute z-10 w-full mt-1 bg-white border rounded-md shadow-md max-h-96 overflow-y-auto text-sm">
           <ul>
-            {filteredProducts.map((product) => {
-              const imageUrl = product.images?.[0]?.url || "/placeholder.png";
-              return (
-                <li
-                  key={`product-${product.id}`}
-                  className="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                  onClick={() => replace(`/product/${product.slug}`)}
-                >
-                  <Image
-                    src={imageUrl}
-                    alt={product.productName}
-                    width={200}
-                    height={200}
-                    className="w-10 h-10 object-cover rounded"
-                  />
-                  <span>{product.productName}</span>
-                </li>
-              );
-            })}
-            {filteredDoctors.map((doctor) => {
-              const imageUrl = doctor.image?.[0]?.url || "/placeholder.png";
-              return (
-                <li
-                  key={`doctor-${doctor.id}`}
-                  className="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                  onClick={() => replace(`/doctor/${doctor.slug}`)}
-                >
-                  <Image
-                    src={imageUrl}
-                    alt={doctor.doctorName}
-                    width={200}
-                    height={200}
-                    className="w-10 h-10 object-cover rounded-full"
-                  />
-                  <span>{doctor.doctorName}</span>
-                </li>
-              );
-            })}
+            {filteredResults.map((item) => (
+              <SearchPreview
+                key={`${item.type}-${item.id}`}
+                type={item.type}
+                id={item.id}
+                name={item.name}
+                slug={item.slug}
+                imageUrl={item.imageUrl}
+              />
+            ))}
           </ul>
           <div className="border-t p-2 text-center">
             <Link
