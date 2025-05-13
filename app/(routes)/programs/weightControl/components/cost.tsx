@@ -24,9 +24,9 @@ const Cost = () => {
                 ¿Listos para el cambio?
               </h3>
               <p className="text-lg leading-relaxed tracking-tight text-gray-300 max-w-xl mt-4">
-                Consulta inicial: $300 MXN
+                Consulta inicial desde $400 MXN
                 <br />
-                Programa integral desde $1400/mes 
+                Programa integral desde $1249/mes 
               </p>
               <p className="text-lg leading-relaxed tracking-tight text-gray-300 max-w-xl">
                 Resultados visibles desde el primer mes

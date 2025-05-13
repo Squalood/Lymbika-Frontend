@@ -22,7 +22,7 @@ const PlansMemberPage = () => {
   const [isFamilyPlan, setIsFamilyPlan] = useState(false);
 
   return (
-    <div className="max-w-6xl px-6 lg:px-12 py-20 mx-auto">
+    <div className="max-w-6xl px-6 lg:px-12 py-16 mx-auto">
       <div className="text-center max-w-xl mx-auto space-y-4">
         <div className="flex flex-row gap-2 justify-center">
           <IdCard className="stroke-primary w-8 h-8 sm:w-12 sm:h-12" />

@@ -15,41 +15,42 @@
       {
         "type": "normal",
         "title": "Control de Peso Integral",
-        "description": "Produce professional, reliable streams easily leveraging Preline's broadcast studio.",
+        "description": "Mejoramos tu salud desde el metabolismo.",
         "image": "/images/peso-footer.png",
-        "cta": "Read more",
+        "cta": "Leer más",
         "link": "#"
       },
       {
         "type": "normal",
         "title": "Agente Médico",
-        "description": "Optimize your in-person experience with badge printing and lead retrieval.",
+        "description": "Cirugías seguras, acompañadas de principio a fin.",
         "image": "/images/medicalAgentHero.jpg",
-        "cta": "Read more",
+        "cta": "Leer más",
         "link": "#"
       },
-      {
-        "type": "background",
-        "titleBold": "HealthHubs",
-        "titleRest": "Press publishes books about tech and economics.",
-        "image": "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=560&q=80",
-        "cta": "Visit the site",
-        "link": "#"
-      },
+      
       {
         "type": "normal",
         "title": "Salud Hormonal",
-        "description": "Analyze performance metrics in real-time to boost engagement.",
+        "description": "Bienestar femenino para una nueva etapa.",
         "image": "/images/meno-1.png",
-        "cta": "Read more",
+        "cta": "Leer más",
         "link": "#"
       },
       {
         "type": "normal",
         "title": "Neuroterapia",
-        "description": "Easily connect with third-party tools for marketing and automation.",
+        "description": "Tratamientos seguros para verte y sentirte mejor.",
         "image": "/images/neuro-2.jpg",
-        "cta": "Read more",
+        "cta": "Leer más",
+        "link": "#"
+      },
+      {
+        "type": "background",
+        "titleBold": "Lymbika Health Hubs for Doctors",
+        "titleRest": "Forma parte del nuevo ecosistema de salud en la frontera.",
+        "image": "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=560&q=80",
+        "cta": "Visitar el sitio",
         "link": "#"
       }
       
