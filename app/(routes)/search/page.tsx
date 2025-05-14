@@ -55,13 +55,12 @@ export default function SearchResultsPage() {
   );
 }
 
-type ResultItem = {
+type BaseItem = {
   id: string | number;
   slug: string;
-  [key: string]: any; // Flexible pero tipado, para acceder con nameKey, imageKey, etc.
 };
 
-type ResultSectionProps<T extends ResultItem> = {
+type ResultSectionProps<T extends BaseItem> = {
   title: string;
   items: T[];
   basePath: string;
@@ -70,7 +69,7 @@ type ResultSectionProps<T extends ResultItem> = {
   subtitleKey?: keyof T;
 };
 
-function ResultSection<T extends ResultItem>({
+function ResultSection<T extends BaseItem>({
   title,
   items,
   basePath,
@@ -95,14 +94,18 @@ function ResultSection<T extends ResultItem>({
       <h2 className="text-xl font-bold mb-4">{title}</h2>
       <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {limitedItems.map((item) => {
-          const name = item[nameKey] as string;
-          const imageData = item[imageKey];
-          const subtitle = subtitleKey ? (item[subtitleKey] as string) : null;
+          const name = item[nameKey] as unknown as string;
+          const imageData = item[imageKey] as
+            | { url: string }
+            | { url: string }[]
+            | undefined;
+          const subtitle = subtitleKey
+            ? (item[subtitleKey] as unknown as string)
+            : null;
 
-          const imageUrl =
-            Array.isArray(imageData)
-              ? imageData?.[0]?.url || "/placeholder.png"
-              : imageData?.url || "/placeholder.png";
+          const imageUrl = Array.isArray(imageData)
+            ? imageData?.[0]?.url || "/placeholder.png"
+            : imageData?.url || "/placeholder.png";
 
           return (
             <Link key={item.id} href={`/${basePath}/${item.slug}`}>
