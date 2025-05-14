@@ -18,7 +18,7 @@ import {
 import clsx from "clsx";
 import DoctorPrice from "./components/doctor-price";
 import DoctorReviews from "./components/doctor-reviews";
-import CalendlyWidget from "@/components/calendlyWidget";
+import CalendarAvailability from "./components/doctor-schedule";
 
 export default function Page() {
   const params = useParams();
@@ -85,7 +85,7 @@ export default function Page() {
       </div>
 
     {activeTab === "about" && <DoctorAbout doctor={doctor} />}
-    {activeTab === "calendar" && <CalendlyWidget />}
+    {activeTab === "calendar" && <CalendarAvailability />}
     {activeTab === "prices" && <DoctorPrice doctor={doctor}/>}
 
     <Separator className="mt-6" />

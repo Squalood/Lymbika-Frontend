@@ -23,7 +23,7 @@ const SearchPreview = ({ type, id, name, slug, imageUrl }: Props) => {
     replace(`${basePath}${slug}`);
   };
 
-  const imageClass = type === "product" ? "rounded-lg" : "rounded-full";
+  const imageClass = type === "product" ? "rounded-none" : "rounded-full";
   const isTextOnly = type === "service" || type === "surgery" || type === "category";
 
   const typeLabel =

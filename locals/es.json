@@ -18,7 +18,7 @@
         "description": "Mejoramos tu salud desde el metabolismo.",
         "image": "/images/peso-footer.png",
         "cta": "Leer más",
-        "link": "#"
+        "link": "/programs/weightControl"
       },
       {
         "type": "normal",
@@ -26,7 +26,7 @@
         "description": "Cirugías seguras, acompañadas de principio a fin.",
         "image": "/images/medicalAgentHero.jpg",
         "cta": "Leer más",
-        "link": "#"
+        "link": "/programs/medicalAgent"
       },
       
       {
@@ -35,7 +35,7 @@
         "description": "Bienestar femenino para una nueva etapa.",
         "image": "/images/meno-1.png",
         "cta": "Leer más",
-        "link": "#"
+        "link": "/programs/menopause"
       },
       {
         "type": "normal",
@@ -43,15 +43,15 @@
         "description": "Tratamientos seguros para verte y sentirte mejor.",
         "image": "/images/neuro-2.jpg",
         "cta": "Leer más",
-        "link": "#"
+        "link": "/programs/neurotherapy"
       },
       {
         "type": "background",
-        "titleBold": "Lymbika Health Hubs for Doctors",
-        "titleRest": "Forma parte del nuevo ecosistema de salud en la frontera.",
+        "titleBold": "¿No sabes dónde atenderte ni cuánto te costará? Nosotros lo resolvemos por ti.",
+        "titleRest": "Sin filas, sin confusión, sin dudas",
         "image": "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=560&q=80",
-        "cta": "Visitar el sitio",
-        "link": "#"
+        "cta": "Haz tu cotización gratuita",
+        "link": "https://wa.me/526561100446"
       }
       
     ]
