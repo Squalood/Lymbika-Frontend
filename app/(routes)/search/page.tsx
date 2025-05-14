@@ -55,47 +55,79 @@ export default function SearchResultsPage() {
   );
 }
 
-type ResultSectionProps = {
-  title: string;
-  items: any[];
-  basePath: string;
-  nameKey: string;
-  imageKey: string;
-  subtitleKey?: string;
+type ResultItem = {
+  id: string | number;
+  slug: string;
+  [key: string]: any; // Flexible pero tipado, para acceder con nameKey, imageKey, etc.
 };
 
-function ResultSection({ title, items, basePath, nameKey, imageKey, subtitleKey }: ResultSectionProps) {
-  if (!items || items.length === 0) return (
-    <section className="mb-10">
-      <h2 className="text-xl font-bold mb-4">{title}</h2>
-      <p>No se encontraron {title.toLowerCase()}.</p>
-    </section>
-  );
+type ResultSectionProps<T extends ResultItem> = {
+  title: string;
+  items: T[];
+  basePath: string;
+  nameKey: keyof T;
+  imageKey: keyof T;
+  subtitleKey?: keyof T;
+};
+
+function ResultSection<T extends ResultItem>({
+  title,
+  items,
+  basePath,
+  nameKey,
+  imageKey,
+  subtitleKey,
+}: ResultSectionProps<T>) {
+  if (!items || items.length === 0) {
+    return (
+      <section className="mb-10">
+        <h2 className="text-xl font-bold mb-4">{title}</h2>
+        <p>No se encontraron {title.toLowerCase()}.</p>
+      </section>
+    );
+  }
+
+  const limitedItems = items.slice(0, 8);
+  const isLimited = items.length > 8;
 
   return (
     <section className="mb-10">
       <h2 className="text-xl font-bold mb-4">{title}</h2>
       <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {items.map((item) => (
-          <Link key={item.id} href={`/${basePath}/${item.slug}`}>
-            <div className="border rounded-md overflow-hidden hover:shadow-md transition">
-              <Image
-                src={Array.isArray(item[imageKey]) ? item[imageKey]?.[0]?.url || "/placeholder.png" : item[imageKey]?.url || "/placeholder.png"}
-                alt={item[nameKey]}
-                width={300}
-                height={300}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-4">
-                <h2 className="font-medium">{item[nameKey]}</h2>
-                {subtitleKey && item[subtitleKey] && (
-                  <p className="text-sm text-gray-500">{item[subtitleKey]}</p>
-                )}
+        {limitedItems.map((item) => {
+          const name = item[nameKey] as string;
+          const imageData = item[imageKey];
+          const subtitle = subtitleKey ? (item[subtitleKey] as string) : null;
+
+          const imageUrl =
+            Array.isArray(imageData)
+              ? imageData?.[0]?.url || "/placeholder.png"
+              : imageData?.url || "/placeholder.png";
+
+          return (
+            <Link key={item.id} href={`/${basePath}/${item.slug}`}>
+              <div className="border rounded-md overflow-hidden hover:shadow-md transition">
+                <Image
+                  src={imageUrl}
+                  alt={name}
+                  width={300}
+                  height={300}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-4">
+                  <h2 className="font-medium">{name}</h2>
+                  {subtitle && <p className="text-sm text-gray-500">{subtitle}</p>}
+                </div>
               </div>
-            </div>
-          </Link>
-        ))}
+            </Link>
+          );
+        })}
       </div>
+      {isLimited && (
+        <p className="text-sm text-gray-500 mt-2">
+          Mostrando los primeros 8 resultados. Refina tu búsqueda para obtener resultados más precisos.
+        </p>
+      )}
     </section>
   );
 }
