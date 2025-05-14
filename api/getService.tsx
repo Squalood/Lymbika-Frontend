@@ -3,7 +3,7 @@ import { ServiceType } from "@/types/service";
 
 export function useGetServices() {
     const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/services?populate=*`;
-    const [result, setResult] = useState<ServiceType[] | null>(null); // ✅ Tipo definido
+    const [result, setResult] = useState<ServiceType[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string>("");
 

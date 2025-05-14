@@ -1,8 +1,9 @@
+import { CategoryType } from "@/types/category";
 import { useEffect, useState } from "react";
 
 export function useGetCategories() {
     const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/categories?populate=*`
-    const [result, setResult] = useState(null);
+    const [result, setResult] = useState<CategoryType[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
 

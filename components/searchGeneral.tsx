@@ -50,11 +50,11 @@ export function SearchGeneral({
     if (term.trim()) {
       params.set("query", term);
 
-      const lowerTerm = term.toLowerCase();
+      const normalizedTerm = term.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
       const results: SearchableItem[] = [
         ...allProducts.filter(p =>
-          p.productName.toLowerCase().includes(lowerTerm)
+          p.productName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(normalizedTerm)
         ).map(p => ({
           type: "product" as const,
           id: p.id,
@@ -63,7 +63,7 @@ export function SearchGeneral({
           imageUrl: p.images?.[0]?.url || "/placeholder.png",
         })),
         ...allDoctors.filter(d =>
-          d.doctorName.toLowerCase().includes(lowerTerm)
+          d.doctorName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(normalizedTerm)
         ).map(d => ({
           type: "doctor" as const,
           id: d.id,
@@ -72,7 +72,7 @@ export function SearchGeneral({
           imageUrl: d.image?.[0]?.url || "/placeholder.png",
         })),
         ...allServices.filter(s =>
-          s.serviceName.toLowerCase().includes(lowerTerm)
+          s.serviceName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(normalizedTerm)
         ).map(s => ({
           type: "service" as const,
           id: s.id,
@@ -81,7 +81,7 @@ export function SearchGeneral({
           imageUrl: s.image?.url || "/placeholder.png",
         })),
         ...allSurgeries.filter(s =>
-          s.surgeryName.toLowerCase().includes(lowerTerm)
+          s.surgeryName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(normalizedTerm)
         ).map(s => ({
           type: "surgery" as const,
           id: s.id,
@@ -90,7 +90,7 @@ export function SearchGeneral({
           imageUrl: s.image?.url || "/placeholder.png",
         })),
         ...allCategories.filter(c =>
-          c.categoryName.toLowerCase().includes(lowerTerm)
+          c.categoryName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(normalizedTerm)
         ).map(c => ({
           type: "category" as const,
           id: c.id,
@@ -100,7 +100,7 @@ export function SearchGeneral({
         })),
       ];
 
-      setFilteredResults(results);
+      setFilteredResults(results.slice(0, 6)); 
     } else {
       params.delete("query");
       setFilteredResults([]);

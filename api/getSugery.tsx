@@ -3,7 +3,7 @@ import { SugeryType } from "@/types/sugery";
 
 export function useGetSugery() {
     const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/surgeries?populate=*`
-    const [result, setResult] = useState<SugeryType[] | null>(null);
+    const [result, setResult] = useState<SugeryType[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
 
