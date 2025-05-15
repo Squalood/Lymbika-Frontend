@@ -16,7 +16,7 @@
         "type": "normal",
         "title": "Control de Peso Integral",
         "description": "Mejoramos tu salud desde el metabolismo.",
-        "image": "/images/peso-footer.png",
+        "icon": "HeartPulse",
         "cta": "Leer más",
         "link": "/programs/weightControl"
       },
@@ -24,7 +24,7 @@
         "type": "normal",
         "title": "Agente Médico",
         "description": "Cirugías seguras, acompañadas de principio a fin.",
-        "image": "/images/medicalAgentHero.jpg",
+        "icon": "Stethoscope",
         "cta": "Leer más",
         "link": "/programs/medicalAgent"
       },
@@ -33,7 +33,7 @@
         "type": "normal",
         "title": "Salud Hormonal",
         "description": "Bienestar femenino para una nueva etapa.",
-        "image": "/images/meno-1.png",
+        "icon": "ScanHeart",
         "cta": "Leer más",
         "link": "/programs/menopause"
       },
@@ -41,7 +41,7 @@
         "type": "normal",
         "title": "Neuroterapia",
         "description": "Tratamientos seguros para verte y sentirte mejor.",
-        "image": "/images/neuro-2.jpg",
+        "icon": "Brain",
         "cta": "Leer más",
         "link": "/programs/neurotherapy"
       },
