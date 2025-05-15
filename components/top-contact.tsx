@@ -2,7 +2,7 @@ import { MapPin, Phone } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 
-const FlashContact = () => {
+const TopContact = () => {
     return ( 
         <div className="hidden sm:absolute sm:top-0 sm:left-1/2 sm:-translate-x-1/2 sm:block z-50 text-gray-200 py-2 w-full max-w-6xl px-4">
             <div className="flex justify-between">
@@ -56,4 +56,4 @@ const FlashContact = () => {
     );
 }
 
-export default FlashContact;
+export default TopContact;
