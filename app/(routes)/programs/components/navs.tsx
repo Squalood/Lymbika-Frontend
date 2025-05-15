@@ -1,5 +1,6 @@
 import es from "@/locals/es.json"
 import { Brain, ChevronRight, HeartPulse, ScanHeart, Stethoscope } from "lucide-react";
+import Link from "next/link";
 
 const iconMap = {
   HeartPulse: <HeartPulse size={48} color="#1dd73c" className="transition-transform duration-500 ease-in-out group-hover:scale-150"/>,
@@ -20,7 +21,7 @@ const Programs = () => {
       <div className="grid sm:grid-cols-2 xl:grid-cols-3 grid-rows-2 gap-4">
         {es.programsNavs.cards.map((card, index) => (
           card.type === 'background' ? (
-            <a
+            <Link
               key={index}
               href={card.link}
               className="group relative flex flex-col w-full bg-cover bg-center rounded-xl hover:shadow-lg transition col-span-2 p-4 my-6"
@@ -38,9 +39,9 @@ const Programs = () => {
                   <ChevronRight size={20}/>
                 </div>
               </div>
-            </a>
+            </Link>
           ) : (
-            <a key={index} href={card.link} className="group flex flex-col focus:outline-hidden">
+            <Link key={index} href={card.link} className="group flex flex-col focus:outline-hidden">
                 <div className="relative pt-12 flex flex-col items-start gap-2 p-8 rounded-xl overflow-hidden bg-muted">
                   {iconMap[card.icon as keyof typeof iconMap]}
                   <h3 className="text-xl font-semibold text-gray-800 group-hover:text-gray-600">{card.title}</h3>
@@ -52,7 +53,7 @@ const Programs = () => {
                   <ChevronRight size={16} />
                 </p>
               </div>
-            </a>
+            </Link>
           )
         ))}
       </div>
