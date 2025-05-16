@@ -18,7 +18,7 @@ const Programs = () => {
       </div>
 
       {/* Grid */}
-      <div className="grid sm:grid-cols-2 xl:grid-cols-3 grid-rows-2 gap-4">
+      <div className="grid sm:grid-cols-2 xl:grid-cols-3 grid-rows-2 gap-4 sm:gap-4 px-4">
         {es.programsNavs.cards.map((card, index) => (
           card.type === 'background' ? (
             <Link
@@ -41,10 +41,10 @@ const Programs = () => {
               </div>
             </Link>
           ) : (
-            <Link key={index} href={card.link} className="group flex flex-col focus:outline-hidden">
-                <div className="relative pt-12 flex flex-col items-start gap-2 p-8 rounded-xl overflow-hidden bg-muted">
+            <Link key={index} href={card.link} className="group flex flex-col focus:outline-hidden sm:px-0">
+                <div className="relative flex flex-col gap-2 pt-12 sm:pt-16 pl-4 sm:pl-6 rounded-xl overflow-hidden bg-muted h-40 sm:h-44">
                   {iconMap[card.icon as keyof typeof iconMap]}
-                  <h3 className="text-xl font-semibold text-gray-800 group-hover:text-gray-600">{card.title}</h3>
+                  <h3 className="text-sm sm:text-xl font-semibold text-gray-800 group-hover:text-gray-600">{card.title}</h3>
                 </div>
               <div className="mt-3">
                 <p className="mt-1 text-gray-800">{card.description}</p>
