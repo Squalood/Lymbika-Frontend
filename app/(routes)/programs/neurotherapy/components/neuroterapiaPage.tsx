@@ -41,9 +41,9 @@ const science = [
 
 const NeuroterapiaPage = () => {
     return ( 
-        <div>
+        <div className="w-full">
         {/* section 1 */}
-        <div className="relative h-screen w-full overflow-hidden">
+        <div className="relative h-screen overflow-hidden w-full">
             {/* Imagen de fondo */}
             <Image
                 src="/images/neurotherapy-front.png" 
@@ -85,8 +85,8 @@ const NeuroterapiaPage = () => {
 
         {/* section 2 */}
 
-        <div className="w-full px-6 py-16 my-8">
-            <div className="max-w-6xl mx-auto flex flex-col-reverse md:flex-row items-center gap-10">
+        <div className="max-w-4xl mx-auto px-6 py-20">
+            <div className="max-w-6xl mx-auto flex flex-col-reverse md:flex-row items-center gap-10 py-8">
                 {/* Texto */}
                 <div className="flex-1 text-left">
                     <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
@@ -112,8 +112,8 @@ const NeuroterapiaPage = () => {
 
             {/* section 3 */}
 
-            <div className="py-20 px-6">
-                <div className="max-w-6xl mx-auto">
+            <div className="py-12 px-6">
+                <div className="max-w-4xl mx-auto">
                     {/* Título */}
                     <div className="flex justify-center items-center mb-12">
                         <div className="w-12 h-1 bg-gray-700"></div>
@@ -136,7 +136,6 @@ const NeuroterapiaPage = () => {
                             </div>
                             <h3 className="text-xl font-semibold text-dark-gray mb-2">{service.title}</h3>
                             <p className="text-gray-600 mb-4">{service.description}</p>
-                            <Button variant="outline">LEARN MORE</Button>
                         </div>
                     ))}
                     </div>
@@ -145,9 +144,9 @@ const NeuroterapiaPage = () => {
 
             {/* section 4 */}
 
-            <div className="w-full py-20 lg:py-32">
+            <div className="w-full py-20">
                 <div className="container mx-auto px-4">
-                    <div className="flex flex-col-reverse lg:flex-row gap-16 lg:items-center">
+                    <div className="flex flex-col lg:flex-row gap-16 lg:items-center">
 
                         {/* Bloque visual con imagen y título */}
                         <div className="w-full lg:w-1/2">

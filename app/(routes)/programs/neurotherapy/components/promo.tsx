@@ -5,7 +5,7 @@ const Promo = () => {
   const { title, items } = es.NeuroterapiaPage.sectionPromo;
 
   return (
-    <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto flex flex-col items-center">
+    <div className="max-w-4xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex flex-col items-center mb-28">
       <h1 className="text-2xl">{title}</h1>
 
       <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-8">

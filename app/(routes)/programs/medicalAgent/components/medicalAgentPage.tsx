@@ -15,30 +15,32 @@ const section3 = [
 
 const MedicalAgentPage = () => {
     return ( 
-        <div className="w-full py-10 px-10 lg:py-10 lg:px-40">
+        <div className="w-full py-10 lg:py-10">
             {/* section1 */}
-            <div className="max-w-4xl mx-auto">
-                <h2>{es.MedicalAgentPage.title}</h2>
-                <div className="grid grid-cols-1 gap-8 items-center lg:grid-cols-2">
-                    <div className="flex gap-4 flex-col">
+            <div className="w-full bg-muted py-8 px-8">
+                <div className="max-w-4xl mx-auto">
+                    <h2>{es.MedicalAgentPage.title}</h2>
+                    <div className="grid grid-cols-1 gap-8 items-center lg:grid-cols-2">
                         <div className="flex gap-4 flex-col">
-                            <h1 className="text-5xl md:text-6xl md:max-w-xs tracking-tighter text-left font-regular">
-                                {es.MedicalAgentPage.section1.title}
-                            </h1>
+                            <div className="flex gap-4 flex-col">
+                                <h1 className="text-5xl md:text-6xl md:max-w-xs tracking-tighter text-left font-regular">
+                                    {es.MedicalAgentPage.section1.title}
+                                </h1>
+                            </div>
                         </div>
-                    </div>
-                    <div className="relative bg-muted rounded-md aspect-square overflow-hidden">
-                        <Image
-                            src="/images/medicalAgentHero.jpg"
-                            alt="foto"
-                            fill
-                            className="object-cover"
-                        />
+                        <div className="relative bg-muted rounded-md aspect-square overflow-hidden">
+                            <Image
+                                src="/images/medicalAgentHero.jpg"
+                                alt="foto"
+                                fill
+                                className="object-cover"
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
             {/* section2 */}
-            <div className="max-w-4xl mx-auto mt-40">
+            <div className="max-w-4xl mx-auto mt-24 px-8">
                 <div className="flex flex-col-reverse lg:flex-row gap-10 lg:items-center">
                     <div className="bg-muted rounded-md w-full aspect-square h-full flex-1 relative overflow-hidden">
                         <Image
@@ -61,7 +63,7 @@ const MedicalAgentPage = () => {
                 </div>
             </div>
             {/* section3 */}
-            <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto mt-32">
+            <div className="max-w-[85rem] px-8 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto mt-24">
                 <div className="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
                     <h2 className="text-2xl font-bold md:text-3xl md:leading-tight text-gray-800">
                         {es.MedicalAgentPage.section3.title}
