@@ -24,5 +24,13 @@ export type DoctorType = {
       url: string;
     };
     priceCon: number | null;
+    facebook: string;
+    instagram: string;
+    tiktok: string;
+    web: string;
+    gallery: {
+      id: number;
+      url: string;
+    }[];
   };
   
