@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ProductType } from "@/types/product";
 
 export function useGetProducts() {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products?populate=*`;
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products?populate=*&pagination[page]=1&pagination[pageSize]=500`;
   const [products, setResult] = useState<ProductType[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");

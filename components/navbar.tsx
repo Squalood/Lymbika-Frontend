@@ -64,7 +64,6 @@ interface AuthUserProps {
         };
     }, [showSearch]);
 
-
     return (
         <div ref={searchRef}>
             <div className={`${positionAbs} flex items-center justify-between p-4 mx-auto sm:max-w-4xl md:max-w-6xl`}>
@@ -115,7 +114,7 @@ interface AuthUserProps {
                     <ItemsMenuMobile />
                 </div>
             </div>
-            <div className={`${positionSea} relative flex justify-end mx-auto lg:max-w-5xl xl:max-w-6xl`}>
+            <div className={`${positionSea} relative flex justify-end w-full lg:max-w-5xl xl:max-w-6xl mx-auto `}>
                 <AnimatePresence>
                     {showSearch && (
                     <motion.div
@@ -124,7 +123,7 @@ interface AuthUserProps {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ duration: 0.3 }}
-                        className="absolute top-full right-1 w-96 z-50 mt-2"
+                        className="absolute top-full w-full sm:w-96 z-50 mt-2"
                     >
                         <SearchGeneral allProducts={products} allDoctors={doctors} allServices={services} allSurgeries={surgery} allCategories={category} />
                     </motion.div>

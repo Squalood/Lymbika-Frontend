@@ -28,6 +28,7 @@ export default function Page() {
     
     const productsPerPage = 9; // 👈 Número de productos por página
 
+
     //Lee el query desde los parámetros de búsqueda
     const searchParams = useSearchParams();
     const query = searchParams.get("query")?.toLowerCase() || "";
@@ -80,7 +81,7 @@ export default function Page() {
 
         return <p className="col-span-full text-center text-gray-500">No hay Productos</p>;
       };
-
+    
     return (
         <div id="title" className="max-w-6xl py-4 mx-auto sm:py-16 sm:px-24">
             
