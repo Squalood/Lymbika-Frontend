@@ -19,6 +19,7 @@ import clsx from "clsx";
 import DoctorPrice from "./components/doctor-price";
 import DoctorReviews from "./components/doctor-reviews";
 import CalendarAvailability from "./components/doctor-schedule";
+import DoctorGallery from "./components/doctor-gallery";
 
 export default function Page() {
   const params = useParams();
@@ -27,7 +28,7 @@ export default function Page() {
 
   const doctor = result && result.length > 0 ? result[0] : null;
 
-  const [activeTab, setActiveTab] = useState<"about" | "calendar" | "prices">("about");
+  const [activeTab, setActiveTab] = useState<"about" | "calendar" | "prices" | "gallery">("about");
 
   useEffect(() => {
     if (!loading && doctor) {
@@ -50,7 +51,7 @@ export default function Page() {
 
       {/* Mobile Select */}
       <div className="block lg:hidden max-w-48 mb-6 ml-2">
-        <Select value={activeTab} onValueChange={(value) => setActiveTab(value as "about" | "calendar" | "prices")}>
+        <Select value={activeTab} onValueChange={(value) => setActiveTab(value as "about" | "calendar" | "prices" | "gallery")}>
           <SelectTrigger>
             <SelectValue placeholder="Selecciona una opción" />
           </SelectTrigger>
@@ -58,6 +59,7 @@ export default function Page() {
             <SelectItem value="about">Sobre el Doctor</SelectItem>
             <SelectItem value="calendar">Disponibilidad</SelectItem>
             <SelectItem value="prices">Precios</SelectItem>
+            <SelectItem value="gallery">Galeria</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -68,10 +70,11 @@ export default function Page() {
           { key: "about", label: "Sobre el Doctor" },
           { key: "calendar", label: "Disponibilidad" },
           { key: "prices", label: "Precios" },
+          { key: "gallery", label: "Galeria" },
         ].map((tab) => (
           <button
             key={tab.key}
-            onClick={() => setActiveTab(tab.key as "about" | "calendar" | "prices")}
+            onClick={() => setActiveTab(tab.key as "about" | "calendar" | "prices" | "gallery")}
             className={clsx(
               "px-4 py-2 text-sm font-medium rounded-full transition",
               activeTab === tab.key
@@ -87,6 +90,7 @@ export default function Page() {
     {activeTab === "about" && <DoctorAbout doctor={doctor} />}
     {activeTab === "calendar" && <CalendarAvailability />}
     {activeTab === "prices" && <DoctorPrice doctor={doctor}/>}
+    {activeTab === "gallery" && <DoctorGallery doctor={doctor}/>}
 
     <Separator className="mt-6" />
 
