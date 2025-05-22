@@ -15,7 +15,7 @@ const LymbikaLocation = () => {
                         
                         <p className="text-base leading-relaxed">
                             <strong className="font-semibold">Lunes a sábado:</strong><br />
-                            <span>08:00 - 21:30</span><br />
+                            <span>08:00 - 21:30</span>
                             {/*<em className="text-muted-foreground">Domingo cerrado</em>*/}
                         </p>
                         <p className="text-center">
