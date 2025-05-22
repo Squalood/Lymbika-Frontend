@@ -1,23 +1,26 @@
+import GalleryModal from "@/components/galleryModal";
 import { DoctorType } from "@/types/doctor";
 import { Search } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+import { useState } from "react";
 
 export type InfoDoctorProps = {
   doctor: DoctorType;
 };
 
 const DoctorGallery = ({ doctor }: InfoDoctorProps) => {
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const galleryImages = doctor.gallery || [];
 
   return (
+    <>
     <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 w-5/6 sm:w-3/4 mx-auto sm:py-8">
       {galleryImages.length > 0 ? (
         galleryImages.map((image, index) => (
-          <Link
+          <button
             key={image.id || index}
-            className="group block relative aspect-video overflow-hidden rounded-lg"
-            href="#"
+            className="group block relative aspect-square object-cover overflow-hidden rounded-lg"
+            onClick={() => setSelectedIndex(index)}
           >
             <Image
               src={image.url}
@@ -31,7 +34,7 @@ const DoctorGallery = ({ doctor }: InfoDoctorProps) => {
                 <span className="text-xs">View</span>
               </div>
             </div>
-          </Link>
+          </button>
         ))
       ) : (
         <div className="col-span-full text-center text-gray-500">
@@ -39,6 +42,14 @@ const DoctorGallery = ({ doctor }: InfoDoctorProps) => {
         </div>
       )}
     </div>
+    {selectedIndex !== null && (
+        <GalleryModal
+          images={galleryImages}
+          startIndex={selectedIndex}
+          onClose={() => setSelectedIndex(null)}
+        />
+      )}
+    </>
   );
 };
 
