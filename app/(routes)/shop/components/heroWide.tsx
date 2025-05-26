@@ -9,7 +9,7 @@ const HeroWide = () => {
 
     return ( 
         <div className="w-full">
-            <div className="relative container mx-auto">
+            <div className="relative">
                 <div className="absolute inset-0">
                     <Image
                     src="/images/pharmacy.jpg"
