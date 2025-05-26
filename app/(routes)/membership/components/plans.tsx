@@ -47,14 +47,14 @@ const PlansMemberPage = () => {
           <button
             onClick={() => setIsFamilyPlan(false)}
             className={clsx(
-              "relative z-10 px-4 py-3 text-sm font-medium rounded-full transition",
+              "relative z-10 px-4 py-4 text-sm font-medium rounded-full transition",
               !isFamilyPlan ? "text-black" : "text-muted-foreground"
             )}
           >
             {!isFamilyPlan && (
               <motion.div
                 layoutId="highlight"
-                className="absolute inset-0 bg-white rounded-full shadow"
+                className="absolute inset-0 bg-white rounded-full shadow m-1"
                 transition={{ type: "spring", stiffness: 500, damping: 30 }}
               />
             )}
@@ -63,14 +63,14 @@ const PlansMemberPage = () => {
           <button
             onClick={() => setIsFamilyPlan(true)}
             className={clsx(
-              "relative z-10 px-4 py-3 text-sm font-medium rounded-full transition",
+              "relative z-10 px-4 py-4 text-sm font-medium rounded-full transition",
               isFamilyPlan ? "text-black" : "text-muted-foreground"
             )}
           >
             {isFamilyPlan && (
               <motion.div
                 layoutId="highlight"
-                className="absolute inset-0 bg-white rounded-full shadow"
+                className="absolute inset-0 bg-white rounded-full shadow m-1"
                 transition={{ type: "spring", stiffness: 500, damping: 30 }}
               />
             )}
@@ -116,7 +116,7 @@ const PlansMemberPage = () => {
                         plan.button.variant === "outline" ? "outline" : "default"
                       }
                       className="gap-4"
-                      onClick={() => window.open(`${plan.button.link}`, "_blank")}
+                      onClick={() => window.open(`${plan.button.link}`, "_blank")}  //modificar link y varable de link
                     >
                       {plan.button.label}
                       {iconMap[plan.button.icon as keyof typeof iconMap]}

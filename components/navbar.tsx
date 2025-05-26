@@ -70,12 +70,11 @@ interface AuthUserProps {
                 <h1 className={`text-3xl ${textColor} cursor-pointer`} onClick={() => router.push("/")}>
                     Lym<span className="font-bold">bika</span>
                 </h1>
-                <div className="items-center justify-between hidden lg:flex">
+                <div className="items-center justify-between hidden lg:flex z-50">
                     <MenuList />
                 </div>
 
                 <div className="items-center justify-between gap-2 sm:gap-2 hidden lg:flex">
-
                     <Button variant="ghost" size="icon" className={`${textColor} hover:${!textColor}`} onClick={() => setShowSearch((prev) => !prev)} aria-label="Mostrar búsqueda">
                         <Search/>
                     </Button>

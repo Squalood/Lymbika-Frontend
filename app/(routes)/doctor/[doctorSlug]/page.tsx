@@ -20,6 +20,7 @@ import DoctorPrice from "./components/doctor-price";
 import DoctorReviews from "./components/doctor-reviews";
 import CalendarAvailability from "./components/doctor-schedule";
 import DoctorGallery from "./components/doctor-gallery";
+import { motion } from "framer-motion";
 
 export default function Page() {
   const params = useParams();
@@ -65,27 +66,37 @@ export default function Page() {
       </div>
 
       {/* Desktop Tabs */}
-      <div className="hidden lg:flex bg-muted p-1 rounded-full w-fit mb-2 gap-1">
+      <div className="relative hidden lg:flex bg-muted p-1 rounded-full w-fit mb-2 gap-1">
         {[
           { key: "about", label: "Sobre el Doctor" },
           { key: "calendar", label: "Disponibilidad" },
           { key: "prices", label: "Precios" },
           { key: "gallery", label: "Galeria" },
-        ].map((tab) => (
+        ].map((tab) => {
+        const isActive = activeTab === tab.key;
+        return (
           <button
             key={tab.key}
-            onClick={() => setActiveTab(tab.key as "about" | "calendar" | "prices" | "gallery")}
+            onClick={() => setActiveTab(tab.key as typeof activeTab)}
             className={clsx(
-              "px-4 py-2 text-sm font-medium rounded-full transition",
-              activeTab === tab.key
-                ? "bg-white text-black shadow"
-                : "text-muted-foreground"
+              "relative px-4 py-2 text-sm font-medium rounded-full transition z-10",
+              isActive ? "text-black" : "text-muted-foreground"
             )}
           >
             {tab.label}
+
+            {/* Animated background for active tab */}
+            {isActive && (
+              <motion.div
+                layoutId="tab-pill"
+                transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                className="absolute inset-0 bg-white shadow rounded-full z-[-1]"
+              />
+            )}
           </button>
-        ))}
-      </div>
+        );
+      })}
+    </div>
 
     {activeTab === "about" && <DoctorAbout doctor={doctor} />}
     {activeTab === "calendar" && <CalendarAvailability />}
