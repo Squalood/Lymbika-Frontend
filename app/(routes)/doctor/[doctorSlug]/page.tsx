@@ -18,9 +18,9 @@ import {
 import clsx from "clsx";
 import DoctorPrice from "./components/doctor-price";
 import DoctorReviews from "./components/doctor-reviews";
-import CalendarAvailability from "./components/doctor-schedule";
 import DoctorGallery from "./components/doctor-gallery";
 import { motion } from "framer-motion";
+import SimpleSchedule from "./components/simpleSchedule";
 
 export default function Page() {
   const params = useParams();
@@ -99,7 +99,7 @@ export default function Page() {
     </div>
 
     {activeTab === "about" && <DoctorAbout doctor={doctor} />}
-    {activeTab === "calendar" && <CalendarAvailability />}
+    {activeTab === "calendar" && <SimpleSchedule doctor={doctor}/>}
     {activeTab === "prices" && <DoctorPrice doctor={doctor}/>}
     {activeTab === "gallery" && <DoctorGallery doctor={doctor}/>}
 

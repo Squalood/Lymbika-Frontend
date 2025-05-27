@@ -1,0 +1,83 @@
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { HeartIcon, PlusIcon } from "lucide-react";
+import { ProductType } from "@/types/product";
+import { useCart } from "@/hooks/use-cart";
+import { Card } from "./ui/card";
+import { formatPrice } from "@/lib/formatPrice";
+import { UseLovedProducts } from "@/hooks/use-loved-products";
+import { useRouter } from "next/navigation";
+
+type ProductCardProps = {
+  product: ProductType;
+};
+
+const ProductCard = ({ product }: ProductCardProps) => {
+  const { addItem } = useCart();
+  const { addLoveItem } = UseLovedProducts();
+  const router = useRouter();
+
+  const imageUrl =
+    product.images && product.images.length > 0
+      ? product.images[0].url
+      : "/placeholder-image.webp";
+
+  const handleCardClick = () => {
+    router.push(`/product/${product.slug}`);
+  };
+
+  return (
+    <Card
+      className="w-44 sm:w-64 max-h-96 group relative space-y-4 overflow-hidden p-2 sm:p-4 cursor-pointer hover:shadow-md transition"
+      onClick={handleCardClick}
+    >
+      <figure className="group-hover:opacity-90">
+        <Image
+          className="w-full rounded-lg aspect-square"
+          src={imageUrl}
+          width={100}
+          height={300}
+          alt={product.productName}
+        />
+      </figure>
+
+      <div className="flex flex-col sm:flex-row justify-between">
+        <div>
+            <h3 className="text-sm font-medium truncate overflow-hidden whitespace-nowrap max-w-[16ch]" title={product.productName}>
+                {product.productName}
+            </h3>
+            <p className="text-sm text-muted-foreground">
+                {product.category.categoryName}
+            </p>
+        </div>
+        <p className="text-lg font-semibold">{formatPrice(product.price)}</p>
+      </div>
+
+      <div className="flex gap-1 sm:gap-4">
+        <Button
+          variant="outline"
+          size="icon"
+          className="flex-shrink-0 z-10"
+          onClick={(e) => {
+            e.stopPropagation();
+            addLoveItem(product);
+          }}
+        >
+          <HeartIcon className="size-4" />
+        </Button>
+        <Button
+          variant="outline"
+          className="w-full z-10"
+          onClick={(e) => {
+            e.stopPropagation();
+            addItem(product);
+          }}
+        >
+          <PlusIcon className="size-4 me-1" /> Añadir
+        </Button>
+      </div>
+    </Card>
+  );
+};
+
+export default ProductCard;

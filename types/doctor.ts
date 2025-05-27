@@ -32,5 +32,7 @@ export type DoctorType = {
       id: number;
       url: string;
     }[];
+    startAvailability: string;
+    closedAvailability: string;
   };
   

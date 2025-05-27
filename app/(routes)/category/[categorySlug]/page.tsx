@@ -4,7 +4,6 @@ import { Separator } from "@/components/ui/separator";
 import { useParams, useSearchParams } from "next/navigation"; 
 import FiltersControlsCategory from "./components/filters-controls-category";
 import SkeletonSchema from "@/components/skeleton/skeletonSchema";
-import ProductCard from "./components/product-card";
 import { ProductType } from "@/types/product";
 import { useState, useEffect } from "react";
 import ItemsFilterMobile from "./components/filter-type-mobile";
@@ -12,6 +11,7 @@ import PaginationControls from "./components/pagination";
 import { Search } from "@/components/searchBar";
 import { Skeleton } from "@/components/ui/skeleton";
 import SkeletonList from "@/components/skeleton/skeletonList";
+import ProductCard from "@/components/productCard";
 
 
 export default function Page() {
@@ -109,7 +109,7 @@ export default function Page() {
             {/* Modo móvil */}
             <div className="flex flex-col mt-4 sm:hidden">
                 <ItemsFilterMobile setFilterType={setFilterType} />
-                <div className="flex flex-wrap justify-center gap-4 mt-4">
+                <div className="mt-4 grid grid-cols-2 gap-4 mx-auto">
                     {renderProductList(9)}
                 </div>
             </div>
@@ -117,11 +117,11 @@ export default function Page() {
             {/* Modo escritorio */}
             <div className="hidden sm:flex sm:justify-between">
                 {loading ? (
-                      <SkeletonList grid={17}/>  
+                      <SkeletonList grid={9}/>  
                 ) : (
                    <FiltersControlsCategory setFilterType={setFilterType} typeFilter={typeFilter}/> 
                 )}
-                <div className="grid gap-5 mt-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
+                <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {renderProductList(9)}
                 </div>
             </div>
