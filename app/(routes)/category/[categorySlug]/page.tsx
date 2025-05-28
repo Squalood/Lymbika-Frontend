@@ -28,7 +28,6 @@ export default function Page() {
     
     const productsPerPage = 9; // 👈 Número de productos por página
 
-
     //Lee el query desde los parámetros de búsqueda
     const searchParams = useSearchParams();
     const query = searchParams.get("query")?.toLowerCase() || "";
@@ -75,7 +74,7 @@ export default function Page() {
       
         if (paginatedProducts.length > 0) {
           return paginatedProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product.id} product={product}/>
           ));
         }
 

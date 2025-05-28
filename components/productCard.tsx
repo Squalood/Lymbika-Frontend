@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { CheckIcon, Heart, HeartIcon, PlusIcon } from "lucide-react";
@@ -27,6 +28,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
     router.push(`/product/${product.slug}`);
   };
 
+  const hasMemberPrice = product.priceMember > 0;
+
   return (
     <Card
       className="w-40 sm:w-48 lg:w-64 max-h-96 group relative space-y-4 overflow-hidden p-2 sm:p-4 cursor-pointer hover:shadow-md transition"
@@ -36,8 +39,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <Image
           className="w-full rounded-lg aspect-square"
           src={imageUrl}
-          width={100}
-          height={300}
+          width={300}
+          height={500}
           alt={product.productName}
         />
       </figure>
@@ -51,7 +54,14 @@ const ProductCard = ({ product }: ProductCardProps) => {
                 {product.category.categoryName}
             </p>
         </div>
-        <p className="text-lg font-semibold">{formatPrice(product.price)}</p>
+        {hasMemberPrice ? (
+        <div>
+          <p className="text-xs line-through text-muted-foreground">{formatPrice(product.price)}</p>
+          <p className="text-lg font-semibold text-green-400">{formatPrice(product.priceMember)}</p>
+        </div>
+        ) : (
+          <p className="text-lg font-semibold">{formatPrice(product.price)}</p>
+        )}
       </div>
 
       <div className="flex gap-1 sm:gap-4">
