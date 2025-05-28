@@ -107,15 +107,17 @@ export default function Page() {
             <Separator />
 
             {/* Modo móvil */}
-            <div className="flex flex-col mt-4 sm:hidden">
-                <ItemsFilterMobile setFilterType={setFilterType} />
-                <div className="mt-4 grid grid-cols-2 gap-4 mx-auto">
+            <div className="flex flex-col mt-4 md:hidden">
+                <div className="ml-7">
+                  <ItemsFilterMobile setFilterType={setFilterType} />
+                </div>
+                <div className="mt-4 grid grid-cols-2 gap-4 mx-auto px-4">
                     {renderProductList(9)}
                 </div>
             </div>
 
             {/* Modo escritorio */}
-            <div className="hidden sm:flex sm:justify-between">
+            <div className="hidden md:flex md:justify-between">
                 {loading ? (
                       <SkeletonList grid={9}/>  
                 ) : (

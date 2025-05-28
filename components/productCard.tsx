@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { HeartIcon, PlusIcon } from "lucide-react";
+import { CheckIcon, Heart, HeartIcon, PlusIcon } from "lucide-react";
 import { ProductType } from "@/types/product";
 import { useCart } from "@/hooks/use-cart";
 import { Card } from "./ui/card";
@@ -13,8 +13,9 @@ type ProductCardProps = {
 };
 
 const ProductCard = ({ product }: ProductCardProps) => {
-  const { addItem } = useCart();
-  const { addLoveItem } = UseLovedProducts();
+  const { addItem, isInCart } = useCart();
+  const inCart = isInCart(product.id);
+  const { addLoveItem, isLoved } = UseLovedProducts();
   const router = useRouter();
 
   const imageUrl =
@@ -28,7 +29,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
   return (
     <Card
-      className="w-44 sm:w-64 max-h-96 group relative space-y-4 overflow-hidden p-2 sm:p-4 cursor-pointer hover:shadow-md transition"
+      className="w-40 sm:w-48 lg:w-64 max-h-96 group relative space-y-4 overflow-hidden p-2 sm:p-4 cursor-pointer hover:shadow-md transition"
       onClick={handleCardClick}
     >
       <figure className="group-hover:opacity-90">
@@ -41,7 +42,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
         />
       </figure>
 
-      <div className="flex flex-col sm:flex-row justify-between">
+      <div className="flex flex-col lg:flex-row justify-between">
         <div>
             <h3 className="text-sm font-medium truncate overflow-hidden whitespace-nowrap max-w-[16ch]" title={product.productName}>
                 {product.productName}
@@ -57,23 +58,40 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <Button
           variant="outline"
           size="icon"
-          className="flex-shrink-0 z-10"
+          className={`flex-shrink-0 z-10 transition-colors ${
+            isLoved(product) ? "bg-blue-100 text-blue-500 border-blue-200" : ""
+          }`}
           onClick={(e) => {
             e.stopPropagation();
             addLoveItem(product);
           }}
         >
-          <HeartIcon className="size-4" />
+          {isLoved(product) ? (
+            <Heart className="size-4 fill-blue-500" /> // Ícono relleno
+          ) : (
+            <HeartIcon className="size-4" />
+          )}
         </Button>
         <Button
-          variant="outline"
-          className="w-full z-10"
+          variant= "outline"
+          className={`w-full z-10 px-3 sm:px-4 ${inCart ? "bg-green-100 text-green-500 border-green-200" : ""}`}
+          disabled={inCart}
           onClick={(e) => {
             e.stopPropagation();
-            addItem(product);
+            if (!inCart) addItem(product) ;
           }}
         >
-          <PlusIcon className="size-4 me-1" /> Añadir
+          {inCart ? (
+            <>
+              <CheckIcon className="size-4 me-1 text-green-500" />
+              Añadir
+            </>
+          ) : (
+            <>
+              <PlusIcon className="size-4 me-1" />
+              Añadir
+            </>
+          )}
         </Button>
       </div>
     </Card>

@@ -91,9 +91,18 @@ interface AuthUserProps {
                         </Button>
                     </div>
                     )}
-                    <Button variant="ghost" size={"icon"} className={`${textColor} hover:${!textColor}`} onClick={() => router.push("/loved-products")}>
+
+                    {lovedItems.length === 0 ? (
+                    <Button variant="ghost" size="sm" className={`${textColor} hover:${!textColor}`} onClick={() => router.push("/loved-products")}>
                         <Heart className={`${fillColor}`}/>
                     </Button>
+                    ) : (
+                    <Button variant="ghost" size="sm" className={`${textColor} hover:${!textColor}`} onClick={() => router.push("/loved-products")}>
+                        <Heart className={`${fillColor}`}/>
+                        <span>{lovedItems.length}</span>
+                    </Button>
+                    )}
+
                     
                     {/* Icono de usuario con nombre */}
                     <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push("/dashboard")}>

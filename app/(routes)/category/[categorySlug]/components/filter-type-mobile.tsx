@@ -24,9 +24,9 @@ const ItemsFilterMobile = (props:FilterTypeProps) => {
   return ( 
       <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline">Tipos<Menu/></Button>
+        <Button variant="outline"><Menu/>Tipos</Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56">
+      <DropdownMenuContent className="w-full">
         {loading && result == null && (
             <p>cargando Origen....</p>
         )}

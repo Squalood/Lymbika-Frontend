@@ -7,6 +7,7 @@ import { toast } from "sonner";
 interface CartStore {
     items: ProductType[];
     addItem: (data: ProductType) => void;
+    isInCart: (id: number) => boolean;
     removeItem: (id: number) => void;
     removeAll: () => void;
 }
@@ -28,13 +29,14 @@ export const useCart = create(persist<CartStore>((set, get) => ({
 
                 toast("Producto añadido al carrito 🛒");
             },
-
+            isInCart: (id) => {
+                return get().items.some((item) => item.id === id);
+            },
             removeItem: (id: number) => {
                 set({items: get().items.filter((item) => item.id !== id),});
 
                 toast("Producto eliminado del carrito 🛒");
             },
-
             removeAll: () => {
                 set({ items: [] });
                 toast("Carrito vacío 🛒");
