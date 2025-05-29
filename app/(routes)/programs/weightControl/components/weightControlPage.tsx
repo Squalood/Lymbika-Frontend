@@ -21,6 +21,8 @@ const cards = [
 ]
 
 const WeightControlPage = () => {
+    const descriptionT = es.WeightControlPage.section3.description?.trim();
+
     return ( 
         <div className="w-full">
             <div className="relative overflow-hidden">
@@ -120,13 +122,15 @@ const WeightControlPage = () => {
                             />
                         </div>
                         <div className="flex gap-4 pl-0 lg:pl-20 flex-col flex-1">
-                            <div className="flex gap-2 flex-col">
+                            <div className="flex gap-2 sm:gap-4 flex-col">
                                 <h2 className="text-xl sm:text-3xl md:text-5xl tracking-tighter lg:max-w-xl font-regular text-left">
                                     {es.WeightControlPage.section3.title}
                                 </h2>
-                                <p className="text-lg max-w-xl lg:max-w-sm leading-relaxed tracking-tight text-muted-foreground text-left">
-                                    {es.WeightControlPage.section3.description}
-                                </p>
+                                <ul className="list-disc list-inside text-gray-700 text-sm sm:text-base md:text-lg space-y-3">
+                                    {descriptionT.split("\n").map((line, index) => (
+                                    <li key={index}>{line}</li>
+                                    ))}
+                                </ul>
                             </div>
                         </div>
                     </div>

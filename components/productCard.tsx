@@ -51,7 +51,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
                 {product.productName}
             </h3>
             <p className="text-sm text-muted-foreground">
-                {product.category.categoryName}
+                {product.category?.categoryName ?? "Sin categoría"}
             </p>
         </div>
         {hasMemberPrice ? (

@@ -3,7 +3,7 @@
     "programas":{
       "program1": "Control de Peso Integral",
       "program2": "Agente Médico",
-      "program3": "Salud Hormonal",
+      "program3": "Menopausia Activa",
       "program4": "Neuroterapia"
     },
     "botton4":"HealthHubs"
@@ -40,7 +40,7 @@
       {
         "type": "normal",
         "title": "Neuroterapia",
-        "description": "Tratamientos seguros para verte y sentirte mejor.",
+        "description": "Nueva alternativa para tratar problemas neurológicos.",
         "icon": "Brain",
         "cta": "Leer más",
         "link": "/programs/neurotherapy"
@@ -164,7 +164,7 @@
     },
     "frontpage":{
       "title": "Lymbika Healthcare",
-      "description": "Bienvenido al futuro del cuidado de tu salud. Conectamos medicina, tecnología y humanidad para que tú y tu familia vivan mejor sin complicaciones, sin esperas, sin límites."
+      "description": "Cruzar la frontera ya no tiene que ser difícil para encontrar atención médica. En Lymbika te ayudamos a proteger a tu familia con acceso confiable a consultas, medicamentos y tratamientos a precio justo, estés en México o EE.UU."
     },
     "WeightControlPage":{
         "title":"Tu salud no empieza con una dieta. Empieza con un plan médico real.",
@@ -189,7 +189,7 @@
         },
         "section3":{
           "title": "¿Para quién es?",
-          "description": "Ideal si: Has intentado bajar de peso sin éxito Buscas un enfoque médico real, no solo dietas Tienes más de 10 kg por perder Estás comprometido con tu salud"
+          "description": "Si has intentado bajar de peso sin éxito.\n Buscas un enfoque médico real, no solo dietas.\n Tienes más de 10 kg por perder.\n Estás comprometido con tu salud."
         },
         "section4":{
           "title": "¿Qué incluye?",
