@@ -99,7 +99,7 @@ const PlansMemberPage = () => {
                     <div className="flex flex-col gap-4">
                       <div className="text-xl flex items-center gap-2 justify-center sm:justify-start">
                         <span className="text-4xl">
-                          ${isFamilyPlan ? plan.priceM : plan.priceP}
+                          ${isFamilyPlan ? plan.priceF : plan.priceP}
                         </span>
                         <span className="text-sm text-muted-foreground">/ mes</span>
                       </div>
@@ -116,7 +116,7 @@ const PlansMemberPage = () => {
                         plan.button.variant === "outline" ? "outline" : "default"
                       }
                       className="gap-4"
-                      onClick={() => window.open(`${plan.button.link}`, "_blank")}  //modificar link y varable de link
+                      onClick={() => window.open(`${isFamilyPlan ? plan.button.linkF : plan.button.linkP}`, "_blank")}  //modificar link y varable de link
                     >
                       {plan.button.label}
                       {iconMap[plan.button.icon as keyof typeof iconMap]}

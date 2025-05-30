@@ -84,51 +84,51 @@ export default function Page() {
     return (
         <div id="title" className="max-w-6xl py-4 mx-auto sm:py-16 sm:px-24">
             
-            {/* Título de categoría */}
-            <div className="flex flex-col gap-6 sm:flex-row justify-between py-4 px-8">
-                {loading ? (
-                      <Skeleton className="w-60 h-10"/>  
-                ) : filteredProducts.length > 0 ? (
-                    <h1 className="text-3xl font-medium">
-                    {filteredProducts[0]?.category?.categoryName}
-                    </h1>
-                ) : (
-                    <h1 className="text-xl font-medium text-muted-foreground">
-                    Búsqueda no encontrada
-                    </h1>
-                )}
-                {loading ? (
-                    <Skeleton className="w-full sm:w-1/3 h-10"/>
-                ) : (
-                <Search category={filteredProducts[0]?.category?.categoryName} />
-                )}
-            </div>
-            <Separator />
+          {/* Título de categoría */}
+          <div className="flex flex-col gap-6 sm:flex-row justify-between py-4 px-8">
+              {loading ? (
+                    <Skeleton className="w-60 h-10"/>  
+              ) : filteredProducts.length > 0 ? (
+                  <h1 className="text-3xl font-medium">
+                  {filteredProducts[0]?.category?.categoryName}
+                  </h1>
+              ) : (
+                  <h1 className="text-xl font-medium text-muted-foreground">
+                  Búsqueda no encontrada
+                  </h1>
+              )}
+              {loading ? (
+                  <Skeleton className="w-full sm:w-1/3 h-10"/>
+              ) : (
+              <Search category={filteredProducts[0]?.category?.categoryName} />
+              )}
+          </div>
+          <Separator />
 
-            {/* Modo móvil */}
-            <div className="flex flex-col mt-4 md:hidden">
-                <div className="ml-7">
-                  <ItemsFilterMobile setFilterType={setFilterType} />
-                </div>
-                <div className="mt-4 grid grid-cols-2 gap-4 mx-auto px-4">
-                    {renderProductList(9)}
-                </div>
-            </div>
+          {/* Modo móvil */}
+          <div className="flex flex-col mt-4 md:hidden">
+              <div className="ml-7">
+                <ItemsFilterMobile setFilterType={setFilterType} />
+              </div>
+              <div className="mt-4 grid grid-cols-2 gap-4 mx-auto px-4">
+                  {renderProductList(9)}
+              </div>
+          </div>
 
-            {/* Modo escritorio */}
-            <div className="hidden md:flex md:justify-between">
-                {loading ? (
-                      <SkeletonList grid={9}/>  
-                ) : (
-                   <FiltersControlsCategory setFilterType={setFilterType} typeFilter={typeFilter}/> 
-                )}
-                <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {renderProductList(9)}
-                </div>
-            </div>
+          {/* Modo escritorio */}
+          <div className="hidden md:flex md:justify-between">
+              {loading ? (
+                    <SkeletonList grid={9}/>  
+              ) : (
+                  <FiltersControlsCategory setFilterType={setFilterType} typeFilter={typeFilter}/> 
+              )}
+              <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {renderProductList(9)}
+              </div>
+          </div>
 
-            {/* paginación */}
-            <PaginationControls page={page} totalFilteredPages={totalFilteredPages} setPage={setPage}/>
+          {/* paginación */}
+          <PaginationControls page={page} totalFilteredPages={totalFilteredPages} setPage={setPage}/>
         </div>
     );
 }

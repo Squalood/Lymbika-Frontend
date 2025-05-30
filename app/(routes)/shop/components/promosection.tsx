@@ -19,7 +19,6 @@ const PromoCarousel = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 mt-0 mb-10 sm:mb-0 sm:my-8">
       <h1 className="py-4 font-bold text-xl">Nuestras últimas promociones</h1>
-
       <Carousel
         opts={{
           align: "start",

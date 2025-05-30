@@ -83,13 +83,14 @@
         "name": "Lymbika Cuida",
         "icon": "Stethoscope",
         "priceP": 450,
-        "priceM": 850,
+        "priceF": 850,
         "description": "Atención médica primaria para ti o tu familia.",
         "button": {
           "label": "Regístrate ahora",
           "icon": "MoveRight",
           "variant": "default",
-          "link": "https://buy.stripe.com/dR67wo1dt6RqeXe5kX"
+          "linkP": "https://buy.stripe.com/3cIcN5fdv9iEdGEcvfaVa0I",
+          "linkF": "https://buy.stripe.com/eVq6oHghzdyUdGEgLvaVa0J"
         },
         "features": [
           {
@@ -107,13 +108,14 @@
         "name": "Mediclub",
         "icon": "Pill",
         "priceP": 200,
-        "priceM": 350,
+        "priceF": 350,
         "description": "Para quienes quieren ahorrar en farmacia y servicios básicos.",
         "button": {
           "label": "Regístrate ahora",
           "icon": "MoveRight",
           "variant": "outline",
-          "link": "https://buy.stripe.com/dR67wo1dt6RqeXe5kX"
+          "linkP": "https://buy.stripe.com/00geYQ2hxgs016o5kQ",
+          "linkF": "https://buy.stripe.com/dR67wo1dt6RqeXe5kX"
         },
         "features": [
           {
@@ -164,7 +166,7 @@
     },
     "frontpage":{
       "title": "Lymbika Healthcare",
-      "description": "Cruzar la frontera ya no tiene que ser difícil para encontrar atención médica. En Lymbika te ayudamos a proteger a tu familia con acceso confiable a consultas, medicamentos y tratamientos a precio justo, estés en México o EE.UU."
+      "description": "Ya no tienes que batallar para saber qué hacer ante una situación médica. Te acompañamos con una solución integral: consultas, farmacia, cirugías y seguimiento humano, sin complicaciones."
     },
     "WeightControlPage":{
         "title":"Tu salud no empieza con una dieta. Empieza con un plan médico real.",

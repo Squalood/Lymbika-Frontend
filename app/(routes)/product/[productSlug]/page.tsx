@@ -7,6 +7,8 @@ import SkeletonProduct from "./components/skeleton-product";
 import CarouselProduct from "./components/carousel-product";
 import InfoProduct from "./components/info-product";
 import CarouselProductSkeleton from "./components/carouselProductSkeleton";
+import { Separator } from "@/components/ui/separator";
+import NavegatorPages from "@/components/navegatorPages";
 
 export default function Page (){
     const params = useParams()
@@ -29,12 +31,15 @@ export default function Page (){
     }
 
     return(
-        <div className="max-w-6xl py-4 mx-auto sm:py-32 sm:px-24">
+        <div className="max-w-6xl py-4 mx-auto sm:py-16 sm:px-24">
+            <div className="sm:ml-1 ml-3">
+              <NavegatorPages product={result[0]}/>  
+            </div>
+            <Separator className="my-4"/>  
             <div className="grid sm:grid-cols-2">
                 <div>
                     <CarouselProduct product={result[0]}/>
                 </div>
-
                 <div className="sm:px-12">
                     <InfoProduct product={result[0]}/>
                 </div>

@@ -12,11 +12,9 @@ const ChooseCategory = () => {
     return ( 
         <div className="sm:max-w-4xl py-4 mx-4 lg:mx-auto sm:py-16">
             <h3 className="px-6 pb-4 text-3xl sm:pb-8">Categorías de la Farmacia</h3>
-
             {loading && 
                 <SkeletonGalleryCol3 grid={6} />
             }
-
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-5">
                 {!loading && result?.map((category: CategoryType) => (
                     <Link 
