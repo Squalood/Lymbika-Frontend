@@ -10,7 +10,7 @@ const ChooseCategory = () => {
     const { result, loading }: ResponseType = useGetCategories()
 
     return ( 
-        <div className="max-w-6xl py-4 mx-4 sm:mx-auto sm:py-16 sm:px-24">
+        <div className="sm:max-w-4xl py-4 mx-4 lg:mx-auto sm:py-16">
             <h3 className="px-6 pb-4 text-3xl sm:pb-8">Categorías de la Farmacia</h3>
 
             {loading && 
