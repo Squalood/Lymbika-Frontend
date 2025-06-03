@@ -17,43 +17,45 @@ const Programs = () => {
         <h2 className="text-2xl md:text-4xl md:leading-tight">{es.programsNavs.title}</h2>
       </div>
 
-      {/* Grid */}
-      <div className="grid sm:grid-cols-2 xl:grid-cols-3 grid-rows-2 gap-4 sm:gap-4 px-4">
+      <div className="flex flex-wrap gap-4">
         {es.programsNavs.cards.map((card, index) => (
           card.type === 'background' ? (
             <Link
               key={index}
               href={card.link}
-              className="group relative flex flex-col w-full bg-cover bg-center rounded-xl hover:shadow-lg transition col-span-2 p-4 my-6"
-              style={{ backgroundImage: `url(${card.image})` }}
+              className="group relative flex flex-col bg-cover bg-center rounded-xl p-4 transition-all duration-500 ease-in-out flex-[1_1_60%] hover:flex-[1_1_60%] sm:flex-[1_1_40%] sm:hover:flex-[2_1_50%]"
+              style={{ backgroundImage: `url(${card.image})`, minHeight: "200px" }}
             >
               <div className="flex-auto p-8 md:p-6 text-white/90">
-                <h3 className="text-xl  group-hover:text-white">
-                {card.titleBold}
+                <h3 className="text-xl group-hover:text-white">
+                  {card.titleBold}
                 </h3>
-                <span className="font-bold">{card.titleRest}</span> 
+                <span className="font-bold">{card.titleRest}</span>
               </div>
               <div className="pt-0 p-4 md:p-6">
                 <div className="inline-flex items-center gap-2 text-sm font-medium text-white group-hover:text-white/70">
                   {card.cta}
-                  <ChevronRight size={20}/>
+                  <ChevronRight size={20} />
                 </div>
               </div>
             </Link>
           ) : (
-            <Link key={index} href={card.link} className="group flex flex-col focus:outline-hidden sm:px-0">
-                <div className="relative flex flex-col gap-2 pt-12 sm:pt-16 pl-4 sm:pl-6 rounded-xl overflow-hidden bg-muted h-40 sm:h-44">
+            <Link
+              key={index}
+              href={card.link}
+              className="group flex flex-[1_1_45%] sm:flex-[1_1_20%] rounded-xl overflow-hidden bg-muted h-40 p-4"
+            >
+              <div className="flex flex-col justify-end h-full w-full">
+                <div className="flex flex-col gap-1">
                   {iconMap[card.icon as keyof typeof iconMap]}
-                  <h3 className="text-sm sm:text-xl font-semibold text-gray-800 group-hover:text-gray-600">{card.title}</h3>
+                  <h3 className="text-lg sm:text-lg font-semibold text-gray-800 group-hover:text-gray-600">
+                    {card.title}
+                  </h3>
+                  <span className="text-gray-500">{card.cost}</span>
                 </div>
-              <div className="mt-3">
-                <p className="mt-1 text-gray-800">{card.description}</p>
-                <p className="mt-2 inline-flex items-center gap-x-1 text-sm text-blue-600 group-hover:underline font-medium">
-                  {card.cta}
-                  <ChevronRight size={16} />
-                </p>
               </div>
             </Link>
+
           )
         ))}
       </div>

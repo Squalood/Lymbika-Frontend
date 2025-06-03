@@ -13,37 +13,12 @@
     "description": "Stay in the know with insights from industry experts.",
     "cards": [
       {
-        "type": "normal",
-        "title": "Control de Peso Integral",
-        "description": "Mejoramos tu salud desde el metabolismo.",
-        "icon": "HeartPulse",
+        "type": "background",
+        "titleBold": "Control de Peso Integral",
+        "titleRest": "Mejoramos tu salud desde el metabolismo.",
+        "image": "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=560&q=80",
         "cta": "Leer más",
         "link": "/programs/weightControl"
-      },
-      {
-        "type": "normal",
-        "title": "Agente Médico",
-        "description": "Cirugías seguras, acompañadas de principio a fin.",
-        "icon": "Stethoscope",
-        "cta": "Leer más",
-        "link": "/programs/medicalAgent"
-      },
-      
-      {
-        "type": "normal",
-        "title": "Menopausia Activa",
-        "description": "Bienestar femenino para una nueva etapa.",
-        "icon": "ScanHeart",
-        "cta": "Leer más",
-        "link": "/programs/menopause"
-      },
-      {
-        "type": "normal",
-        "title": "Neuroterapia",
-        "description": "Nueva alternativa para tratar problemas neurológicos.",
-        "icon": "Brain",
-        "cta": "Leer más",
-        "link": "/programs/neurotherapy"
       },
       {
         "type": "background",
@@ -52,8 +27,45 @@
         "image": "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=560&q=80",
         "cta": "Haz tu cotización gratuita",
         "link": "https://wa.me/526561100446"
-      }
+        
+      },
+      {
+        "type": "normal",
+        "title": "Control de Peso",
+        "description": "Mejoramos tu salud desde el metabolismo.",
+        "icon": "HeartPulse",
+        "cta": "Leer más",
+        "link": "/programs/weightControl",
+        "cost": "$1,599/mes"
+      },
+      {
+        "type": "normal",
+        "title": "Agente Médico",
+        "description": "Cirugías seguras, acompañadas de principio a fin.",
+        "icon": "Stethoscope",
+        "cta": "Leer más",
+        "link": "/programs/medicalAgent",
+        "cost": "$200/mes"
+      },
       
+      {
+        "type": "normal",
+        "title": "Menopausia",
+        "description": "Bienestar femenino para una nueva etapa.",
+        "icon": "ScanHeart",
+        "cta": "Leer más",
+        "link": "/programs/menopause",
+        "cost": "$4,699/mes"
+      },
+      {
+        "type": "normal",
+        "title": "Neuroterapia",
+        "description": "Nueva alternativa para tratar problemas neurológicos.",
+        "icon": "Brain",
+        "cta": "Leer más",
+        "link": "/programs/neurotherapy",
+        "cost": "$1,000/mes"
+      }
     ]
   },
   "about":{
@@ -165,8 +177,8 @@
       "id5":"No se requiere aseguranza"
     },
     "frontpage":{
-      "title": "Lymbika Healthcare",
-      "description": "Ya no tienes que batallar para saber qué hacer ante una situación médica. Te acompañamos con una solución integral: consultas, farmacia, cirugías y seguimiento humano, sin complicaciones."
+      "title": "Tu salud sin fronteras. Atención médica integral y humana, estés donde estés.",
+      "description": "Cuidar de tu familia no debería ser complicado. Te guiamos paso a paso. Consulta, medicamento o cirugía… aquí encuentras todo en un solo lugar, sin filas ni miedo."
     },
     "WeightControlPage":{
         "title":"Tu salud no empieza con una dieta. Empieza con un plan médico real.",

@@ -17,10 +17,10 @@ const FrontPage = () => {
 
             {/* Contenido del texto */}
             <div className="relative z-10 lg:w-3/4 xl:w-2/4">
-                <h1 className="text-white text-3xl md:text-5xl xl:text-6xl font-bold leading-tight">
+                <h1 className="text-white text-2xl md:text-5xl font-bold leading-tight">
                     {es.frontpage.title}
                 </h1>
-                <p className="text-blue-100 text-sm md:text-2xl leading-snug mt-4">
+                <p className="text-blue-100 text-sm md:text-xl leading-snug mt-4 w-5/6 md:w-full">
                     {es.frontpage.description}
                 </p>
             </div>
