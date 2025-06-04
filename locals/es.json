@@ -16,7 +16,7 @@
         "type": "background",
         "titleBold": "Control de Peso Integral",
         "titleRest": "Mejoramos tu salud desde el metabolismo.",
-        "image": "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=560&q=80",
+        "image": "/images/peso-hero.png",
         "cta": "Leer más",
         "link": "/programs/weightControl"
       },
