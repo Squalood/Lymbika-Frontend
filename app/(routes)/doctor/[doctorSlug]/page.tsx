@@ -21,11 +21,14 @@ import DoctorReviews from "./components/doctor-reviews";
 import DoctorGallery from "./components/doctor-gallery";
 import { motion } from "framer-motion";
 import SimpleSchedule from "./components/simpleSchedule";
+import DoctorComment from "./components/doctor-Comment";
+import { useGetDoctorReviews } from "@/api/useGetDoctorReviews";
 
 export default function Page() {
   const params = useParams();
   const { doctorSlug } = params;
   const { loading, result }: ResponseType = useGetDoctorBySlug(doctorSlug ?? "");
+  const { reviews } = useGetDoctorReviews(doctorSlug ?? "");
 
   const doctor = result && result.length > 0 ? result[0] : null;
 
@@ -44,6 +47,8 @@ export default function Page() {
       </div>
     );
   }
+
+  console.log(reviews);
 
   return (
     <div className="max-w-6xl py-4 mx-auto sm:py-20 sm:px-24">
@@ -98,14 +103,14 @@ export default function Page() {
       })}
     </div>
 
-    {activeTab === "about" && <DoctorAbout doctor={doctor} />}
-    {activeTab === "calendar" && <SimpleSchedule doctor={doctor}/>}
-    {activeTab === "prices" && <DoctorPrice doctor={doctor}/>}
-    {activeTab === "gallery" && <DoctorGallery doctor={doctor}/>}
+      {activeTab === "about" && <DoctorAbout doctor={doctor} />}
+      {activeTab === "calendar" && <SimpleSchedule doctor={doctor}/>}
+      {activeTab === "prices" && <DoctorPrice doctor={doctor}/>}
+      {activeTab === "gallery" && <DoctorGallery doctor={doctor}/>}
 
-    <Separator className="mt-6" />
+      <Separator className="mt-6" />
 
-    <DoctorReviews average={5} waitingTime={5} recommend={5} bedsideManner={5} visitAgain={5}/>
+      <DoctorReviews reviews={reviews} />
 
     </div>
   );
