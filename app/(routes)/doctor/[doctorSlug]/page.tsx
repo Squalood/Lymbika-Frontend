@@ -21,7 +21,6 @@ import DoctorReviews from "./components/doctor-reviews";
 import DoctorGallery from "./components/doctor-gallery";
 import { motion } from "framer-motion";
 import SimpleSchedule from "./components/simpleSchedule";
-import DoctorComment from "./components/doctor-Comment";
 import { useGetDoctorReviews } from "@/api/useGetDoctorReviews";
 
 export default function Page() {
