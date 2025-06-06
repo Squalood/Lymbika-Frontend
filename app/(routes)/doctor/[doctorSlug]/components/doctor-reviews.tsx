@@ -2,6 +2,7 @@ import { Separator } from "@/components/ui/separator";
 import { Star } from "lucide-react";
 import DoctorComment from "./doctor-Comment";
 import { ReviewType } from "@/types/review";
+import ReviewForm from "@/components/reviewForm";
 
 type Props = {
   reviews: ReviewType[];
@@ -60,6 +61,7 @@ const DoctorReviews = ({ reviews }: Props) => {
           <div className="flex items-center gap-2">
             <div className="flex">{stars}</div>
             <span className="text-xl font-semibold text-gray-800">{avgTotal.toFixed(1)}</span>
+            
           </div>
         </div>
 
@@ -71,7 +73,6 @@ const DoctorReviews = ({ reviews }: Props) => {
           <ReviewRow label="Would visit again" value={avgVisitAgain} />
         </div>
       </div>
-
       <div className="mt-8">
         <Separator />
       </div>
@@ -81,6 +82,7 @@ const DoctorReviews = ({ reviews }: Props) => {
           <DoctorComment key={review.id} review={review} />
         ))}
       </div>
+      <ReviewForm/>
     </div>
   );
 };

@@ -1,4 +1,3 @@
-// DoctorComment.tsx
 import { ReviewType } from "@/types/review";
 import { Separator } from "@/components/ui/separator";
 import { CheckCircle, Star } from "lucide-react";
@@ -8,7 +7,7 @@ type Props = {
 };
 
 const DoctorComment = ({ review }: Props) => {
-  const { comment, createdAt, waitingTime, recommend, bedsideManner, visitAgain } = review;
+  const { comment, createdAt, waitingTime, recommend, bedsideManner, visitAgain, User } = review;
 
   const average = (waitingTime + recommend + bedsideManner + visitAgain) / 4;
 
@@ -23,7 +22,7 @@ const DoctorComment = ({ review }: Props) => {
 
   const ReviewRow = ({ label, value }: { label: string; value: number }) => (
     <div className="flex justify-between pr-4">
-      <span>{label}</span>
+      <span className="mr-2">{label}</span>
       <strong className="text-gray-900">{value.toFixed(1)}</strong>
     </div>
   );
@@ -58,6 +57,13 @@ const DoctorComment = ({ review }: Props) => {
                 <div className="flex">{stars}</div>
                 <span className="text-xl font-semibold text-gray-800">{average.toFixed(1)}</span>
               </div>
+              <p className="text-gray-500 text-sm">
+                
+                {User?.firstName && User?.lastName
+                  ? `${User.firstName} ${User.lastName}`
+                  : "usuario anónimo"}
+              </p>
+
             </div>
           </div>
         </div>

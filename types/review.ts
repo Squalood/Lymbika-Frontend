@@ -7,8 +7,9 @@ export type ReviewType = {
   comment: string;
   createdAt: string;
   updatedAt: string;
-  user: {
+  User: {
     id: number;
+    username: string;
     firstName: string;
     lastName: string;
     mediClubRegular: boolean;
