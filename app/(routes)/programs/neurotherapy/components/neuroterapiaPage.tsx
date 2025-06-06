@@ -77,7 +77,7 @@ const NeuroterapiaPage = () => {
                 </p>
 
                 {/* Botón */}
-                <Button size="lg" className="gap-4 text-primary" variant="outline" onClick={() => window.open("https://calendly.com/lymbikagroup/30min", "_blank")}>
+                <Button size="lg" className="gap-4 text-primary" variant="outline" onClick={() => window.open("https://wa.me/526561100446", "_blank")}>
                     Agendar Cita <MoveRight className="w-4 h-4" />
                 </Button>
             </div>

@@ -31,7 +31,7 @@ const Cost = () => {
               <p className="text-lg leading-relaxed tracking-tight text-gray-300 max-w-xl">
                 Resultados visibles desde el primer mes
               </p>
-              <Button variant={"secondary"} className="w-1/2 mt-4" onClick={() => window.open("https://calendly.com/lymbikagroup/30min", "_blank")}>Agendar Cita</Button>
+              <Button variant={"secondary"} className="w-1/2 mt-4" onClick={() => window.open("https://wa.me/526561100446", "_blank")}>Agendar Cita</Button>
             </div>
           </div>
         </div>
