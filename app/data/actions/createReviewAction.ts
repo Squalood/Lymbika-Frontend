@@ -2,11 +2,13 @@
 
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
+import { StrapiErrorsProps } from "./strapi-errors";
+import { ReviewType } from "@/types/review";
 
 type ReviewFormState = {
-  strapiErrors: any;
+  strapiErrors: StrapiErrorsProps | null;
   message: string;
-  data?: any;
+  data?: ReviewType | null;
 };
 
 export async function createReviewAction(
@@ -59,7 +61,7 @@ export async function createReviewAction(
     };
   } catch (error) {
     return {
-      strapiErrors: true,
+      strapiErrors: { message: "No data received from API." } as StrapiErrorsProps,
       message:
         error instanceof Error
           ? error.message
