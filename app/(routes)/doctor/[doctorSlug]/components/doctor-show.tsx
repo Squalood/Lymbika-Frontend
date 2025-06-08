@@ -1,8 +1,9 @@
-'use client';
+"use client";
 
 import { useEffect, useState } from "react";
 import clsx from "clsx";
 import { motion } from "framer-motion";
+import { useParams } from "next/navigation";
 import { useGetDoctorBySlug } from "@/api/getDoctorBySlug";
 import { ResponseType } from "@/types/response";
 import { Separator } from "@/components/ui/separator";
@@ -22,12 +23,10 @@ const TABS = [
   { key: "gallery", label: "Galería" },
 ] as const;
 
-type Props = {
-  doctorSlug: string;
-};
-
-const DoctorShow = ({ doctorSlug }: Props) => {
-  const { loading, result }: ResponseType = useGetDoctorBySlug(doctorSlug);
+const DoctorShow = () => {
+  const { doctorSlug } = useParams();
+  const slug = typeof doctorSlug === "string" ? doctorSlug : ""; // Aseguramos que sea string
+  const { loading, result }: ResponseType = useGetDoctorBySlug(slug);
   const doctor = result && result.length > 0 ? result[0] : null;
 
   const [activeTab, setActiveTab] = useState<(typeof TABS)[number]["key"]>("about");
@@ -38,7 +37,7 @@ const DoctorShow = ({ doctorSlug }: Props) => {
     }
   }, [loading, doctor]);
 
-  if (!doctorSlug) {
+  if (!slug) {
     return <div className="text-center py-10">No se encontró el doctor.</div>;
   }
 

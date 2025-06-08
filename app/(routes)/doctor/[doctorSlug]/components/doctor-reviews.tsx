@@ -1,5 +1,7 @@
-'use client';
+"use client";
 
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 import { Separator } from "@/components/ui/separator";
 import { Star } from "lucide-react";
 import DoctorComment from "./doctor-Comment";
@@ -7,15 +9,46 @@ import { ReviewType } from "@/types/review";
 import ReviewForm from "@/components/reviewForm";
 import { DoctorType } from "@/types/doctor";
 import { UserType } from "@/types/user";
+import { getDoctorBySlug } from "@/api/getDoctorBySlugServer";
+import { getDoctorReviews } from "@/api/getDoctorReviewsServer";
 
 type Props = {
-  reviews: ReviewType[];
-  doctor: DoctorType;
   userData: UserType;
 };
 
-const DoctorReviews = ({ reviews, doctor, userData }: Props) => {
-  if (!reviews || reviews.length === 0) {
+const DoctorReviews = ({ userData }: Props) => {
+  const { doctorSlug } = useParams();
+  const slug = typeof doctorSlug === "string" ? doctorSlug : "";
+
+  const [doctor, setDoctor] = useState<DoctorType | null>(null);
+  const [reviews, setReviews] = useState<ReviewType[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!slug) return;
+
+    const fetchData = async () => {
+      setLoading(true);
+      const doctorRes = await getDoctorBySlug(slug);
+      const doctorData = doctorRes?.[0];
+      setDoctor(doctorData ?? null);
+
+      if (doctorData?.id) {
+        const reviewsRes = await getDoctorReviews(slug);
+        setReviews(reviewsRes ?? []);
+      }
+
+      setLoading(false);
+    };
+
+    fetchData();
+  }, [slug]);
+
+  if (loading || !doctor) {
+    return <div className="w-full p-6">Cargando reseñas...</div>;
+  }
+
+  if (reviews.length === 0) {
     return (
       <div className="w-full p-6">
         <h3 className="text-lg font-semibold mb-4">Patient reviews</h3>
@@ -42,15 +75,12 @@ const DoctorReviews = ({ reviews, doctor, userData }: Props) => {
   const avgRecommend = sum.recommend / total;
   const avgBedside = sum.bedsideManner / total;
   const avgVisitAgain = sum.visitAgain / total;
-
   const avgTotal = (avgWaitingTime + avgRecommend + avgBedside + avgVisitAgain) / 4;
 
   const stars = Array.from({ length: 5 }, (_, i) => (
     <Star
       key={i}
-      className={`w-5 h-5 ${
-        i < Math.round(avgTotal) ? "fill-yellow-400 stroke-yellow-400" : "stroke-gray-300"
-      }`}
+      className={`w-5 h-5 ${i < Math.round(avgTotal) ? "fill-yellow-400 stroke-yellow-400" : "stroke-gray-300"}`}
     />
   ));
 
@@ -87,6 +117,7 @@ const DoctorReviews = ({ reviews, doctor, userData }: Props) => {
           <DoctorComment key={review.id} review={review} />
         ))}
       </div>
+
       <ReviewForm user={userData.id} doctor={doctor.id} />
     </div>
   );
