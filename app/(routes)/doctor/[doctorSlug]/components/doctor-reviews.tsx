@@ -13,7 +13,7 @@ import { getDoctorBySlug } from "@/api/getDoctorBySlugServer";
 import { getDoctorReviews } from "@/api/getDoctorReviewsServer";
 
 type Props = {
-  userData: UserType;
+  userData?: UserType | null; // ✅ Acepta nul
 };
 
 const DoctorReviews = ({ userData }: Props) => {
@@ -53,7 +53,7 @@ const DoctorReviews = ({ userData }: Props) => {
       <div className="w-full p-6">
         <h3 className="text-lg font-semibold mb-4">Patient reviews</h3>
         <p>No hay reseñas aún para este doctor.</p>
-        <ReviewForm user={userData.id} doctor={doctor.id} />
+        {userData && <ReviewForm user={userData.id} doctor={doctor.id} />} 
       </div>
     );
   }
@@ -118,7 +118,7 @@ const DoctorReviews = ({ userData }: Props) => {
         ))}
       </div>
 
-      <ReviewForm user={userData.id} doctor={doctor.id} />
+      {userData && <ReviewForm user={userData.id} doctor={doctor.id} />}
     </div>
   );
 };
