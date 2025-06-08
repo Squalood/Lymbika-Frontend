@@ -3,16 +3,23 @@
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
-export async function createReviewAction(prevState: any, formData: FormData) {
+type ReviewFormState = {
+  strapiErrors: any;
+  message: string;
+  data?: any;
+};
+
+export async function createReviewAction(
+  prevState: ReviewFormState,
+  formData: FormData
+): Promise<ReviewFormState> {
   const comment = formData.get("comment") as string;
   const waitingTime = Number(formData.get("waitingTime"));
   const recommend = Number(formData.get("recommend"));
   const bedsideManner = Number(formData.get("bedsideManner"));
   const visitAgain = Number(formData.get("visitAgain"));
   const doctorId = Number(formData.get("doctorId"));
-  //const userID = Number(formData.get("userID"));
 
-  // 🔐 Leer token JWT desde cookies
   const token = (await cookies()).get("jwt")?.value;
 
   try {
@@ -20,7 +27,7 @@ export async function createReviewAction(prevState: any, formData: FormData) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        ...(token && { Authorization: `Bearer ${token}` }), 
+        ...(token && { Authorization: `Bearer ${token}` }),
       },
       body: JSON.stringify({
         data: {
@@ -29,7 +36,7 @@ export async function createReviewAction(prevState: any, formData: FormData) {
           recommend,
           bedsideManner,
           visitAgain,
-          doctor: doctorId, 
+          doctor: doctorId,
         },
       }),
     });
@@ -44,15 +51,19 @@ export async function createReviewAction(prevState: any, formData: FormData) {
     }
 
     revalidatePath("/doctor-catalog");
+
     return {
       data: json,
       strapiErrors: null,
       message: "Reseña creada exitosamente.",
     };
-  } catch (error: any) {
+  } catch (error) {
     return {
       strapiErrors: true,
-      message: error.message || "Hubo un error inesperado.",
+      message:
+        error instanceof Error
+          ? error.message
+          : "Hubo un error inesperado.",
     };
   }
 }
