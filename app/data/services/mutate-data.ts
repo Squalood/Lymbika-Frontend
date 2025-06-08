@@ -3,7 +3,7 @@ import { getAuthToken } from "./get-token";
 export async function mutateData(
   method: string,
   path: string,
-  payload?: Record<string, unknown> 
+  payload?: Record<string, unknown>
 ) {
   const baseUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}`;
   const authToken = await getAuthToken();
@@ -12,23 +12,36 @@ export async function mutateData(
   if (!authToken) throw new Error("No auth token found");
 
   try {
-    const response = await fetch(url, {
-      method: method,
+    const response = await fetch(url.toString(), {
+      method,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${authToken}`,
       },
-      body: payload ? JSON.stringify(payload) : undefined, 
+      body: payload ? JSON.stringify(payload) : undefined,
     });
 
-    if (method === "DELETE") {
-      return response.ok;
+    const contentType = response.headers.get("Content-Type");
+    const isJson = contentType?.includes("application/json");
+
+    if (!response.ok) {
+      const errorBody = isJson ? await response.json() : await response.text();
+      console.error("🟥 Error response from mutateData:", {
+        status: response.status,
+        errorBody,
+      });
+      return {
+        error: {
+          status: response.status,
+          message: errorBody?.error?.message || "Unknown error",
+          details: errorBody?.error?.details || null,
+        },
+      };
     }
 
-    const data = await response.json();
-    return data;
+    return isJson ? await response.json() : {};
   } catch (error) {
-    console.error("Error in mutateData:", error);
+    console.error("🔴 Exception in mutateData:", error);
     throw error;
   }
 }

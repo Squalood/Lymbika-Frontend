@@ -1,3 +1,5 @@
+"use client";
+
 import GalleryModal from "@/components/galleryModal";
 import { DoctorType } from "@/types/doctor";
 import { Search } from "lucide-react";

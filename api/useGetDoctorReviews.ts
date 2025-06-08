@@ -1,3 +1,4 @@
+'use client';
 import { ReviewType } from "@/types/review";
 import { useEffect, useState } from "react";
 
