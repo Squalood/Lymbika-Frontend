@@ -10,7 +10,7 @@ export async function createReviewAction(prevState: any, formData: FormData) {
   const bedsideManner = Number(formData.get("bedsideManner"));
   const visitAgain = Number(formData.get("visitAgain"));
   const doctorId = Number(formData.get("doctorId"));
-  const userID = Number(formData.get("userID"));
+  //const userID = Number(formData.get("userID"));
 
   // 🔐 Leer token JWT desde cookies
   const token = (await cookies()).get("jwt")?.value;
