@@ -6,7 +6,7 @@ export default async function DashboardLayout() {
   const user = await getUserMeLoader();
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
+    <div className="flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-900">
       <h1>Dashboard</h1>
       <LoggedInUser userData={user.data} />
       <LogoutButton />

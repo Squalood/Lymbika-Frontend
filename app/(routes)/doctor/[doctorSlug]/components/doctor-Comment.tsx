@@ -33,6 +33,13 @@ const DoctorComment = ({ review }: Props) => {
     day: "numeric",
   });
 
+  const displayName = user?.firstName && user?.lastName
+  ? `${user.firstName} ${user.lastName}`
+  : user?.username
+    ? user.username
+    : "usuario anónimo";
+
+
   return (
     <div>
       <div className="w-full pb-2 my-6">
@@ -58,10 +65,7 @@ const DoctorComment = ({ review }: Props) => {
                 <span className="text-xl font-semibold text-gray-800">{average.toFixed(1)}</span>
               </div>
               <p className="text-gray-500 text-sm">
-                
-                {user?.firstName && user?.lastName
-                  ? `${user.firstName} ${user.lastName}`
-                  : "usuario anónimo"}
+                {displayName}
               </p>
 
             </div>

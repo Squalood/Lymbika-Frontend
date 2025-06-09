@@ -145,7 +145,7 @@
         "name": "Lymbika Empresas",
         "icon": "Building2",
         "priceP": 390,
-        "priceM": 690,
+        "priceF": 690,
         "description": "Salud accesible para tu equipo de trabajo.",
         "button": {
           "label": "Reservar una reunión",

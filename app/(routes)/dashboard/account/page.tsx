@@ -6,9 +6,11 @@ export default async function AccountRoute() {
   const userData = user.data;
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 p-4">
-      <div><h1>Account page</h1></div>
-      <ProfileForm data={userData} className="col-span-3" />
+    <div className="flex flex-col sm:w-full md:w-3/5 lg:w-2/5 mx-auto px-6">
+      <h1>Editar Cuenta</h1>
+      <div className="mt-8">
+        <ProfileForm data={userData}/>
+      </div>
     </div>
   );
 }
