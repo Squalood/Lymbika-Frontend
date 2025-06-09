@@ -53,7 +53,7 @@ const DoctorReviews = ({ userData }: Props) => {
       <div className="w-full p-6">
         <h3 className="text-lg font-semibold mb-4">Patient reviews</h3>
         <p>No hay reseñas aún para este doctor.</p>
-        {userData && <ReviewForm user={userData.id} doctor={doctor.id} />} 
+        <ReviewForm user={userData?.id} doctor={doctor.id} />
       </div>
     );
   }
@@ -118,7 +118,7 @@ const DoctorReviews = ({ userData }: Props) => {
         ))}
       </div>
 
-      {userData && <ReviewForm user={userData.id} doctor={doctor.id} />}
+      <ReviewForm user={userData?.id} doctor={doctor.id} />
     </div>
   );
 };

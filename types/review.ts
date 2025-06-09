@@ -7,7 +7,7 @@ export type ReviewType = {
   comment: string;
   createdAt: string;
   updatedAt: string;
-  User: {
+  user: {
     id: number;
     username: string;
     firstName: string;

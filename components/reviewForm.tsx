@@ -17,6 +17,8 @@ import StarRatingBasic from "./commerce-ui/star-rating-basic";
 import { useActionState } from "react";
 import { toast } from "sonner";
 import { createReviewAction } from "@/app/data/actions/createReviewAction";
+import { SubmitButton } from "./submit-button";
+import { useRouter } from "next/navigation";
 
 const INITIAL_STATE = {
   data: null,
@@ -24,8 +26,15 @@ const INITIAL_STATE = {
   message: "",
 };
 
-export function ReviewForm({ user, doctor }: { user: number; doctor: number }) {
+export function ReviewForm({
+  user,
+  doctor,
+}: {
+  user?: number;
+  doctor: number;
+}) {
   const [formState, formAction] = useActionState(createReviewAction, INITIAL_STATE);
+  const router = useRouter();
 
   const [waitingTime, setWaitingTime] = useState(3);
   const [recommend, setRecommend] = useState(3);
@@ -33,6 +42,7 @@ export function ReviewForm({ user, doctor }: { user: number; doctor: number }) {
   const [visitAgain, setVisitAgain] = useState(3);
   const [comment, setComment] = useState("");
 
+  const [open, setOpen] = useState(false); // ✅ controlar apertura del modal
   const formRef = useRef<HTMLFormElement>(null);
 
   const average = (waitingTime + recommend + bedsideManner + visitAgain) / 4;
@@ -40,8 +50,22 @@ export function ReviewForm({ user, doctor }: { user: number; doctor: number }) {
   useEffect(() => {
     if (formState.message === "Reseña creada exitosamente.") {
       toast.success("Gracias por tu review 🙌");
+
+      // Resetear formulario
       formRef.current?.reset();
       setComment("");
+      setWaitingTime(3);
+      setRecommend(3);
+      setBedsideManner(3);
+      setVisitAgain(3);
+
+      // ✅ Cerrar modal
+      setOpen(false);
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 300);
+
     } else if (formState.strapiErrors) {
       toast.error(formState.message || "Hubo un problema al enviar tu review.");
     }
@@ -49,9 +73,21 @@ export function ReviewForm({ user, doctor }: { user: number; doctor: number }) {
 
   return (
     <div className="py-4 flex justify-center">
-      <Dialog>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button className="w-60 mx-auto">Crear Review</Button>
+          <Button
+            className="w-60 mx-auto"
+            onClick={(e) => {
+              if (!user) {
+                e.preventDefault();
+                toast.error("Debes iniciar sesión para dejar una reseña.");
+                return;
+              }
+              setOpen(true);
+            }}
+          >
+            Crear Review
+          </Button>
         </DialogTrigger>
         <DialogContent className="w-full sm:max-w-[425px]">
           <form ref={formRef} action={formAction}>
@@ -105,7 +141,7 @@ export function ReviewForm({ user, doctor }: { user: number; doctor: number }) {
             <input type="hidden" name="recommend" value={recommend.toString()} />
             <input type="hidden" name="bedsideManner" value={bedsideManner.toString()} />
             <input type="hidden" name="visitAgain" value={visitAgain.toString()} />
-            <input type="hidden" name="userID" value={user.toString()} />
+            <input type="hidden" name="userID" value={user?.toString()} />
 
             <DialogFooter className="gap-2">
               <DialogClose asChild>
@@ -113,13 +149,13 @@ export function ReviewForm({ user, doctor }: { user: number; doctor: number }) {
                   Cancelar
                 </Button>
               </DialogClose>
-              <Button type="submit">Enviar Review</Button>
+              <SubmitButton text={"Enviar Reseña"} loadingText={"Enviando Reseña"} />
             </DialogFooter>
           </form>
         </DialogContent>
       </Dialog>
     </div>
   );
-};
+}
 
 export default ReviewForm;

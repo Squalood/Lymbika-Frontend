@@ -7,7 +7,7 @@ type Props = {
 };
 
 const DoctorComment = ({ review }: Props) => {
-  const { comment, createdAt, waitingTime, recommend, bedsideManner, visitAgain, User } = review;
+  const { comment, createdAt, waitingTime, recommend, bedsideManner, visitAgain, user } = review;
 
   const average = (waitingTime + recommend + bedsideManner + visitAgain) / 4;
 
@@ -59,8 +59,8 @@ const DoctorComment = ({ review }: Props) => {
               </div>
               <p className="text-gray-500 text-sm">
                 
-                {User?.firstName && User?.lastName
-                  ? `${User.firstName} ${User.lastName}`
+                {user?.firstName && user?.lastName
+                  ? `${user.firstName} ${user.lastName}`
                   : "usuario anónimo"}
               </p>
 
