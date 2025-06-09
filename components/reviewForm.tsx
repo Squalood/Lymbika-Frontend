@@ -18,7 +18,6 @@ import { useActionState } from "react";
 import { toast } from "sonner";
 import { createReviewAction } from "@/app/data/actions/createReviewAction";
 import { SubmitButton } from "./submit-button";
-import { useRouter } from "next/navigation";
 
 const INITIAL_STATE = {
   data: null,
@@ -34,7 +33,6 @@ export function ReviewForm({
   doctor: number;
 }) {
   const [formState, formAction] = useActionState(createReviewAction, INITIAL_STATE);
-  const router = useRouter();
 
   const [waitingTime, setWaitingTime] = useState(3);
   const [recommend, setRecommend] = useState(3);
