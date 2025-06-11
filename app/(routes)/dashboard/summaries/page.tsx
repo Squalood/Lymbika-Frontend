@@ -1,9 +1,10 @@
-"use client";
+import { getUserMeLoader } from "@/app/data/services/get-user-me-loader";
+import MemberInfo from "../components/memberInfo";
 
-export default function Page() {
+export default async function Page() {
+    const user = await getUserMeLoader();
+
     return(  
-        <div>
-            pagina de membresia
-        </div>   
+        <MemberInfo user={user.data}/>
     );
 }

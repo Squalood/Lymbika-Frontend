@@ -2,7 +2,7 @@
 
 import { logoutAction } from "@/app/data/actions/auth-actions";
 import { UserType } from "@/types/user";
-import { ChevronRight, LogOut } from "lucide-react";
+import { ChevronRight, LogOut, LucideIcon, Settings, SquareUserRound } from "lucide-react";
 import Link from "next/link";
 
 type Props = {
@@ -12,6 +12,7 @@ type Props = {
 type CardData = {
   title: string;
   description: string;
+  icon: LucideIcon; 
   image: string;
   link: string;
   isBackgroundCard?: boolean;
@@ -19,19 +20,19 @@ type CardData = {
 
 const cards: CardData[] = [
   {
-    title: "Mi Membresia",
+    title: "Membresía",
     description:
-      "Produce professional, reliable streams easily leveraging Preline's innovative broadcast studio",
-    image:
-      "https://images.unsplash.com/photo-1586232702178-f044c5f4d4b7?auto=format&fit=crop&w=560&q=80",
+      "Consulta los detalles y beneficios de tu suscripción actual.",
+    icon: SquareUserRound,
+    image: "",
     link: "/dashboard/summaries",
   },
   {
-    title: "Editar Cuenta",
+    title: "Configuración de Cuenta",
     description:
-      "Optimize your in-person experience with best-in-class capabilities like badge printing and lead retrieval",
-    image:
-      "https://images.unsplash.com/photo-1542125387-c71274d94f0a?auto=format&fit=crop&w=560&q=80",
+      "Actualiza tu información personal y preferencias de perfil.",
+    icon: Settings,
+    image: "",
     link: "/dashboard/account",
   },
   {
@@ -41,15 +42,16 @@ const cards: CardData[] = [
     image:
       "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=560&q=80",
     link: "#",
+    icon: Settings,
     isBackgroundCard: true,
   },
 ];
 
-const Card = ({ title, description, image, link, isBackgroundCard }: CardData) => {
+const Card = ({ title, description, icon:Icon, link, image, isBackgroundCard }: CardData) => {
   if (isBackgroundCard) {
     return (
     <form action={logoutAction}
-        className="group relative flex flex-col w-full min-h-60 bg-center bg-cover rounded-xl hover:shadow-lg transition overflow-hidden"
+        className="group relative flex flex-col w-full min-h-60 bg-center bg-cover rounded-xl hover:shadow-lg transition overflow-hidden sm:col-span-2 lg:col-span-1"
         style={{ backgroundImage: `url(${image})` }}
         >
         <button type="submit" className="flex flex-col justify-between h-full w-full text-left p-6 hover:bg-black/40 transition text-white">
@@ -64,13 +66,11 @@ const Card = ({ title, description, image, link, isBackgroundCard }: CardData) =
   }
 
   return (
-    <Link href={link} className="group flex flex-col focus:outline-hidden">
-      <div className="relative pt-[50%] sm:pt-[70%] rounded-xl overflow-hidden">
-        <img
-          src={image}
-          alt={title}
-          className="size-full absolute top-0 start-0 object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
-        />
+    <Link href={link} className="group flex flex-col focus:outline-hidden w-5/6 lg:w-full mx-auto">
+      <div className="relative flex items-center h-48 pl-4 rounded-xl bg-slate-200">
+        <div className="transition-transform duration-500 ease-in-out group-hover:scale-125">
+          <Icon className="w-24 h-24 text-blue-600" />
+        </div>
       </div>
       <div className="mt-7">
         <h3 className="text-xl font-semibold text-gray-800 group-hover:text-gray-600">
