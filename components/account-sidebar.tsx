@@ -28,7 +28,7 @@ const items = [
 
 const AccountSidebar = () => {
     return ( 
-    <Sidebar className="w-[240px] shrink-0" >
+    <Sidebar className=" shrink-0" >
         <SidebarContent>
         <SidebarGroup>
             <SidebarGroupLabel>

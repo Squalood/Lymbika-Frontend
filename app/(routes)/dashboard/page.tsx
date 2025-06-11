@@ -1,15 +1,12 @@
 import { getUserMeLoader } from "@/app/data/services/get-user-me-loader";
-import { LoggedInUser } from "@/components/custom/UserLogin";
-import { LogoutButton } from "@/components/forms/logout-button";
+import Navs from "./components/navs";
 
 export default async function DashboardLayout() {
   const user = await getUserMeLoader();
 
   return (
-    <div className="flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-900">
-      <h1>Dashboard</h1>
-      <LoggedInUser userData={user.data} />
-      <LogoutButton />
+    <div className="flex flex-col w-full h-full items-center justify-center bg-gray-100 dark:bg-gray-900">
+      <Navs userData={user.data}/>
     </div>
   );
 }

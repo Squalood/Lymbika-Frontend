@@ -9,9 +9,7 @@ interface AuthUserProps {
   email: string;
 }
 
-export function LoggedInUser({userData,}: {
-  readonly userData: AuthUserProps;
-}) {
+export function LoggedInUser({userData,}: {readonly userData: AuthUserProps;}) {
   const pathname = usePathname();
 
   const textColor = pathname === "/" ? "text-background" : "text-black";
