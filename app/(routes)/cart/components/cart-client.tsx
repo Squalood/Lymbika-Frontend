@@ -9,6 +9,8 @@ import { makePaymentRequest } from "@/api/payment";
 import { CheckCircle, IdCard, ShoppingCart, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import CartItem from "./cart-item";
+import { Switch } from "@/components/ui/switch";
+import { useState } from "react";
 
 interface AuthUserProps {
   username: string;
@@ -23,6 +25,7 @@ interface CartClientPageProps {
 export default function CartClientPage({ user }: CartClientPageProps) {
   const router = useRouter();
   const { items, removeAll } = useCart();
+  const [isDelivery, setIsDelivery] = useState(true);
   const totalPrice = items.reduce((total, product) => {
     const useMemberPrice = user?.mediClubRegular && product.priceMember > 0;
     const price = useMemberPrice ? product.priceMember : product.price;
@@ -30,12 +33,13 @@ export default function CartClientPage({ user }: CartClientPageProps) {
   }, 0);
   const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "");
 
-  const buyStripe = async () => {
+  const buyStripeDelivery = async () => {
     try {
       const stripe = await stripePromise;
       const res = await makePaymentRequest.post("/api/orders", {
         products: items,
         mediClubRegular: user?.mediClubRegular || false,
+        isDelivery: true,
       });
       await stripe?.redirectToCheckout({
         sessionId: res.data.stripeSession.id,
@@ -44,6 +48,22 @@ export default function CartClientPage({ user }: CartClientPageProps) {
       console.log(error);
     }
   };
+
+const buyStripePickUp = async () => {
+  try {
+    const stripe = await stripePromise;
+    const res = await makePaymentRequest.post("/api/orders", {
+      products: items,
+      mediClubRegular: user?.mediClubRegular || false,
+      isDelivery: false,
+    });
+    await stripe?.redirectToCheckout({
+      sessionId: res.data.stripeSession.id,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
   return (
     <div className="max-w-6xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
@@ -88,8 +108,17 @@ export default function CartClientPage({ user }: CartClientPageProps) {
               <p>Total Order</p>
               <p>{formatPrice(totalPrice)}</p>
             </div>
+            <div className="flex items-center py-2 justify-between space-x-2">
+              <Switch
+                id="delivery-option"
+                checked={isDelivery}
+                onCheckedChange={setIsDelivery}
+              />
+              <p>{isDelivery ? "Envío a domicilio" : "Recoger en farmacia"}</p>
+              
+            </div>
             <div className="flex items-center justify-center w-full mt-3">
-              <Button className="w-full" onClick={buyStripe}>
+              <Button className="w-full" onClick={isDelivery ? buyStripeDelivery : buyStripePickUp}>
                 Comprar <ShoppingCart />
               </Button>
             </div>
