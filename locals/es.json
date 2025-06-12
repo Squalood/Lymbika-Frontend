@@ -36,7 +36,7 @@
         "icon": "HeartPulse",
         "cta": "Leer más",
         "link": "/programs/weightControl",
-        "cost": "$1,599/mes"
+        "cost": "$400/mes"
       },
       {
         "type": "normal",
@@ -45,7 +45,7 @@
         "icon": "Stethoscope",
         "cta": "Leer más",
         "link": "/programs/medicalAgent",
-        "cost": "$200/mes"
+        "cost": "$200/Consulta"
       },
       
       {
@@ -55,7 +55,7 @@
         "icon": "ScanHeart",
         "cta": "Leer más",
         "link": "/programs/menopause",
-        "cost": "$4,699/mes"
+        "cost": "$400/mes"
       },
       {
         "type": "normal",
@@ -64,7 +64,7 @@
         "icon": "Brain",
         "cta": "Leer más",
         "link": "/programs/neurotherapy",
-        "cost": "$1,000/mes"
+        "cost": "$1,000/Sesion"
       }
     ]
   },
