@@ -74,32 +74,41 @@ const MemberInfo = ({ user }: Props) => {
             </Button>
         </div>
         <div className="flex justify-between flex-col sm:flex-row">
-            {/* Membership Card */}
-            <div className="sm:w-1/2 flex items-center px-12 py-8">
-            <div className="bg-slate-200 h-full rounded-lg p-6 flex justify-between flex-col">
-                <IdCard size={48} className="text-primary" />
-                <div className="flex flex-col">
-                <h3 className="text-xl tracking-tight">MediClub</h3>
-                <p className="text-muted-foreground max-w-xs text-base">
-                    Productos de farmacia a precio de proveedor.
-                </p>
-                {user.mediClubRegular ? (
-                    <p className="my-3 mx-auto w-full flex items-center justify-center gap-2 text-sm font-semibold text-green-600 bg-green-100 py-2 px-3 rounded-full">
-                    <CheckCircle size={16} className="text-green-600" />
-                    Precio MediClub aplicado
+            {/* Membership Card Mejorada Final */}
+            <div className="sm:w-1/2 px-4 py-6">
+              <div className="bg-muted rounded-2xl shadow-lg p-6 flex flex-col justify-between h-full gap-6">
+                
+                {/* Encabezado */}
+                <div className="flex items-center gap-4">
+                  <div className="bg-primary/10 p-3 rounded-full">
+                    <IdCard size={32} className="text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold leading-snug">MediClub</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Accede a productos con precio de proveedor.
                     </p>
-                ) : (
-                    <Button
-                    className="my-3 mx-auto w-2/3"
-                    onClick={() => router.push("/membership")}
-                    >
-                    Más Info
-                    </Button>
-                )}
+                  </div>
                 </div>
-            </div>
-            </div>
 
+                {/* Estado de membresía */}
+                {user.mediClubRegular ? (
+                  <div className="flex flex-col gap-3">
+                    <div className="flex items-center gap-2 py-2 px-4 text-sm font-medium text-green-700 bg-green-100 border border-green-300 rounded-full">
+                      <CheckCircle size={16} />
+                      <span>Miembro activo de MediClub</span>
+                    </div>
+                    <Button asChild className="w-full">
+                      <Link href="https://billing.stripe.com/p/login/aEUcNE58hbHlc3meUU">Administrar tu cuenta</Link>
+                    </Button>
+                  </div>
+                ) : (
+                  <Button asChild className="w-full">
+                    <Link href="/membership">Ver planes disponibles</Link>
+                  </Button>
+                )}
+              </div>
+            </div>
             {/* Info Cards */}
             <div className="sm:w-1/2 grid sm:grid-cols-2 items-center gap-6 md:gap-4">
             {cardData.map((card, index) => (

@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import CartItem from "./cart-item";
 import { Switch } from "@/components/ui/switch";
 import { useState } from "react";
+import Link from "next/link";
 
 interface AuthUserProps {
   username: string;
@@ -26,11 +27,14 @@ export default function CartClientPage({ user }: CartClientPageProps) {
   const router = useRouter();
   const { items, removeAll } = useCart();
   const [isDelivery, setIsDelivery] = useState(true);
+  const subtotal = items.reduce((total, product) => total + product.price, 0);
   const totalPrice = items.reduce((total, product) => {
     const useMemberPrice = user?.mediClubRegular && product.priceMember > 0;
     const price = useMemberPrice ? product.priceMember : product.price;
     return total + price;
   }, 0);
+
+  const ahorro = subtotal - totalPrice;
   const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "");
 
   const buyStripeDelivery = async () => {
@@ -95,8 +99,8 @@ const buyStripePickUp = async () => {
                     Precio MediClub aplicado
                 </p>
                 ) : (
-                <Button className="my-3 mx-auto w-2/3" onClick={() => router.push("/membership")}>
-                    Más Info
+                <Button asChild className="w-full">
+                  <Link href="/membership">Ver planes disponibles</Link>
                 </Button>
                 )}
 
@@ -104,11 +108,25 @@ const buyStripePickUp = async () => {
             </div>
 
             <Separator />
-            <div className="flex justify-between gap-5 my-4">
-              <p>Total Order</p>
-              <p>{formatPrice(totalPrice)}</p>
+            <div className="space-y-2 text-sm font-medium mt-4">
+              <div className="flex justify-between">
+                <span>Subtotal</span>
+                <span>{formatPrice(subtotal)}</span>
+              </div>
+
+              {user?.mediClubRegular && ahorro > 0 && (
+                <div className="flex justify-between text-green-600">
+                  <span>Ahorras con MediClub</span>
+                  <span>-{formatPrice(ahorro)}</span>
+                </div>
+              )}
+
+              <div className="flex justify-between text-base font-semibold border-t pt-3 mt-3">
+                <span>Total</span>
+                <span className="text-primary">{formatPrice(totalPrice)}</span>
+              </div>
             </div>
-            <div className="flex items-center py-2 justify-between space-x-2">
+            <div className="flex items-center flex-row-reverse py-2 justify-between space-x-2">
               <Switch
                 id="delivery-option"
                 checked={isDelivery}
