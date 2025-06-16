@@ -7,7 +7,6 @@ import { formatPrice } from "@/lib/formatPrice";
 import { loadStripe } from "@stripe/stripe-js";
 import { makePaymentRequest } from "@/api/payment";
 import { CheckCircle, IdCard, ShoppingCart, Trash2 } from "lucide-react";
-import { useRouter } from "next/navigation";
 import CartItem from "./cart-item";
 import { Switch } from "@/components/ui/switch";
 import { useState } from "react";
@@ -24,7 +23,6 @@ interface CartClientPageProps {
 }
 
 export default function CartClientPage({ user }: CartClientPageProps) {
-  const router = useRouter();
   const { items, removeAll } = useCart();
   const [isDelivery, setIsDelivery] = useState(true);
   const subtotal = items.reduce((total, product) => total + product.price, 0);

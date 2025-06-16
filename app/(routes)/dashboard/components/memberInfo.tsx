@@ -11,7 +11,6 @@ import {
   IdCard,
   PersonStanding,
 } from "lucide-react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { JSX } from "react";
 
@@ -61,8 +60,6 @@ const InfoCard = ({ title, description, icon }: CardData) => (
 );
 
 const MemberInfo = ({ user }: Props) => {
-  const router = useRouter();
-
   return (
     <div className="max-w-4xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto flex flex-col">
         <div className="mb-4 w-full">

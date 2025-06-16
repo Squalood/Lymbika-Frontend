@@ -1,10 +1,10 @@
 import Image from "next/image";
+import Link from "next/link";
 import { useCart } from "@/hooks/use-cart";
 import { formatPrice } from "@/lib/formatPrice";
 import { cn } from "@/lib/utils";
 import { ProductType } from "@/types/product";
 import { X } from "lucide-react";
-import { useRouter } from "next/navigation";
 
 interface AuthUserProps {
   username: string;
@@ -17,8 +17,7 @@ interface CartItemProps {
   user?: AuthUserProps | null;
 }
 
-const CartItem = ({ product, user }: CartItemProps) => {
-  const router = useRouter();
+export default function CartItem({ product, user }: CartItemProps) {
   const { removeItem } = useCart();
 
   const imageUrl =
@@ -26,48 +25,59 @@ const CartItem = ({ product, user }: CartItemProps) => {
       ? product.images[0].url
       : "/placeholder-image.webp";
 
+  const hasDiscount = user?.mediClubRegular && product.priceMember > 0;
+
   return (
-    <li className="flex flex-col sm:flex-row gap-4 py-6 border-b">
-      <div
-        onClick={() => router.push(`/product/${product.slug}`)}
-        className="cursor-pointer relative w-full sm:w-28 h-28 shrink-0"
-      >
-        <Image
-          src={imageUrl}
-          alt={product.productName}
-          fill
-          className="object-cover rounded-md"
-        />
-      </div>
+    <li className="flex justify-between items-start gap-4 sm:gap-6 py-4 border-b last:border-none">
+      <div className="flex flex-col-reverse md:flex-row gap-4 w-full">
+        {/* Imagen + contenido */}
+        <div className="flex flex-col md:flex-row gap-4 w-full">
+          {/* Imagen */}
+          <Link
+            href={`/product/${product.slug}`}
+            className="relative w-full aspect-square md:w-28 md:aspect-square rounded-md overflow-hidden block"
+          >
+            <Image
+              src={imageUrl}
+              alt={product.productName}
+              fill
+              className="object-cover"
+            />
+          </Link>
 
-      <div className="flex flex-1 justify-between px-1 sm:px-6">
-        <div className="flex flex-col gap-2">
-          <h2 className="text-lg font-bold line-clamp-2">{product.productName}</h2>
+          {/* Contenido */}
+          <div className="flex flex-col justify-between flex-1">
+            <h2 className="text-base font-semibold leading-snug line-clamp-2">
+              {product.productName}
+            </h2>
 
-          {user?.mediClubRegular && product.priceMember > 0 ? (
-            <>
-                <p className="font-bold line-through text-sm text-muted-foreground">
-                {formatPrice(product.price)}
+            <span className="inline-block px-2 py-0.5 text-xs font-medium text-white bg-primary rounded-full w-fit">
+              {product.category.categoryName}
+            </span>
+
+            {hasDiscount ? (
+              <div className="flex items-center gap-2 mt-1">
+                <p className="text-sm line-through text-muted-foreground">
+                  {formatPrice(product.price)}
                 </p>
-                <p className="font-bold text-green-500">
-                {formatPrice(product.priceMember)}
+                <p className="text-base font-semibold text-green-600">
+                  {formatPrice(product.priceMember)}
                 </p>
-            </>
+              </div>
             ) : (
-            <p className="font-bold">{formatPrice(product.price)}</p>
+              <p className="text-base font-semibold mt-1">
+                {formatPrice(product.price)}
+              </p>
             )}
-
-          <span className="px-2 py-1 text-xs font-medium text-white bg-teal-600 rounded-full dark:bg-white dark:text-black w-fit">
-            {product.category.categoryName}
-          </span>
+          </div>
         </div>
 
-        <div className="flex items-start">
+        {/* Botón eliminar */}
+        <div className="flex justify-end md:items-start">
           <button
-            className={cn(
-              "rounded-full bg-white border shadow p-1 hover:scale-110 transition"
-            )}
+            className="rounded-full bg-white border shadow p-1 hover:scale-110 transition"
             onClick={() => removeItem(product.id)}
+            aria-label="Eliminar producto del carrito"
           >
             <X size={20} />
           </button>
@@ -75,6 +85,4 @@ const CartItem = ({ product, user }: CartItemProps) => {
       </div>
     </li>
   );
-};
-
-export default CartItem;
+}
