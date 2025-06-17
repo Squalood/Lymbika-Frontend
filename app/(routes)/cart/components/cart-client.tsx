@@ -24,7 +24,7 @@ interface CartClientPageProps {
 
 export default function CartClientPage({ user }: CartClientPageProps) {
   const { items, removeAll } = useCart();
-  const [isDelivery, setIsDelivery] = useState(true);
+  const [isDelivery, setIsDelivery] = useState(false);
   const subtotal = items.reduce((total, product) => total + product.price, 0);
   const totalPrice = items.reduce((total, product) => {
     const useMemberPrice = user?.mediClubRegular && product.priceMember > 0;
@@ -42,6 +42,7 @@ export default function CartClientPage({ user }: CartClientPageProps) {
         products: items,
         mediClubRegular: user?.mediClubRegular || false,
         isDelivery: true,
+        userEmail: user?.email || "",
       });
       await stripe?.redirectToCheckout({
         sessionId: res.data.stripeSession.id,
@@ -58,6 +59,7 @@ const buyStripePickUp = async () => {
       products: items,
       mediClubRegular: user?.mediClubRegular || false,
       isDelivery: false,
+      userEmail: user?.email || "",
     });
     await stripe?.redirectToCheckout({
       sessionId: res.data.stripeSession.id,
