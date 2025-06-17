@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { DoctorType } from "@/types/doctor";
-import { CalendarCheck, CheckCircle, Globe, SquareActivity, Star, Stethoscope } from "lucide-react";
+import { CalendarCheck, CheckCircle, Globe, SquareActivity, Stethoscope } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -58,13 +58,14 @@ const DoctorTop = (props: InfoDoctorProps) => {
               )}
             </div>
             
-            {/* Calificación */}
+            {/* Calificación 
             <div className="flex items-center text-sm text-gray-600 mt-1">
               <span className="mr-1">
                 <Star color="#e4e802" strokeWidth={2.25} />
               </span>
               <span className="font-semibold text-black">{doctor.review + ".0"}</span>
             </div>
+            */}
 
             {/* Especialidades y cirujias */}
             <div className="flex flex-col gap-1 text-sm text-gray-500 mt-2">

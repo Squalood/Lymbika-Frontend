@@ -7,9 +7,9 @@ import { CheckCircle, MapPin, Phone } from "lucide-react";
 const PageSuccess = () => {
   const { removeAll } = useCart();
 
-  useEffect(() => {
-    removeAll();
-  }, []);
+    useEffect(() => {
+        removeAll();
+    }, [removeAll]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen px-4 text-center bg-muted">
