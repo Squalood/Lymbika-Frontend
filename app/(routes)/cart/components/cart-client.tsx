@@ -11,6 +11,8 @@ import CartItem from "./cart-item";
 import { Switch } from "@/components/ui/switch";
 import { useState } from "react";
 import Link from "next/link";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 interface AuthUserProps {
   username: string;
@@ -23,6 +25,7 @@ interface CartClientPageProps {
 }
 
 export default function CartClientPage({ user }: CartClientPageProps) {
+  const router = useRouter();
   const { items, removeAll } = useCart();
   const [isDelivery, setIsDelivery] = useState(false);
   const subtotal = items.reduce((total, product) => total + product.price, 0);
@@ -136,7 +139,26 @@ const buyStripePickUp = async () => {
               
             </div>
             <div className="flex items-center justify-center w-full mt-3">
-              <Button className="w-full" onClick={isDelivery ? buyStripeDelivery : buyStripePickUp}>
+              <Button
+                className="w-full"
+                onClick={() => {
+                  if (!user) {
+                    toast.warning("Debes estar registrado para completar la compra", {
+                      action: {
+                        label: "Iniciar sesión",
+                        onClick: () => router.push("/signin"),
+                      },
+                    });
+                    return;
+                  }
+
+                  if (isDelivery) {
+                    buyStripeDelivery();
+                  } else {
+                    buyStripePickUp();
+                  }
+                }}
+              >
                 Comprar <ShoppingCart />
               </Button>
             </div>
