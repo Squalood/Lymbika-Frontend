@@ -112,16 +112,16 @@
             "title": "Seguimiento y recetas sin costo adicional"
           },
           {
-            "title": "Ideal para chequeos, enfermedades comunes y control de"
+            "title": "Atención médica general ilimitada"
           }
         ]
       },
       {
-        "name": "Mediclub",
+        "name": "Mediclub persona",
         "icon": "Pill",
         "priceP": 200,
         "priceF": 350,
-        "description": "Para quienes quieren ahorrar en farmacia y servicios básicos.",
+        "description": "Orientación médica continua sin complicaciones",
         "button": {
           "label": "Regístrate ahora",
           "icon": "MoveRight",
@@ -134,10 +134,13 @@
             "title": "Medicamentos a precio de proveedor"
           },
           {
-            "title": "Descuentos en laboratorios y estudios"
+            "title": "Orientación médica general por WhatsApp"
           },
           {
-            "title": " Ideal para pacientes con tratamientos crónicos"
+            "title":  "Consultas médicas a precio preferencial"
+          },
+          {
+            "title":  "Apoyo con gestión de estudios e interpretaciones"
           }
         ]
       },
