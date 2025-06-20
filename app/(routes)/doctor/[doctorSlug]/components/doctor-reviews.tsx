@@ -51,7 +51,7 @@ const DoctorReviews = ({ userData }: Props) => {
   if (reviews.length === 0) {
     return (
       <div className="w-full p-6">
-        <h3 className="text-lg font-semibold mb-4">Patient reviews</h3>
+        <h3 className="text-lg font-semibold mb-4">Reseñas de Clientes</h3>
         <p>No hay reseñas aún para este doctor.</p>
         <ReviewForm user={userData?.id} doctor={doctor.id} />
       </div>
@@ -87,13 +87,13 @@ const DoctorReviews = ({ userData }: Props) => {
   return (
     <div className="w-full p-6">
       <h3 className="text-lg font-semibold mb-4 flex items-center gap-1">
-        Patient reviews
+        Reseñas de Clientes
         <span title="Basado en comentarios de pacientes" className="text-gray-400 cursor-help">ⓘ</span>
       </h3>
 
       <div className="flex flex-col sm:flex-row justify-between">
         <div className="flex flex-col items-start gap-2 mb-6 sm:mb-0">
-          <p className="text-sm text-gray-600">Overall satisfaction</p>
+          <p className="text-sm text-gray-600">Calificación General</p>
           <div className="flex items-center gap-2">
             <div className="flex">{stars}</div>
             <span className="text-xl font-semibold text-gray-800">{avgTotal.toFixed(1)}</span>
@@ -101,10 +101,10 @@ const DoctorReviews = ({ userData }: Props) => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 text-sm text-gray-700">
-          <ReviewRow label="Waiting time" value={avgWaitingTime} />
-          <ReviewRow label="Would recommend" value={avgRecommend} />
-          <ReviewRow label="Bedside manner" value={avgBedside} />
-          <ReviewRow label="Would visit again" value={avgVisitAgain} />
+          <ReviewRow label="Tiempo de espera" value={avgWaitingTime} />
+          <ReviewRow label="¿Lo recomendaría?" value={avgRecommend} />
+          <ReviewRow label="Trato con el paciente" value={avgBedside} />
+          <ReviewRow label="¿Visitaría de nuevo?" value={avgVisitAgain} />
         </div>
       </div>
 

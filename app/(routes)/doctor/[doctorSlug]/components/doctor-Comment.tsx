@@ -46,20 +46,20 @@ const DoctorComment = ({ review }: Props) => {
         <div className="flex flex-col sm:flex-row justify-between">
           <div className="flex flex-col sm:w-3/5 px-4">
             <div className="flex justify-start mb-2 items-center gap-1 text-gray-400 text-sm">
-              Verified patient <CheckCircle className="w-4 h-4" />
+              Paciente verificado <CheckCircle className="w-4 h-4" />
             </div>
             <p className="text-gray-800 text-base mb-2">{comment}</p>
             <p className="text-gray-500 text-sm">{formattedDate}</p>
           </div>
           <div className="flex flex-col sm:flex-row my-2 justify-end items-center">
             <div className="flex flex-col text-sm text-gray-700">
-              <ReviewRow label="Waiting time" value={waitingTime} />
-              <ReviewRow label="Would recommend" value={recommend} />
-              <ReviewRow label="Bedside manner" value={bedsideManner} />
-              <ReviewRow label="Would visit again" value={visitAgain} />
+              <ReviewRow label="Tiempo de espera" value={waitingTime} />
+              <ReviewRow label="¿Lo recomendaría?" value={recommend} />
+              <ReviewRow label="Trato con el paciente" value={bedsideManner} />
+              <ReviewRow label="¿Visitaría de nuevo?" value={visitAgain} />
             </div>
             <div className="flex flex-col items-center gap-2 mb-6 sm:mb-0">
-              <p className="text-sm text-gray-600">Overall satisfaction</p>
+              <p className="text-sm text-gray-600">Calificación General</p>
               <div className="flex items-center gap-2">
                 <div className="flex">{stars}</div>
                 <span className="text-xl font-semibold text-gray-800">{average.toFixed(1)}</span>

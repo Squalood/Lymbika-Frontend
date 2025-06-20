@@ -111,7 +111,7 @@ export function ReviewForm({
                   <StarRatingBasic value={waitingTime} onChange={setWaitingTime} maxStars={5} />
                 </div>
                 <div className="flex flex-col gap-4">
-                  <Label htmlFor="recommend">Recomiendo</Label>
+                  <Label htmlFor="recommend">¿Lo recomendaría?</Label>
                   <StarRatingBasic value={recommend} onChange={setRecommend} maxStars={5} />
                 </div>
                 <div className="flex flex-col gap-4">
@@ -119,7 +119,7 @@ export function ReviewForm({
                   <StarRatingBasic value={bedsideManner} onChange={setBedsideManner} maxStars={5} />
                 </div>
                 <div className="flex flex-col gap-4">
-                  <Label htmlFor="visitAgain">Visitaría de nuevo</Label>
+                  <Label htmlFor="visitAgain">¿Visitaría de nuevo?</Label>
                   <StarRatingBasic value={visitAgain} onChange={setVisitAgain} maxStars={5} />
                 </div>
               </div>
