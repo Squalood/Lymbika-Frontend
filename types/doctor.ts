@@ -35,5 +35,9 @@ export type DoctorType = {
     startAvailability: string;
     closedAvailability: string;
     dayAvailable: string;
+    videos: {
+      id: number;
+      videoID: string;
+    }[];
   };
   
