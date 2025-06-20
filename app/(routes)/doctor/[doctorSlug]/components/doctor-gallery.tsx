@@ -33,7 +33,7 @@ const DoctorGallery = ({ doctor }: InfoDoctorProps) => {
     <>
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 w-5/6 sm:w-3/4 mx-auto sm:py-8">
         {allMedia.length > 0 ? (
-          allMedia.map((media, i) =>
+          allMedia.map((media) =>
             media.type === "image" ? (
               <button
                 key={`img-${media.id}`}
