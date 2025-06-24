@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { Carousel, CarouselContent, CarouselItem } from "./ui/carousel";
 import { Card, CardContent } from "./ui/card";
 import Autoplay from "embla-carousel-autoplay"
-import { ShoppingBag, BadgeCheck, Clock, GraduationCap, Shield } from "lucide-react";
+import { ShoppingBag, BadgeCheck, Clock, GraduationCap, Shield, CreditCard, Hospital, Stethoscope, MessageCircleHeart, BookUser, ShieldCheck } from "lucide-react";
 import React from "react";
 import es from "@/locals/es.json";
 
@@ -39,9 +39,43 @@ export const dataCarouselTop = [
         link: "#!",
         icon: <Shield size={32}/>, 
     },
+    {
+        id: 6,
+        title: es.autoCarrouselBanner.id6,
+        link: "#!",
+        icon: <CreditCard size={32}/>, 
+    },
+    {
+        id: 7,
+        title: es.autoCarrouselBanner.id7,
+        link: "#!",
+        icon: <Stethoscope size={32}/>, 
+    },
+    {
+        id: 8,
+        title: es.autoCarrouselBanner.id8,
+        link: "#!",
+        icon: <Hospital size={32}/>, 
+    },
+    {
+        id: 9,
+        title: es.autoCarrouselBanner.id9,
+        link: "#!",
+        icon: <MessageCircleHeart size={32}/>, 
+    },
+    {
+        id: 10,
+        title: es.autoCarrouselBanner.id10,
+        link: "#!",
+        icon: <BookUser size={32}/>, 
+    },
+    {
+        id: 11,
+        title: es.autoCarrouselBanner.id11,
+        link: "#!",
+        icon: <ShieldCheck size={32}/>, 
+    }
 ];
-
-
 
 const CarouselTextBanner = () => {
     const router = useRouter();

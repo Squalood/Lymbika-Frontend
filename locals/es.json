@@ -6,7 +6,7 @@
       "program3": "Menopausia Activa",
       "program4": "Neuroterapia"
     },
-    "botton4":"HealthHubs"
+    "botton4":"Doctores"
     },
   "programsNavs":{
     "title": "Programas Lymbika",
@@ -177,7 +177,13 @@
       "id2":"Medicamentos a precio de proveedor",
       "id3":"No más esperas",
       "id4":"Especialistas certificados",
-      "id5":"No se requiere aseguranza"
+      "id5":"No se requiere aseguranza",
+      "id6":"Cirugías a credito",
+      "id7":"⁠Más de 30 especialidades",
+      "id8":"Hospitales certificados",
+      "id9":"Satisfacción 9/10",
+      "id10":"Más de 200 familias afiliadas",
+      "id11":"Médicos Certificados"
     },
     "frontpage":{
       "title": "Tu salud sin fronteras. Atención médica integral y humana, estés donde estés.",
