@@ -6,6 +6,7 @@ import TopContact from "@/components/top-contact"
 import FrontPage from "@/components/front-page"
 import PlansMemberPage from "./(routes)/membership/components/plans"
 import Programs from "./(routes)/programs/components/navs"
+import HospitaSection from "./(routes)/hospitals/components/hospitalsSection"
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <FrontPage />
       <Programs/>
       <CarouselServices/>
+      <HospitaSection />
       <CarouselTextBanner />
       <ChooseCategory />
       <PlansMemberPage/>

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { ProductType } from "@/types/product";
+import { HospitalType } from "@/types/hospital";
 
-export function useGetProducts() {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products?populate=*&pagination[page]=1&pagination[pageSize]=500`;
-  const [products, setResult] = useState<ProductType[]>([]);
+export function useGetHospitals() {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/hospitals?populate=*`;
+  const [hospitals, setHospitals] = useState<HospitalType[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -14,17 +14,17 @@ export function useGetProducts() {
         const json = await res.json();
 
         if (json.data && Array.isArray(json.data)) {
-          setResult(json.data);
+          setHospitals(json.data);
         } else {
-          setResult([]);
+          setHospitals([]);
         }
       } catch (error: any) {
-        setError(error.message || "Error al obtener productos");
+        setError(error.message || "Error al obtener hospitales");
       } finally {
         setLoading(false);
       }
     })();
   }, [url]);
 
-  return { loading, products, error };
+  return { loading, hospitals, error };
 }
