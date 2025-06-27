@@ -2,14 +2,15 @@
 
 import { useGetHospitals } from "@/api/getHospitals";
 import HospitaCarousel from "./hospitalCarousel";
+import HospitalCardSkeleton from "./hospitalCardSkeleton";
 
 
 const HospitaSection = () => {
   
   const { loading, hospitals, error } = useGetHospitals();
   
-    if (loading) return <div className="text-center py-20">Cargando hospitales...</div>;
-  
+    if (loading) return <HospitalCardSkeleton/>;
+
     if (error) return <div className="text-center text-red-500 py-20">Error al cargar hospitales: {error}</div>;
   
     return (
