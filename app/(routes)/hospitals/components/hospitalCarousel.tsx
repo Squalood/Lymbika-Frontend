@@ -82,7 +82,7 @@ const HospitaCarousel = ({ hospitals }: HospitaSectionProps) => {
           ))}
         </CarouselContent>
 
-        <div className="flex justify-center gap-4 mt-4">
+        <div className="hidden md:flex justify-center gap-4 mt-4">
           <CarouselPrevious />
           <CarouselNext />
         </div>
