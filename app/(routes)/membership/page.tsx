@@ -1,9 +1,9 @@
 "use client";
 
-import PlansMemberPage from "./components/plans";
+import PlanSection from "./components/plansSection";
 
 export default function Page() {
     return (
-        <div><PlansMemberPage/></div>
+        <PlanSection/>
     );
 }

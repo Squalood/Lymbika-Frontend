@@ -6,20 +6,26 @@ import { Button } from "@/components/ui/button";
 import es from "@/locals/es.json";
 import { useState } from "react";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
-import clsx from "clsx";
-import { AnimatePresence, motion } from "framer-motion";
+import PlanToggle from "./PlanToggle";
+import { MembershipType } from "@/types/membership";
+
+interface PlansMemberPageProps {
+  plans: MembershipType[];
+}
 
 const iconMap = {
   MoveRight: <MoveRight size={16} />,
   PhoneCall: <PhoneCall size={16} />,
-  Stethoscope: <Stethoscope size={20} className="stroke-primary"/>,
-  Building2: <Building2 size={20} className="stroke-primary"/>,
+  Stethoscope: <Stethoscope size={20} className="stroke-primary" />,
+  Building2: <Building2 size={20} className="stroke-primary" />,
   Pill: <Pill size={20} className="stroke-primary" />
-};
+} as const;
 
-const PlansMemberPage = () => {
-  const { title, description, plans } = es.PlansMemberPage;
+const PlansMemberPage = ({ plans }: PlansMemberPageProps) =>  {
+  const { title, description} = es.PlansMemberPage;
   const [isFamilyPlan, setIsFamilyPlan] = useState(false);
+
+  console.log(plans)
 
   return (
     <div className="max-w-6xl px-6 lg:px-12 py-16 mx-auto">
@@ -31,59 +37,9 @@ const PlansMemberPage = () => {
         <p className="text-lg text-muted-foreground">{description}</p>
       </div>
 
-      <div className="relative flex bg-muted rounded-full w-fit gap-1 mx-auto my-8">
-        <AnimatePresence>
-          <motion.div
-            key={isFamilyPlan ? "familia" : "persona"}
-            layoutId="active-pill"
-            className="absolute rounded-full bg-muted shadow z-0"
-            initial={false}
-            animate={{ width: "100%", height: "100%" }}
-            transition={{ type: "spring", stiffness: 500, damping: 30 }}
-          />
-        </AnimatePresence>
+      <PlanToggle isFamilyPlan={isFamilyPlan} setIsFamilyPlan={setIsFamilyPlan} />
 
-        <div className="relative z-10 flex gap-1 w-full">
-          <button
-            onClick={() => setIsFamilyPlan(false)}
-            className={clsx(
-              "relative z-10 px-4 py-4 text-sm font-medium rounded-full transition",
-              !isFamilyPlan ? "text-black" : "text-muted-foreground"
-            )}
-          >
-            {!isFamilyPlan && (
-              <motion.div
-                layoutId="highlight"
-                className="absolute inset-0 bg-white rounded-full shadow m-1"
-                transition={{ type: "spring", stiffness: 500, damping: 30 }}
-              />
-            )}
-            <span className="relative z-10">Plan por Persona</span>
-          </button>
-          <button
-            onClick={() => setIsFamilyPlan(true)}
-            className={clsx(
-              "relative z-10 px-4 py-4 text-sm font-medium rounded-full transition",
-              isFamilyPlan ? "text-black" : "text-muted-foreground"
-            )}
-          >
-            {isFamilyPlan && (
-              <motion.div
-                layoutId="highlight"
-                className="absolute inset-0 bg-white rounded-full shadow m-1"
-                transition={{ type: "spring", stiffness: 500, damping: 30 }}
-              />
-            )}
-            <span className="relative z-10"> Plan por Familia</span>
-          </button>
-        </div>
-      </div>
-
-      <Carousel
-        opts={{
-          startIndex: 1,
-        }}
-      >
+      <Carousel opts={{startIndex: 1, }}>
         <CarouselContent>
           {plans.map((plan, idx) => (
             <CarouselItem key={idx} className="basis-full sm:basis-1/2 lg:basis-1/3 pb-16" >
@@ -99,7 +55,7 @@ const PlansMemberPage = () => {
                     <div className="flex flex-col gap-4">
                       <div className="text-xl flex items-center gap-2 justify-center sm:justify-start">
                         <span className="text-4xl">
-                          ${isFamilyPlan ? plan.priceF : plan.priceP}
+                          ${isFamilyPlan ? plan.priceF ?? 0 : plan.priceP ?? 0}
                         </span>
                         <span className="text-sm text-muted-foreground">/ mes</span>
                       </div>
