@@ -1,12 +1,11 @@
 "use client"
 
-import { useRouter } from "next/navigation";
-import { Carousel, CarouselContent, CarouselItem } from "./ui/carousel";
-import { Card, CardContent } from "./ui/card";
-import Autoplay from "embla-carousel-autoplay"
-import { ShoppingBag, BadgeCheck, Clock, GraduationCap, Shield, CreditCard, Hospital, Stethoscope, MessageCircleHeart, BookUser, ShieldCheck } from "lucide-react";
-import React from "react";
-import es from "@/locals/es.json";
+import Marquee from "react-fast-marquee"
+import { useRouter } from "next/navigation"
+import { Card, CardContent } from "@/components/ui/card"
+import { ShoppingBag, BadgeCheck, Clock, GraduationCap, Shield, CreditCard, Hospital, Stethoscope, MessageCircleHeart, BookUser, ShieldCheck } from "lucide-react"
+import React from "react"
+import es from "@/locals/es.json"
 
 export const dataCarouselTop = [
     {
@@ -80,29 +79,32 @@ export const dataCarouselTop = [
 const CarouselTextBanner = () => {
     const router = useRouter();
 
-    return ( 
-        <div className="bg-gray-200 dark:bg-primary ">
-            <Carousel 
-                className="w-full max-w-4xl mx-auto py-5"
-                plugins={[Autoplay({ delay: 2500 })]}
+    return (
+        <div className="bg-gray-200 dark:bg-primary py-5">
+            <Marquee
+                gradient={false} // sin bordes sombreados
+                speed={40} // ajusta la velocidad
+                pauseOnHover={true} // opcional
             >
-                <CarouselContent>
-                    {dataCarouselTop.map(({ id, title, link, icon }) => (
-                        <CarouselItem key={id} onClick={() => router.push(link)} className="cursor-pointer">
-                            <Card className="shadow-none border-none bg-transparent">
-                                <CardContent className="flex flex-row justify-center items-center gap-2 p-2 text-center">
-                                    {React.cloneElement(icon , { className: "text-primary"},)}
-                                    <p className="sm:text-lg text-lg text-wrap dark:text-secondary"> 
-                                        {title}
-                                    </p>
-                                </CardContent>
-                            </Card>
-                        </CarouselItem>
-                    ))}    
-                </CarouselContent>
-            </Carousel>
+                {dataCarouselTop.map(({ id, title, link, icon }) => (
+                    <div
+                        key={id}
+                        onClick={() => router.push(link)}
+                        className="cursor-pointer mx-4 min-w-[300px] flex justify-center items-center"
+                    >
+                        <Card className="shadow-none border-none bg-transparent">
+                            <CardContent className="flex flex-row justify-center items-center gap-2 p-2 text-center">
+                                {React.cloneElement(icon, { className: "text-primary w-8 h-8" })}
+                                <p className="sm:text-base text-sm text-wrap dark:text-secondary">
+                                    {title}
+                                </p>
+                            </CardContent>
+                        </Card>
+                    </div>
+                ))}
+            </Marquee>
         </div>
-    );
+    )
 };
 
 export default CarouselTextBanner;
