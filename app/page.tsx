@@ -7,6 +7,7 @@ import FrontPage from "@/components/front-page"
 import Programs from "./(routes)/programs/components/navs"
 import HospitaSection from "./(routes)/hospitals/components/hospitalsSection"
 import PlanSection from "./(routes)/membership/components/plansSection"
+import DoctorReel from "./(routes)/doctor-catalog/components/doctorReel"
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
       <FrontPage />
       <Programs/>
       <CarouselServices/>
+      <DoctorReel/>
       <HospitaSection />
       <CarouselTextBanner />
       <ChooseCategory />

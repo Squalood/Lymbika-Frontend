@@ -1,65 +1,56 @@
-import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import Link from "next/link";
 import { DoctorType } from "@/types/doctor";
 import { SquareActivity, Stethoscope } from "lucide-react";
 import Image from "next/image";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 type ProductDoctorProps = {
   doctor: DoctorType;
 };
 
 const CardDoctor = ({ doctor }: ProductDoctorProps) => {
+  const doctorImage = doctor.image?.length > 0 ? doctor.image[0].url : "/placeholder-image.webp";
+
   return (
-    <Link
-      href={`/doctor/${doctor.slug}`}
-      className="relative p-2 transition-all duration-200 rounded-lg hover:shadow-md"
-    >
-      {/* Servicio y cirugía del doctor */}
-      <div className="absolute flex flex-col gap-1 px-2 z-[1] top-4 left-2 bg-white bg-opacity-70 p-1 rounded-md">
-        {doctor.services?.map((s) => (
-          <p
-            key={s.id}
-            className="px-2 py-1 text-xs font-semibold text-gray-700 flex items-center gap-1"
-          >
-            <Stethoscope size={16} />
-            {s.serviceName}
-          </p>
-        ))}
+    <Link href={`/doctor/${doctor.slug}`} className="block h-full">
+      <Card className="hover:shadow-lg transition-shadow h-full flex flex-col">
+        {/* Imagen */}
+        <div className="relative w-full h-48 rounded-t-xl overflow-hidden">
+          <Image
+            src={doctorImage}
+            alt={doctor.doctorName}
+            fill
+            sizes="(max-width: 768px) 100vw, 300px"
+            className="object-cover"
+            priority
+          />
+        </div>
 
-        {doctor.surgeries?.map((s) => (
-          <p
-            key={s.id}
-            className="px-2 py-1 text-xs font-semibold text-gray-500 flex items-center gap-1"
-          >
-            <SquareActivity size={16} />
-            {s.surgeryName}
-          </p>
-        ))}
-      </div>
-
-      {/* Carrusel de imágenes con Next/Image */}
-      <Carousel opts={{ align: "start" }} className="w-full max-w-sm">
-        <CarouselContent>
-          {(doctor.image?.length > 0 ? doctor.image : [{ id: "placeholder", url: "/placeholder-image.webp" }])
-            .map((image) => (
-              <CarouselItem key={image.id} className="group relative w-full h-48 rounded-xl overflow-hidden">
-                <Image
-                  src={image.url || "/placeholder-image.webp"}
-                  alt={doctor.doctorName}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 300px"
-                  className="object-cover rounded-xl"
-                  priority
-                />
-              </CarouselItem>
+        {/* Nombre del doctor */}
+        <CardContent className="flex-1 flex flex-col p-4">
+          <p className="text-base font-semibold text-gray-800">{doctor.doctorName}</p>
+          <div className="flex flex-col gap-1 py-2">
+            {doctor.services?.map((service) => (
+              <span key={service.id} className="flex items-center gap-1 text-xs text-gray-700 font-medium">
+                <Stethoscope size={14} />
+                {service.serviceName}
+              </span>
             ))}
-        </CarouselContent>
-      </Carousel>
+            {doctor.surgeries?.map((surgery) => (
+              <span key={surgery.id} className="flex items-center gap-1 text-xs text-gray-500 font-medium">
+                <SquareActivity size={14} />
+                {surgery.surgeryName}
+              </span>
+            ))}
+          </div>
+        </CardContent>
 
-      {/* Nombre del doctor y calificación */}
-      <div className="text-center mt-2">
-        <p className="text-lg font-semibold">{doctor.doctorName}</p>
-      </div>
+        {/* Footer opcional para futuros botones */}
+        <CardFooter className="border-t justify-center pb-1">
+          <Button variant="link">Ver más</Button>
+        </CardFooter> 
+      </Card>
     </Link>
   );
 };

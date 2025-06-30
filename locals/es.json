@@ -447,5 +447,63 @@
         "comentary":"Con Lymbika he encontrado acceso rápido a medicamentos de alta especialidad para mis pacientes, además de soporte en estudios y referencias."
       }
     }
-  }
+  },
+  "faq": [
+    {
+      "question": "¿Qué incluye la membresía Mediclub Personal?",
+      "answer": "Incluye orientación médica continua por WhatsApp, medicamentos a precio de proveedor, consultas a precio preferencial y apoyo con gestión de estudios, consultas con especialistas así como cirugías y/o hospitalizaciones; nos aseguramos de cuidarte."
+    },
+    {
+      "question": "¿La membresía Mediclub Familiar cubre a toda la familia?",
+      "answer": "Sí, está diseñada para dar acceso y asistencia preventiva para todos los miembros de la familia registrados (1 titular y 3 personas más)."
+    },
+    {
+      "question": "¿Qué es Lymbika Cuida?",
+      "answer": "Es la opción más completa: incluye consultas médicas generales ilimitadas, orientación médica continua en tiempo real, medicamentos a precio de proveedor y gestión de estudios, consultas con especialistas así como cirugías y/o hospitalizaciones; nos aseguramos de cuidarte."
+    },
+    {
+      "question": "¿La membresía Estudiantil solo es para jóvenes?",
+      "answer": "Sí, está enfocada en estudiantes y ofrece salud accesible con orientación por WhatsApp y medicamentos a precio de proveedor."
+    },
+    {
+      "question": "¿Los servicios de especialistas o cirugías están incluidos?",
+      "answer": "No, pero los cotizamos, organizamos y ofrecemos precios preferenciales, además de tiempos de espera más cortos. Por ejemplo, un paquete de cirugía de vesícula que normalmente costaría $60,000 puede conseguirse con nosotros desde $45,000, incluyendo gestión y seguimiento postoperatorio."
+    },
+    {
+      "question": "¿Qué significa medicamentos a precio de proveedor?",
+      "answer": "Significa que podrás comprar tus medicamentos de uso crónico, antibióticos o tratamiento de enfermedades comunes a un precio menor al de farmacias tradicionales. Por ejemplo, un tratamiento mensual para hipertensión que cuesta $900 en farmacia comercial, puede conseguirse desde $600 con nuestra red."
+    },
+    {
+      "question": "¿Puedo usar la membresía para agendar estudios de laboratorio?",
+      "answer": "Sí, te ayudamos a cotizar y agendar estudios en laboratorios aliados a precios preferenciales y en menor tiempo."
+    },
+    {
+      "question": "¿Qué tipo de afecciones atienden?",
+      "answer": "Podemos ayudarte con todo tipo de problemas de salud, desde enfermedades comunes como gripa, infecciones, control de enfermedades crónicas (diabetes, hipertensión), hasta casos complejos de difícil control, manejo de cáncer, cirugías de alta especialidad y seguimiento integral de tu salud."
+    },
+    {
+      "question": "¿Tienen red de especialistas?",
+      "answer": "Sí, contamos con una amplia red de médicos especialistas, proveedores de alta especialidad y hospitales aliados que nos permiten resolver casos simples y complejos con tiempos de espera más cortos y precios preferenciales."
+    },
+    {
+      "question": "¿Cómo es el seguimiento de mi caso?",
+      "answer": "En Lymbika ofrecemos acompañamiento y gestión médica continua, asegurando que cada paso, desde el diagnóstico hasta el tratamiento y el seguimiento, sea coordinado de forma personalizada. Nuestro equipo se asegura de mantenerte informado y de facilitar el acceso a todos los servicios necesarios."
+    },
+    {
+      "question": "¿Aceptan aseguranzas?",
+      "answer": "Sí, podemos trabajar en conjunto con algunas aseguradoras privadas para coordinar servicios médicos. Pregunta por nuestros convenios y opciones."
+    },
+    {
+      "question": "¿Ofrecen créditos para estudios o cirugías?",
+      "answer": "Sí, contamos con planes de financiamiento y crédito para ayudarte a cubrir estudios de laboratorio, procedimientos y cirugías."
+    },
+    {
+      "question": "¿Son un servicio privado?",
+      "answer": "Sí, Lymbika es un sistema de salud privado. Sin embargo, también colaboramos y apoyamos pacientes que se atienden en hospitales públicos, proporcionando insumos, especialistas o lo necesario para resolver el evento médico."
+    },
+    {
+      "question": "¿Puedo usar Lymbika en hospitales públicos?",
+      "answer": "Sí, nuestro equipo puede acompañarte y gestionar lo necesario en hospitales públicos para agilizar atención, proveer especialistas o materiales si es necesario."
+    }
+  ]
 }
