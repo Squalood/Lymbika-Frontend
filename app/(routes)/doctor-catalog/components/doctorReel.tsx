@@ -26,6 +26,7 @@ const DoctorReel = () => {
 
   return (
     <div className="px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto max-w-4xl">
+      <h1 className="px-0 py-6 text-3xl">Nuestros Doctores</h1>
       <Carousel className="w-full">
         <CarouselContent>
           {doctors.map((doctor) => (
