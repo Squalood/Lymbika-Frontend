@@ -17,7 +17,9 @@ const StarRating = ({ rating }: { rating: number }) => (
         key={i}
         className={`w-5 h-5 ${i < Math.round(rating) ? "fill-yellow-400 stroke-yellow-400" : "stroke-gray-300"}`}
       />
+      
     ))}
+    <span className="text-sm ml-1">({rating})</span>
   </div>
 );
 
