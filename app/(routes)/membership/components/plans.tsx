@@ -25,8 +25,6 @@ const PlansMemberPage = ({ plans }: PlansMemberPageProps) =>  {
   const { title, description} = es.PlansMemberPage;
   const [isFamilyPlan, setIsFamilyPlan] = useState(false);
 
-  console.log(plans)
-
   return (
     <div className="max-w-6xl px-6 lg:px-12 py-16 mx-auto">
       <div className="text-center max-w-xl mx-auto space-y-4">
