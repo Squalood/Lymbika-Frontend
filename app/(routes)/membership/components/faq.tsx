@@ -8,7 +8,7 @@ interface FaqProps {
 
 const Faq = ({ faqGroup }: FaqProps) => {
   return (
-    <div className="w-full py-12">
+    <div className="w-full py-12 px-4">
       <div className="container mx-auto">
         <div className="flex flex-col gap-10">
           <div className="flex text-center justify-center items-center gap-4 flex-col">
