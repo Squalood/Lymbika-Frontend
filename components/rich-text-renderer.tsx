@@ -1,18 +1,23 @@
 import React from "react";
 
-// Tipos compatibles con Strapi RichText
-export type RichTextNode = {
-  type: string;
-  children: RichTextChild[];
-  format?: string; // Para las listas
-  level?: number; // Para encabezados
-};
-
-type RichTextChild = {
+// Tipos compatibles con Strapi RichText v5
+export type RichTextChild = {
   text: string;
   bold?: boolean;
   italic?: boolean;
   underline?: boolean;
+};
+
+export type ListItemNode = {
+  type: "list-item";
+  children: RichTextChild[];
+};
+
+export type RichTextNode = {
+  type: "paragraph" | "list" | "heading";
+  children: (RichTextChild | ListItemNode)[];
+  format?: "unordered" | "ordered"; // Para las listas
+  level?: number; // Para encabezados
 };
 
 type RichTextRendererProps = {
@@ -28,7 +33,7 @@ const RichTextRenderer: React.FC<RichTextRendererProps> = ({ content }) => {
             return (
               <p key={idx}>
                 {node.children.map((child, cIdx) => (
-                  <RichTextChildRenderer key={cIdx} child={child} />
+                  <RichTextChildRenderer key={cIdx} child={child as RichTextChild} />
                 ))}
               </p>
             );
@@ -37,35 +42,44 @@ const RichTextRenderer: React.FC<RichTextRendererProps> = ({ content }) => {
             if (node.format === "unordered") {
               return (
                 <ul key={idx} className="list-disc pl-5 space-y-1">
-                  {node.children.map((item: any, i: number) => (
-                    <li key={i}>
-                      {item.children.map((child: RichTextChild, j: number) => (
-                        <RichTextChildRenderer key={j} child={child} />
-                      ))}
-                    </li>
-                  ))}
+                  {node.children.map((item, i) => {
+                    const listItem = item as ListItemNode;
+                    return (
+                      <li key={i}>
+                        {listItem.children.map((child, j) => (
+                          <RichTextChildRenderer key={j} child={child} />
+                        ))}
+                      </li>
+                    );
+                  })}
                 </ul>
               );
             } else if (node.format === "ordered") {
               return (
                 <ol key={idx} className="list-decimal pl-5 space-y-1">
-                  {node.children.map((item: any, i: number) => (
-                    <li key={i}>
-                      {item.children.map((child: RichTextChild, j: number) => (
-                        <RichTextChildRenderer key={j} child={child} />
-                      ))}
-                    </li>
-                  ))}
+                  {node.children.map((item, i) => {
+                    const listItem = item as ListItemNode;
+                    return (
+                      <li key={i}>
+                        {listItem.children.map((child, j) => (
+                          <RichTextChildRenderer key={j} child={child} />
+                        ))}
+                      </li>
+                    );
+                  })}
                 </ol>
               );
             }
             return null;
 
           case "heading":
-            if (node.level === 1) return <h1 key={idx} className="text-3xl font-bold">{node.children.map((child, cIdx) => <RichTextChildRenderer key={cIdx} child={child} />)}</h1>;
-            if (node.level === 2) return <h2 key={idx} className="text-2xl font-bold">{node.children.map((child, cIdx) => <RichTextChildRenderer key={cIdx} child={child} />)}</h2>;
-            if (node.level === 3) return <h3 key={idx} className="text-xl font-bold">{node.children.map((child, cIdx) => <RichTextChildRenderer key={cIdx} child={child} />)}</h3>;
-            if (node.level === 4) return <h4 key={idx} className="text-lg font-bold">{node.children.map((child, cIdx) => <RichTextChildRenderer key={cIdx} child={child} />)}</h4>;
+            const headingChildren = node.children.map((child, cIdx) => (
+              <RichTextChildRenderer key={cIdx} child={child as RichTextChild} />
+            ));
+            if (node.level === 1) return <h1 key={idx} className="text-3xl font-bold">{headingChildren}</h1>;
+            if (node.level === 2) return <h2 key={idx} className="text-2xl font-bold">{headingChildren}</h2>;
+            if (node.level === 3) return <h3 key={idx} className="text-xl font-bold">{headingChildren}</h3>;
+            if (node.level === 4) return <h4 key={idx} className="text-lg font-bold">{headingChildren}</h4>;
             return null;
 
           default:
