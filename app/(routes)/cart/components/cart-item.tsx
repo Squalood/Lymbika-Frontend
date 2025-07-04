@@ -1,9 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useCart } from "@/hooks/use-cart";
 import { formatPrice } from "@/lib/formatPrice";
-import { ProductType } from "@/types/product";
-import { X } from "lucide-react";
+import { CartProduct, useCart } from "@/hooks/use-cart";
+import { Minus, Plus, X } from "lucide-react";
 
 interface AuthUserProps {
   username: string;
@@ -12,12 +11,12 @@ interface AuthUserProps {
 }
 
 interface CartItemProps {
-  product: ProductType;
+  product: CartProduct;
   user?: AuthUserProps | null;
 }
 
 export default function CartItem({ product, user }: CartItemProps) {
-  const { removeItem } = useCart();
+  const { removeItem, increaseQuantity, decreaseQuantity } = useCart();
 
   const imageUrl =
     product.images && product.images.length > 0
@@ -26,12 +25,13 @@ export default function CartItem({ product, user }: CartItemProps) {
 
   const hasDiscount = user?.mediClubRegular && product.priceMember > 0;
 
+  const pricePerUnit = hasDiscount ? product.priceMember : product.price;
+  //const totalItemPrice = pricePerUnit * product.quantity;
+
   return (
     <li className="flex justify-between items-start gap-4 sm:gap-6 py-4 border-b last:border-none">
       <div className="flex flex-col-reverse md:flex-row gap-4 w-full">
-        {/* Imagen + contenido */}
         <div className="flex flex-col md:flex-row gap-4 w-full">
-          {/* Imagen */}
           <Link
             href={`/product/${product.slug}`}
             className="relative w-full aspect-square md:w-28 md:aspect-square rounded-md overflow-hidden block"
@@ -44,7 +44,6 @@ export default function CartItem({ product, user }: CartItemProps) {
             />
           </Link>
 
-          {/* Contenido */}
           <div className="flex flex-col justify-between flex-1">
             <h2 className="text-base font-semibold leading-snug line-clamp-2">
               {product.productName}
@@ -54,24 +53,38 @@ export default function CartItem({ product, user }: CartItemProps) {
               {product.category.categoryName}
             </span>
 
-            {hasDiscount ? (
-              <div className="flex items-center gap-2 mt-1">
+            <div className="flex items-center gap-2 mt-1">
+              {hasDiscount && (
                 <p className="text-sm line-through text-muted-foreground">
                   {formatPrice(product.price)}
                 </p>
-                <p className="text-base font-semibold text-green-600">
-                  {formatPrice(product.priceMember)}
-                </p>
-              </div>
-            ) : (
-              <p className="text-base font-semibold mt-1">
-                {formatPrice(product.price)}
+              )}
+              <p className="text-base font-semibold text-green-600">
+                {formatPrice(pricePerUnit)}
               </p>
-            )}
+            </div>
+            {/* Controles de cantidad */}
+            <div className="flex items-center gap-3 mt-4">
+              <p className="text-sm text-slate-500">Cantidad</p>
+              <button
+                className="p-1 border rounded-full hover:bg-gray-200"
+                onClick={() => decreaseQuantity(product.id)}
+                disabled={product.quantity === 1}
+              >
+                <Minus size={16} />
+              </button>
+              <span className="text-sm font-medium">{product.quantity}</span>
+              <button
+                className="p-1 border rounded-full hover:bg-gray-200"
+                onClick={() => increaseQuantity(product.id)}
+                disabled={product.quantity === 3}
+              >
+                <Plus size={16} />
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Botón eliminar */}
         <div className="flex justify-end md:items-start">
           <button
             className="rounded-full bg-white border shadow p-1 hover:scale-110 transition"

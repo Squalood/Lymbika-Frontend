@@ -28,49 +28,50 @@ export default function CartClientPage({ user }: CartClientPageProps) {
   const router = useRouter();
   const { items, removeAll } = useCart();
   const [isDelivery, setIsDelivery] = useState(false);
-  const subtotal = items.reduce((total, product) => total + product.price, 0);
+
+  const deliveryCost = isDelivery ? 200 : 0;
+
+  const subtotal = items.reduce((total, product) => total + (product.price * product.quantity), 0);
+
   const totalPrice = items.reduce((total, product) => {
     const useMemberPrice = user?.mediClubRegular && product.priceMember > 0;
     const price = useMemberPrice ? product.priceMember : product.price;
-    return total + price;
+    return total + (price * product.quantity);
   }, 0);
 
   const ahorro = subtotal - totalPrice;
+
+  const finalTotal = totalPrice + deliveryCost;
+
   const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "");
 
-  const buyStripeDelivery = async () => {
-    try {
-      const stripe = await stripePromise;
-      const res = await makePaymentRequest.post("/api/orders", {
-        products: items,
-        mediClubRegular: user?.mediClubRegular || false,
-        isDelivery: true,
-        userEmail: user?.email || "",
-      });
-      await stripe?.redirectToCheckout({
-        sessionId: res.data.stripeSession.id,
-      });
+  const buyStripe = async () => {
+  try {
+    const stripe = await stripePromise;
+
+    const productsPayload = items.map(item => ({
+      id: item.id,
+      name: item.productName,
+      quantity: item.quantity,
+      price: user?.mediClubRegular && item.priceMember > 0 ? item.priceMember : item.price,
+    }));
+
+    const res = await makePaymentRequest.post("/api/orders", {
+      products: productsPayload,
+      mediClubRegular: user?.mediClubRegular || false,
+      isDelivery, 
+      deliveryCost,
+      userEmail: user?.email || "",
+    });
+
+    await stripe?.redirectToCheckout({
+      sessionId: res.data.stripeSession.id,
+    });
     } catch (error) {
       console.log(error);
     }
   };
 
-const buyStripePickUp = async () => {
-  try {
-    const stripe = await stripePromise;
-    const res = await makePaymentRequest.post("/api/orders", {
-      products: items,
-      mediClubRegular: user?.mediClubRegular || false,
-      isDelivery: false,
-      userEmail: user?.email || "",
-    });
-    await stripe?.redirectToCheckout({
-      sessionId: res.data.stripeSession.id,
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
 
   return (
     <div className="max-w-6xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
@@ -97,38 +98,60 @@ const buyStripePickUp = async () => {
                 </p>
 
                 {user?.mediClubRegular ? (
-                <p className="my-3 mx-auto w-full flex items-center justify-center gap-2 text-sm font-semibold text-green-600 bg-green-100 py-2 px-3 rounded-full">
+                  <p className="my-3 mx-auto w-full flex items-center justify-center gap-2 text-sm font-semibold text-green-600 bg-green-100 py-2 px-3 rounded-full">
                     <CheckCircle size={16} className="text-green-600" />
                     Precio MediClub aplicado
-                </p>
+                  </p>
                 ) : (
-                <Button asChild className="w-full">
-                  <Link href="/membership">Ver planes disponibles</Link>
-                </Button>
+                  <Button asChild className="w-full">
+                    <Link href="/membership">Ver planes disponibles</Link>
+                  </Button>
                 )}
-
               </div>
             </div>
 
             <Separator />
+            {/* Resumen por producto */}
+            <div className="space-y-1 my-4">
+              {items.map((item) => {
+                const useMemberPrice = user?.mediClubRegular && item.priceMember > 0;
+                const price = useMemberPrice ? item.priceMember : item.price;
+                const totalPerItem = price * item.quantity;
+
+                return (
+                  <div key={item.id} className="flex justify-between text-sm w-full">
+                    <div className="flex items-center overflow-hidden max-w-[60%]">
+                      <span className="truncate">{item.productName}</span>
+                      <span className="ml-1 flex-shrink-0">x{item.quantity}</span>
+                    </div>
+                    <span className="flex-shrink-0">{formatPrice(totalPerItem)}</span>
+                  </div>
+                );
+              })}
+            </div>
             <div className="space-y-2 text-sm font-medium mt-4">
               <div className="flex justify-between">
                 <span>Subtotal</span>
                 <span>{formatPrice(subtotal)}</span>
               </div>
-
               {user?.mediClubRegular && ahorro > 0 && (
                 <div className="flex justify-between text-green-600">
                   <span>Ahorras con MediClub</span>
                   <span>-{formatPrice(ahorro)}</span>
                 </div>
               )}
-
+              {isDelivery && (
+              <div className="flex justify-between">
+                <span>Costo de envío en México</span>
+                <span>{formatPrice(deliveryCost)}</span>
+              </div>
+              )}
               <div className="flex justify-between text-base font-semibold border-t pt-3 mt-3">
                 <span>Total</span>
-                <span className="text-primary">{formatPrice(totalPrice)}</span>
+                <span className="text-primary">{formatPrice(finalTotal)}</span>
               </div>
             </div>
+
             <div className="flex items-center flex-row-reverse py-2 justify-between space-x-2">
               <Switch
                 id="delivery-option"
@@ -136,8 +159,8 @@ const buyStripePickUp = async () => {
                 onCheckedChange={setIsDelivery}
               />
               <p>{isDelivery ? "Envío a domicilio" : "Recoger en farmacia"}</p>
-              
             </div>
+
             <div className="flex items-center justify-center w-full mt-3">
               <Button
                 className="w-full"
@@ -152,16 +175,13 @@ const buyStripePickUp = async () => {
                     return;
                   }
 
-                  if (isDelivery) {
-                    buyStripeDelivery();
-                  } else {
-                    buyStripePickUp();
-                  }
+                  buyStripe(); // ya no hay condición, porque el estado `isDelivery` ya lo tenemos controlado
                 }}
               >
                 Comprar <ShoppingCart />
               </Button>
             </div>
+
             <Button className="w-full mt-4" onClick={removeAll} variant="outline">
               Vaciar Carrito <Trash2 />
             </Button>

@@ -1,6 +1,5 @@
 import { RichTextNode } from "@/types/rich-text";
 
-
 export type ProductType = {
   id: number;
   productName: string;
