@@ -8,6 +8,7 @@ import Programs from "./(routes)/programs/components/navs"
 import HospitaSection from "./(routes)/hospitals/components/hospitalsSection"
 import PlanSection from "./(routes)/membership/components/plansSection"
 import DoctorReel from "./(routes)/doctor-catalog/components/doctorReel"
+import SurgeryFaq from "./(routes)/surgery/components/surgeryFaq"
 
 export default function Home() {
   return (
@@ -21,6 +22,7 @@ export default function Home() {
       <CarouselTextBanner />
       <ChooseCategory />
       <PlanSection/>
+      <SurgeryFaq/>
       <BannerProduct />
     </main>
   )
