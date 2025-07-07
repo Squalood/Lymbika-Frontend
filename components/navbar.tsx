@@ -119,7 +119,7 @@ interface AuthUserProps {
                     <Button variant="ghost" size="icon" className={`${textColor} hover:${!textColor}`} onClick={() => setShowSearch((prev) => !prev)} aria-label="Mostrar búsqueda">
                         <Search/>
                     </Button>
-                    <ItemsMenuMobile />
+                    <ItemsMenuMobile user={user} />
                 </div>
             </div>
             <div className={`${positionSea} relative flex justify-end w-full lg:max-w-5xl xl:max-w-6xl mx-auto `}>

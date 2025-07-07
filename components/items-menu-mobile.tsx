@@ -1,4 +1,5 @@
 "use client";
+
 import {
   User,
   Menu,
@@ -8,8 +9,9 @@ import {
   PillBottle,
   UsersRound,
   SquareActivity,
-} from "lucide-react"
-import { Button } from "@/components/ui/button"
+  ChevronRight,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,81 +20,211 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { CategoryType } from "@/types/category";
 import { useGetCategories } from "@/api/getCategories";
-import {ResponseType} from '@/types/response';
+import { ResponseType } from "@/types/response";
 import es from "@/locals/es.json";
+import { motion } from "framer-motion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { useCart } from "@/hooks/use-cart";
+import { UseLovedProducts } from "@/hooks/use-loved-products";
+import { LoggedInUser } from "./custom/UserLogin";
 
-const ItemsMenuMobile = () => {
-  const router = useRouter()
-  const { loading, result,}:ResponseType = useGetCategories();
+interface AuthUserProps {
+  username: string;
+  email: string;
+}
+  
+interface NavbarProps {
+  user: AuthUserProps | null;
+}
 
-  return ( 
-      <DropdownMenu>
+const ItemsMenuMobile = ({ user }: NavbarProps) => {
+  const { loading, result }: ResponseType = useGetCategories();
+  const itemStyle = "w-full px-1 py-1.5 cursor-pointer flex items-center";
+
+  const cart = useCart();
+  const { lovedItems } = UseLovedProducts();
+
+  return (
+    <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline"><Menu/></Button>
+        <Button variant="outline" size="icon">
+          <Menu />
+        </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel className="flex flex-row"><UsersRound className="mr-2"/> Sobre Nosotros</DropdownMenuLabel>
-        <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <Link href="/about">Lymbika</Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={()=> router.push("/membership")}>
-            <span>Membresías</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={()=> router.push("/healthHubs")}>
-            <span>{es.navbar.botton4}</span>
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuLabel className="flex flex-row"><Hospital className="mr-2"/>Servicios</DropdownMenuLabel>
-            <DropdownMenuItem className="cursor-pointer" onClick={()=> router.push("/service")}>
-              <span>{es.titleServices}</span>
+
+      <DropdownMenuContent className="w-60" asChild>
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          <DropdownMenuGroup>
+            {/* Sobre Nosotros */}
+            <DropdownMenuLabel className="flex items-center gap-2">
+              <UsersRound className="w-4 h-4" />
+              Sobre Nosotros
+            </DropdownMenuLabel>
+            <DropdownMenuItem asChild>
+              <Link href="/about" className="w-full">
+                Lymbika
+              </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem className="cursor-pointer" onClick={()=> router.push("/surgery")}>
-              <span>{es.titlesurgery}</span>
+            <DropdownMenuItem asChild>
+              <Link href="/membership" className="w-full">
+                Membresías
+              </Link>
             </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuLabel className="flex flex-row"><SquareActivity className="mr-2"/>Programas</DropdownMenuLabel>
-            <DropdownMenuItem className="flex" onClick={()=> router.push("/programs/weightControl")}>
-              <span>{es.navbar.programas.program1}</span>
+            <DropdownMenuItem asChild>
+              <Link href="/healthHubs" className="w-full">
+                {es.navbar.botton4}
+              </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem className="flex" onClick={()=> router.push("/programs/medicalAgent")}>
-              <span>{es.navbar.programas.program2}</span>
+
+            <DropdownMenuSeparator />
+
+            {/* Accordion Sections */}
+            <Accordion type="multiple" className="w-full">
+              {/* Servicios */}
+              <AccordionItem value="services">
+                <AccordionTrigger className="flex justify-between px-2 gap-2">
+                  <div className="flex flex-row gap-2 font-semibold">
+                    <Hospital className="w-4 h-4" />
+                    Servicios
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent>
+                  <DropdownMenuItem asChild>
+                    <Link href="/service" className={itemStyle}>
+                      <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                      {es.titleServices}
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/surgery" className={itemStyle}>
+                      <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                      {es.titlesurgery}
+                    </Link>
+                  </DropdownMenuItem>
+                </AccordionContent>
+              </AccordionItem>
+
+              {/* Programas */}
+              <AccordionItem value="programs">
+                <AccordionTrigger className="flex justify-between px-2 gap-2">
+                  <div className="flex flex-row gap-2 font-semibold">
+                    <SquareActivity className="w-4 h-4" />
+                    Programas
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent>
+                  <DropdownMenuItem asChild>
+                    <Link href="/programs/weightControl" className={itemStyle}>
+                      <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                      {es.navbar.programas.program1}
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/programs/medicalAgent" className={itemStyle}>
+                      <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                      {es.navbar.programas.program2}
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/programs/menopause" className={itemStyle}>
+                      <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                      {es.navbar.programas.program3}
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/programs/neurotherapy" className={itemStyle}>
+                      <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                      {es.navbar.programas.program4}
+                    </Link>
+                  </DropdownMenuItem>
+                </AccordionContent>
+              </AccordionItem>
+
+              {/* Farmacia */}
+              <AccordionItem value="pharmacy">
+                <AccordionTrigger className="flex justify-between px-2 gap-2">
+                  <div className="flex flex-row gap-2 font-semibold">
+                    <PillBottle className="w-4 h-4" />
+                    Farmacia
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent>
+                  {!loading &&
+                    Array.isArray(result) &&
+                    result.map((category: CategoryType) => (
+                      <DropdownMenuItem asChild key={category.id}>
+                        <Link href={`/category/${category.slug}`} className={itemStyle}>
+                          <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                          {category.categoryName}
+                        </Link>
+                      </DropdownMenuItem>
+                    ))}
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+
+            <DropdownMenuSeparator />
+
+            {/* Cuenta */}
+            <DropdownMenuItem asChild>
+              <Link href="/cart" className="w-full flex items-center">
+                {cart.items.length === 0 ? (
+                  <div className="flex flex-row gap-2">
+                    <ShoppingCart strokeWidth={1} className="mr-2 w-4 h-4" />
+                    Carrito
+                  </div>
+                ):(
+                  <div className="flex flex-row gap-2">
+                    <ShoppingCart strokeWidth={1} className="mr-2 w-4 h-4" />
+                    Carrito
+                    <span className="font-semibold">{cart.items.length}</span>
+                  </div>
+                )}
+              </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem className="flex" onClick={()=> router.push("/programs/menopause")}>
-              <span>{es.navbar.programas.program3}</span>
+            <DropdownMenuItem asChild>
+              <Link href="/loved-products" className="w-full flex items-center">
+                {lovedItems.length === 0 ? (
+                  <div className="flex flex-row gap-2">
+                    <Heart strokeWidth={1} className="mr-2 w-4 h-4" />
+                    Mi Lista
+                  </div>
+                ) : (
+                  <div className="flex flex-row gap-2">
+                    <Heart strokeWidth={1} className="mr-2 w-4 h-4" />
+                    Mi Lista
+                    <span className="font-semibold">{lovedItems.length}</span>
+                  </div>
+                )}
+              </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem className="flex" onClick={()=> router.push("/programs/neurotherapy")}>
-              <span>{es.navbar.programas.program4}</span>
+            <DropdownMenuItem asChild>
+              <Link href="/dashboard" className="w-full flex items-center text-slate-500">
+                <User strokeWidth={1} className="mr-2 w-4 h-4" />
+                Usuario
+                <div className="text-slate-400">
+                  {user ? <LoggedInUser userData={user} /> : null}
+                </div>
+              </Link>
             </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuLabel className="flex flex-row" onClick={() => router.push(`/shop`)}><PillBottle className="mr-2"/>Farmacia</DropdownMenuLabel>
-          {!loading && Array.isArray(result) && result.length > 0 && result.map((category: CategoryType) => (
-            <DropdownMenuItem key={category.id} className="cursor-pointer" onClick={() => router.push(`/category/${category.slug}`)}>
-              <p>{category.categoryName}</p>
-            </DropdownMenuItem>
-          ))}
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem className="cursor-pointer" onClick={()=> router.push("/cart")}>
-            <ShoppingCart strokeWidth="1"/>Cart
-          </DropdownMenuItem>
-          <DropdownMenuItem className="cursor-pointer" onClick={()=> router.push("/loved-products")}>
-            <Heart strokeWidth="1"/>Mi lista
-          </DropdownMenuItem>
-          <DropdownMenuItem className="cursor-pointer" onClick={() => router.push("/dashboard")}>
-            <User strokeWidth="1"/>
-            Usuario
-          </DropdownMenuItem>
           </DropdownMenuGroup>
+        </motion.div>
       </DropdownMenuContent>
     </DropdownMenu>
   );
-}
+};
 
 export default ItemsMenuMobile;
