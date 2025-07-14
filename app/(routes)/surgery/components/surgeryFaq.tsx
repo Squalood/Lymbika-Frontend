@@ -26,6 +26,11 @@ const SurgeryFaq = () => {
 
     return(  
         <div className="max-w-6xl py-4 mx-auto sm:py-16 sm:px-24">
+            <div className="flex text-center justify-center items-center gap-4 flex-col">
+              <h4 className="text-3xl md:text-5xl tracking-tighter max-w-xl text-center font-semibold">
+                  FAQ {Faq?.title}
+              </h4>
+            </div>
             {Faq ? (
             <FaqComponent faqGroup={Faq} />
             ) : (

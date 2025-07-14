@@ -36,9 +36,9 @@ const Footer = () => {
         <footer className="mt-4">
             <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
                 <div className="sm:flex sm:items-center sm:justify-between">
-                    <p className="flex justify-center py-4 sm:py-0">
-                        <span className="font-bold">Lymbika </span>
-                        Healtcare System
+                    <p className="flex justify-center py-4 sm:py-0 gap-1">
+                        <span className="font-bold">Lymbika</span>
+                        <span>Healtcare System</span>
                     </p>
                     <ul className="flex flex-wrap justify-center items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
                         {dataFooter.map((data) => (
@@ -55,7 +55,7 @@ const Footer = () => {
                     <ul className="flex space-x-6">
                         <li>
                             <span className="flex flex-col sm:flex-row text-sm text-gray-500 text-center dark:text-gray-400">
-                                <Link href="#">&copy; {new Date().getFullYear()} Limbika. </Link>
+                                <Link href="#">&copy; {new Date().getFullYear()} Lymbika. </Link>
                                 <span className="sm:ml-2">Todos los derechos reservados</span>
                             </span>
                         </li>   

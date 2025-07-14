@@ -10,7 +10,7 @@ export default function Page() {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <p>Cargando...</p>
+        <p>Cargando...</p>  
       </div>
     );
   }
@@ -28,7 +28,6 @@ export default function Page() {
   return (
     <div>
       <PlanSection />
-      
       {membershipFaqGroup ? (
         <Faq faqGroup={membershipFaqGroup} />
       ) : (
