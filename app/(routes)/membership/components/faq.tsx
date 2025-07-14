@@ -1,12 +1,26 @@
-import { FaqType } from "@/types/faq";
 import es from "@/locals/es.json";
 import FaqComponent from "@/components/faq";
+import { useGetFaqGroups } from "@/api/getFaqGroups";
+import FaqSkeleton from "@/components/skeleton/faqSkeleton";
 
-interface FaqProps {
-  faqGroup: FaqType;
-}
 
-const Faq = ({ faqGroup }: FaqProps) => {
+const Faq = () => {
+  const { loading, faqGroups, error } = useGetFaqGroups();
+
+  if (loading) {
+    return <FaqSkeleton items={14} />;
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <p className="text-red-500">{error}</p>
+      </div>
+    );
+  }
+
+  const membershipFaqGroup = faqGroups.find((group) => group.slug === "memberships");
+
 
   return (
     <div className="w-full py-8 px-4">
@@ -22,8 +36,8 @@ const Faq = ({ faqGroup }: FaqProps) => {
           </div>
 
           <div className="w-full mx-auto">
-            {faqGroup ? (
-            <FaqComponent faqGroup={faqGroup} />
+            {membershipFaqGroup ? (
+            <FaqComponent faqGroup={membershipFaqGroup} />
             ) : (
                 <div className="flex justify-center py-20">
                 <p>No se encontraron preguntas frecuentes para este grupo.</p>

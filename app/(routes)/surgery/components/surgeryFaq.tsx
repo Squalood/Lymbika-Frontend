@@ -2,16 +2,13 @@
 
 import { useGetFaqGroups } from "@/api/getFaqGroups";
 import FaqComponent from "@/components/faq";
+import FaqSkeleton from "@/components/skeleton/faqSkeleton";
 
 const SurgeryFaq = () => {
     const { loading, faqGroups, error } = useGetFaqGroups();
     
       if (loading) {
-        return (
-          <div className="flex justify-center items-center min-h-screen">
-            <p>Cargando...</p>
-          </div>
-        );
+        return <FaqSkeleton items={9} />;
       }
     
       if (error) {

@@ -41,7 +41,7 @@
             <CarouselContent>
               {plans.map((plan, idx) => (
                 <CarouselItem key={idx} className="basis-full sm:basis-1/2 lg:basis-1/3 pb-16" >
-                  <Card className={`w-full rounded-md ${idx === 1 ? "shadow-2xl" : ""}`}>
+                  <Card className="w-full rounded-md transition-shadow hover:shadow-2xl">
                     <CardHeader>
                       <CardTitle className="flex items-center gap-4 font-normal">
                         {iconMap[plan.icon as keyof typeof iconMap]}{plan.name}

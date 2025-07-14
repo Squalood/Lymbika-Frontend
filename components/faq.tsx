@@ -12,7 +12,7 @@ const FaqComponent = ({ faqGroup }: FaqProps) => {
                 <div className="flex flex-col gap-10">
                     <div className="max-w-3xl w-full mx-auto">
                         <Accordion type="single" collapsible className="w-full">
-                        {faqGroup.faq.map((faq) => ( //error en esta linea "Property 'faq' does not exist on type 'FaqType'."
+                        {faqGroup.faq.map((faq) => ( 
                             <AccordionItem key={faq.id} value={`faq-${faq.id}`}>
                             <AccordionTrigger>{faq.question}</AccordionTrigger>
                             <AccordionContent className="text-gray-500">{faq.answer}</AccordionContent>
