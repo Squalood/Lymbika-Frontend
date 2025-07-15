@@ -4,6 +4,8 @@ import { SquareActivity, Stethoscope } from "lucide-react";
 import Image from "next/image";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import DoctorReviewCarousel from "./doctorReviewCarousel";
+import { Separator } from "@/components/ui/separator";
 
 type ProductDoctorProps = {
   doctor: DoctorType;
@@ -28,9 +30,9 @@ const CardDoctor = ({ doctor }: ProductDoctorProps) => {
         </div>
 
         {/* Nombre del doctor */}
-        <CardContent className="flex-1 flex flex-col p-4">
-          <p className="text-base font-semibold text-gray-800">{doctor.doctorName}</p>
-          <div className="flex flex-col gap-1 py-2">
+        <CardContent className="flex-1 flex flex-col p-1">
+          <p className="text-base font-semibold text-gray-800 px-4 pt-4">{doctor.doctorName}</p>
+          <div className="flex flex-col gap-1 p-4">
             {doctor.services?.map((service) => (
               <span key={service.id} className="flex items-center gap-1 text-xs text-gray-700 font-medium">
                 <Stethoscope size={14} />
@@ -44,8 +46,9 @@ const CardDoctor = ({ doctor }: ProductDoctorProps) => {
               </span>
             ))}
           </div>
+          <Separator/>
+          <DoctorReviewCarousel reviews={doctor.reviews} />
         </CardContent>
-
         {/* Footer opcional para futuros botones */}
         <CardFooter className="border-t justify-center pb-1">
           <Button variant="link">Ver más</Button>

@@ -1,3 +1,5 @@
+import { ReviewType } from "./review";
+
 export type DoctorType = {
     id: number;
     doctorName: string;
@@ -39,5 +41,6 @@ export type DoctorType = {
       id: number;
       videoID: string;
     }[];
+    reviews: ReviewType[];
   };
   
