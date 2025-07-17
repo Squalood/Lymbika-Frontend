@@ -10,19 +10,14 @@ interface DoctorReviewCarouselProps {
   reviews: ReviewType[];
 }
 
-// Función para recortar texto
-const truncateText = (text: string, maxLength: number) => {
-  return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
-};
-
 const DoctorReviewCarousel = ({ reviews }: DoctorReviewCarouselProps) => {
   const plugin = useRef(
     Autoplay({ delay: 5000, stopOnInteraction: false, stopOnMouseEnter: true })
   );
 
-  if (reviews.length === 0) return <p>No hay reseñas disponibles.</p>;
+  if (reviews.length === 0) return <p className="text-sm text-muted-foreground">No hay reseñas disponibles.</p>;
 
-// Calcular promedios
+  // Calcular promedios
   const total = reviews.length;
   const sum = reviews.reduce(
     (acc, review) => {
@@ -35,34 +30,29 @@ const DoctorReviewCarousel = ({ reviews }: DoctorReviewCarouselProps) => {
     { waitingTime: 0, recommend: 0, bedsideManner: 0, visitAgain: 0 }
   );
 
-  const avgWaitingTime = sum.waitingTime / total;
-  const avgRecommend = sum.recommend / total;
-  const avgBedside = sum.bedsideManner / total;
-  const avgVisitAgain = sum.visitAgain / total;
-  const avgTotal = (avgWaitingTime + avgRecommend + avgBedside + avgVisitAgain) / 4;
+  const avgTotal = (sum.waitingTime + sum.recommend + sum.bedsideManner + sum.visitAgain) / (4 * total);
 
   return (
     <Carousel
       plugins={[plugin.current]}
-      className="w-full max-w-xl mx-auto my-auto"
+      className="w-full"
       opts={{ loop: true }}
     >
-      <CarouselContent>
+      <CarouselContent className="h-[150px] sm:h-[130px]">
         {reviews.map((review) => (
-            <CarouselItem key={review.id} className="p-1 text-center">
-                <div className="bg-muted rounded-md p-2 space-y-3">
-                    <p className="text-muted-foreground text-sm italic">
-                    &ldquo;{truncateText(review.comment, 120)}&rdquo;
-                    </p>
-                </div>
-
-                {/* Bloque de promedio debajo */}
-                <div className="flex items-center justify-center gap-1 mt-2 text-sm text-primary font-medium">
-                    <Star className="w-4 h-4 fill-primary" strokeWidth={1.5} />
-                    <span>{avgTotal.toFixed(1)} / 5.0</span>
-                </div>
-            </CarouselItem>
-
+          <CarouselItem key={review.id} className="h-full">
+            <div className="flex flex-col justify-center items-center h-full px-2 text-center">
+              <div className="bg-muted rounded-md p-2 max-h-[96px] w-full overflow-hidden">
+                <p className="text-muted-foreground text-sm italic line-clamp-4">
+                  &ldquo;{review.comment}&rdquo;
+                </p>
+              </div>
+              <div className="flex items-center justify-center gap-1 mt-2 text-sm text-primary font-medium">
+                <Star className="w-4 h-4 fill-primary" strokeWidth={1.5} />
+                <span>{avgTotal.toFixed(1)} / 5.0</span>
+              </div>
+            </div>
+          </CarouselItem>
         ))}
       </CarouselContent>
     </Carousel>

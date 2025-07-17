@@ -30,7 +30,7 @@ const DoctorReel = () => {
       <Carousel className="w-full">
         <CarouselContent>
           {doctors.map((doctor) => (
-            <CarouselItem key={doctor.id} className="basis-[85%] sm:basis-[50%] md:basis-[33%] lg:basis-[25%]">
+            <CarouselItem key={doctor.id} className="basis-[85%] sm:basis-[50%] md:basis-[33%]">
               <CardDoctor doctor={doctor} />
             </CarouselItem>
           ))}
