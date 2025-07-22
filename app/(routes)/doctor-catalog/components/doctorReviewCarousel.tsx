@@ -42,7 +42,7 @@ const DoctorReviewCarousel = ({ reviews }: DoctorReviewCarouselProps) => {
         {reviews.map((review) => (
           <CarouselItem key={review.id} className="h-full">
             <div className="flex flex-col justify-center items-center h-full px-2 text-center">
-              <div className="bg-muted rounded-md p-2 max-h-[96px] w-full overflow-hidden">
+              <div className="p-2 max-h-[96px] w-full overflow-hidden">
                 <p className="text-muted-foreground text-sm italic line-clamp-4">
                   &ldquo;{review.comment}&rdquo;
                 </p>
