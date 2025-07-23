@@ -82,32 +82,14 @@ const MenuList = () => {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger className={navStyle}>Programas</NavigationMenuTrigger>
+          <NavigationMenuTrigger className={navStyle}>Clinicas</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid gap-3 p-4 md:w-[480px] md:grid-cols justify-center">         
                 <ListItem
-                  title="Control de Peso Integral"
-                  href="/programs/weightControl"
+                  title="Renalyfe"
+                  href="/clinics"
                 >
-                  Mejoramos tu salud desde el metabolismo.
-                </ListItem>
-                <ListItem
-                  title="Cirugía Asistida por Agente Médico" 
-                  href="/programs/medicalAgent"
-                >
-                  Cirugías seguras, acompañadas de principio a fin.
-                </ListItem>
-                <ListItem
-                  title="Salud Hormonal y Menopausia Activa" 
-                  href="/programs/menopause"
-                >
-                  Bienestar femenino para una nueva etapa.
-                </ListItem>
-                <ListItem
-                  title={es.navbar.programas.program4}
-                  href="/programs/neurotherapy"
-                >
-                  Tratamientos seguros para verte y sentirte mejor.
+                  Atención renal confiable, sin importar la distancia
                 </ListItem>
             </ul>
           </NavigationMenuContent>
