@@ -1,17 +1,24 @@
+"use client";
+
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { MessageSquare, Calendar, Clock, MapPin } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import Link from "next/link";
+import { ClinicType } from "@/types/clinic";
 
-export function Contact() {
+type ContactProps = {
+  data: ClinicType;
+};
+
+export default function Contact({ data }: ContactProps) {
   const { ref, inView } = useInView({
     threshold: 0.1,
     triggerOnce: true
   });
 
   const ContactNumber = () => {
-    window.open('https://wa.me/526561100446');
+    window.open(data.contactWhatsappLink || "#", "_blank");
   };
 
   return (
@@ -25,14 +32,13 @@ export function Contact() {
           <div className={`space-y-6 transition-all duration-700 ${inView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}>
             <Card className="p-6">
               <h3 className="text-xl font-semibold mb-4">Información de Contacto</h3>
-              
+
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 text-primary mt-1" />
                   <div>
                     <p className="font-medium">Dirección</p>
-                    <p className="text-muted-foreground">Consultorio 913, Star Médica</p>
-                    <p className="text-muted-foreground">Cd Juarez, México</p>
+                    <p className="text-muted-foreground">{data.contactLocation}</p>
                   </div>
                 </div>
 
@@ -40,8 +46,7 @@ export function Contact() {
                   <Clock className="w-5 h-5 text-primary mt-1" />
                   <div>
                     <p className="font-medium">Horario de Atención</p>
-                    <p className="text-muted-foreground">Lunes a Viernes: 9:00 AM - 6:00 PM</p>
-                    <p className="text-muted-foreground">Sábados: 9:00 AM - 2:00 PM</p>
+                    <p className="text-muted-foreground">{data.contactSchedule}</p>
                   </div>
                 </div>
               </div>
@@ -66,10 +71,8 @@ export function Contact() {
               <div className="bg-accent/30 rounded-xl h-[400px] flex items-center justify-center">
                 <div className="text-center">
                   <MapPin className="w-12 h-12 text-primary mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">Consultorio 913, Star Médica</h3>
-                  <p className="text-muted-foreground">
-                    Cd Juarez, México
-                  </p>
+                  <h3 className="text-xl font-semibold mb-2">{data.contactLocation}</h3>
+                  <p className="text-muted-foreground">Cd Juarez, México</p>
                 </div>
               </div>
             </Card>

@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Carousel,
   CarouselContent,
@@ -8,31 +10,13 @@ import {
 import { Card } from "@/components/ui/card";
 import { Star } from "lucide-react";
 import { useInView } from "react-intersection-observer";
+import { ClinicType } from "@/types/clinic";
 
-const testimonials = [
-  {
-    name: "María González",
-    text: "La atención de la Dra. Ana Karen ha sido excepcional. Su seguimiento constante y explicaciones claras me han ayudado a entender y manejar mejor mi condición.",
-    rating: 5
-  },
-  {
-    name: "Roberto Méndez",
-    text: "El servicio de hemodiálisis es excelente. El equipo médico es muy profesional y el ambiente es tranquilo y limpio. Me siento en buenas manos.",
-    rating: 5
-  },
-  {
-    name: "Carmen Ortiz",
-    text: "Agradezco la atención personalizada y el apoyo constante. El seguimiento por WhatsApp hace que me sienta respaldada en todo momento.",
-    rating: 5
-  },
-  {
-    name: "Juan Carlos Ruiz",
-    text: "La Dra. Ramírez tiene un don especial para hacer que los pacientes se sientan cómodos y comprendidos. Su experiencia y profesionalismo son evidentes.",
-    rating: 5
-  }
-];
+type TestimonialsProps = {
+  list: ClinicType["testimonials"];
+};
 
-export function Testimonials() {
+export default function Testimonials({ list }: TestimonialsProps) {
   const { ref, inView } = useInView({
     threshold: 0.1,
     triggerOnce: true
@@ -54,8 +38,8 @@ export function Testimonials() {
             className="w-full"
           >
             <CarouselContent className="-ml-4">
-              {testimonials.map((testimonial, index) => (
-                <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
+              {list.map((testimonial, index) => (
+                <CarouselItem key={testimonial.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
                   <Card className="h-full">
                     <div className="p-6">
                       <div className="flex gap-1 mb-4">

@@ -19,9 +19,13 @@ import { Skeleton } from "./ui/skeleton"
 import Image from "next/image"
 import { usePathname, useRouter } from "next/navigation"
 import es from "@/locals/es.json";
+import { ClinicType } from "@/types/clinic"
+import { useGetClinics } from "@/api/useGetClinics"
+import { ChevronRight } from "lucide-react"
 
 const MenuList = () => {
   const { loading, result,}:ResponseType = useGetCategories(); // Usamos la función para obtener las categorías
+  const { clinics } = useGetClinics(); 
   const pathname = usePathname(); // 🔹 Obtener la ruta actual
   const router = useRouter();
 
@@ -35,6 +39,7 @@ const MenuList = () => {
             <Skeleton className=" w-[100px] h-[20px] rounded-full" />
            </div>
   }
+  console.log()
 
   return (
     <NavigationMenu>
@@ -84,13 +89,21 @@ const MenuList = () => {
         <NavigationMenuItem>
           <NavigationMenuTrigger className={navStyle}>Clinicas</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid gap-3 p-4 md:w-[480px] md:grid-cols justify-center">         
-                <ListItem
-                  title="Renalyfe"
-                  href="/clinics"
-                >
-                  Atención renal confiable, sin importar la distancia
-                </ListItem>
+            <ul className="w-[400px] p-2 space-y-1">
+              {!loading && clinics?.map((clinic: ClinicType) => (
+                <li key={clinic.id}>
+                  <Link
+                    href={`/clinics/${clinic.slug}`}
+                    className="group flex items-center justify-between w-full rounded-md px-3 py-2 hover:bg-accent transition-colors"
+                  >
+                    <ChevronRight className="text-muted-foreground group-hover:translate-x-1 transition-transform" />
+                    <div className="text-sm font-medium text-foreground ml-8">
+                      {clinic.title}
+                      <p className="text-xs text-muted-foreground">{clinic.heroSubtitle}</p>
+                    </div>
+                  </Link>
+                </li>
+              ))}
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>

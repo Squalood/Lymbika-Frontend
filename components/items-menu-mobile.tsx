@@ -36,6 +36,8 @@ import {
 import { useCart } from "@/hooks/use-cart";
 import { UseLovedProducts } from "@/hooks/use-loved-products";
 import { LoggedInUser } from "./custom/UserLogin";
+import { useGetClinics } from "@/api/useGetClinics";
+import { ClinicType } from "@/types/clinic";
 
 interface AuthUserProps {
   username: string;
@@ -48,6 +50,7 @@ interface NavbarProps {
 
 const ItemsMenuMobile = ({ user }: NavbarProps) => {
   const { loading, result }: ResponseType = useGetCategories();
+  const { clinics } = useGetClinics();
   const itemStyle = "w-full px-1 py-1.5 cursor-pointer flex items-center";
 
   const cart = useCart();
@@ -117,41 +120,26 @@ const ItemsMenuMobile = ({ user }: NavbarProps) => {
                 </AccordionContent>
               </AccordionItem>
 
-              {/* Programas */}
-              <AccordionItem value="programs">
+              {/* Clinicas */}
+              <AccordionItem value="clinics">
                 <AccordionTrigger className="flex justify-between px-2 gap-2">
                   <div className="flex flex-row gap-2 font-semibold">
                     <SquareActivity className="w-4 h-4" />
-                    Programas
+                    Clínicas
                   </div>
                 </AccordionTrigger>
                 <AccordionContent>
-                  <DropdownMenuItem asChild>
-                    <Link href="/programs/weightControl" className={itemStyle}>
-                      <ChevronRight className="w-4 h-4 text-muted-foreground" />
-                      {es.navbar.programas.program1}
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/programs/medicalAgent" className={itemStyle}>
-                      <ChevronRight className="w-4 h-4 text-muted-foreground" />
-                      {es.navbar.programas.program2}
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/programs/menopause" className={itemStyle}>
-                      <ChevronRight className="w-4 h-4 text-muted-foreground" />
-                      {es.navbar.programas.program3}
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/programs/neurotherapy" className={itemStyle}>
-                      <ChevronRight className="w-4 h-4 text-muted-foreground" />
-                      {es.navbar.programas.program4}
-                    </Link>
-                  </DropdownMenuItem>
+                  {clinics?.map((clinic: ClinicType) => (
+                    <DropdownMenuItem key={clinic.id} asChild>
+                      <Link href={`/clinics/${clinic.slug}`} className={itemStyle}>
+                        <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                        {clinic.title}
+                      </Link>
+                    </DropdownMenuItem>
+                  ))}
                 </AccordionContent>
               </AccordionItem>
+
 
               {/* Farmacia */}
               <AccordionItem value="pharmacy">
