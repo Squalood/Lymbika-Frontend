@@ -27,7 +27,7 @@ export default function Hero({ data }: HeroProps) {
           fill
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background/80" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/65" />
       </div>
 
       <div ref={ref} className="relative z-10 py-20 px-4 md:px-14 lg:px-28">

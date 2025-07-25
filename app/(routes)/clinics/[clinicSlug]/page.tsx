@@ -8,17 +8,14 @@ import WhyUs from "./components/whyUs";
 import Doctor from "./components/doctor";
 import Testimonials from "./components/testimonials";
 import Contact from "./components/contact";
+import ClinicSkeleton from "@/components/skeleton/clinicSkeleton";
 
 export default function ClinicPage() {
   const { clinicSlug } = useParams();
   const { clinic, loading } = useGetClinic(clinicSlug as string);
 
   if (loading) {
-    return (
-      <div className="py-40 text-center">
-        <p className="text-muted-foreground">Cargando clínica...</p>
-      </div>
-    );
+    return <ClinicSkeleton />;
   }
 
   if (!clinic) {

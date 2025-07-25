@@ -94,9 +94,9 @@ const MenuList = () => {
                 <li key={clinic.id}>
                   <Link
                     href={`/clinics/${clinic.slug}`}
-                    className="group flex items-center justify-between w-full rounded-md px-3 py-2 hover:bg-accent transition-colors"
+                    className="group flex items-center w-full rounded-md px-3 py-2 hover:bg-accent transition-colors"
                   >
-                    <ChevronRight className="text-muted-foreground group-hover:translate-x-1 transition-transform" />
+                    <ChevronRight size={20} className="text-muted-foreground group-hover:translate-x-1 transition-transform" />
                     <div className="text-sm font-medium text-foreground ml-8">
                       {clinic.title}
                       <p className="text-xs text-muted-foreground">{clinic.heroSubtitle}</p>
