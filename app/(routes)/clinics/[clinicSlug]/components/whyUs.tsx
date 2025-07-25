@@ -1,11 +1,11 @@
 "use client";
 
 import { Card } from "@/components/ui/card";
-import { MessageSquare, Clock, PiggyBank, Heart } from "lucide-react";
+import { MessageSquare, Clock, PiggyBank, Heart, LucideIcon } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import { ClinicType } from "@/types/clinic";
 
-const iconMap: Record<string, any> = {
+const iconMap: Record<string, LucideIcon> = {
   icon1: Clock,
   icon2: MessageSquare,
   icon3: PiggyBank,

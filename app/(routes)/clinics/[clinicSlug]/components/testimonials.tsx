@@ -38,7 +38,7 @@ export default function Testimonials({ list }: TestimonialsProps) {
             className="w-full"
           >
             <CarouselContent className="-ml-4">
-              {list.map((testimonial, index) => (
+              {list.map((testimonial) => (
                 <CarouselItem key={testimonial.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
                   <Card className="h-full">
                     <div className="p-6">

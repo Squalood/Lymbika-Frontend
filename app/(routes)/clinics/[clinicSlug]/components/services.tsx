@@ -9,9 +9,9 @@ import {
 } from "@/components/ui/card";
 import { useInView } from "react-intersection-observer";
 import { ClinicType } from "@/types/clinic";
-import { Activity, Heart, Stethoscope } from "lucide-react";
+import { Activity, Heart, LucideIcon, Stethoscope } from "lucide-react";
 
-const iconMap: Record<string, any> = {
+const iconMap: Record<string, LucideIcon> = {
   icon1: Stethoscope,
   icon2: Activity,
   icon3: Heart,
