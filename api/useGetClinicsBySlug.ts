@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ClinicType } from "@/types/clinic";
 
 export function useGetClinic(slug: string) {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/clinics?filters[slug][$eq]=${slug}&populate=*`;
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/clinics?filters%5Bslug%5D%5B%24eq%5D=${slug}&populate%5Bdoctor%5D%5Bpopulate%5D%5B0%5D=image&populate%5Bservices%5D=true&populate%5Bfeatures%5D=true&populate%5Btestimonials%5D=true&populate%5BheroImage%5D=true`;
   const [clinic, setClinic] = useState<ClinicType | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");

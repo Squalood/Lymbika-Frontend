@@ -18,7 +18,7 @@ export default function Hero({ data }: HeroProps) {
   });
 
   return (
-    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden hero-gradient">
+    <section className="relative h-90 md:min-h-screen flex items-center pt-20 overflow-hidden ">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -32,11 +32,11 @@ export default function Hero({ data }: HeroProps) {
 
       <div ref={ref} className="relative z-10 py-20 px-4 md:px-14 lg:px-28">
         <div className="max-w-3xl">
-          <h1 className={`text-6xl font-semibold mb-6 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <h1 className={`text-4xl md:text-6xl font-semibold mb-6 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             {data.heroTitle} <span className="text-primary font-normal">by Lymbika</span>
           </h1>
 
-          <p className={`text-xl md:text-2xl text-muted-foreground mb-8 transition-all duration-700 delay-100 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <p className={`text-lg md:text-2xl text-muted-foreground mb-8 transition-all duration-700 delay-100 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             {data.heroSubtitle}
           </p>
 

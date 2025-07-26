@@ -27,7 +27,7 @@ export default function Doctor({ data }: DoctorProps) {
             }`}
           >
             <div className="relative">
-              <div className="absolute inset-0 translate-x-4 translate-y-4 rounded-2xl bg-primary/10" />
+              <div className="absolute inset-0  translate-y-4 rounded-2xl bg-primary/10" />
               <Image
                 src={data.image?.url || "/assets/doctor.jpg"}
                 alt={data.name}
