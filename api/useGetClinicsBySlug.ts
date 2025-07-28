@@ -61,6 +61,7 @@ export function useGetClinic(slug: string) {
                 url: item.doctor.image?.url || "",
               },
               points: item.doctor.points || [],
+              mapsEmbedUrl: item.doctor.mapsEmbedUrl || "",
             }
           };
 

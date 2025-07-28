@@ -71,13 +71,28 @@ export default function Contact({ data }: ContactProps) {
           {/* Mapa o ubicación visual */}
           <div className={`transition-all duration-700 delay-200 ${inView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}>
             <Card className="p-6 h-full">
-              <div className="bg-accent/30 rounded-xl h-64 md:h-80 lg:h-[400px] flex items-center justify-center">
-                <div className="text-center max-w-xs">
-                  <MapPin className="w-12 h-12 text-primary mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">{data.contactLocation}</h3>
-                  <p className="text-muted-foreground">Cd Juarez, México</p>
+              {data.doctor.mapsEmbedUrl ? (
+                <div className="relative overflow-hidden rounded-xl h-64 md:h-80 lg:h-[400px]">
+                  <iframe
+                    title="Ubicación en Google Maps"
+                    src={data.doctor.mapsEmbedUrl}
+                    width="100%"
+                    height="100%"
+                    className="border-0 w-full h-full"
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  ></iframe>
                 </div>
-              </div>
+              ) : (
+                <div className="bg-accent/30 rounded-xl h-64 md:h-80 lg:h-[400px] flex items-center justify-center">
+                  <div className="text-center max-w-xs">
+                    <MapPin className="w-12 h-12 text-primary mx-auto mb-4" />
+                    <h3 className="text-xl font-semibold mb-2">{data.contactLocation}</h3>
+                    <p className="text-muted-foreground">Cd Juarez, México</p>
+                  </div>
+                </div>
+              )}
             </Card>
           </div>
         </div>

@@ -44,5 +44,6 @@ export type ClinicType = {
       url: string;
     }; 
     points: RichTextNode[];
+    mapsEmbedUrl: string;
   };
 };

@@ -58,6 +58,7 @@ export function useGetClinics() {
                 url: item.doctor.image?.url || "",
               },
               points: item.doctor.points || [],
+              mapsEmbedUrl: item.doctor.mapsEmbedUrl || "",
             }
           }));
 
