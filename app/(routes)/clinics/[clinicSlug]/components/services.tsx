@@ -10,6 +10,7 @@ import {
 import { useInView } from "react-intersection-observer";
 import { ClinicType } from "@/types/clinic";
 import { Activity, Heart, LucideIcon, Stethoscope } from "lucide-react";
+import PriceToggle from "@/components/priceToggle";
 
 const iconMap: Record<string, LucideIcon> = {
   icon1: Stethoscope,
@@ -49,7 +50,7 @@ export default function Services({ services }: ServicesProps) {
                   </div>
                   <CardTitle>{service.title}</CardTitle>
                   <CardDescription className="text-lg font-semibold text-primary">
-                    {service.price ? `$${service.price} MXN` : "Consultar precio"}
+                    <PriceToggle price={service.price} />
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
