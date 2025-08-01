@@ -1,18 +1,12 @@
 import Link from "next/link";
 import { ClinicType } from "@/types/clinic";
-import { ChevronRight, Stethoscope, HeartPulse, Brain, ScanHeart } from "lucide-react";
+import { ChevronRight, Stethoscope, HeartPulse, Brain, ScanHeart, LucideIcon } from "lucide-react";
 
 type ClinicsListProps = {
   data: ClinicType[];
 };
 
-const iconMap = [
-  <HeartPulse size={40} className="text-primary group-hover:scale-125 transition-transform" />,
-  <Stethoscope size={40} className="text-primary group-hover:scale-125 transition-transform" />,
-  <ScanHeart size={40} className="text-primary group-hover:scale-125 transition-transform" />,
-  <Brain size={40} className="text-primary group-hover:scale-125 transition-transform" />
-];
-
+const iconComponents: LucideIcon[] = [HeartPulse, Stethoscope, ScanHeart, Brain];
 
 export default function Clinics({ data }: ClinicsListProps) {
   if (!data || data.length === 0) return null;
@@ -51,19 +45,22 @@ export default function Clinics({ data }: ClinicsListProps) {
         ))}
 
         {/* Tarjetas pequeñas */}
-        {smallCards.map((clinic, i) => (
-          <Link
+        {smallCards.map((clinic, i) => {
+        const Icon = iconComponents[i % iconComponents.length];
+        return (
+            <Link
             key={clinic.id}
             href={`/clinics/${clinic.slug}`}
             className="group flex flex-col justify-end bg-muted rounded-xl h-40 p-4 text-gray-800 flex-[1_1_45%] sm:flex-[1_1_22%] transition-all"
-          >
+            >
             <div className="flex flex-col gap-1">
-              {iconMap[i % iconMap.length]} {/* ← aquí se rota automáticamente */}
-              <h3 className="text-lg font-semibold group-hover:text-gray-600">{clinic.title}</h3>
-              <span className="text-muted-foreground text-sm">{clinic.heroSubtitle}</span>
+                <Icon size={40} className="text-primary group-hover:scale-125 transition-transform" />
+                <h3 className="text-lg font-semibold group-hover:text-gray-600">{clinic.title}</h3>
+                <span className="text-muted-foreground text-sm">{clinic.heroSubtitle}</span>
             </div>
-          </Link>
-        ))}
+            </Link>
+        );
+        })}
       </div>
     </div>
   );
