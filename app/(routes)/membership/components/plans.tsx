@@ -26,7 +26,7 @@
       const [isFamilyPlan, setIsFamilyPlan] = useState(false);
 
       return (
-        <div className="max-w-6xl px-6 lg:px-12 py-16 mx-auto">
+        <div className="max-w-6xl px-6 lg:px-12 py-8 mx-auto">
           <div className="text-center max-w-xl mx-auto space-y-4">
             <div className="flex flex-row gap-2 justify-center">
               <IdCard className="stroke-primary w-8 h-8 sm:w-12 sm:h-12" />
@@ -40,7 +40,7 @@
           <Carousel opts={{startIndex: 1, }}>
             <CarouselContent>
               {plans.map((plan, idx) => (
-                <CarouselItem key={idx} className="basis-full sm:basis-1/2 lg:basis-1/3 pb-16" >
+                <CarouselItem key={idx} className="basis-full sm:basis-1/2 lg:basis-1/3 pb-4 lg:pb-12" >
                   <Card className="w-full rounded-md transition-shadow hover:shadow-2xl">
                     <CardHeader>
                       <CardTitle className="flex items-center gap-4 font-normal">
