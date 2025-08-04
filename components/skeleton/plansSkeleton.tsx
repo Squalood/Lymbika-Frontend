@@ -19,7 +19,7 @@ export default function PlansSkeleton() {
           <div
             key={idx}
             className={`
-              p-6 rounded-md border bg-white shadow-sm flex flex-col gap-6
+              p-6 rounded-md bg-white shadow-sm flex flex-col gap-6
               ${idx > 0 ? "hidden sm:flex" : "flex"}
             `}
           >

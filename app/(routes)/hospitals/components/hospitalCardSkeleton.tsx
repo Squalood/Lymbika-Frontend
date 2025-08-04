@@ -9,9 +9,12 @@ const HospitalGridSkeleton = () => {
 
     return (
     <div className="px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto max-w-4xl">
+      <div className="mb-10">
+        <Skeleton className="h-8 w-48" />
+      </div>
       <div className={`grid grid-cols-${columns} gap-8`}>
         {[...Array(columns)].map((_, index) => (
-          <Card key={index} className="flex flex-col w-full h-[450px]">
+          <div key={index} className="flex flex-col w-full h-[450px]">
             <div className="relative h-56 w-full overflow-hidden rounded-t-xl">
               <Skeleton className="w-full h-full" />
             </div>
@@ -40,7 +43,7 @@ const HospitalGridSkeleton = () => {
 
               <Skeleton className="h-16 w-full" />
             </CardContent>
-          </Card>
+          </div>
         ))}
       </div>
     </div>

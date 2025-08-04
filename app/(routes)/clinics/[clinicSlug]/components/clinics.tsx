@@ -47,7 +47,6 @@ export default function Clinics({ data }: ClinicsListProps) {
             </div>
           </Link>
         ))}
-
         {/* Tarjetas pequeñas */}
         {smallCards.map((clinic, i) => {
         const Icon = iconComponents[i % iconComponents.length];
