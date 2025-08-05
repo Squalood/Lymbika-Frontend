@@ -1,18 +1,39 @@
 import Link from "next/link";
 import { ClinicType } from "@/types/clinic";
-import { ChevronRight, Stethoscope, HeartPulse, Brain, ScanHeart, LucideIcon } from "lucide-react";
+import { ChevronRight, Stethoscope, HeartPulse, Brain, ScanHeart, LucideIcon, Hospital, Ribbon, Venus, Baby, Sparkles, Shell, ClipboardPlus, Syringe, Dumbbell, Laugh } from "lucide-react";
 
 type ClinicsListProps = {
   data: ClinicType[];
 };
 
-const iconComponents: LucideIcon[] = [HeartPulse, Stethoscope, ScanHeart, Brain];
+// Mapa de nombre de iconos a componentes
+const iconMap: Record<string, LucideIcon> = {
+  HeartPulse,
+  Stethoscope,
+  ScanHeart,
+  Brain,
+  Hospital,
+  Ribbon,
+  Venus,
+  Baby,
+  Sparkles,
+  Shell,
+  ClipboardPlus,
+  Syringe,
+  Dumbbell,
+  Laugh
+};
+
+// Icono por defecto si no se encuentra
+const DefaultIcon = Stethoscope;
 
 export default function Clinics({ data }: ClinicsListProps) {
   if (!data || data.length === 0) return null;
 
   const bigCards = data.slice(0, 2);
   const smallCards = data.slice(2);
+
+  console.log(data)
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
@@ -31,10 +52,7 @@ export default function Clinics({ data }: ClinicsListProps) {
               backgroundImage: `url(${clinic.heroImage?.url || "/placeholder.jpg"})`,
             }}
           >
-            {/* Overlay con gradiente */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/40 to-transparent z-0 rounded-xl" />
-
-            {/* Contenido sobre la imagen */}
             <div className="flex-auto p-6 pb-0 text-slate-200 relative z-10">
               <h3 className="text-base md:text-xl group-hover:text-white">{clinic.title}</h3>
               <span className="font-bold">{clinic.heroSubtitle}</span>
@@ -47,22 +65,24 @@ export default function Clinics({ data }: ClinicsListProps) {
             </div>
           </Link>
         ))}
+
         {/* Tarjetas pequeñas */}
-        {smallCards.map((clinic, i) => {
-        const Icon = iconComponents[i % iconComponents.length];
-        return (
+        {smallCards.map((clinic) => {
+          const Icon = iconMap[clinic.icon] || DefaultIcon;
+
+          return (
             <Link
-            key={clinic.id}
-            href={`/clinics/${clinic.slug}`}
-            className="group flex flex-col justify-end bg-muted rounded-xl h-40 p-4 text-gray-800 flex-[1_1_45%] sm:flex-[1_1_22%] transition-all"
+              key={clinic.id}
+              href={`/clinics/${clinic.slug}`}
+              className="group flex flex-col justify-end bg-muted rounded-xl h-40 p-4 text-gray-800 flex-[1_1_45%] sm:flex-[1_1_22%] transition-all"
             >
               <div className="flex flex-col gap-1">
-                  <Icon size={40} className="text-primary group-hover:scale-125 transition-transform" />
-                  <h3 className="text-lg font-semibold group-hover:text-gray-600">{clinic.title}</h3>
-                  <span className="text-muted-foreground text-sm line-clamp-2 max-w-52">{clinic.heroSubtitle}</span>
+                <Icon size={40} className="text-primary group-hover:scale-125 transition-transform" />
+                <h3 className="text-lg font-semibold group-hover:text-gray-600">{clinic.title}</h3>
+                <span className="text-muted-foreground text-sm line-clamp-2 max-w-52">{clinic.heroSubtitle}</span>
               </div>
             </Link>
-        );
+          );
         })}
       </div>
     </div>

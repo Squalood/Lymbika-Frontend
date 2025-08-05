@@ -27,6 +27,7 @@ export function useGetClinics() {
             contactSchedule: item.contactSchedule,
             contactPhone: item.contactPhone || "",
             contactWhatsappLink: item.contactWhatsappLink,
+            icon: item.icon,
 
             services: item.services?.map((s: any) => ({
               id: s.id,
