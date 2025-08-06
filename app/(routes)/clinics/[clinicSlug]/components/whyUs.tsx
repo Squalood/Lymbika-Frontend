@@ -1,7 +1,7 @@
 "use client";
 
 import { Card } from "@/components/ui/card";
-import { MessageSquare, Clock, PiggyBank, Heart, LucideIcon } from "lucide-react";
+import { MessageSquare, Clock, PiggyBank, Heart, LucideIcon, Ambulance, Baby, Bandage, Brain, BriefcaseMedical, ClipboardPlus, Dumbbell, HeartPulse, Hospital, Pill, Ribbon, ScanHeart, Shell, Sparkles, Syringe, Venus, Percent } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import { ClinicType } from "@/types/clinic";
 
@@ -10,6 +10,23 @@ const iconMap: Record<string, LucideIcon> = {
   icon2: MessageSquare,
   icon3: PiggyBank,
   icon4: Heart,
+  HeartPulse,
+  Brain,
+  ScanHeart,
+  Hospital,
+  Ribbon,
+  Venus,
+  Baby,
+  Sparkles,
+  Shell,
+  ClipboardPlus,
+  Syringe,
+  Dumbbell,
+  BriefcaseMedical,
+  Ambulance,
+  Bandage,
+  Pill,
+  Percent
 };
 
 type WhyUsProps = {

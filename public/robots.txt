@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://lymbika.com
+
+# Sitemaps
+Sitemap: https://lymbika.com/sitemap.xml
