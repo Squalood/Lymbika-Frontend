@@ -19,7 +19,6 @@ module.exports = {
       '/shop',
       '/membership',
       '/about',
-      '/shop',
       '/category/medicamentos',
       '/category/pediatrico',
       '/category/cronicos',
