@@ -10,8 +10,6 @@ export default function Page() {
   if (loading) return <NavsClinicsSkeleton/>
 
   return (
-    <div className="container py-10">
       <Clinics data={clinics} />
-    </div>
   );
 }
