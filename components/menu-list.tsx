@@ -89,7 +89,7 @@ const MenuList = () => {
         <NavigationMenuItem>
           <NavigationMenuTrigger className={navStyle}>Clinicas</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="w-[400px] p-2 space-y-1">
+            <ul className="w-[600px] p-4 grid grid-cols-2 gap-4">
               {!loading && clinics?.map((clinic: ClinicType) => (
                 <li key={clinic.id}>
                   <Link
@@ -99,7 +99,7 @@ const MenuList = () => {
                     <ChevronRight size={20} className="text-muted-foreground group-hover:translate-x-1 transition-transform" />
                     <div className="text-sm font-medium text-foreground ml-8">
                       {clinic.title}
-                      <p className="text-xs text-muted-foreground">{clinic.heroSubtitle}</p>
+                      <p className="text-xs text-muted-foreground line-clamp-2 max-w-52">{clinic.heroSubtitle}</p>
                     </div>
                   </Link>
                 </li>
@@ -107,8 +107,6 @@ const MenuList = () => {
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
-        
-
         <NavigationMenuItem>
           <NavigationMenuTrigger className={navStyle} onClick={() => router.push("/shop")}>Farmacia</NavigationMenuTrigger>
           <NavigationMenuContent>
@@ -133,7 +131,6 @@ const MenuList = () => {
             </Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
-
       </NavigationMenuList>
     </NavigationMenu>
   )

@@ -41,7 +41,7 @@ export default function WhyUs({ features }: WhyUsProps) {
 
   return (
     <section id="por-que-elegirnos" className="section bg-background">
-      <div ref={ref} className="container-xl">
+      <div ref={ref} className="max-w-4xl mx-4 md:mx-8 lg:mx-auto">
         <h2 className={`text-center mb-12 text-3xl font-bold transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           ¿Por qué elegirnos?
         </h2>

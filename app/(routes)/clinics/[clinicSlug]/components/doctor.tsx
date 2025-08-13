@@ -17,10 +17,10 @@ export default function Doctor({ data }: DoctorProps) {
   });
 
   return (
-    <section id="doctora" className="section bg-accent/30">
-      <div ref={ref} className="container-xl">
+    <section id="doctora" className="section bg-accent/50">
+      <div ref={ref} className="max-w-4xl mx-4 md:mx-8 lg:mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Imagen de la doctora */}
+          {/* Imagen del doctor*/}
           <div
             className={`transition-all duration-700 ${
               inView ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
@@ -36,19 +36,21 @@ export default function Doctor({ data }: DoctorProps) {
                 className="relative z-10 w-full rounded-2xl doctor-image object-cover"
               />
             </div>
+            <div className="mt-10 flex justify-center flex-col gap-4">
+              <h2 className="text-sm text-gray-400">Médico Encargado</h2>
+              <div className="space-y-6 text-lg">
+                <h2 className="text-3xl font-bold">{data.name}</h2>
+                <p className="text-muted-foreground">{data.description}</p> 
+              </div>
+            </div>
           </div>
-
           {/* Descripción e información */}
           <div
             className={`transition-all duration-700 delay-200 ${
               inView ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
             }`}
           >
-            <h2 className="mb-6 text-3xl font-bold">{data.name}</h2>
-
-            <div className="space-y-6 text-lg text-muted-foreground">
-              <p>{data.description}</p>
-
+            <div>
               <Card className="p-6 space-y-4">
                 <RichTextRenderer content={data.points} />
               </Card>

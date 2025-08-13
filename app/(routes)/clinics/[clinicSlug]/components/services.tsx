@@ -45,8 +45,8 @@ export default function Services({ services }: ServicesProps) {
   });
 
   return (
-    <section id="servicios" className="section bg-accent/30">
-      <div ref={ref} className="container-xl">
+    <section id="servicios" className="section bg-accent/50">
+      <div ref={ref} className="max-w-4xl mx-4 md:mx-8 lg:mx-auto">
         <h2 className={`text-center text-3xl font-bold mb-12 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           Nuestros Servicios
         </h2>

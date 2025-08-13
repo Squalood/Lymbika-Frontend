@@ -22,8 +22,8 @@ export default function Contact({ data }: ContactProps) {
   };
 
   return (
-    <section id="contacto" className="bg-accent/30">
-      <div ref={ref} className="container-xl px-4">
+    <section id="contacto" className="section bg-accent/50">
+      <div ref={ref} className="max-w-4xl mx-4 md:mx-8 lg:mx-auto px-4">
         <h2 className={`text-center text-3xl font-bold mb-12 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           Contacto y Ubicación
         </h2>

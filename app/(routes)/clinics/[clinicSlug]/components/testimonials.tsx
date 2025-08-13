@@ -11,6 +11,7 @@ import { Card } from "@/components/ui/card";
 import { Star } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import { ClinicType } from "@/types/clinic";
+import Autoplay from "embla-carousel-autoplay";
 
 type TestimonialsProps = {
   list: ClinicType["testimonials"];
@@ -24,7 +25,7 @@ export default function Testimonials({ list }: TestimonialsProps) {
 
   return (
     <section id="testimonios" className="section bg-background">
-      <div ref={ref} className="container-xl">
+      <div ref={ref} className="max-w-4xl mx-4 md:mx-8 lg:mx-auto">
         <h2 className={`text-center text-3xl font-bold mb-12 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           Lo que dicen nuestros pacientes
         </h2>
@@ -35,6 +36,7 @@ export default function Testimonials({ list }: TestimonialsProps) {
               align: "start",
               loop: true
             }}
+            plugins={[Autoplay({ delay: 3000, stopOnInteraction: false, stopOnMouseEnter: true })]}
             className="w-full"
           >
             <CarouselContent className="-ml-4">

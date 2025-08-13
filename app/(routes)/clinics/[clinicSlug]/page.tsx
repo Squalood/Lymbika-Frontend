@@ -29,13 +29,11 @@ export default function ClinicPage() {
   return (
     <div className="relative">
       <Hero data={clinic} />
-      <div className="max-w-4xl mx-4 md:mx-8 lg:mx-auto">
-        <Services services={clinic.services} />
-        <WhyUs features={clinic.features} />
-        <Doctor data={clinic.doctor} />
-        <Testimonials list={clinic.testimonials} />
-        <Contact data={clinic} />
-      </div>
+      <Services services={clinic.services} />
+      <WhyUs features={clinic.features} />
+      <Doctor data={clinic.doctor} />
+      <Testimonials list={clinic.testimonials} />
+      <Contact data={clinic} />
     </div>
   );
 }
