@@ -88,12 +88,9 @@ const LymbikaLanding = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="bg-primary hover:bg-primary/90 hover:shadow-lg transition-all duration-300 text-lg px-8 py-6">
-                Quiero unirme
+              <Button size="lg" className="bg-primary hover:bg-primary/90 hover:shadow-lg transition-all duration-300 text-lg px-8 py-6" onClick={() => window.open("https://wa.me/526561100446", "_blank")}>
+                Contacto
                 <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              <Button variant="outline" size="lg" className="text-lg px-8 py-6 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                Conocer más
               </Button>
             </div>
           </div>
@@ -180,7 +177,7 @@ const LymbikaLanding = () => {
                     </p>
                     </div>
 
-                    <Button size="lg" className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-lg sm:text-xl px-6 sm:px-10 md:px-12 py-4 sm:py-5 md:py-6 shadow-xl hover:shadow-2xl transition-all duration-300" onClick={() => window.open("https://wa.me/526561100446", "_blank")}>
+                    <Button size="lg" className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-lg sm:text-xl px-6 sm:px-10 md:px-12 py-4 sm:py-5 md:py-6 shadow-xl hover:shadow-2xl transition-all duration-300">
                         📲 Quiero unirme ahora
                         <ArrowRight className="ml-2 h-5 w-5 sm:h-6 sm:w-6" />
                     </Button>
