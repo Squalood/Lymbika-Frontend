@@ -7,9 +7,9 @@ import Testimonials from "./components/testimonal";
 export default function Page() {
   return (
     <div>
-        <HealthHubsPage/>
-        <Testimonials/>
-        <Contact/>
-      </div>
+      <HealthHubsPage/>
+      <Testimonials/>
+      <Contact/>
+    </div>
   );
 }
