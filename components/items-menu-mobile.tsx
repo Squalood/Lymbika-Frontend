@@ -140,14 +140,15 @@ const ItemsMenuMobile = ({ user }: NavbarProps) => {
                 </AccordionContent>
               </AccordionItem>
 
-
               {/* Farmacia */}
               <AccordionItem value="pharmacy">
-                <AccordionTrigger className="flex justify-between px-2 gap-2">
-                  <div className="flex flex-row gap-2 font-semibold">
-                    <PillBottle className="w-4 h-4" />
-                    Farmacia
-                  </div>
+                <AccordionTrigger className="flex justify-between px-2 gap-2" >
+                  <Link href={`/shop`}>
+                    <div className="flex flex-row gap-2 font-semibold">
+                      <PillBottle className="w-4 h-4" />
+                      Farmacia
+                    </div>
+                  </Link>
                 </AccordionTrigger>
                 <AccordionContent>
                   {!loading &&
