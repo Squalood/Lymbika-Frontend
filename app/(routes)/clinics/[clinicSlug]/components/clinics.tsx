@@ -38,10 +38,8 @@ const DefaultIcon = Stethoscope;
 export default function Clinics({ data }: ClinicsListProps) {
   if (!data || data.length === 0) return null;
 
-  const bigCards = data.slice(0, 2);
-  const smallCards = data.slice(2);
-
-  console.log(data)
+  const bigCards = [...data].sort(() => Math.random() - 0.5) .slice(0, 2);
+  const smallCards = data.slice(0);
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
