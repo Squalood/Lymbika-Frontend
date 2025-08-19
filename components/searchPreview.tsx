@@ -8,9 +8,10 @@ type Props = {
   name: string;
   slug: string;
   imageUrl: string;
+  sal: string;
 };
 
-const SearchPreview = ({ type, id, name, slug, imageUrl }: Props) => {
+const SearchPreview = ({ type, id, name, slug, imageUrl, sal }: Props) => {
   const { replace } = useRouter();
 
   const handleClick = () => {
@@ -35,7 +36,7 @@ const SearchPreview = ({ type, id, name, slug, imageUrl }: Props) => {
   return (
     <li
       key={`${type}-${id}`}
-      className="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 cursor-pointer"
+      className="flex items-center gap-3 px-4 py-4 hover:bg-gray-100 cursor-pointer"
       onClick={handleClick}
     >
       {!isTextOnly && (
@@ -48,9 +49,14 @@ const SearchPreview = ({ type, id, name, slug, imageUrl }: Props) => {
         />
       )}
       <div className="flex flex-col">
-        <span>{name}</span>
+        <span className="truncate max-w-[260px]">{name}</span>
         {typeLabel && (
-          <span className="text-muted-foreground text-xs">{typeLabel}</span>
+          <span className="text-muted-foreground text-sm">
+            {typeLabel}
+          </span>
+        )}
+        {type === "product" && (
+          <p className="text-xs text-slate-400 line-clamp-3">{sal}</p>
         )}
       </div>
     </li>

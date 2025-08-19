@@ -27,6 +27,7 @@ type SearchableItem = {
   name: string;
   slug: string;
   imageUrl: string;
+  sal: string;
 };
 
 export function SearchGeneral({
@@ -53,12 +54,26 @@ export function SearchGeneral({
       const normalizedTerm = term.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
       const results: SearchableItem[] = [
-        ...allProducts.filter(p =>
-          p.productName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(normalizedTerm)
-        ).map(p => ({
+        ...allProducts.filter(p => {
+          const normalizedName = p.productName
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "");
+
+          const normalizedSal = (p.sal || "")
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "");
+
+          return (
+            normalizedName.includes(normalizedTerm) ||
+            normalizedSal.includes(normalizedTerm) 
+          );
+        }).map(p => ({
           type: "product" as const,
           id: p.id,
           name: p.productName,
+          sal: p.sal,
           slug: p.slug,
           imageUrl: p.images?.[0]?.url || "/placeholder.png",
         })),
@@ -68,6 +83,7 @@ export function SearchGeneral({
           type: "doctor" as const,
           id: d.id,
           name: d.doctorName,
+          sal: "nulo",
           slug: d.slug,
           imageUrl: d.image?.[0]?.url || "/placeholder.png",
         })),
@@ -77,6 +93,7 @@ export function SearchGeneral({
           type: "service" as const,
           id: s.id,
           name: s.serviceName,
+          sal: "nulo",
           slug: s.slug,
           imageUrl: s.image?.url || "/placeholder.png",
         })),
@@ -86,6 +103,7 @@ export function SearchGeneral({
           type: "surgery" as const,
           id: s.id,
           name: s.surgeryName,
+          sal: "nulo",
           slug: s.slug,
           imageUrl: s.image?.url || "/placeholder.png",
         })),
@@ -95,6 +113,7 @@ export function SearchGeneral({
           type: "category" as const,
           id: c.id,
           name: c.categoryName,
+          sal: "nulo",
           slug: c.slug,
           imageUrl: c.mainImage?.url || "/placeholder.png",
         })),
@@ -172,6 +191,7 @@ export function SearchGeneral({
                 name={item.name}
                 slug={item.slug}
                 imageUrl={item.imageUrl}
+                sal={item.sal}
               />
             ))}
           </ul>
