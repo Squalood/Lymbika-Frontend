@@ -15,6 +15,7 @@ import {
   Clock,
   Star
 } from "lucide-react";
+import Link from "next/link";
 
 const LymbikaLanding = () => {
   const features = [
@@ -88,9 +89,11 @@ const LymbikaLanding = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="bg-primary hover:bg-primary/90 hover:shadow-lg transition-all duration-300 text-lg px-8 py-6" onClick={() => window.open("https://wa.me/526561100446", "_blank")}>
-                Contacto
-                <ArrowRight className="ml-2 h-5 w-5" />
+              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 hover:shadow-lg transition-all duration-300 text-lg px-8 py-6">
+                <Link href="https://wa.me/526561100446" target="_blank" rel="noopener noreferrer">
+                  Contacto
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
               </Button>
             </div>
           </div>
@@ -177,9 +180,11 @@ const LymbikaLanding = () => {
                     </p>
                     </div>
 
-                    <Button size="lg" className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-lg sm:text-xl px-6 sm:px-10 md:px-12 py-4 sm:py-5 md:py-6 shadow-xl hover:shadow-2xl transition-all duration-300">
+                    <Button asChild size="lg" className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-lg sm:text-xl px-6 sm:px-10 md:px-12 py-4 sm:py-5 md:py-6 shadow-xl hover:shadow-2xl transition-all duration-300">
+                      <Link href="https://wa.me/526561100446" target="_blank" rel="noopener noreferrer">
                         📲 Quiero unirme ahora
                         <ArrowRight className="ml-2 h-5 w-5 sm:h-6 sm:w-6" />
+                      </Link>
                     </Button>
                 </CardContent>
                 </Card>
