@@ -32,7 +32,7 @@ const HeroSection = () => {
             <div className="space-y-4">
               <Badge className="bg-white/10 backdrop-blur-sm text-white border-white/20 hover:bg-white/20">
                 <MapPin className="w-4 h-4 mr-2" />
-                Juárez • El Paso • Frontera
+                Juárez • Chihuahua • Delicias • Frontera
               </Badge>
 
               <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
