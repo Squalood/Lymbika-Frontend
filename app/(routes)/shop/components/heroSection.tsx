@@ -71,7 +71,7 @@ const HeroSection = () => {
                     <div className="p-2 bg-white/10 rounded-lg">
                       <Clock className="w-5 h-5" />
                     </div>
-                    <span className="font-medium">Recojo Rápido</span>
+                    <span className="font-medium">Listo para Recoger</span>
                   </div>
                 </CardContent>
               </Card>

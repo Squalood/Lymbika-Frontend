@@ -24,7 +24,7 @@ export const FeaturesSection = () => {
     },
     {
       icon: MapPin,
-      title: "Recojo en Sucursal",
+      title: "Disponible en Sucursal",
       description: "Ubicados estratégicamente en Juárez para que recojas tus productos cuando te convenga.",
       color: "bg-purple-50 text-purple-600"
     },
@@ -42,8 +42,8 @@ export const FeaturesSection = () => {
     },
     {
       icon: Zap,
-      title: "Proceso Rápido",
-      description: "Desde la compra hasta el recojo, optimizamos cada paso para ahorrarte tiempo.",
+      title: "Rápido y sin vueltas",
+      description: "Desde que compras hasta que lo recoges, hacemos todo más ágil para que tengas tu pedido en el menor tiempo posible.",
       color: "bg-yellow-50 text-yellow-600"
     }
   ];
