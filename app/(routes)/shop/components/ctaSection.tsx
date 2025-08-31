@@ -20,7 +20,7 @@ const CTASection = () => {
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
                         <Link href="https://wa.me/526561100446" target="_blank" rel="noopener noreferrer">
-                        📲 Consulta Personalizada
+                        📲 Mándanos tu receta
                         </Link>
                     </Button>
                     </div>
