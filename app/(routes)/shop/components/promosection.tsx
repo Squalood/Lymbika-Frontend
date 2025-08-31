@@ -25,16 +25,23 @@ const PromoCarousel = ({ data }: PromoProps) => {
   const [current, setCurrent] = React.useState(0);
   const [count, setCount] = React.useState(0);
 
-  // Sincronizar con Embla API
   React.useEffect(() => {
     if (!api) return;
 
-    setCount(api.scrollSnapList().length);
-    setCurrent(api.selectedScrollSnap() + 1);
+    // función para sincronizar
+    const update = () => {
+      setCount(api.scrollSnapList().length);
+      setCurrent(api.selectedScrollSnap());
+    };
 
-    api.on("select", () => {
-      setCurrent(api.selectedScrollSnap() + 1);
-    });
+    update();
+    api.on("select", update);
+    api.on("reInit", update);
+
+    return () => {
+      api.off("select", update);
+      api.off("reInit", update);
+    };
   }, [api]);
 
   return (
@@ -70,23 +77,25 @@ const PromoCarousel = ({ data }: PromoProps) => {
           ))}
         </CarouselContent>
 
-        {/* Flechas de navegación */}
+        {/* Flechas */}
         <CarouselPrevious className="left-2 sm:-left-10 bg-white/80 hover:bg-white shadow-md rounded-full" />
         <CarouselNext className="right-2 sm:-right-10 bg-white/80 hover:bg-white shadow-md rounded-full" />
       </Carousel>
 
-      {/* Dots de paginación */}
-      <div className="flex justify-center mt-4 gap-2">
-        {Array.from({ length: count }).map((_, index) => (
-          <button
-            key={index}
-            onClick={() => api?.scrollTo(index)}
-            className={`h-3 w-3 rounded-full transition-colors ${
-              current - 1 === index ? "bg-primary" : "bg-gray-300"
-            }`}
-          />
-        ))}
-      </div>
+      {/* Dots */}
+      {count > 0 && (
+        <div className="flex justify-center mt-4 gap-2">
+          {Array.from({ length: count }).map((_, index) => (
+            <button
+              key={index}
+              onClick={() => api?.scrollTo(index)}
+              className={`h-3 w-3 rounded-full transition-colors ${
+                current === index ? "bg-blue-500" : "bg-gray-300"
+              }`}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
