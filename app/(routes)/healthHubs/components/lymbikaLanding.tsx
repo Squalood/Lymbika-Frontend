@@ -16,6 +16,7 @@ import {
   Star
 } from "lucide-react";
 import Link from "next/link";
+import { PricingPaquetes } from "./kits";
 
 const LymbikaLanding = () => {
   const features = [
@@ -160,6 +161,8 @@ const LymbikaLanding = () => {
         </div>
       </section>
 
+      <PricingPaquetes/>
+
       {/* CTA Section */}
         <section className="py-16 sm:py-20 bg-primary w-full">
             <div className="max-w-4xl mx-auto px-4 text-center">
@@ -172,12 +175,9 @@ const LymbikaLanding = () => {
                     </Badge>
 
                     <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-foreground">
-                        Haz crecer tu consulta y sé parte del nuevo sistema de salud
+                        ¿Quieres más pacientes y más valor en tu consulta? Únete a Lymbika.”
                     </h2>
 
-                    <p className="text-base sm:text-lg md:text-xl text-muted-foreground">
-                        Únete a miles de doctores que ya están transformando su práctica médica con Lymbika
-                    </p>
                     </div>
 
                     <Button asChild size="lg" className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-lg sm:text-xl px-6 sm:px-10 md:px-12 py-4 sm:py-5 md:py-6 shadow-xl hover:shadow-2xl transition-all duration-300">
