@@ -8,6 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const paquetes = [
   {
@@ -27,6 +28,7 @@ const paquetes = [
       "No incluye membresía Mediclub",
     ],
     destacado: false,
+    link: "https://buy.stripe.com/28E8wP9Tb9iEeKI7aVaVa0V"
   },
   {
     nombre: "Captación Activa",
@@ -41,6 +43,7 @@ const paquetes = [
     ],
     restricciones: ["No incluye membresía Mediclub"],
     destacado: true,
+    link: ""
   },
   {
     nombre: "Agenda Llena",
@@ -57,6 +60,7 @@ const paquetes = [
     ],
     restricciones: [],
     destacado: false,
+    link: ""
   },
 ];
 
@@ -76,12 +80,7 @@ export const PricingPaquetes = () => (
 
         <div className="grid pt-20 text-left grid-cols-1 lg:grid-cols-3 w-full gap-8">
           {paquetes.map((paquete) => (
-            <Card
-              key={paquete.nombre}
-              className={`w-full rounded-md ${
-                paquete.destacado ? "shadow-2xl" : ""
-              }`}
-            >
+            <Card key={paquete.nombre} className={`w-full rounded-md ${paquete.destacado ? "shadow-2xl" : ""}`}>
               <CardHeader>
                 <CardTitle>
                   <span className="flex flex-row gap-4 items-center font-normal">
@@ -96,7 +95,6 @@ export const PricingPaquetes = () => (
                     <span className="text-4xl">${paquete.precio}</span>
                     <span className="text-sm text-muted-foreground"> MXN</span>
                   </p>
-
                   <div className="flex flex-col gap-4 justify-start">
                     {paquete.beneficios.map((item) => (
                       <div key={item} className="flex flex-row gap-4">
@@ -104,23 +102,18 @@ export const PricingPaquetes = () => (
                         <p>{item}</p>
                       </div>
                     ))}
-
                     {paquete.restricciones.map((item) => (
-                      <div
-                        key={item}
-                        className="flex flex-row gap-4 text-muted-foreground"
-                      >
+                      <div key={item} className="flex flex-row gap-4 text-muted-foreground">
                         <X className="w-4 h-4 mt-1 text-destructive" />
                         <p>{item}</p>
                       </div>
                     ))}
                   </div>
-
-                  <Button
-                    className="gap-4"
-                    variant={paquete.destacado ? "default" : "outline"}
-                  >
-                    Empezar <MoveRight className="w-4 h-4" />
+                  <Button className="gap-4" variant={paquete.destacado ? "default" : "outline"}>
+                    <Link href={paquete.link}>
+                        Empezar
+                    </Link>
+                    <MoveRight className="w-4 h-4" />
                   </Button>
                 </div>
               </CardContent>
