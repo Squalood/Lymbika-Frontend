@@ -175,7 +175,7 @@ const LymbikaLanding = () => {
                     </Badge>
 
                     <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-foreground">
-                        ¿Quieres más pacientes y más valor en tu consulta? Únete a Lymbika.”
+                        ¿Quieres más pacientes y más valor en tu consulta? Únete a Lymbika.
                     </h2>
 
                     </div>
