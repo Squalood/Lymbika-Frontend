@@ -16,7 +16,8 @@ import {
   Star
 } from "lucide-react";
 import Link from "next/link";
-import { PricingPaquetes } from "./kits";
+import { useGetPlan } from "@/api/getPlans";
+import PricingPaquetes from "./kits";
 
 const LymbikaLanding = () => {
   const features = [
@@ -57,6 +58,7 @@ const LymbikaLanding = () => {
     { icon: Clock, text: "Ahorra tiempo en gestión" },
     { icon: Star, text: "Crece tu consulta" }
   ];
+  const { plan } = useGetPlan("doctores");
 
  return (
     <div className="min-h-screen bg-background">
@@ -161,7 +163,7 @@ const LymbikaLanding = () => {
         </div>
       </section>
 
-      <PricingPaquetes/>
+      <PricingPaquetes data={plan}/>
 
       {/* CTA Section */}
         <section className="py-16 sm:py-20 bg-primary w-full">

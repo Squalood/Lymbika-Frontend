@@ -11,4 +11,21 @@ export type PageType = {
         }; 
         link: string;
     }[];
+
+    plan: {
+        id: number;
+        name: string;
+        description: string;
+        price: number; 
+        plus: {
+            id: number;
+            text: string;
+        }[];
+        less: {
+            id: number;
+            text: string;
+        }[];
+        prominent: boolean;
+        link: string;
+    }[];
 }
