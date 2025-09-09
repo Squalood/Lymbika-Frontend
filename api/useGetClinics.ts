@@ -60,6 +60,14 @@ export function useGetClinics() {
               },
               points: item.doctor.points || [],
               mapsEmbedUrl: item.doctor.mapsEmbedUrl || "",
+            },
+            gallery: item.gallery && {
+              id: item.gallery.id,
+              url: item.gallery.url
+            },
+            videos: item.videos && {
+              id: item.videos.id,
+              videoID: item.videos.videoID
             }
           }));
 

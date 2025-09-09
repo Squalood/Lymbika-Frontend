@@ -29,7 +29,7 @@ const iconMap: Record<string, LucideIcon> = {
   Laugh
 };
 
-export default function Hero({ data }: HeroProps) {
+const Hero = ({ data }: HeroProps) => {
   const { ref, inView } = useInView({
     threshold: 0.1,
     triggerOnce: true
@@ -77,4 +77,6 @@ export default function Hero({ data }: HeroProps) {
       </div>
     </section>
   );
-}
+};
+
+export default Hero;

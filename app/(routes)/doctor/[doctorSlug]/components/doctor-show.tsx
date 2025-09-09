@@ -25,7 +25,7 @@ const TABS = [
 
 const DoctorShow = () => {
   const { doctorSlug } = useParams();
-  const slug = typeof doctorSlug === "string" ? doctorSlug : ""; // Aseguramos que sea string
+  const slug = typeof doctorSlug === "string" ? doctorSlug : ""; 
   const { loading, result }: ResponseType = useGetDoctorBySlug(slug);
   const doctor = result && result.length > 0 ? result[0] : null;
 

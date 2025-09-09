@@ -47,4 +47,13 @@ export type ClinicType = {
     points: RichTextNode[];
     mapsEmbedUrl: string;
   };
+
+  gallery: {
+    id: number;
+    url: string;
+  }[];
+  videos: {
+    id: number;
+    videoID: string;
+  }[];
 };
