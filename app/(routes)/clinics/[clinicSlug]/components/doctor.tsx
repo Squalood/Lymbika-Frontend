@@ -29,7 +29,7 @@ export default function Doctor({ data }: DoctorProps) {
             <div className="relative">
               <div className="absolute inset-0 translate-x-4 translate-y-4 rounded-2xl bg-primary/10" />
               <Image
-                src={data.image?.url || "/assets/doctor.jpg"}
+                src={data.image?.url || "/placeholder-image.webp"}
                 alt={data.name}
                 width={600}
                 height={800}

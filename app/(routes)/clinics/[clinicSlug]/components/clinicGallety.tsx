@@ -39,7 +39,7 @@ const ClinicGallery = ({ clinic }: InfoclinicProps) => {
     <section className="max-w-4xl mx-auto px-4 py-12">
       <div ref={ref}>
         <h2
-          className={`text-2xl font-semibold mb-6 text-center transition-all duration-700 ${
+          className={`text-3xl font-semibold mb-6 text-center transition-all duration-700 ${
             inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
