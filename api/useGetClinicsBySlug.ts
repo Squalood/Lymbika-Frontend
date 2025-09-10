@@ -12,7 +12,6 @@ export function useGetClinic(slug: string) {
       try {
         const res = await fetch(url);
         const json = await res.json();
-        // Strapi devuelve un array en data, tomamos solo el primero
         setClinic(json.data[0] || null);
         setLoading(false);
       } catch (err: any) {

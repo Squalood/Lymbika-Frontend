@@ -24,9 +24,9 @@ import { useGetClinics } from "@/api/useGetClinics"
 import { ChevronRight } from "lucide-react"
 
 const MenuList = () => {
-  const { loading, result,}:ResponseType = useGetCategories(); // Usamos la función para obtener las categorías
+  const { loading, result,}:ResponseType = useGetCategories(); 
   const { clinics } = useGetClinics(); 
-  const pathname = usePathname(); // 🔹 Obtener la ruta actual
+  const pathname = usePathname(); 
   const router = useRouter();
 
   const navStyle = pathname === "/" ? "" : "text-black"
@@ -39,7 +39,6 @@ const MenuList = () => {
             <Skeleton className=" w-[100px] h-[20px] rounded-full" />
            </div>
   }
-  console.log()
 
   return (
     <NavigationMenu>
@@ -89,17 +88,19 @@ const MenuList = () => {
         <NavigationMenuItem>
           <NavigationMenuTrigger className={navStyle}>Clinicas</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="w-[600px] p-4 grid grid-cols-2 gap-4">
+            <ul className="w-[350px] p-4 flex flex-col gap-4 max-h-[450px] overflow-y-auto">
               {!loading && clinics?.map((clinic: ClinicType) => (
                 <li key={clinic.id}>
                   <Link
                     href={`/clinics/${clinic.slug}`}
                     className="group flex items-center w-full rounded-md px-3 py-2 hover:bg-accent transition-colors"
                   >
-                    <ChevronRight size={20} className="text-muted-foreground group-hover:translate-x-1 transition-transform" />
+                    <ChevronRight size={20} className="text-muted-foreground group-hover:translate-x-1 transition-transform"/>
                     <div className="text-sm font-medium text-foreground ml-8">
                       {clinic.title}
-                      <p className="text-xs text-muted-foreground line-clamp-2 max-w-52">{clinic.heroSubtitle}</p>
+                      <p className="text-xs text-muted-foreground line-clamp-2 max-w-52">
+                        {clinic.heroSubtitle}
+                      </p>
                     </div>
                   </Link>
                 </li>
@@ -107,6 +108,7 @@ const MenuList = () => {
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
+
         <NavigationMenuItem>
           <NavigationMenuTrigger className={navStyle} onClick={() => router.push("/shop")}>Farmacia</NavigationMenuTrigger>
           <NavigationMenuContent>

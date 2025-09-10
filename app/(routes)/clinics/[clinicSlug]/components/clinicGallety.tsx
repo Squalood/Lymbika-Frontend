@@ -38,27 +38,15 @@ const ClinicGallery = ({ clinic }: InfoclinicProps) => {
   return (
     <section className="max-w-4xl mx-auto px-4 py-12">
       <div ref={ref}>
-        <h2
-          className={`text-3xl font-semibold mb-6 text-center transition-all duration-700 ${
-            inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
-        >
+        <h2 className={`text-3xl font-semibold mb-6 text-center transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           Galería
         </h2>
 
-        <div
-          className={`grid grid-cols-2 sm:grid-cols-3 gap-2 w-5/6 sm:w-3/4 mx-auto sm:py-8 transition-all duration-700 delay-200 ${
-            inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
-        >
+        <div className={`grid grid-cols-2 sm:grid-cols-3 gap-2 w-5/6 sm:w-3/4 mx-auto sm:py-8 transition-all duration-700 delay-200 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           {allMedia.length > 0 ? (
             allMedia.map((media) =>
               media.type === "image" ? (
-                <button
-                  key={`img-${media.id}`}
-                  onClick={() => setSelectedIndex(media.index)}
-                  className="group relative aspect-square overflow-hidden rounded-lg shadow-sm hover:shadow-md transition"
-                >
+                <button key={`img-${media.id}`} onClick={() => setSelectedIndex(media.index)} className="group relative aspect-square overflow-hidden rounded-lg shadow-sm hover:shadow-md transition">
                   <Image
                     src={media.url}
                     alt="Gallery image"
@@ -73,10 +61,7 @@ const ClinicGallery = ({ clinic }: InfoclinicProps) => {
                   </div>
                 </button>
               ) : (
-                <div
-                  key={`vid-${media.id}`}
-                  className="aspect-square relative rounded-lg overflow-hidden shadow-sm"
-                >
+                <div key={`vid-${media.id}`} className="aspect-square relative rounded-lg overflow-hidden shadow-sm">
                   <iframe
                     src={`https://www.youtube.com/embed/${media.videoId}`}
                     title={`Video de clínica ${clinic.heroTitle}`}
