@@ -13,6 +13,7 @@ export type ClinicType = {
   contactSchedule: string;
   contactPhone: string;
   contactWhatsappLink: string;
+  scheduleLink: string;
   icon: string;
 
   services: {

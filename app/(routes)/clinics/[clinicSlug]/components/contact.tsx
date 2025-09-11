@@ -6,19 +6,34 @@ import { MessageSquare, Calendar, Clock, MapPin } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import Link from "next/link";
 import { ClinicType } from "@/types/clinic";
+import * as gtag from "@/lib/gtag";
 
 type ContactProps = {
   data: ClinicType;
 };
 
-export default function Contact({ data }: ContactProps) {
+const Contact = ({ data }: ContactProps) => {
   const { ref, inView } = useInView({
     threshold: 0.1,
     triggerOnce: true
   });
 
   const ContactNumber = () => {
-    window.open(data.contactWhatsappLink || "#", "_blank");
+    gtag.event({
+      action: "click_whatsapp",
+      category: "engagement",
+      label: "Botón WhatsApp en contacto de clinica",
+    });
+
+    window.open("https://wa.me/521234567890", "_blank");
+  };
+  const ScheduleLink = () => {
+    gtag.event({
+      action: "click_schedule",
+      category: "engagement",
+      label: "Botón Agendar Cita en contacto de clinica",
+    });
+    window.open(data.scheduleLink || "#", "_blank");
   };
 
   return (
@@ -60,7 +75,7 @@ export default function Contact({ data }: ContactProps) {
                 WhatsApp
               </Button>
               <Button size="lg" className="w-full sm:w-1/2" asChild>
-                <Link href="#" onClick={ContactNumber}>
+                <Link href="#" onClick={ScheduleLink}>
                   <Calendar className="w-5 h-5 mr-2" />
                   Agendar Cita
                 </Link>
@@ -99,4 +114,6 @@ export default function Contact({ data }: ContactProps) {
       </div>
     </section>
   );
-}
+};
+
+export default Contact;

@@ -31,7 +31,7 @@ export default async function RootLayout({children,}: Readonly<{children: React.
   return (
     <html lang="es">
       <body className={urbanist.className}>
-        
+
         {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-1CNJ3WPFKE"
@@ -48,7 +48,7 @@ export default async function RootLayout({children,}: Readonly<{children: React.
 
         <NextTopLoader/>
         <Navbar user={userData.ok ? userData.data : null} />
-        {children}
+          {children}
         <Toaster richColors/>
         <Footer />
       </body>
