@@ -6,6 +6,7 @@ import { MessageSquare, Calendar, Clock, MapPin } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import Link from "next/link";
 import { ClinicType } from "@/types/clinic";
+import * as gtag from "@/lib/gtag";
 
 type ContactProps = {
   data: ClinicType;
@@ -18,9 +19,20 @@ const Contact = ({ data }: ContactProps) => {
   });
 
   const ContactNumber = () => {
+    gtag.event({
+      action: "click_whatsapp",
+      category: "engagement",
+      label: "Botón WhatsApp en contacto de clinica",
+    });
+
     window.open("https://wa.me/521234567890", "_blank");
   };
   const ScheduleLink = () => {
+    gtag.event({
+      action: "click_schedule",
+      category: "engagement",
+      label: "Botón Agendar Cita en contacto de clinica",
+    });
     window.open(data.scheduleLink || "#", "_blank");
   };
 
