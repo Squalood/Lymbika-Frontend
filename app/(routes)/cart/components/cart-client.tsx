@@ -13,6 +13,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import * as gtag from "@/lib/gtag";
 
 interface AuthUserProps {
   username: string;
@@ -46,32 +47,60 @@ export default function CartClientPage({ user }: CartClientPageProps) {
   const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "");
 
   const buyStripe = async () => {
-  try {
-    const stripe = await stripePromise;
+    try {
+      const stripe = await stripePromise;
 
-    const productsPayload = items.map(item => ({
-      id: item.id,
-      name: item.productName,
-      quantity: item.quantity,
-      price: user?.mediClubRegular && item.priceMember > 0 ? item.priceMember : item.price,
-    }));
+      const productsPayload = items.map(item => ({
+        id: item.id,
+        name: item.productName,
+        quantity: item.quantity,
+        price: user?.mediClubRegular && item.priceMember > 0 ? item.priceMember : item.price,
+      }));
 
-    const res = await makePaymentRequest.post("/api/orders", {
-      products: productsPayload,
-      mediClubRegular: user?.mediClubRegular || false,
-      isDelivery, 
-      deliveryCost,
-      userEmail: user?.email || "",
-    });
+      const res = await makePaymentRequest.post("/api/orders", {
+        products: productsPayload,
+        mediClubRegular: user?.mediClubRegular || false,
+        isDelivery, 
+        deliveryCost,
+        userEmail: user?.email || "",
+      });
 
-    await stripe?.redirectToCheckout({
-      sessionId: res.data.stripeSession.id,
+      await stripe?.redirectToCheckout({
+        sessionId: res.data.stripeSession.id,
     });
     } catch (error) {
       console.log(error);
+      removeAll();
     }
   };
 
+  const handleBuyClick = () => {
+    if (!user) {
+      toast.warning("Debes estar registrado para completar la compra", {
+        action: {
+          label: "Iniciar sesión",
+          onClick: () => router.push("/signin"),
+        },
+      });
+
+      gtag.event({
+        action: "click_buy_no_user",
+        category: "engagement",
+        label: "Intento de compra sin iniciar sesión",
+      });
+
+      return;
+    }
+
+    // ✅ Evento de GA4 cuando el usuario con sesión hace clic
+    gtag.event({
+      action: "click_buy",
+      category: "ecommerce",
+      label: "Botón Comprar (inicio checkout)",
+    });
+
+    buyStripe();
+  };
 
   return (
     <div className="max-w-6xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
@@ -162,22 +191,7 @@ export default function CartClientPage({ user }: CartClientPageProps) {
             </div>
 
             <div className="flex items-center justify-center w-full mt-3">
-              <Button
-                className="w-full"
-                onClick={() => {
-                  if (!user) {
-                    toast.warning("Debes estar registrado para completar la compra", {
-                      action: {
-                        label: "Iniciar sesión",
-                        onClick: () => router.push("/signin"),
-                      },
-                    });
-                    return;
-                  }
-
-                  buyStripe(); // ya no hay condición, porque el estado `isDelivery` ya lo tenemos controlado
-                }}
-              >
+              <Button className="w-full" onClick={handleBuyClick}>
                 Comprar <ShoppingCart />
               </Button>
             </div>
