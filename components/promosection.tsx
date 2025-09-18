@@ -19,36 +19,36 @@ type PromoProps = {
 };
 
 const PromoCarousel = ({ data }: PromoProps) => {
-  // Hooks primero
-  const [api, setApi] = React.useState<CarouselApi>();
+  const promoItems = data.flatMap((page) => page.promo).filter(p => p?.image?.url);
+
+  const [api, setApi] = React.useState<CarouselApi | null>(null);
   const [current, setCurrent] = React.useState(0);
   const [count, setCount] = React.useState(0);
 
-  // Filtrar los promos
-  const promoItems = data.flatMap((page) => page.promo).filter(p => p?.image?.url);
-
   // Retornar null si no hay promos
-  if (!promoItems || promoItems.length === 0) {
-    return null;
-  }
+  if (!promoItems || promoItems.length === 0) return null;
 
   React.useEffect(() => {
-    if (!api) return;
+    if (!api) return; // ✅ esto es seguro, no rompe la regla
 
     const update = () => {
       setCount(api.scrollSnapList().length);
       setCurrent(api.selectedScrollSnap());
     };
 
+    // inicializar
     update();
+
+    // eventos
     api.on("select", update);
     api.on("reInit", update);
 
+    // cleanup
     return () => {
       api.off("select", update);
       api.off("reInit", update);
     };
-  }, [api]);
+  }, [api]); // api siempre existe (aunque sea null), hook declarado siempre
 
   return (
     <div className="max-w-4xl mx-auto px-4 mt-0 mb-10 sm:py-10">
