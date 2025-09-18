@@ -19,21 +19,17 @@ type PromoProps = {
 };
 
 const PromoCarousel = ({ data }: PromoProps) => {
+  // Hooks primero
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
   const [count, setCount] = React.useState(0);
 
+  // Filtrar los promos
   const promoItems = data.flatMap((page) => page.promo).filter(p => p?.image?.url);
 
+  // Retornar null si no hay promos
   if (!promoItems || promoItems.length === 0) {
-    return (
-      <div className="max-w-4xl mx-auto px-4 mt-0 mb-10 sm:py-10 text-center">
-        <h1 className="py-4 font-bold text-xl">Nuestras últimas promociones</h1>
-        <p className="text-gray-500 italic">
-          No hay promociones disponibles en este momento.
-        </p>
-      </div>
-    );
+    return null;
   }
 
   React.useEffect(() => {
@@ -59,10 +55,7 @@ const PromoCarousel = ({ data }: PromoProps) => {
       <h1 className="py-4 font-bold text-xl">Nuestras últimas promociones</h1>
       <Carousel
         setApi={setApi}
-        opts={{
-          align: "start",
-          loop: true,
-        }}
+        opts={{ align: "start", loop: true }}
         plugins={[Autoplay({ delay: 4000 })]}
         className="w-full relative"
       >
