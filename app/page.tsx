@@ -17,8 +17,6 @@ import { useGetPromo } from "@/api/getPromo"
 
 export default function Home() {
   const {promo} = useGetPromo("front-page");
-
-  // Aplanamos todos los promos de cada página y filtramos los que tengan imagen válida
   const promoItems = promo?.flatMap(page => page.promo).filter(p => p && p.image?.url) || [];
 
   return (
@@ -28,7 +26,6 @@ export default function Home() {
       <Page/>
       <CarouselServices/>
       <DoctorReel/>
-      {/* Solo mostramos el carousel si hay promos válidas */}
       {promoItems.length > 0 && <PromoCarousel data={promo} />}
       <HospitaSection />
       <CarouselTextBanner />

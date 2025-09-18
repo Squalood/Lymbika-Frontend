@@ -32,7 +32,8 @@ const FrontPage = () => {
                 <Link 
                     className="zl-facility-url"
                     href="https://www.doctoralia.com.mx/clinicas/zynera-unidad-de-especialistas-by-lymbika"
-                    rel="nofollow"
+                    target="_blank"
+                    rel="noopener noreferrer nofollow"
                     data-zlw-facility="zynera-unidad-de-especialistas-by-lymbika"
                     data-zlw-type="facility-button-with-saas-only"
                     data-zlw-saas-only="true"
