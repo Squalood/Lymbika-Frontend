@@ -19,9 +19,11 @@ type PromoProps = {
 };
 
 const PromoCarousel = ({ data }: PromoProps) => {
-  const promoItems = data
-    .flatMap((page) => page.promo)
-    .filter((p) => p?.image?.url);
+  const [api, setApi] = React.useState<CarouselApi>();
+  const [current, setCurrent] = React.useState(0);
+  const [count, setCount] = React.useState(0);
+
+  const promoItems = data.flatMap((page) => page.promo).filter(p => p?.image?.url);
 
   if (!promoItems || promoItems.length === 0) {
     return (
@@ -33,10 +35,6 @@ const PromoCarousel = ({ data }: PromoProps) => {
       </div>
     );
   }
-
-  const [api, setApi] = React.useState<CarouselApi>();
-  const [current, setCurrent] = React.useState(0);
-  const [count, setCount] = React.useState(0);
 
   React.useEffect(() => {
     if (!api) return;
