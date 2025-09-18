@@ -19,7 +19,20 @@ type PromoProps = {
 };
 
 const PromoCarousel = ({ data }: PromoProps) => {
-  const promoItems = data.flatMap((page) => page.promo);
+  const promoItems = data
+    .flatMap((page) => page.promo)
+    .filter((p) => p?.image?.url);
+
+  if (!promoItems || promoItems.length === 0) {
+    return (
+      <div className="max-w-4xl mx-auto px-4 mt-0 mb-10 sm:py-10 text-center">
+        <h1 className="py-4 font-bold text-xl">Nuestras últimas promociones</h1>
+        <p className="text-gray-500 italic">
+          No hay promociones disponibles en este momento.
+        </p>
+      </div>
+    );
+  }
 
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
@@ -28,7 +41,6 @@ const PromoCarousel = ({ data }: PromoProps) => {
   React.useEffect(() => {
     if (!api) return;
 
-    // función para sincronizar
     const update = () => {
       setCount(api.scrollSnapList().length);
       setCurrent(api.selectedScrollSnap());
@@ -45,7 +57,7 @@ const PromoCarousel = ({ data }: PromoProps) => {
   }, [api]);
 
   return (
-    <div className="max-w-4xl mx-auto px-4 mt-0 mb-10 sm:mb-0 sm:my-8">
+    <div className="max-w-4xl mx-auto px-4 mt-0 mb-10 sm:py-10">
       <h1 className="py-4 font-bold text-xl">Nuestras últimas promociones</h1>
       <Carousel
         setApi={setApi}
@@ -77,12 +89,10 @@ const PromoCarousel = ({ data }: PromoProps) => {
           ))}
         </CarouselContent>
 
-        {/* Flechas */}
         <CarouselPrevious className="left-2 sm:-left-10 bg-white/80 hover:bg-white shadow-md rounded-full" />
         <CarouselNext className="right-2 sm:-right-10 bg-white/80 hover:bg-white shadow-md rounded-full" />
       </Carousel>
 
-      {/* Dots */}
       {count > 0 && (
         <div className="flex justify-center mt-4 gap-2">
           {Array.from({ length: count }).map((_, index) => (

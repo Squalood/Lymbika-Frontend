@@ -41,7 +41,9 @@ export default function ClinicPage() {
       <WhyUs features={clinic.features} />
       <Doctor data={doctor} />   
       <Testimonials list={clinic.testimonials} />
-      <ClinicGallery clinic={clinic}/>
+      {clinic.gallery && clinic.gallery.length > 0 && (
+        <ClinicGallery clinic={clinic} />
+      )}
       <Contact data={clinic} />
     </div>
   );

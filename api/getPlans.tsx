@@ -7,7 +7,7 @@ export function useGetPlan(slug: string) {
   const [error, setError] = useState<string>("");
 
   useEffect(() => {
-    if (!slug) return; // no hacer fetch si no hay slug
+    if (!slug) return; 
 
     const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/pages?filters[slug][$eq]=${slug}&populate[plan][populate]=*`;
 

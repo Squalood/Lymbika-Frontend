@@ -1,3 +1,5 @@
+"use client";
+
 import BannerProduct from "@/components/banner-product"
 import CarouselServices from "@/components/carousel-services"
 import CarouselTextBanner from "@/components/carousel-text-banner"
@@ -10,8 +12,12 @@ import DoctorReel from "./(routes)/doctor-catalog/components/doctorReel"
 import SurgeryFaq from "./(routes)/surgery/components/surgeryFaq"
 import TuristSection from "@/components/turistSection"
 import Page from "./(routes)/clinics/page"
+import PromoCarousel from "@/components/promosection"
+import { useGetPromo } from "@/api/getPromo"
 
 export default function Home() {
+  const {promo} = useGetPromo("front-page");
+
   return (
     <main>
       <TopContact/>
@@ -19,6 +25,9 @@ export default function Home() {
       <Page/>
       <CarouselServices/>
       <DoctorReel/>
+      {promo && promo.length > 0 && (
+        <PromoCarousel data={promo} />
+      )}
       <HospitaSection />
       <CarouselTextBanner />
       <ChooseCategory />
