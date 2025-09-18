@@ -15,9 +15,7 @@ export default function Page() {
         <HeroSection/>
         <FeaturesSection/>
         <FeaturedProducts />
-        {promo && promo.length > 0 && (
-            <PromoCarousel data={promo} />
-        )}
+        <PromoCarousel data={promo} />
         <ChooseCategory />
         <CTASection/>
     </div>   

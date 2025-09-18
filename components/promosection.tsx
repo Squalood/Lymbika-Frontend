@@ -19,43 +19,40 @@ type PromoProps = {
 };
 
 const PromoCarousel = ({ data }: PromoProps) => {
-  const promoItems = data.flatMap((page) => page.promo).filter(p => p?.image?.url);
+  const promoItems = data.flatMap((page) => page.promo);
 
-  const [api, setApi] = React.useState<CarouselApi | null>(null);
+  const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
   const [count, setCount] = React.useState(0);
 
-  // Retornar null si no hay promos
-  if (!promoItems || promoItems.length === 0) return null;
-
   React.useEffect(() => {
-    if (!api) return; // ✅ esto es seguro, no rompe la regla
+    if (!api) return;
 
+    // función para sincronizar
     const update = () => {
       setCount(api.scrollSnapList().length);
       setCurrent(api.selectedScrollSnap());
     };
 
-    // inicializar
     update();
-
-    // eventos
     api.on("select", update);
     api.on("reInit", update);
 
-    // cleanup
     return () => {
       api.off("select", update);
       api.off("reInit", update);
     };
-  }, [api]); // api siempre existe (aunque sea null), hook declarado siempre
+  }, [api]);
 
   return (
     <div className="max-w-4xl mx-auto px-4 mt-0 mb-10 sm:py-10">
       <h1 className="py-4 font-bold text-xl">Nuestras últimas promociones</h1>
       <Carousel
         setApi={setApi}
-        opts={{ align: "start", loop: true }}
+        opts={{
+          align: "start",
+          loop: true,
+        }}
         plugins={[Autoplay({ delay: 4000 })]}
         className="w-full relative"
       >
@@ -80,10 +77,12 @@ const PromoCarousel = ({ data }: PromoProps) => {
           ))}
         </CarouselContent>
 
+        {/* Flechas */}
         <CarouselPrevious className="left-2 sm:-left-10 bg-white/80 hover:bg-white shadow-md rounded-full" />
         <CarouselNext className="right-2 sm:-right-10 bg-white/80 hover:bg-white shadow-md rounded-full" />
       </Carousel>
 
+      {/* Dots */}
       {count > 0 && (
         <div className="flex justify-center mt-4 gap-2">
           {Array.from({ length: count }).map((_, index) => (
