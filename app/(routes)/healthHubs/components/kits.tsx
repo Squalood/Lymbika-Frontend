@@ -1,3 +1,5 @@
+"use client";
+
 import { BarChart3, Check, MoveRight, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -11,6 +13,14 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { PageType } from "@/types/pages";
 import { formatPrice } from "@/lib/formatPrice";
+
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 type PlansProps = {
   data: PageType[];
@@ -32,64 +42,99 @@ const PricingPaquetes = ({ data }: PlansProps) => {
               Paquetes comerciales para posicionarte, captar pacientes y escalar tu consulta.
             </p>
           </div>
+          {/* Carrusel de planes */}
+          <Carousel
+            opts={{
+              align: "start",
+              loop: false,
+            }}
+            className="w-full pt-20"
+          >
+            <CarouselContent>
+              {planItems.slice(0, 3).map((paquete) => (
+                <CarouselItem
+                  key={paquete.id ?? crypto.randomUUID()}
+                  className="basis-full md:basis-1/2 lg:basis-1/3"
+                >
+                  <Card
+                    className={`w-full rounded-md py-4 overflow-hidden relative transition-all duration-1000 ease-in-out
+                    max-h-none
+                    md:max-h-[520px] md:hover:max-h-[1000px] md:mb-14
+                    ${paquete.prominent ? "shadow-2xl" : ""}`}
+                >
+                  {/* Fade en la parte inferior */}
+                  <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-white pointer-events-none md:block hidden" />
+  
+                    <CardHeader>
+                      <CardTitle>
+                        <span className="flex flex-row gap-4 items-center font-normal">
+                          {paquete.name ?? "Sin nombre"}
+                        </span>
+                      </CardTitle>
+                      <CardDescription>
+                        {paquete.description ?? "Sin descripción"}
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex flex-col gap-8 justify-center">
+                        <p className="flex flex-row items-center justify-center gap-2 text-xl">
+                          <span className="text-4xl">
+                            {formatPrice(paquete.price) ?? "0"}
+                          </span>
+                          <span className="text-sm text-muted-foreground">MXN</span>
+                        </p>
 
-          <div className="grid pt-20 text-left grid-cols-1 lg:grid-cols-3 w-full gap-8">
-            {planItems.map((paquete) => (
-              <Card key={paquete.id ?? crypto.randomUUID()} className={`w-full rounded-md ${paquete.prominent ? "shadow-2xl" : ""}`}>
-                <CardHeader>
-                  <CardTitle>
-                    <span className="flex flex-row gap-4 items-center font-normal">
-                      {paquete.name ?? "Sin nombre"}
-                    </span>
-                  </CardTitle>
-                  <CardDescription>
-                    {paquete.description ?? "Sin descripción"}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-col gap-8 justify-start">
-                    <p className="flex flex-row items-center justify-center gap-2 text-xl">
-                      <span className="text-4xl">
-                        {formatPrice(paquete.price) ?? "0"}
-                      </span>
-                      <span className="text-sm text-muted-foreground"> MXN</span>
-                    </p>
-                    <div className="flex flex-col gap-4 justify-start">
-                      {paquete.plus?.map((item) =>
-                        item?.text ? (
-                          <div key={item.id ?? crypto.randomUUID()} className="flex flex-row gap-4">
-                            <Check className="w-4 h-4 mt-1 text-primary" />
-                            <p>{item.text}</p>
-                          </div>
-                        ) : null
-                      )}
-                      {paquete.less?.map((item) =>
-                        item?.text ? (
-                          <div key={item.id ?? crypto.randomUUID()} className="flex flex-row gap-4 text-muted-foreground">
-                            <X className="w-4 h-4 mt-1 text-destructive" />
-                            <p>{item.text}</p>
-                          </div>
-                        ) : null
-                      )}
-                    </div>
-                    {paquete.link ? (
-                      <Button asChild className="gap-4" variant={paquete.prominent ? "default" : "outline"}>
-                        <Link href={paquete.link}>
-                          Empezar
-                          <MoveRight className="w-4 h-4" />
-                        </Link>
-                      </Button>
-                    ) : (
-                      <Button disabled className="gap-4" variant="outline">
-                        No disponible
-                      </Button>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                        <div className="flex flex-col gap-4 justify-start text-left">
+                          {paquete.plus?.map((item) =>
+                            item?.text ? (
+                              <div
+                                key={item.id ?? crypto.randomUUID()}
+                                className="flex flex-row gap-4"
+                              >
+                                <Check className="w-4 h-4 mt-1 text-primary" />
+                                <p className="max-w-56">{item.text}</p>
+                              </div>
+                            ) : null
+                          )}
+                          {paquete.less?.map((item) =>
+                            item?.text ? (
+                              <div
+                                key={item.id ?? crypto.randomUUID()}
+                                className="flex flex-row gap-4 text-muted-foreground"
+                              >
+                                <X className="w-4 h-4 mt-1 text-destructive" />
+                                <p className="max-w-56">{item.text}</p>
+                              </div>
+                            ) : null
+                          )}
+                        </div>
+                        {paquete.link ? (
+                          <Button
+                            asChild
+                            className="gap-4"
+                            variant={paquete.prominent ? "default" : "outline"}
+                          >
+                            <Link href={paquete.link}>
+                              Empezar
+                              <MoveRight className="w-4 h-4" />
+                            </Link>
+                          </Button>
+                        ) : (
+                          <Button disabled className="gap-4" variant="outline">
+                            No disponible
+                          </Button>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
 
+            {/* Flechas */}
+            <CarouselPrevious className="left-2 sm:-left-10 bg-white/80 hover:bg-white shadow-md rounded-full" />
+            <CarouselNext className="right-2 sm:-right-10 bg-white/80 hover:bg-white shadow-md rounded-full" />
+          </Carousel>
           {/* Bloque adicional */}
           <div className="mt-16 w-full flex justify-center">
             <div className="flex items-center gap-4 bg-muted/50 border border-muted-foreground/20 rounded-lg px-6 py-6 max-w-2xl text-left">
