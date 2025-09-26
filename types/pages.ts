@@ -2,6 +2,16 @@ export type PageType = {
     id: number;
     namePage: string;
     slug: string;
+
+    hero:{
+        title: string;
+        description: string;
+        buttonText: string;  
+        buttonUrl: string;
+        image: {
+            url: string;
+        };
+    } 	
     
     promo: {
         id: number;

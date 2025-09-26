@@ -18,6 +18,9 @@ import {
 import Link from "next/link";
 import { useGetPlan } from "@/api/getPlans";
 import PricingPaquetes from "./kits";
+import MedicalHero from "./heroSection";
+import { useGetPageHero } from "@/api/getPageHeroBySlug";
+import MedicalHeroSkeleton from "@/components/skeleton/medicalHeroSkeleton";
 
 const LymbikaLanding = () => {
   const features = [
@@ -58,63 +61,18 @@ const LymbikaLanding = () => {
     { icon: Clock, text: "Ahorra tiempo en gestión" },
     { icon: Star, text: "Crece tu consulta" }
   ];
+
+  const { hero, loading } = useGetPageHero("doctores");
   const { plan } = useGetPlan("doctores");
+
+  const heroData = hero[0]?.hero;
+
+  if (loading) return <MedicalHeroSkeleton />;
 
  return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary-light via-card to-background py-20 overflow-hidden w-full">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-primary/10"></div>
-        
-        <div className="relative z-10 max-w-4xl mx-auto px-4 grid lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-8">
-            <div className="space-y-6">
-              <Badge className="bg-primary text-primary-foreground text-base px-4 py-2">
-                👨‍⚕️ Nueva Red Médica
-              </Badge>
-              <h1 className="text-4xl md:text-6xl font-bold leading-tight text-foreground">
-                Únete a la nueva 
-                <span className="text-primary"> red médica</span> de Lymbika
-              </h1>
-              <p className="text-xl text-muted-foreground leading-relaxed">
-                Una comunidad, un sistema, un respaldo. Lymbika es más que una plataforma: 
-                es un ecosistema hecho por y para médicos.
-              </p>
-            </div>
-
-            <div className="flex flex-wrap gap-3">
-              {benefits.map((benefit, index) => (
-                <Badge key={index} variant="secondary" className="flex items-center space-x-2 bg-card/90 text-foreground px-4 py-2 text-sm border border-primary/20">
-                  <benefit.icon className="h-4 w-4 text-primary" />
-                  <span>{benefit.text}</span>
-                </Badge>
-              ))}
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 hover:shadow-lg transition-all duration-300 text-lg px-8 py-6">
-                <Link href="https://wa.me/526561100446" target="_blank" rel="noopener noreferrer">
-                  Contacto
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-            </div>
-          </div>
-
-          <Card className="overflow-hidden border-0 shadow-2xl">
-            <div className="relative w-full h-[400px]"> 
-              <Image
-                src="/assets/hero-medical.jpg"
-                alt="Doctores colaborando con tecnología médica"
-                fill
-                priority
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent"></div>
-            </div>
-          </Card>
-        </div>
-      </section>
+      <MedicalHero hero={hero[0]?.hero} />
 
       {/* Value Proposition */}
       <section className="py-16 bg-card w-full">

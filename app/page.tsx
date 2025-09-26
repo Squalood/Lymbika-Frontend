@@ -5,7 +5,6 @@ import CarouselServices from "@/components/carousel-services"
 import CarouselTextBanner from "@/components/carousel-text-banner"
 import ChooseCategory from "@/components/choose-category"
 import TopContact from "@/components/top-contact"
-import FrontPage from "@/components/front-page"
 import HospitaSection from "./(routes)/hospitals/components/hospitalsSection"
 import PlanSection from "./(routes)/membership/components/plansSection"
 import DoctorReel from "./(routes)/doctor-catalog/components/doctorReel"
@@ -14,15 +13,23 @@ import TuristSection from "@/components/turistSection"
 import Page from "./(routes)/clinics/page"
 import PromoCarousel from "@/components/promosection"
 import { useGetPromo } from "@/api/getPromo"
+import Hero from "@/components/front-page";
+import { useGetPageHero } from "@/api/getPageHeroBySlug";
+import HeroSkeleton from "@/components/skeleton/heroSkeleton";
 
 export default function Home() {
+  const { hero, loading } = useGetPageHero("front-page");
   const {promo} = useGetPromo("front-page");
   const promoItems = promo?.flatMap(page => page.promo).filter(p => p && p.image?.url) || [];
+
+  const heroData = hero[0]?.hero;
+
+  if (loading) return <HeroSkeleton />;
 
   return (
     <main>
       <TopContact/>
-      <FrontPage />
+      <Hero hero={heroData}/>
       <Page/>
       <CarouselServices/>
       <DoctorReel/>
