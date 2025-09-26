@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -11,9 +10,6 @@ import {
   FileText, 
   Bot, 
   ArrowRight,
-  Shield,
-  Clock,
-  Star
 } from "lucide-react";
 import Link from "next/link";
 import { useGetPlan } from "@/api/getPlans";
@@ -56,16 +52,8 @@ const LymbikaLanding = () => {
     }
   ];
 
-  const benefits = [
-    { icon: Shield, text: "Respaldo profesional integral" },
-    { icon: Clock, text: "Ahorra tiempo en gestión" },
-    { icon: Star, text: "Crece tu consulta" }
-  ];
-
   const { hero, loading } = useGetPageHero("doctores");
   const { plan } = useGetPlan("doctores");
-
-  const heroData = hero[0]?.hero;
 
   if (loading) return <MedicalHeroSkeleton />;
 
