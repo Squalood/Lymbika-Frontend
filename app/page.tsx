@@ -24,12 +24,10 @@ export default function Home() {
 
   const heroData = hero[0]?.hero;
 
-  if (loading) return <HeroSkeleton />;
-
   return (
     <main>
       <TopContact/>
-      <Hero hero={heroData}/>
+      {loading ? <HeroSkeleton /> : <Hero hero={heroData}/>}
       <Page/>
       <CarouselServices/>
       <DoctorReel/>
