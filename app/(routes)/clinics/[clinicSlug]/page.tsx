@@ -11,6 +11,7 @@ import Contact from "./components/contact";
 import ClinicSkeleton from "@/components/skeleton/clinicSkeleton";
 import ClinicGallery from "./components/clinicGallety";
 import { useGetClinicDoctor } from "@/api/useGetClinicsDoctorBySlug";
+import ClinicProducts from "./components/products";
 
 export default function ClinicPage() {
   const { clinicSlug } = useParams();
@@ -41,6 +42,7 @@ export default function ClinicPage() {
       <WhyUs features={clinic.features} />
       <Doctor data={doctor} />   
       <Testimonials list={clinic.testimonials} />
+      <ClinicProducts clinicSlug={clinicSlug as string} clinicTitle={clinic.title} />
       {clinic.gallery && clinic.gallery.length > 0 && (
         <ClinicGallery clinic={clinic} />
       )}

@@ -57,4 +57,10 @@ export type ClinicType = {
     id: number;
     videoID: string;
   }[];
+
+  products: {
+    id: number;
+    productName: string;
+    slug: string;
+  };
 };

@@ -21,4 +21,9 @@ export type ProductType = {
   };
   priceMember: number;
   sal: string;
+  clinics: {
+    id: number;
+    title: string;
+    slug: string;
+  };
 };
