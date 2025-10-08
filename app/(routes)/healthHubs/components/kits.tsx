@@ -76,15 +76,18 @@ const PricingPaquetes = ({ data }: PlansProps) => {
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <div className="flex flex-col gap-8 justify-center">
+                      <div className="flex flex-col gap-2 justify-center">
                         <p className="flex flex-row items-center justify-center gap-2 text-xl">
                           <span className="text-4xl">
-                            {formatPrice(paquete.price) ?? "0"}
+                            {formatPrice(paquete.price) ?? "sin actualizar"}
                           </span>
                           <span className="text-sm text-muted-foreground">MXN</span>
+                          
                         </p>
+                        <p className="text-sm text-muted-foreground">+ IVA Incluido
 
-                        <div className="flex flex-col gap-4 justify-start text-left">
+                        </p>
+                        <div className="flex flex-col gap-4 justify-start text-left pt-4">
                           {paquete.plus?.map((item) =>
                             item?.text ? (
                               <div
