@@ -84,7 +84,7 @@ const PricingPaquetes = ({ data }: PlansProps) => {
                           <span className="text-sm text-muted-foreground">MXN</span>
                           
                         </p>
-                        <p className="text-sm text-muted-foreground">+ IVA Incluido
+                        <p className="text-sm text-muted-foreground">+ IVA
 
                         </p>
                         <div className="flex flex-col gap-4 justify-start text-left pt-4">
