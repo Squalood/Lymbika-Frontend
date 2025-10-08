@@ -16,14 +16,29 @@ import { PageType } from "@/types/pages";
 
 type PromoProps = {
   data: PageType[];
+  aspectRatio?: "square" | "video" | "portrait";
 };
 
-const PromoCarousel = ({ data }: PromoProps) => {
+const PromoCarousel = ({ data, aspectRatio = "square" }: PromoProps) => {
   const promoItems = data.flatMap((page) => page.promo);
 
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
   const [count, setCount] = React.useState(0);
+
+  const aspectClass =
+    aspectRatio === "video"
+      ? "aspect-video"
+      : aspectRatio === "portrait"
+      ? "aspect-[3/4]"
+      : "aspect-square";
+
+  const basisClass =
+    aspectRatio === "video"
+      ? "basis-1/2"
+      : aspectRatio === "portrait"
+      ? "basis-1/3"
+      : "basis-1/3";
 
   React.useEffect(() => {
     if (!api) return;
@@ -60,17 +75,17 @@ const PromoCarousel = ({ data }: PromoProps) => {
           {promoItems.map((promo) => (
             <CarouselItem
               key={promo.id}
-              className="pl-2 basis-2/3 sm:basis-1/2 md:basis-1/3"
+              className={`pl-2 basis-2/3 sm:basis-1/2 md:${basisClass}`}
             >
               <Link
                 href={promo.link || "#"}
-                className="block relative aspect-square w-full overflow-hidden rounded-lg"
+                className={`block relative ${aspectClass} w-full overflow-hidden rounded-lg`}
               >
                 <Image
                   src={promo.image.url}
                   alt={promo.title}
                   fill
-                  className="object-cover"
+                  className="object-cover "
                 />
               </Link>
             </CarouselItem>

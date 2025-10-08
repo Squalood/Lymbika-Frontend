@@ -22,7 +22,6 @@ type ClinicProductsProps = {
 const ClinicProducts = ({ clinicSlug, clinicTitle }: ClinicProductsProps) => {
   const { loading, result }: ResponseType = useGetClinicsProducts(clinicSlug);
 
-  // Verificamos si no hay productos y no está cargando
   const noProducts = !loading && (!result || result.length === 0);
 
   return (

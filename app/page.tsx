@@ -31,7 +31,7 @@ export default function Home() {
       <Page/>
       <CarouselServices/>
       <DoctorReel/>
-      {promoItems.length > 0 && <PromoCarousel data={promo} />}
+      {promoItems.length > 0 && <PromoCarousel data={promo} aspectRatio="video"/>}
       <HospitaSection />
       <CarouselTextBanner />
       <ChooseCategory />
