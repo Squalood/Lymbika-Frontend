@@ -6,22 +6,31 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ShoppingCart, MapPin, Clock, Shield } from "lucide-react";
+import { PageType } from "@/types/pages";
 
-const HeroSection = () => {
+type HeroProps = {
+  hero: PageType["hero"];
+};
+
+const HeroSection = ({ hero }: HeroProps) => {
   const { products } = useGetProducts();
   const { doctors } = useGetDoctors();
+ 
 
+  if (!hero) return null;
   return (
     <section className="relative min-h-screen text-white overflow-hidden">
       {/* Imagen de fondo */}
       <div className="absolute inset-0">
+        {hero.image?.url && (
         <Image
-          src="/images/pharmacy.jpg"
-          alt="Background Hero"
+          src={hero.image.url}
+          alt={hero.title}
           fill
           className="object-cover"
           priority
         />
+        )}
         <div className="absolute inset-0 bg-black/40" /> {/* capa oscura */}
       </div>
 

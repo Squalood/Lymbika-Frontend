@@ -10,8 +10,6 @@ type HeroProps = {
 const Hero = ({ hero }: HeroProps) => {
   if (!hero) return null;
 
-  console.log(hero);
-
   return (
     <div className="relative rounded-br-[5rem] bg-primary px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 overflow-hidden lg:py-[18rem] py-48 flex items-center">
       {/* Imagen de fondo */}
