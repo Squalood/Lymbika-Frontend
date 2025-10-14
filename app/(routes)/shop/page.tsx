@@ -8,6 +8,7 @@ import { useGetPromo } from "@/api/getPromo";
 import PromoCarousel from "@/components/promosection";
 import { useGetPageHero } from "@/api/getPageHeroBySlug";
 import HeroSkeleton from "@/components/skeleton/heroSkeleton";
+import PlanSection from "../membership/components/plansSection";
 
 export default function Page() {
     const {promo} = useGetPromo("farmacia");
@@ -22,6 +23,7 @@ export default function Page() {
         <FeaturedProducts />
         <PromoCarousel data={promo} />
         <ChooseCategory />
+        <PlanSection/>
         <CTASection/>
     </div>   
     );
