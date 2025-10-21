@@ -12,10 +12,6 @@ type DoctorProps = {
   data: ClinicType["doctor"];
 };
 
-type ExpandableCardProps = {
-  data: { points: any };
-};
-
 export default function Doctor({ data }: DoctorProps) {
   const { ref, inView } = useInView({
     threshold: 0.1,
