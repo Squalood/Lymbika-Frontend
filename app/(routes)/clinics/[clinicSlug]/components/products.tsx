@@ -25,7 +25,7 @@ const ClinicProducts = ({ clinicSlug, clinicTitle }: ClinicProductsProps) => {
   const noProducts = !loading && (!result || result.length === 0);
 
   return (
-    <div className="max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-4xl py-4 mx-auto sm:py-12">
+    <div className="max-w-sm sm:max-w-lg md:max-w-2xl lg:max-w-4xl py-4 mx-auto sm:py-12 px-4">
       <h3 className="px-6 text-3xl sm:pb-8">Productos de {clinicTitle}</h3>
 
       {loading ? (

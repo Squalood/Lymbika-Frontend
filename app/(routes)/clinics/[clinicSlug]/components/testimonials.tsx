@@ -33,7 +33,7 @@ export default function Testimonials({ list }: TestimonialsProps) {
         <div className={`transition-all duration-700 delay-200 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <Carousel
             opts={{
-              align: "start",
+              align: "center",
               loop: true
             }}
             plugins={[Autoplay({ delay: 3000, stopOnInteraction: false, stopOnMouseEnter: true })]}
@@ -41,7 +41,7 @@ export default function Testimonials({ list }: TestimonialsProps) {
           >
             <CarouselContent className="-ml-4">
               {list.map((testimonial) => (
-                <CarouselItem key={testimonial.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                <CarouselItem key={testimonial.id} className="pl-4 basis-2/3 md:basis-1/2 lg:basis-1/3">
                   <Card className="h-full">
                     <div className="p-6">
                       <div className="flex gap-1 mb-4">
