@@ -26,7 +26,7 @@ const ClinicProducts = ({ clinicSlug, clinicTitle }: ClinicProductsProps) => {
 
   return (
     <div className="max-w-sm sm:max-w-lg md:max-w-2xl lg:max-w-4xl py-4 mx-auto sm:py-12 px-4">
-      <h3 className="px-6 text-3xl sm:pb-8">Productos de {clinicTitle}</h3>
+      <h3 className="px-6 text-3xl sm:pb-8">Farmacia {clinicTitle}</h3>
 
       {loading ? (
         <SkeletonSchema grid={3} />
@@ -36,13 +36,13 @@ const ClinicProducts = ({ clinicSlug, clinicTitle }: ClinicProductsProps) => {
         </p>
       ) : (
         <Carousel>
-          <CarouselContent className="-ml-2 md:-ml-4 mt-4 md:mt-0">
+          <CarouselContent className="md:-ml-4 mt-4 md:mt-0">
             {result?.map((product: ProductType) => (
               <CarouselItem
                 key={product.id}
-                className="basis-1/2 md:basis-1/3 group"
+                className="basis-3/4 md:basis-1/3 group"
               >
-                <div className="p-1">
+                <div className="">
                   <ProductCard product={product} />
                 </div>
               </CarouselItem>

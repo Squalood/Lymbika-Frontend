@@ -19,9 +19,8 @@ import { Skeleton } from "./ui/skeleton"
 import Image from "next/image"
 import { usePathname, useRouter } from "next/navigation"
 import es from "@/locals/es.json";
-import { ClinicType } from "@/types/clinic"
 import { useGetClinics } from "@/api/useGetClinics"
-import { ChevronRight } from "lucide-react"
+import ClinicsList from "./clinicsList"
 
 const MenuList = () => {
   const { loading, result,}:ResponseType = useGetCategories(); 
@@ -86,26 +85,9 @@ const MenuList = () => {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger className={navStyle}>Clinicas</NavigationMenuTrigger>
+          <NavigationMenuTrigger className={navStyle}>Clínicas</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="w-[350px] p-4 flex flex-col gap-4 max-h-[450px] overflow-y-auto">
-              {!loading && clinics?.map((clinic: ClinicType) => (
-                <li key={clinic.id}>
-                  <Link
-                    href={`/clinics/${clinic.slug}`}
-                    className="group flex items-center w-full rounded-md px-3 py-2 hover:bg-accent transition-colors"
-                  >
-                    <ChevronRight size={20} className="text-muted-foreground group-hover:translate-x-1 transition-transform"/>
-                    <div className="text-sm font-medium text-foreground ml-8">
-                      {clinic.title}
-                      <p className="text-xs text-muted-foreground line-clamp-2 max-w-52">
-                        {clinic.heroSubtitle}
-                      </p>
-                    </div>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <ClinicsList clinics={clinics} loading={loading} />
           </NavigationMenuContent>
         </NavigationMenuItem>
 
