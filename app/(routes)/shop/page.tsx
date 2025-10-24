@@ -19,12 +19,13 @@ export default function Page() {
     return(  
     <div>
         {loading ? <HeroSkeleton /> : <HeroSection hero={heroData}/>}
-        <FeaturesSection/>
-        <FeaturedProducts />
         <PromoCarousel data={promo} />
+        <FeaturedProducts />
+        
         <ChooseCategory />
         <PlanSection/>
         <CTASection/>
+        <FeaturesSection/>
     </div>   
     );
 }

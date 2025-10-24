@@ -7,6 +7,7 @@ import { useGetSugery } from "@/api/getSugery";
 import { useGetCategories } from "@/api/getCategories";
 import Image from "next/image";
 import Link from "next/link";
+import ProductCard from "@/components/productCard";
 
 export default function SearchResultsPage() {
   const { products, loading: loadingProducts } = useGetProducts();
@@ -51,7 +52,7 @@ export default function SearchResultsPage() {
   if (isLoading) return <p className="text-center mt-10">Cargando...</p>;
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-10">
+    <div className="max-w-6xl mx-auto px-4 py-10">
       <h1 className="text-2xl font-semibold mb-6">
         Resultados para: &quot;
         <span className="text-blue-600">{query}</span>&quot;
@@ -64,7 +65,8 @@ export default function SearchResultsPage() {
         basePath="product"
         nameKey="productName"
         imageKey="images"
-        subtitleKey="sal" // 👈 ahora usa sal como subtítulo
+        subtitleKey="sal"
+        useProductCard // ✅ propiedad especial
       />
 
       {/* Doctores */}
@@ -119,6 +121,7 @@ type ResultSectionProps<T extends BaseItem> = {
   nameKey: keyof T;
   imageKey: keyof T;
   subtitleKey?: keyof T;
+  useProductCard?: boolean; // ✅ nueva prop
 };
 
 function ResultSection<T extends BaseItem>({
@@ -128,6 +131,7 @@ function ResultSection<T extends BaseItem>({
   nameKey,
   imageKey,
   subtitleKey,
+  useProductCard,
 }: ResultSectionProps<T>) {
   if (!items || items.length === 0) {
     return (
@@ -142,17 +146,32 @@ function ResultSection<T extends BaseItem>({
   const isLimited = items.length > 8;
 
   return (
-    <section className="mb-10">
+    <section className="mb-10 max-w-6xl mx-auto">
       <h2 className="text-xl font-bold mb-4">{title}</h2>
-      <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div
+        className={`grid gap-6 ${
+          useProductCard
+            ? "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4"
+            : "sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+        }`}
+      >
         {limitedItems.map((item) => {
+          if (useProductCard) {
+            // ✅ Usa el componente personalizado para productos
+            return (
+              <ProductCard
+                key={item.id}
+                product={item as any} // cast ya que sabemos que es ProductType
+              />
+            );
+          }
+
+          // 👉 Diseño sencillo para los demás resultados
           const name = item[nameKey] as unknown as string;
           const imageData = item[imageKey] as
             | { url: string }
             | { url: string }[]
             | undefined;
-
-          // ahora usa subtitleKey si existe
           const subtitle = subtitleKey
             ? (item[subtitleKey] as unknown as string)
             : null;
