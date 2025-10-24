@@ -5,5 +5,9 @@ export default async function CartPageWrapper() {
   const userData = await getUserMeLoader();
   const user = userData.ok ? userData.data : null;
 
-  return <CartClientPage user={user} />;
+  return (
+    <div className="w-full overflow-x-hidden">
+      <CartClientPage user={user} />
+    </div>
+  );
 }
