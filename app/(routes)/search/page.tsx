@@ -8,6 +8,7 @@ import { useGetCategories } from "@/api/getCategories";
 import Image from "next/image";
 import Link from "next/link";
 import ProductCard from "@/components/productCard";
+import { ProductType } from "@/types/product";
 
 export default function SearchResultsPage() {
   const { products, loading: loadingProducts } = useGetProducts();
@@ -145,6 +146,16 @@ function ResultSection<T extends BaseItem>({
   const limitedItems = items.slice(0, 8);
   const isLimited = items.length > 8;
 
+  function isProductType(item: unknown): item is ProductType {
+  return (
+    typeof item === "object" &&
+    item !== null &&
+    "productName" in item &&
+    "price" in item
+  );
+}
+
+
   return (
     <section className="mb-10 max-w-6xl mx-auto">
       <h2 className="text-xl font-bold mb-4">{title}</h2>
@@ -156,14 +167,8 @@ function ResultSection<T extends BaseItem>({
         }`}
       >
         {limitedItems.map((item) => {
-          if (useProductCard) {
-            // ✅ Usa el componente personalizado para productos
-            return (
-              <ProductCard
-                key={item.id}
-                product={item as any} // cast ya que sabemos que es ProductType
-              />
-            );
+          if (useProductCard && isProductType(item)) {
+            return <ProductCard key={item.id} product={item} />;
           }
 
           // 👉 Diseño sencillo para los demás resultados
