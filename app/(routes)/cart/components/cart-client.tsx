@@ -24,7 +24,6 @@ export default function CartClientPage({ user }: CartClientPageProps) {
   const [isDelivery, setIsDelivery] = useState(false);
 
   const deliveryCost = isDelivery ? 200 : 0;
-  const subtotal = items.reduce((total, product) => total + (product.price * product.quantity), 0);
   const totalPrice = items.reduce((total, product) => {
     const useMemberPrice = user?.mediClubRegular && product.priceMember > 0;
     const price = useMemberPrice ? product.priceMember : product.price;

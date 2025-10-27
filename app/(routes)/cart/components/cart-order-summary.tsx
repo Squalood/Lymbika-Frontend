@@ -17,6 +17,7 @@ interface CartOrderSummaryProps {
   subtotal: number;
   totalPrice: number;
   ahorro: number;
+  finalTotal: number;
   onCheckout: () => void;
 }
 
@@ -27,8 +28,8 @@ export function CartOrderSummary({
   setIsDelivery,
   deliveryCost,
   subtotal,
-  totalPrice,
   ahorro,
+  finalTotal,
   onCheckout,
 }: CartOrderSummaryProps) {
   return (
@@ -115,7 +116,7 @@ export function CartOrderSummary({
           <div className="flex justify-between items-center pt-2">
             <span className="text-base sm:text-lg font-semibold">Total</span>
             <span className="text-xl sm:text-2xl font-bold text-primary whitespace-nowrap">
-              {formatPrice(totalPrice)}
+              {formatPrice(finalTotal)}
             </span>
           </div>
         </div>
