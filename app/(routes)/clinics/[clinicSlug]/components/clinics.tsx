@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ClinicType } from "@/types/clinic";
-import { ChevronRight, Stethoscope, HeartPulse, Brain, ScanHeart, LucideIcon, Hospital, Ribbon, Venus, Baby, Sparkles, Shell, ClipboardPlus, Syringe, Dumbbell, Laugh } from "lucide-react";
+import { ChevronRight, Stethoscope, HeartPulse, Brain, ScanHeart, LucideIcon, Hospital, Ribbon, Venus, Baby, Sparkles, Shell, ClipboardPlus, Syringe, Dumbbell, Laugh, BriefcaseMedical, PillBottle, Bone, Bandage, Dna, Ambulance } from "lucide-react";
 import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
@@ -29,7 +29,13 @@ const iconMap: Record<string, LucideIcon> = {
   ClipboardPlus,
   Syringe,
   Dumbbell,
-  Laugh
+  Laugh,
+  BriefcaseMedical,
+  PillBottle,
+  Bone,
+  Bandage,
+  Dna,
+  Ambulance
 };
 
 // Icono por defecto si no se encuentra

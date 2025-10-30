@@ -71,7 +71,7 @@ interface AuthUserProps {
                     Lym<span className="font-bold">bika</span>
                 </h1>
                 <div className="items-center justify-between hidden lg:flex z-50">
-                    <MenuList />
+                    <MenuList />  
                 </div>
 
                 <div className="items-center justify-between gap-2 sm:gap-2 hidden lg:flex">

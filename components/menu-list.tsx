@@ -87,7 +87,7 @@ const MenuList = () => {
         <NavigationMenuItem>
           <NavigationMenuTrigger className={navStyle}>Clínicas</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ClinicsList clinics={clinics} loading={loading} />
+            <ClinicsList clinics={clinics}/>
           </NavigationMenuContent>
         </NavigationMenuItem>
 
