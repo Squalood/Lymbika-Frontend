@@ -32,9 +32,9 @@ const StatsSection = ({ stats }: StatsSectionProps) => {
           </div>
 
           <blockquote className="mt-10 border-l-4 border-blue-300 pl-4 text-sm sm:text-base text-muted-foreground italic">
-            "El Dr. José Orlando Guinto Nava, neurocirujano, aumentó su
+            &quot;El Dr. José Orlando Guinto Nava, neurocirujano, aumentó su
             práctica de un mes a otro 150% con Lymbika. Una transformación
-            real para profesionales comprometidos."
+            real para profesionales comprometidos.&quot;
           </blockquote>
         </div>
       </div>
