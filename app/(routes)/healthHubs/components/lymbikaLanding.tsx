@@ -1,55 +1,127 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import { 
-  Users, 
-  Building2, 
-  Megaphone, 
-  Pill, 
-  FileText, 
-  Bot, 
-  ArrowRight,
+import {
+  Ambulance,
+  BriefcaseMedical,
+  CalendarPlus,
+  UserRoundPlus,
+  ChartNoAxesCombined,
+  Globe,
+  Handshake,
+  Presentation,
+  Waypoints,
 } from "lucide-react";
-import Link from "next/link";
 import { useGetPlan } from "@/api/getPlans";
-import PricingPaquetes from "./kits";
-import MedicalHero from "./heroSection";
 import { useGetPageHero } from "@/api/getPageHeroBySlug";
+import MedicalHero from "./heroSection";
 import MedicalHeroSkeleton from "@/components/skeleton/medicalHeroSkeleton";
+import PricingPaquetes from "./kits";
+import CTASection from "./ctaSection";
+import FeaturesSection from "./featuresSection";
+import HowItWorksSection from "./howItWorksSection";
+import MedicalKitsSection from "./infoKits";
+import StatsSection from "./statsSection";
+import ValuesSection from "./valuesSection";
 
 const LymbikaLanding = () => {
+  const values = [
+    {
+      title: "Red de Especialistas",
+      description:
+        "Accede a una comunidad médica dinámica donde los profesionales se refieren pacientes mutuamente. Amplía tu alcance y recibe referencias cualificadas de otros especialistas.",
+    },
+    {
+      title: "Farmacia Especializada",
+      description:
+        "Adquiere medicamentos a precios de proveedor para tu consultorio y tus pacientes. Encontramos incluso aquellos productos que no están disponibles en farmacias tradicionales.",
+    },
+    {
+      title: "Marketing Integral",
+      description:
+        "Posicionamiento SEO, clínica virtual, publicidad en redes sociales y estrategias de Google Ads diseñadas específicamente para profesionales de la salud.",
+    },
+  ];
+
   const features = [
     {
-      icon: Building2,
-      title: "Espacio físico para consulta",
-      description: "Accede a consultorios equipados cuando los necesites, sin inversión inicial"
+      icon: CalendarPlus,
+      title: "Gestión de Estudios",
+      description:
+        "Coordinación eficiente de laboratorios, imagenología y procedimientos diagnósticos para tus pacientes.",
     },
     {
-      icon: Megaphone,
-      title: "Publicidad y posicionamiento",
-      description: "Marketing digital especializado para hacer crecer tu práctica médica"
+      icon: UserRoundPlus,
+      title: "Health Companion",
+      description:
+        "Atención para que tus pacientes acudan mensualmente por su tratamiento, mejorando adherencia y seguimiento.",
     },
     {
-      icon: Pill,
-      title: "Farmacia e insumos",
-      description: "Plataforma integrada con farmacia y materiales quirúrgicos"
+      icon: Ambulance,
+      title: "Urgencias Médicas",
+      description:
+        "Facilitamos todo en eventos quirúrgicos urgentes o necesidades inmediatas de tus pacientes.",
     },
     {
-      icon: FileText,
-      title: "Apoyo administrativo",
-      description: "Credencialización hospitalaria y gestión de trámites simplificada"
+      icon: BriefcaseMedical,
+      title: "Proveeduría Clínica",
+      description:
+        "Suministro completo para tu consultorio o unidad de salud con precios preferenciales.",
+    },
+  ];
+
+  const stats = [
+    {
+      value: "150%",
+      title: "Incremento mensual",
+      subtitle: "Crecimiento promedio en consultas",
     },
     {
-      icon: Bot,
-      title: "Asistente IA - Alyus",
-      description: "Inteligencia artificial para seguimiento de pacientes y gestión médica"
+      value: "4+",
+      title: "Referencias garantizadas",
+      subtitle: "Consultas mínimas por mes",
     },
     {
-      icon: Users,
-      title: "Comunidad médica",
-      description: "Red de doctores para referir pacientes y colaborar profesionalmente"
-    }
+      value: "24/7",
+      title: "Soporte continuo",
+      subtitle: "Gestión de urgencias médicas",
+    },
+  ];
+
+  const steps = [
+    {
+      icon: UserRoundPlus,
+      title: "Registro e Integración",
+      description:
+        "Selecciona tu membresía y completa tu perfil profesional. Nuestro equipo te guía en cada paso del proceso de onboarding.",
+    },
+    {
+      icon: Waypoints,
+      title: "Conexión con la Red",
+      description:
+        "Te intégramos inmediatamente a nuestra red de especialistas. Puedes comenzar a recibir y realizar referencias desde el primer día.",
+    },
+    {
+      icon: Presentation,
+      title: "Activación de Marketing",
+      description:
+        "Lanzamos tu clínica virtual, campañas digitales y posicionamiento SEO para maximizar tu visibilidad profesional.",
+    },
+    {
+      icon: ChartNoAxesCombined,
+      title: "Crecimiento Sostenido",
+      description:
+        "Monitorea tu crecimiento con analíticas detalladas. Ajustamos estrategias para optimizar resultados continuamente.",
+    },
+    {
+      icon: Handshake,
+      title: "Red Colaborativa",
+      description:
+        "Comunidad de especialistas que se apoyan mutuamente. Referencias cruzadas que benefician a todos los profesionales del ecosistema médico regional.",
+    },
+    {
+      icon: Globe,
+      title: "Visión Transfronteriza",
+      description:
+        "Aprovecha la posición estratégica de Ciudad Juárez. Atrae pacientes de ambos lados de la frontera con servicios especializados bilingües.",
+    },
   ];
 
   const { hero, loading } = useGetPageHero("doctores");
@@ -57,87 +129,16 @@ const LymbikaLanding = () => {
 
   if (loading) return <MedicalHeroSkeleton />;
 
- return (
+  return (
     <div className="min-h-screen bg-background">
-      {/* Hero Section */}
       <MedicalHero hero={hero[0]?.hero} />
-
-      {/* Value Proposition */}
-      <section className="py-16 bg-card w-full">
-        <div className="max-w-4xl mx-auto px-4 text-center space-y-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-            Aquí no trabajas solo
-            <span className="text-primary"> Lymbika trabaja contigo</span>
-          </h2>
-          <Separator className="w-24 mx-auto bg-primary" />
-          <p className="text-xl text-muted-foreground leading-relaxed">
-            Si estás buscando crecer tu consulta, atender mejor a tus pacientes, 
-            automatizar tu trabajo o simplemente ser parte de algo más grande… esta red es para ti.
-          </p>
-        </div>
-      </section>
-
-      {/* Features Grid */}
-      <section className="py-20 bg-gradient-to-b from-background to-primary-light w-full">
-        <div className="max-w-4xl mx-auto px-4">
-          <div className="text-center mb-16 space-y-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-              Todo lo que necesitas en un solo lugar
-            </h2>
-            <p className="text-xl text-muted-foreground">
-              Servicios integrales para hacer crecer tu práctica médica
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <Card key={index} className="group hover:shadow-xl transition-all duration-300 border border-primary/20 bg-card/90 backdrop-blur-sm hover:border-primary/40">
-                <CardHeader className="text-center space-y-4">
-                  <div className="mx-auto p-4 bg-primary/10 rounded-2xl w-fit group-hover:scale-110 transition-transform duration-300 border border-primary/20">
-                    <feature.icon className="h-8 w-8 text-primary" />
-                  </div>
-                  <CardTitle className="text-xl text-foreground">{feature.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-center text-base leading-relaxed text-muted-foreground">
-                    {feature.description}
-                  </CardDescription>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <PricingPaquetes data={plan}/>
-
-      {/* CTA Section */}
-        <section className="py-16 sm:py-20 bg-primary w-full">
-            <div className="max-w-4xl mx-auto px-4 text-center">
-                <Card className="bg-primary-foreground/95 border-0 shadow-2xl">
-                <CardContent className="space-y-8 p-6 sm:p-8 md:p-12">
-                    
-                    <div className="space-y-6">
-                    <Badge className="bg-primary text-primary-foreground text-base sm:text-lg px-4 sm:px-6 py-2 sm:py-3">
-                        🔔 Únete Ahora
-                    </Badge>
-
-                    <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-foreground">
-                        ¿Quieres más pacientes y más valor en tu consulta? Únete a Lymbika.
-                    </h2>
-
-                    </div>
-
-                    <Button asChild size="lg" className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-lg sm:text-xl px-6 sm:px-10 md:px-12 py-4 sm:py-5 md:py-6 shadow-xl hover:shadow-2xl transition-all duration-300">
-                      <Link href="https://wa.me/526561100446" target="_blank" rel="noopener noreferrer">
-                        📲 Quiero unirme ahora
-                        <ArrowRight className="ml-2 h-5 w-5 sm:h-6 sm:w-6" />
-                      </Link>
-                    </Button>
-                </CardContent>
-                </Card>
-            </div>
-        </section>
+      <ValuesSection values={values} />
+      <StatsSection stats={stats} />
+      <FeaturesSection features={features} />
+      <PricingPaquetes data={plan} />
+      <MedicalKitsSection />
+      <HowItWorksSection steps={steps} />
+      <CTASection />
     </div>
   );
 };
