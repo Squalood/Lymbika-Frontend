@@ -13,6 +13,9 @@ import ProductCard from "@/components/productCard";
 import SkeletonSchema from "@/components/skeleton/skeletonSchema";
 import { useGetClinicsProducts } from "@/api/useGetClinicsProducts";
 import { ClinicType } from "@/types/clinic";
+import { SearchGeneral } from "@/components/searchGeneral";
+import { useGetProducts } from "@/api/getProducts";
+import { useGetDoctors } from "@/api/getDoctor";
 
 type ClinicProductsProps = {
   clinicSlug: string;
@@ -24,9 +27,23 @@ const ClinicProducts = ({ clinicSlug, clinicTitle }: ClinicProductsProps) => {
 
   const noProducts = !loading && (!result || result.length === 0);
 
+  const { products } = useGetProducts();
+  const { doctors } = useGetDoctors();
+
   return (
     <div className="max-w-sm sm:max-w-lg md:max-w-2xl lg:max-w-4xl py-4 mx-auto sm:py-12 px-4">
-      <h3 className="px-6 text-3xl sm:pb-8">Farmacia {clinicTitle}</h3>
+      <h3 className="px-6 text-xl md:text-3xl sm:pb-8">Farmacia {clinicTitle}</h3>
+
+      {/* Barra de búsqueda */}
+      <div className="flex w-10/12 md:w-1/2 mt-2 mb-8 text-black">
+        <SearchGeneral
+          allProducts={products}
+          allDoctors={doctors}
+          allServices={[]}
+          allSurgeries={[]}
+          allCategories={[]}
+        />
+      </div>
 
       {loading ? (
         <SkeletonSchema grid={3} />

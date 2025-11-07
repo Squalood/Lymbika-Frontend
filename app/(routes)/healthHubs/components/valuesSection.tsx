@@ -1,4 +1,5 @@
 interface Value {
+  id: number;
   title: string;
   description: string;
 }
@@ -8,6 +9,10 @@ interface ValuesSectionProps {
 }
 
 const ValuesSection = ({ values }: ValuesSectionProps) => {
+  if (!values || values.length === 0) {
+    return null;
+  }
+
   return (
     <section className="py-20 bg-gradient-to-b from-background to-primary-light w-full">
       <div className="max-w-4xl mx-auto px-4">
@@ -18,8 +23,8 @@ const ValuesSection = ({ values }: ValuesSectionProps) => {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {values.map((value, index) => (
-            <div key={index} className="">
+          {values.map((value) => (
+            <div key={value.id} className="">
               <div className="text-left pb-4">
                 <h2 className="text-2xl font-bold">{value.title}</h2>
               </div>

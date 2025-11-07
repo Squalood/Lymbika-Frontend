@@ -1,6 +1,10 @@
 import Image from "next/image";
 
-const MedicalKitsSection = () => {
+interface MedicalKitsSectionProps {
+  imageUrl?: string;
+}
+
+const MedicalKitsSection = ({ imageUrl }: MedicalKitsSectionProps) => {
   return (
     <section className="bg-primary py-16 px-4">
       <div className="max-w-6xl mx-auto bg-card text-card-foreground rounded-2xl shadow-sm p-8 md:p-12">
@@ -12,7 +16,7 @@ const MedicalKitsSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
           <div className="overflow-hidden rounded-lg">
             <Image
-              src="/assets/infoKits.jpeg"
+              src={imageUrl || "/assets/infoKits.jpeg"}
               alt="Suministro médico"
               width={600}
               height={400}

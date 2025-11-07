@@ -45,12 +45,7 @@ export function SearchGeneral({
   const [filteredResults, setFilteredResults] = useState<SearchableItem[]>([]);
 
   const filterItems = useDebouncedCallback((term: string) => {
-    const params = new URLSearchParams(searchParams);
-    params.set("page", "1");
-
     if (term.trim()) {
-      params.set("query", term);
-
       const normalizedTerm = term.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
       const results: SearchableItem[] = [
@@ -121,11 +116,8 @@ export function SearchGeneral({
 
       setFilteredResults(results.slice(0, 6)); 
     } else {
-      params.delete("query");
       setFilteredResults([]);
     }
-
-    replace(`${pathname}?${params.toString()}`);
   }, 300);
 
   useEffect(() => {

@@ -44,6 +44,19 @@ const CTASection = () => {
                   <ArrowRight className="ml-2 h-5 w-5 sm:h-6 sm:w-6" />
                 </Link>
               </Button>
+              <Button
+                asChild
+                className="bg-slate-100 hover:bg-blue-700 hover:text-white text-black border-2 border-blue-700"
+              >
+                <Link
+                  href="https://wa.me/526561100446"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Consulta de 15 minutos
+                  <ArrowRight className="ml-2 h-5 w-5 sm:h-6 sm:w-6" />
+                </Link>
+              </Button>
             </div>
           </div>
 
