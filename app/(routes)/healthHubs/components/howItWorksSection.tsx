@@ -6,6 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import * as LucideIcons from "lucide-react";
+import { LucideIcon } from "lucide-react";
 
 interface Step {
   id: number;
@@ -23,9 +24,9 @@ const HowItWorksSection = ({ steps }: HowItWorksSectionProps) => {
     return null;
   }
 
-  const getIcon = (iconName: string) => {
-    const Icon = (LucideIcons as any)[iconName];
-    return Icon || LucideIcons.HelpCircle;
+  const getIcon = (iconName: string): LucideIcon => {
+    const iconsMap = LucideIcons as unknown as Record<string, LucideIcon>;
+    return iconsMap[iconName] || LucideIcons.HelpCircle;
   };
 
   return (

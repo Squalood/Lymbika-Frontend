@@ -8,6 +8,7 @@ import { Toaster } from "@/components/ui/sonner"
 import NextTopLoader from 'nextjs-toploader'
 import { getUserMeLoader } from "./data/services/get-user-me-loader";
 import Script from "next/script";
+import Image from "next/image";
 
 const urbanist = Urbanist({ subsets: ["latin"], display: "swap" });
 
@@ -62,11 +63,13 @@ export default async function RootLayout({children,}: Readonly<{children: React.
           `}
         </Script>
         <noscript>
-          <img
-            height="1"
-            width="1"
+          <Image
+            height={1}
+            width={1}
             style={{ display: "none" }}
             src="https://www.facebook.com/tr?id=1341384531034676&ev=PageView&noscript=1"
+            alt="Facebook Pixel"
+            unoptimized
           />
         </noscript>
 
