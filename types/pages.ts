@@ -70,14 +70,15 @@ export type PageType = {
   Contact: {
     title: string;
     direccionText: string;
-    Horario: string;
+    timeText: string;
     contactLocation: string;
-    contactSchedule: string;
+    contactScheduleLink: string;
     contactPhone: string;
     contactWhatsappLink: string;
     image: {
       url: string;
     };
+    description: string;
   };
   imagenRe1: {
     url: string;

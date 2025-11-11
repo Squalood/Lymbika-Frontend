@@ -1,16 +1,22 @@
 "use client"
 
+import { useGetPageContact } from "@/api/getPageContact";
 import AboutPage from "./components/aboutPage";
-import LymbikaLocation from "./components/location";
 import SlideImage from "./components/slideimage";
+import LymbikaLocation from "./components/location";
 
-export default function Page (){
+export default function Page() {
+  const { contact, loading } = useGetPageContact("about");
 
-    return(    
-        <div>
-            <SlideImage/>
-            <AboutPage/>
-            <LymbikaLocation/>
-        </div>
-    );
+  if (loading) {
+    return <div>Cargando...</div>;
+  }
+
+  return (
+    <div>
+      <SlideImage />
+      <AboutPage />
+      <LymbikaLocation contact={contact} />
+    </div>
+  );
 }

@@ -63,4 +63,6 @@ export type ClinicType = {
     productName: string;
     slug: string;
   };
+
+  featuredClinic: boolean;
 };

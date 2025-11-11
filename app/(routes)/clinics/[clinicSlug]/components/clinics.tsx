@@ -44,8 +44,14 @@ const DefaultIcon = Stethoscope;
 export default function Clinics({ data }: ClinicsListProps) {
   if (!data || data.length === 0) return null;
 
-  const bigCards = [...data].sort(() => Math.random() - 0.5) .slice(0, 2);
+  // Filtrar clínicas destacadas y seleccionar 2 aleatoriamente
+  const featuredClinics = data.filter(clinic => clinic.featuredClinic);
+  const bigCards = [...featuredClinics]
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 2);
   const smallCards = data.slice(0);
+
+  console.log(data)
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
@@ -54,7 +60,7 @@ export default function Clinics({ data }: ClinicsListProps) {
       </div>
 
       <div className="flex flex-wrap gap-4">
-        {/* Tarjetas grandes */}
+        {/* Tarjetas grandes - Solo clínicas destacadas */}
         {bigCards.map((clinic) => {
           const Icon = iconMap[clinic.icon] || DefaultIcon;
           return(

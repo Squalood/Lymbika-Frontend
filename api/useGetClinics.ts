@@ -68,7 +68,8 @@ export function useGetClinics() {
             videos: item.videos && {
               id: item.videos.id,
               videoID: item.videos.videoID
-            }
+            },
+            featuredClinic: item.featuredClinic
           }));
 
           setClinics(mapped);

@@ -32,10 +32,11 @@ const iconMap = {
 };
 
 export default function ClinicsList({ clinics }: ClinicsListProps) {
-  // Primeros 6 elementos para el grid
-  const gridClinics = clinics.slice(0, 6);
-  // Elementos restantes para la lista lateral
-  const sidebarClinics = clinics.slice(6);
+  // Filtrar clínicas destacadas para el grid (máximo 6)
+  const gridClinics = clinics.filter(clinic => clinic.featuredClinic === true).slice(0, 6);
+  
+  // Clínicas no destacadas para la lista lateral
+  const sidebarClinics = clinics.filter(clinic => clinic.featuredClinic !== true);
   
   return (
     <div className="w-[900px] p-4 flex gap-2">
