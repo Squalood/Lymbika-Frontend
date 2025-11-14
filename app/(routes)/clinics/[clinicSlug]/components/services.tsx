@@ -19,51 +19,8 @@ import { useInView } from "react-intersection-observer";
 import { useRef } from "react";
 import Image from "next/image";
 import { ClinicType } from "@/types/clinic";
-import {
-  Activity,
-  Ambulance,
-  Baby,
-  Bandage,
-  Brain,
-  BriefcaseMedical,
-  ClipboardPlus,
-  Dumbbell,
-  Heart,
-  HeartPulse,
-  Hospital,
-  LucideIcon,
-  Pill,
-  Ribbon,
-  ScanHeart,
-  Shell,
-  Sparkles,
-  Stethoscope,
-  Syringe,
-  Venus,
-} from "lucide-react";
 import PriceToggle from "@/components/priceToggle";
 
-const iconMap: Record<string, LucideIcon> = {
-  icon1: Stethoscope,
-  icon2: Activity,
-  Heart: Heart,
-  HeartPulse,
-  Brain,
-  ScanHeart,
-  Hospital,
-  Ribbon,
-  Venus,
-  Baby,
-  Sparkles,
-  Shell,
-  ClipboardPlus,
-  Syringe,
-  Dumbbell,
-  BriefcaseMedical,
-  Ambulance,
-  Bandage,
-  Pill,
-};
 
 type ServicesProps = {
   services: ClinicType["services"];
@@ -97,7 +54,6 @@ export default function Services({ services }: ServicesProps) {
         >
           <CarouselContent>
             {services.map((service, index) => {
-              const Icon = iconMap[service.icon] || Stethoscope;
 
               return (
                 <CarouselItem
