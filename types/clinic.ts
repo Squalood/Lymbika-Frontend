@@ -22,6 +22,9 @@ export type ClinicType = {
     description: string;
     price: number;
     icon: string; 
+    image: {
+      url: string;
+    }; 
   }[];
 
   features: {

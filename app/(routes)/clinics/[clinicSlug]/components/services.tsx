@@ -5,7 +5,7 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from "@/components/ui/card";
 import {
   Carousel,
@@ -17,8 +17,30 @@ import {
 import Autoplay from "embla-carousel-autoplay";
 import { useInView } from "react-intersection-observer";
 import { useRef } from "react";
+import Image from "next/image";
 import { ClinicType } from "@/types/clinic";
-import { Activity, Ambulance, Baby, Bandage, Brain, BriefcaseMedical, ClipboardPlus, Dumbbell, Heart, HeartPulse, Hospital, LucideIcon, Pill, Ribbon, ScanHeart, Shell, Sparkles, Stethoscope, Syringe, Venus } from "lucide-react";
+import {
+  Activity,
+  Ambulance,
+  Baby,
+  Bandage,
+  Brain,
+  BriefcaseMedical,
+  ClipboardPlus,
+  Dumbbell,
+  Heart,
+  HeartPulse,
+  Hospital,
+  LucideIcon,
+  Pill,
+  Ribbon,
+  ScanHeart,
+  Shell,
+  Sparkles,
+  Stethoscope,
+  Syringe,
+  Venus,
+} from "lucide-react";
 import PriceToggle from "@/components/priceToggle";
 
 const iconMap: Record<string, LucideIcon> = {
@@ -40,7 +62,7 @@ const iconMap: Record<string, LucideIcon> = {
   BriefcaseMedical,
   Ambulance,
   Bandage,
-  Pill
+  Pill,
 };
 
 type ServicesProps = {
@@ -50,7 +72,7 @@ type ServicesProps = {
 export default function Services({ services }: ServicesProps) {
   const { ref, inView } = useInView({
     threshold: 0.1,
-    triggerOnce: true
+    triggerOnce: true,
   });
   const autoplay = useRef(Autoplay({ delay: 4000 }));
 
@@ -80,17 +102,25 @@ export default function Services({ services }: ServicesProps) {
               return (
                 <CarouselItem
                   key={service.id}
-                  className="basis-2/3 sm:basis-1/2 lg:basis-1/3 mx-auto my-2"
+                  className="basis-2/3 lg:basis-1/3 mx-auto my-2"
                 >
                   <Card
                     className={`transition-all duration-700 h-full ${
-                      inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                      inView
+                        ? "opacity-100 translate-y-0"
+                        : "opacity-0 translate-y-8"
                     }`}
                     style={{ transitionDelay: `${index * 100}ms` }}
                   >
                     <CardHeader>
-                      <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                        <Icon className="w-6 h-6 text-primary" />
+                      <div className="group-hover:opacity-90 py-4">
+                        <Image
+                          className="w-full rounded-lg aspect-square"
+                          src={service.image?.url || "/placeholder-image.webp"}
+                          width={300}
+                          height={500}
+                          alt="se"
+                        />
                       </div>
                       <CardTitle>{service.title}</CardTitle>
                       <CardDescription className="text-lg font-semibold text-primary">
@@ -98,7 +128,9 @@ export default function Services({ services }: ServicesProps) {
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-muted-foreground">{service.description}</p>
+                      <p className="text-muted-foreground">
+                        {service.description}
+                      </p>
                     </CardContent>
                   </Card>
                 </CarouselItem>
@@ -106,8 +138,8 @@ export default function Services({ services }: ServicesProps) {
             })}
           </CarouselContent>
           {/* Flechas de navegación */}
-          <CarouselPrevious className="left-2 sm:-left-8 bg-white/80 hover:bg-white shadow-md rounded-full md:hidden" />
-          <CarouselNext className="right-2 sm:-right-8 bg-white/80 hover:bg-white shadow-md rounded-full md:hidden" />
+          <CarouselPrevious className="left-2 sm:-left-8 bg-white/80 hover:bg-white shadow-md rounded-full " />
+          <CarouselNext className="right-2 sm:-right-8 bg-white/80 hover:bg-white shadow-md rounded-full " />
         </Carousel>
       </div>
     </section>

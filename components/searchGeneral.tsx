@@ -137,7 +137,7 @@ export function SearchGeneral({
     <div className="relative w-full">
       <Input
         type="text"
-        placeholder="Buscar productos, doctores, servicios..."
+        placeholder="Buscar Medicinas, doctores y etc..."
         value={searchTerm}
         onChange={(e) => {
           setSearchTerm(e.target.value);

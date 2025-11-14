@@ -12,11 +12,13 @@ import ClinicSkeleton from "@/components/skeleton/clinicSkeleton";
 import ClinicGallery from "./components/clinicGallety";
 import { useGetClinicDoctor } from "@/api/useGetClinicsDoctorBySlug";
 import ClinicProducts from "./components/products";
+import { useGetClinicServices } from "@/api/useGetClinicsServiceBySlug";
 
 export default function ClinicPage() {
   const { clinicSlug } = useParams();
   const { clinic, loading } = useGetClinic(clinicSlug as string);
   const { DoctorClinic } = useGetClinicDoctor(clinicSlug as string);
+  const { ServicesClinic } = useGetClinicServices(clinicSlug as string);
 
   if (loading) {
     return <ClinicSkeleton />;
@@ -35,14 +37,20 @@ export default function ClinicPage() {
   }
   const { doctor } = DoctorClinic;
 
+  if (!ServicesClinic || !ServicesClinic.services) {
+    return <p>No se encontró información de los servicios.</p>;
+  }
+  const { services } = ServicesClinic;
+
   return (
     <div className="relative">
       <Hero data={clinic} /> 
-      <Services services={clinic.services} />
+      <Services services={services} />
+      <ClinicProducts clinicSlug={clinicSlug as string} clinicTitle={clinic.title} />
       <WhyUs features={clinic.features} />
       <Doctor data={doctor} />   
       <Testimonials list={clinic.testimonials} />
-      <ClinicProducts clinicSlug={clinicSlug as string} clinicTitle={clinic.title} />
+      
       {clinic.gallery && clinic.gallery.length > 0 && (
         <ClinicGallery clinic={clinic} />
       )}
