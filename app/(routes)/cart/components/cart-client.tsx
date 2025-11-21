@@ -1,4 +1,4 @@
-//cart-client.tsx
+//cart-client.tsx correcto
 
 "use client";
 
@@ -15,31 +15,33 @@ import { CartProductsList } from "./cart-products-list";
 import { CartSummary } from "./cart-summary";
 import { CartMobileBar } from "./cart-mobile-bar";
 import { AuthUserProps } from "./types";
+import { ProductType } from "@/types/product";
+import { ClinicType } from "@/types/clinic";
+
 
 interface CartClientPageProps {
   user: AuthUserProps | null;
 }
 
-// Helper para detectar si es producto o servicio
-const isProduct = (item: any): boolean => {
+type CartItem = ProductType | ClinicType["services"][number];
+
+const isProduct = (item: CartItem): item is ProductType => {
   return "productName" in item;
 };
 
-// Helper para obtener el precio correcto
-const getItemPrice = (item: any, user: AuthUserProps | null): number => {
+const getItemPrice = (item: CartItem, user: AuthUserProps | null): number => {
   if (isProduct(item)) {
     const useMemberPrice = user?.mediClubRegular && item.priceMember > 0;
     return useMemberPrice ? item.priceMember : item.price;
-  } else {
-    // Para servicios, el precio ya es un número
-    return item.price || 0;
   }
+
+  return item.price ?? 0; 
 };
 
-// Helper para obtener el nombre del item
-const getItemName = (item: any): string => {
+const getItemName = (item: CartItem): string => {
   return isProduct(item) ? item.productName : item.title;
 };
+
 
 export default function CartClientPage({ user }: CartClientPageProps) {
   const router = useRouter();
@@ -60,10 +62,10 @@ export default function CartClientPage({ user }: CartClientPageProps) {
       const stripe = await stripePromise;
       const productsPayload = items.map(item => ({
         id: item.id,
-        name: getItemName(item),
+        name: getItemName(item), 
         quantity: item.quantity,
-        price: getItemPrice(item, user),
-        type: isProduct(item) ? "product" : "service", // Identificar tipo
+        price: getItemPrice(item, user), 
+        type: isProduct(item) ? "product" : "service", 
       }));
 
       const res = await makePaymentRequest.post("/api/orders", {

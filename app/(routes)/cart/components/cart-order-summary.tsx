@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/formatPrice";
 import { CartItem } from "@/hooks/use-cart";
+import { ProductType } from "@/types/product";
 import { AuthUserProps } from "./types";
 
 interface CartOrderSummaryProps {
@@ -21,25 +22,24 @@ interface CartOrderSummaryProps {
   onCheckout: () => void;
 }
 
-// Helper para detectar si es producto o servicio
-const isProduct = (item: any): boolean => {
+// Type guard: producto
+const isProduct = (item: CartItem): item is ProductType & { quantity: number } => {
   return "productName" in item;
 };
 
-// Helper para obtener el nombre del item
-const getItemName = (item: any): string => {
+// Nombre del item
+const getItemName = (item: CartItem): string => {
   return isProduct(item) ? item.productName : item.title;
 };
 
-// Helper para obtener el precio correcto
-const getItemPrice = (item: any, user: AuthUserProps | null): number => {
+// Precio final por item
+const getItemPrice = (item: CartItem, user: AuthUserProps | null): number => {
   if (isProduct(item)) {
     const useMemberPrice = user?.mediClubRegular && item.priceMember > 0;
     return useMemberPrice ? item.priceMember : item.price;
-  } else {
-    // Para servicios, el precio ya es un número
-    return item.price || 0;
   }
+
+  return item.price ?? 0;
 };
 
 export function CartOrderSummary({
@@ -58,8 +58,9 @@ export function CartOrderSummary({
       <CardHeader className="p-4 sm:p-6">
         <CardTitle className="text-base sm:text-lg">Resumen del Pedido</CardTitle>
       </CardHeader>
+
       <CardContent className="space-y-3 sm:space-y-4 p-4 sm:p-6 pt-0 w-full">
-        {/* Product/Service Details */}
+        {/* Items */}
         <div className="space-y-2 text-xs sm:text-sm w-full overflow-hidden">
           {items.map((item) => {
             const price = getItemPrice(item, user);
@@ -70,12 +71,14 @@ export function CartOrderSummary({
               <div key={item.id} className="flex justify-between items-start gap-2 w-full">
                 <div className="flex items-center gap-1 min-w-0 flex-1 overflow-hidden">
                   <span className="truncate text-left">{itemName}</span>
+
                   {item.quantity > 1 && (
-                    <span className="text-muted-foreground shrink-0 whitespace-nowrap">
+                    <span className="text-muted-foreground shrink-0">
                       ×{item.quantity}
                     </span>
                   )}
                 </div>
+
                 <span className="font-medium shrink-0 whitespace-nowrap">
                   {formatPrice(totalPerItem)}
                 </span>
@@ -86,16 +89,17 @@ export function CartOrderSummary({
 
         <Separator />
 
-        {/* Delivery Option */}
+        {/* Delivery */}
         <div className="flex items-center justify-between p-3 rounded-lg bg-muted/50 gap-2 w-full">
           <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
             {isDelivery ? (
-              <Package className="w-4 h-4 sm:w-5 sm:h-5 text-primary shrink-0" />
+              <Package className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
             ) : (
-              <Store className="w-4 h-4 sm:w-5 sm:h-5 text-primary shrink-0" />
+              <Store className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
             )}
+
             <div className="min-w-0 flex-1">
-              <Label htmlFor="delivery-option" className="cursor-pointer font-medium text-xs sm:text-sm block truncate">
+              <Label htmlFor="delivery-option" className="cursor-pointer font-medium block truncate">
                 {isDelivery ? "Envío a domicilio" : "Recoger en farmacia"}
               </Label>
               <p className="text-xs text-muted-foreground mt-0.5 truncate">
@@ -103,34 +107,34 @@ export function CartOrderSummary({
               </p>
             </div>
           </div>
+
           <Switch
             id="delivery-option"
             checked={isDelivery}
             onCheckedChange={setIsDelivery}
-            className="shrink-0"
           />
         </div>
 
         <Separator />
 
-        {/* Totals */}
+        {/* Totales */}
         <div className="space-y-2 w-full">
           <div className="flex justify-between text-xs sm:text-sm">
             <span className="text-muted-foreground">Subtotal</span>
-            <span className="font-medium whitespace-nowrap">{formatPrice(subtotal)}</span>
+            <span className="font-medium">{formatPrice(subtotal)}</span>
           </div>
 
           {user?.mediClubRegular && ahorro > 0 && (
             <div className="flex justify-between text-xs sm:text-sm text-green-600">
               <span>Ahorro MediClub</span>
-              <span className="font-semibold whitespace-nowrap">-{formatPrice(ahorro)}</span>
+              <span className="font-semibold">-{formatPrice(ahorro)}</span>
             </div>
           )}
 
           {isDelivery && (
             <div className="flex justify-between text-xs sm:text-sm">
               <span className="text-muted-foreground">Envío</span>
-              <span className="font-medium whitespace-nowrap">{formatPrice(deliveryCost)}</span>
+              <span className="font-medium">{formatPrice(deliveryCost)}</span>
             </div>
           )}
 
@@ -138,18 +142,13 @@ export function CartOrderSummary({
 
           <div className="flex justify-between items-center pt-2">
             <span className="text-base sm:text-lg font-semibold">Total</span>
-            <span className="text-xl sm:text-2xl font-bold text-primary whitespace-nowrap">
+            <span className="text-xl sm:text-2xl font-bold text-primary">
               {formatPrice(finalTotal)}
             </span>
           </div>
         </div>
 
-        {/* Checkout Button */}
-        <Button 
-          className="w-full gap-2 h-11 sm:h-12 text-sm sm:text-base" 
-          onClick={onCheckout}
-          size="lg"
-        >
+        <Button className="w-full gap-2 h-11 sm:h-12" onClick={onCheckout} size="lg">
           Proceder al Pago
           <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
         </Button>

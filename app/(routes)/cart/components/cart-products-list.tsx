@@ -2,9 +2,9 @@ import { Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import CartItem from "./cart-item";
+import CartServiceItem from "./cartServiceItem";
 import { CartItem as CartItemType } from "@/hooks/use-cart";
 import { AuthUserProps } from "./types";
-import CartServiceItem from "./cartServiceItem";
 
 interface CartProductsListProps {
   items: CartItemType[];
@@ -12,32 +12,25 @@ interface CartProductsListProps {
   onRemoveAll: () => void;
 }
 
-// Helper para detectar si es producto
-const isProduct = (item: CartItemType): boolean => {
+// Detectar si es producto
+const isProduct = (item: CartItemType): item is Extract<CartItemType, { productName: string }> => {
   return "productName" in item;
 };
 
 export function CartProductsList({ items, user, onRemoveAll }: CartProductsListProps) {
-  // Contar productos y servicios
-  const productCount = items.filter(item => isProduct(item)).length;
-  const serviceCount = items.filter(item => !isProduct(item)).length;
-  
-  // Generar texto descriptivo
+  const productCount = items.filter(isProduct).length;
+  const serviceCount = items.length - productCount;
+
   const getItemsText = () => {
-    if (productCount > 0 && serviceCount > 0) {
-      return `Items (${items.length})`;
-    } else if (serviceCount > 0) {
-      return `Servicios (${serviceCount})`;
-    }
+    if (productCount > 0 && serviceCount > 0) return `Items (${items.length})`;
+    if (serviceCount > 0) return `Servicios (${serviceCount})`;
     return `Productos (${productCount})`;
   };
 
   return (
     <div className="lg:col-span-2 space-y-3 sm:space-y-4 w-full min-w-0">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg sm:text-xl font-semibold">
-          {getItemsText()}
-        </h2>
+        <h2 className="text-lg sm:text-xl font-semibold">{getItemsText()}</h2>
         <Button
           variant="ghost"
           size="sm"
@@ -59,9 +52,9 @@ export function CartProductsList({ items, user, onRemoveAll }: CartProductsListP
             className="w-full"
           >
             {isProduct(item) ? (
-              <CartItem product={item as any} user={user} />
+              <CartItem product={item} user={user} />
             ) : (
-              <CartServiceItem service={item as any} />
+              <CartServiceItem service={item} />
             )}
           </motion.div>
         ))}

@@ -2,41 +2,40 @@ import { CartMediClubCard } from "./cart-mediclub-card";
 import { CartOrderSummary } from "./cart-order-summary";
 import { CartSummaryProps } from "./types";
 import { useCart } from "@/hooks/use-cart";
+import { CartItem } from "@/hooks/use-cart";
+import { ProductType } from "@/types/product";
+import { ClinicType } from "@/types/clinic";
 
-// Helper para detectar si es producto o servicio
-const isProduct = (item: any): boolean => {
+// Type guard: detecta producto
+const isProduct = (item: CartItem): item is ProductType & { quantity: number } => {
   return "productName" in item;
 };
 
-// Helper para obtener el precio correcto
-const getItemPrice = (item: any, user: any): number => {
+// Precio correcto
+const getItemPrice = (item: CartItem, user: CartSummaryProps["user"]): number => {
   if (isProduct(item)) {
     const useMemberPrice = user?.mediClubRegular && item.priceMember > 0;
     return useMemberPrice ? item.priceMember : item.price;
-  } else {
-    // Para servicios, el precio ya es un número
-    return item.price || 0;
   }
+
+  return item.price ?? 0;
 };
 
-// Helper para obtener el precio original (sin descuento)
-const getOriginalPrice = (item: any): number => {
-  return item.price || 0;
+// Precio original sin descuento
+const getOriginalPrice = (item: CartItem): number => {
+  return item.price ?? 0;
 };
 
 export function CartSummary({ user, isDelivery, setIsDelivery, onCheckout }: CartSummaryProps) {
   const { items } = useCart();
   const deliveryCost = isDelivery ? 200 : 0;
 
-  // Subtotal con precios originales (sin descuento)
   const subtotal = items.reduce((total, item) => {
-    return total + (getOriginalPrice(item) * item.quantity);
+    return total + getOriginalPrice(item) * item.quantity;
   }, 0);
 
-  // Total con descuentos aplicados
   const totalPrice = items.reduce((total, item) => {
-    const price = getItemPrice(item, user);
-    return total + (price * item.quantity);
+    return total + getItemPrice(item, user) * item.quantity;
   }, 0);
 
   const ahorro = subtotal - totalPrice;
