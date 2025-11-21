@@ -4,7 +4,6 @@ import { CartSummaryProps } from "./types";
 import { useCart } from "@/hooks/use-cart";
 import { CartItem } from "@/hooks/use-cart";
 import { ProductType } from "@/types/product";
-import { ClinicType } from "@/types/clinic";
 
 // Type guard: detecta producto
 const isProduct = (item: CartItem): item is ProductType & { quantity: number } => {
