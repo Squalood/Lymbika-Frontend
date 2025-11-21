@@ -1,3 +1,5 @@
+//cart-client.tsx
+
 "use client";
 
 import { useState } from "react";
@@ -18,16 +20,36 @@ interface CartClientPageProps {
   user: AuthUserProps | null;
 }
 
+// Helper para detectar si es producto o servicio
+const isProduct = (item: any): boolean => {
+  return "productName" in item;
+};
+
+// Helper para obtener el precio correcto
+const getItemPrice = (item: any, user: AuthUserProps | null): number => {
+  if (isProduct(item)) {
+    const useMemberPrice = user?.mediClubRegular && item.priceMember > 0;
+    return useMemberPrice ? item.priceMember : item.price;
+  } else {
+    // Para servicios, el precio ya es un número
+    return item.price || 0;
+  }
+};
+
+// Helper para obtener el nombre del item
+const getItemName = (item: any): string => {
+  return isProduct(item) ? item.productName : item.title;
+};
+
 export default function CartClientPage({ user }: CartClientPageProps) {
   const router = useRouter();
   const { items, removeAll } = useCart();
   const [isDelivery, setIsDelivery] = useState(false);
 
   const deliveryCost = isDelivery ? 200 : 0;
-  const totalPrice = items.reduce((total, product) => {
-    const useMemberPrice = user?.mediClubRegular && product.priceMember > 0;
-    const price = useMemberPrice ? product.priceMember : product.price;
-    return total + (price * product.quantity);
+  const totalPrice = items.reduce((total, item) => {
+    const price = getItemPrice(item, user);
+    return total + (price * item.quantity);
   }, 0);
   const finalTotal = totalPrice + deliveryCost;
 
@@ -38,9 +60,10 @@ export default function CartClientPage({ user }: CartClientPageProps) {
       const stripe = await stripePromise;
       const productsPayload = items.map(item => ({
         id: item.id,
-        name: item.productName,
+        name: getItemName(item),
         quantity: item.quantity,
-        price: user?.mediClubRegular && item.priceMember > 0 ? item.priceMember : item.price,
+        price: getItemPrice(item, user),
+        type: isProduct(item) ? "product" : "service", // Identificar tipo
       }));
 
       const res = await makePaymentRequest.post("/api/orders", {

@@ -3,14 +3,18 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { ProductType } from "@/types/product";
+import { ClinicType } from "@/types/clinic";
 import { toast } from "sonner";
 
-// ✅ Exporta CartProduct para poder usarlo fuera
+// ✅ Tipo unión para productos y servicios
+export type CartItem = (ProductType | ClinicType["services"][number]) & { quantity: number };
+
+// ✅ Tipo específico para productos en el carrito (retrocompatibilidad)
 export type CartProduct = ProductType & { quantity: number };
 
 interface CartStore {
-    items: CartProduct[]; // Cambiar a CartProduct[]
-    addItem: (data: ProductType) => void;
+    items: CartItem[];
+    addItem: (data: ProductType | ClinicType["services"][number]) => void;
     isInCart: (id: number) => boolean;
     removeItem: (id: number) => void;
     removeAll: () => void;
@@ -21,19 +25,21 @@ interface CartStore {
 export const useCart = create(persist<CartStore>((set, get) => ({
     items: [],
 
-    addItem: (data: ProductType) => {
+    addItem: (data: ProductType | ClinicType["services"][number]) => {
         const currentItems = get().items;
         const existingItem = currentItems.find((item) => item.id === data.id);
 
         if (existingItem) {
-            return toast.error("El producto ya está en el carrito");
+            return toast.error("Ya está en el carrito");
         }
 
         set({
-            items: [...currentItems, { ...data, quantity: 1 }], // ✅ Agregar quantity al añadir
+            items: [...currentItems, { ...data, quantity: 1 }],
         });
 
-        toast("Producto añadido al carrito 🛒");
+        // Detectar si es producto o servicio para el mensaje
+        const itemType = "productName" in data ? "Producto" : "Servicio";
+        toast(`${itemType} añadido al carrito 🛒`);
     },
 
     isInCart: (id) => {
@@ -45,7 +51,7 @@ export const useCart = create(persist<CartStore>((set, get) => ({
             items: get().items.filter((item) => item.id !== id),
         });
 
-        toast("Producto eliminado del carrito 🛒");
+        toast("Eliminado del carrito 🛒");
     },
 
     removeAll: () => {

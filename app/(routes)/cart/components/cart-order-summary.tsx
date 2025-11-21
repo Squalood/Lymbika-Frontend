@@ -5,11 +5,11 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/formatPrice";
-import { CartProduct } from "@/hooks/use-cart";
+import { CartItem } from "@/hooks/use-cart";
 import { AuthUserProps } from "./types";
 
 interface CartOrderSummaryProps {
-  items: CartProduct[];
+  items: CartItem[];
   user: AuthUserProps | null;
   isDelivery: boolean;
   setIsDelivery: (value: boolean) => void;
@@ -20,6 +20,27 @@ interface CartOrderSummaryProps {
   finalTotal: number;
   onCheckout: () => void;
 }
+
+// Helper para detectar si es producto o servicio
+const isProduct = (item: any): boolean => {
+  return "productName" in item;
+};
+
+// Helper para obtener el nombre del item
+const getItemName = (item: any): string => {
+  return isProduct(item) ? item.productName : item.title;
+};
+
+// Helper para obtener el precio correcto
+const getItemPrice = (item: any, user: AuthUserProps | null): number => {
+  if (isProduct(item)) {
+    const useMemberPrice = user?.mediClubRegular && item.priceMember > 0;
+    return useMemberPrice ? item.priceMember : item.price;
+  } else {
+    // Para servicios, el precio ya es un número
+    return item.price || 0;
+  }
+};
 
 export function CartOrderSummary({
   items,
@@ -38,20 +59,22 @@ export function CartOrderSummary({
         <CardTitle className="text-base sm:text-lg">Resumen del Pedido</CardTitle>
       </CardHeader>
       <CardContent className="space-y-3 sm:space-y-4 p-4 sm:p-6 pt-0 w-full">
-        {/* Product Details */}
+        {/* Product/Service Details */}
         <div className="space-y-2 text-xs sm:text-sm w-full overflow-hidden">
           {items.map((item) => {
-            const useMemberPrice = user?.mediClubRegular && item.priceMember > 0;
-            const price = useMemberPrice ? item.priceMember : item.price;
+            const price = getItemPrice(item, user);
             const totalPerItem = price * item.quantity;
+            const itemName = getItemName(item);
 
             return (
               <div key={item.id} className="flex justify-between items-start gap-2 w-full">
                 <div className="flex items-center gap-1 min-w-0 flex-1 overflow-hidden">
-                  <span className="truncate text-left">{item.productName}</span>
-                  <span className="text-muted-foreground shrink-0 whitespace-nowrap">
-                    ×{item.quantity}
-                  </span>
+                  <span className="truncate text-left">{itemName}</span>
+                  {item.quantity > 1 && (
+                    <span className="text-muted-foreground shrink-0 whitespace-nowrap">
+                      ×{item.quantity}
+                    </span>
+                  )}
                 </div>
                 <span className="font-medium shrink-0 whitespace-nowrap">
                   {formatPrice(totalPerItem)}

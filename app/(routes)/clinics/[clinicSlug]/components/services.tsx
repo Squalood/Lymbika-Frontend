@@ -1,13 +1,6 @@
 "use client";
 
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
   Carousel,
   CarouselContent,
   CarouselItem,
@@ -17,10 +10,8 @@ import {
 import Autoplay from "embla-carousel-autoplay";
 import { useInView } from "react-intersection-observer";
 import { useRef } from "react";
-import Image from "next/image";
 import { ClinicType } from "@/types/clinic";
-import PriceToggle from "@/components/priceToggle";
-
+import ServiceCard from "./serviceCard";
 
 type ServicesProps = {
   services: ClinicType["services"];
@@ -53,49 +44,18 @@ export default function Services({ services }: ServicesProps) {
           className="w-full relative"
         >
           <CarouselContent>
-            {services.map((service, index) => {
-
-              return (
-                <CarouselItem
-                  key={service.id}
-                  className="basis-2/3 lg:basis-1/3 mx-auto my-2"
-                >
-                  <Card
-                    className={`transition-all duration-700 h-full ${
-                      inView
-                        ? "opacity-100 translate-y-0"
-                        : "opacity-0 translate-y-8"
-                    }`}
-                    style={{ transitionDelay: `${index * 100}ms` }}
-                  >
-                    <CardHeader>
-                      <div className="group-hover:opacity-90 py-4">
-                        <Image
-                          className="w-full rounded-lg aspect-square"
-                          src={service.image?.url || "/placeholder-image.webp"}
-                          width={300}
-                          height={500}
-                          alt="se"
-                        />
-                      </div>
-                      <CardTitle>{service.title}</CardTitle>
-                      <CardDescription className="text-lg font-semibold text-primary">
-                        <PriceToggle price={service.price} />
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground">
-                        {service.description}
-                      </p>
-                    </CardContent>
-                  </Card>
-                </CarouselItem>
-              );
-            })}
+            {services.map((service, index) => (
+              <CarouselItem
+                key={service.id}
+                className="basis-2/3 lg:basis-1/3 mx-auto my-2"
+              >
+                <ServiceCard service={service} index={index} inView={inView} />
+              </CarouselItem>
+            ))}
           </CarouselContent>
           {/* Flechas de navegación */}
-          <CarouselPrevious className="left-2 sm:-left-8 bg-white/80 hover:bg-white shadow-md rounded-full " />
-          <CarouselNext className="right-2 sm:-right-8 bg-white/80 hover:bg-white shadow-md rounded-full " />
+          <CarouselPrevious className="left-2 sm:-left-8 bg-white/80 hover:bg-white shadow-md rounded-full" />
+          <CarouselNext className="right-2 sm:-right-8 bg-white/80 hover:bg-white shadow-md rounded-full" />
         </Carousel>
       </div>
     </section>
