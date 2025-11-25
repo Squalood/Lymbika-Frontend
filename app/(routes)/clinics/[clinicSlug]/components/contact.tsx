@@ -25,7 +25,7 @@ const Contact = ({ data }: ContactProps) => {
       label: "Botón WhatsApp en contacto de clinica",
     });
 
-    window.open("https://wa.me/521234567890", "_blank");
+    window.open(data.contactWhatsappLink || "#", "_blank");
   };
   const ScheduleLink = () => {
     gtag.event({
