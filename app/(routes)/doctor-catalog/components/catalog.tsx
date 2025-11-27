@@ -1,3 +1,4 @@
+//Catalog.tsx
 "use client";
 
 import { Separator } from "@/components/ui/separator";
@@ -7,6 +8,7 @@ import { DoctorType } from "@/types/doctor";
 import FiltersControlsService from "./filters-controls-service";
 import CardDoctor from "./doctor-card";
 import { useGetDoctorsByCategory } from "@/api/getDoctorsByCategory";
+import FiltersControlsServiceMovil from "./filters-service-movil";
 
 const Catalog = () => {
   const [serviceFilter, setServiceFilter] = useState("");
@@ -32,12 +34,12 @@ const Catalog = () => {
       : [];
 
   return (
-    <div className="max-w-6xl py-4 mx-auto sm:py-16 sm:px-24">
+    <div className="max-w-7xl py-4 mx-auto sm:py-16 sm:px-16 lg:px-24">
       <h1 className="text-3xl font-medium mb-4">{title}</h1>
       <Separator />
 
       <div className="flex flex-col sm:flex-row sm:gap-10">
-        <div className="w-full sm:w-1/3">
+        <div className="hidden sm:block sm:w-1/4">
           <FiltersControlsService
             setFilterService={setServiceFilter}
             setFilterSurgery={setSurgeryFilter}
@@ -45,11 +47,19 @@ const Catalog = () => {
             surgeryFilter={surgeryFilter}
           />
         </div>
+        <div className="mx-8 mt-4 sm:hidden">
+          <FiltersControlsServiceMovil
+            setFilterService={setServiceFilter}
+            setFilterSurgery={setSurgeryFilter}
+            serviceFilter={serviceFilter}
+            surgeryFilter={surgeryFilter}
+          />
+        </div>
 
-        <div className="w-full sm:w-2/3">
+        <div className="w-full sm:w-4/5">
           {error && <p className="text-red-500">Error al cargar los doctores: {error}</p>}
 
-          <div className="grid gap-5 mt-8 sm:grid-cols-2 md:grid-cols-3 md:gap-10">
+          <div className="grid gap-5 mt-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-10 mx-8 md:mx-0">
             {loading ? (
               <SkeletonSchema grid={6} />
             ) : filteredDoctors.length > 0 ? (
