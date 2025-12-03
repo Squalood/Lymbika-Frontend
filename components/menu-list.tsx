@@ -12,7 +12,6 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
-import { CategoryType } from "@/types/category"
 import {ResponseType} from '@/types/response';
 import { useGetCategories } from "@/api/getCategories" 
 import { Skeleton } from "./ui/skeleton"
@@ -21,6 +20,7 @@ import { usePathname, useRouter } from "next/navigation"
 import es from "@/locals/es.json";
 import { useGetClinics } from "@/api/useGetClinics"
 import ClinicsList from "./clinicsList"
+import CategoryList from "./categoryList"
 
 const MenuList = () => {
   const { loading, result,}:ResponseType = useGetCategories(); 
@@ -94,17 +94,7 @@ const MenuList = () => {
         <NavigationMenuItem>
           <NavigationMenuTrigger className={navStyle} onClick={() => router.push("/shop")}>Farmacia</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-              {!loading &&result?.map((category: CategoryType) => (
-                <ListItem
-                  key={category.id}
-                  title={category.categoryName}
-                  href={`/category/${category.slug}`}
-                >
-                {category.description}
-                </ListItem>
-              ))}
-            </ul>
+            <CategoryList category={result}/>
           </NavigationMenuContent>
         </NavigationMenuItem>
 

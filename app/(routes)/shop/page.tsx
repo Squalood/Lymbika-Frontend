@@ -21,7 +21,6 @@ export default function Page() {
         {loading ? <HeroSkeleton /> : <HeroSection hero={heroData}/>}
         <PromoCarousel data={promo} />
         <FeaturedProducts />
-        
         <ChooseCategory />
         <PlanSection/>
         <CTASection/>
