@@ -25,10 +25,10 @@ export default function Services({ services }: ServicesProps) {
   const autoplay = useRef(Autoplay({ delay: 4000 }));
 
   return (
-    <section id="servicios" className="section bg-accent/50 py-16">
-      <div ref={ref} className="max-w-5xl mx-auto px-4">
+    <section id="servicios" className="section bg-accent/50 py-8 md:py-12">
+      <div ref={ref} className="max-w-6xl mx-auto">
         <h2
-          className={`text-center text-3xl font-bold mb-12 transition-all duration-700 ${
+          className={`text-center text-3xl font-bold mb-4 transition-all duration-700 ${
             inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
@@ -47,7 +47,7 @@ export default function Services({ services }: ServicesProps) {
             {services.map((service, index) => (
               <CarouselItem
                 key={service.id}
-                className="basis-2/3 lg:basis-1/3 mx-auto my-2"
+                className="basis-2/3 lg:basis-1/4 mx-auto my-2"
               >
                 <ServiceCard service={service} index={index} inView={inView} />
               </CarouselItem>

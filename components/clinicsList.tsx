@@ -41,7 +41,7 @@ export default function ClinicsList({ clinics }: ClinicsListProps) {
   return (
     <div className="w-[900px] p-4 flex gap-2">
       {/* Grid principal - 75% */}
-      <div className="w-3/4">
+      <div className="w-3/4 my-auto">
         <h2 className="py-2 text-base text-muted-foreground">Clinicas destacadas</h2>
         <div className="grid grid-cols-3 gap-2">
           {gridClinics.map((clinic) => {

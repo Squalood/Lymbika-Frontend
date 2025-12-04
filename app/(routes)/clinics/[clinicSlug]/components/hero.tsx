@@ -40,7 +40,7 @@ const Hero = ({ data }: HeroProps) => {
   const size = width >= 1024 ? 56 : width >= 768 ? 52 : 40;
 
   return (
-    <section className="relative h-96 md:h-[500px] lg:h-[650px] flex items-center pt-20 overflow-hidden ">
+    <section className="relative h-96 md:h-[500px] lg:h-[600px] flex items-center pt-20 overflow-hidden ">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <Image

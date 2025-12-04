@@ -21,14 +21,14 @@ const ServiceCard = ({ service, index = 0, inView = true }: ServiceCardProps) =>
 
   return (
     <Card
-      className={`w-full h-full group relative space-y-4 overflow-hidden p-2 sm:p-4 hover:shadow-md transition-all duration-700 ${
+      className={`w-60 md:w-full h-full group relative space-y-4 overflow-hidden p-4 sm:p-4 hover:shadow-md transition-all duration-700 ${
         inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       }`}
       style={{ transitionDelay: `${index * 100}ms` }}
     >
       <figure className="group-hover:opacity-90">
         <Image
-          className="w-full rounded-lg aspect-square"
+          className="w-48 rounded-lg aspect-square mx-auto"
           src={imageUrl}
           width={300}
           height={500}

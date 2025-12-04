@@ -16,6 +16,9 @@ import { ClinicType } from "@/types/clinic";
 import { SearchGeneral } from "@/components/searchGeneral";
 import { useGetProducts } from "@/api/getProducts";
 import { useGetDoctors } from "@/api/getDoctor";
+import Autoplay from "embla-carousel-autoplay";
+import { useRef } from "react";
+import { useInView } from "react-intersection-observer";
 
 type ClinicProductsProps = {
   clinicSlug: string;
@@ -30,12 +33,24 @@ const ClinicProducts = ({ clinicSlug, clinicTitle }: ClinicProductsProps) => {
   const { products } = useGetProducts();
   const { doctors } = useGetDoctors();
 
+  const { ref, inView } = useInView({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
+  const autoplay = useRef(Autoplay({ delay: 4000 }));
+
   return (
-    <div className="max-w-sm sm:max-w-lg md:max-w-2xl lg:max-w-4xl py-4 mx-auto sm:py-12 px-4">
-      <h3 className="px-6 text-xl md:text-3xl sm:pb-8">Farmacia {clinicTitle}</h3>
+    <div ref={ref} className="max-w-sm sm:max-w-lg md:max-w-2xl lg:max-w-6xl py-4 mx-auto sm:py-2 px-4">
+      <h2
+        className={`text-center text-3xl font-bold mb-4 transition-all duration-700 ${
+          inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8 px-4"
+        }`}
+      >
+        Farmacia {clinicTitle}
+      </h2>
 
       {/* Barra de búsqueda */}
-      <div className="flex w-10/12 md:w-1/2 mt-2 mb-8 text-black">
+      <div className="flex w-10/12 md:w-1/2 mt-2 mb-8 text-black mx-auto">
         <SearchGeneral
           allProducts={products}
           allDoctors={doctors}
@@ -52,12 +67,19 @@ const ClinicProducts = ({ clinicSlug, clinicTitle }: ClinicProductsProps) => {
           No hay productos disponibles para esta clínica.
         </p>
       ) : (
-        <Carousel>
-          <CarouselContent className="md:-ml-4 mt-4 md:mt-0">
+        <Carousel
+          plugins={[autoplay.current]}
+          opts={{
+            align: "center",
+            loop: true,
+          }}
+          className="w-full relative"
+        >
+          <CarouselContent>
             {result?.map((product: ProductType) => (
               <CarouselItem
                 key={product.id}
-                className="basis-3/4 md:basis-1/3 group"
+                className="basis-1/2 md:basis-1/4 mx-auto my-2"
               >
                 <div className="">
                   <ProductCard product={product} />
