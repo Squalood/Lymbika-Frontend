@@ -16,13 +16,9 @@ export const metadata: Metadata = {
   title: "Lymbika Healthcare",
   description: "Agencia de salud",
   icons: {
-    icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon.ico", type: "image/x-icon" },  
-    ],
-    apple: [
-      { url: "/apple-touch-icon.png", sizes: "180x180" }, 
-    ],
+    icon: "/favicon.svg",
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
   },
 };
 
