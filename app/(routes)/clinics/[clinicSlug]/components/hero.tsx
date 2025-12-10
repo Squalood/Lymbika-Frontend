@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Baby, Brain, Calendar, ClipboardPlus, Dumbbell, HeartPulse, Hospital, Laugh, LucideIcon, Ribbon, ScanHeart, Shell, Sparkles, Stethoscope, Syringe, Venus } from "lucide-react";
+import { Ambulance, Baby, Bandage, Bone, Brain, BriefcaseMedical, Calendar, ClipboardPlus, Dna, Dumbbell, HeartPulse, Hospital, Laugh, LucideIcon, PillBottle, Ribbon, ScanHeart, Shell, Sparkles, Stethoscope, Syringe, Venus } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import Image from "next/image";
 import Link from "next/link";
@@ -26,7 +26,13 @@ const iconMap: Record<string, LucideIcon> = {
   ClipboardPlus,
   Syringe,
   Dumbbell,
-  Laugh
+  Laugh,
+  BriefcaseMedical,
+  PillBottle,
+  Bone,
+  Bandage,
+  Dna,
+  Ambulance,
 };
 
 const Hero = ({ data }: HeroProps) => {
@@ -38,6 +44,8 @@ const Hero = ({ data }: HeroProps) => {
   const Icon = iconMap[data.icon] || DefaultIcon;
   const { width } = useWindowSize();
   const size = width >= 1024 ? 56 : width >= 768 ? 52 : 40;
+
+  console.log(data.title, data.icon)
 
   return (
     <section className="relative h-96 md:h-[500px] lg:h-[600px] flex items-center pt-20 overflow-hidden ">

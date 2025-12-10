@@ -37,7 +37,7 @@ export default function ClinicsList({ clinics }: ClinicsListProps) {
   
   // Clínicas no destacadas para la lista lateral
   const sidebarClinics = clinics.filter(clinic => clinic.featuredClinic !== true);
-  
+
   return (
     <div className="w-[900px] p-4 flex gap-2">
       {/* Grid principal - 75% */}
@@ -45,12 +45,13 @@ export default function ClinicsList({ clinics }: ClinicsListProps) {
         <h2 className="py-2 text-base text-muted-foreground">Clinicas destacadas</h2>
         <div className="grid grid-cols-3 gap-2">
           {gridClinics.map((clinic) => {
-            const IconComponent = iconMap[clinic.icon as keyof typeof iconMap] || Stethoscope;
+            const IconComponent = iconMap[clinic.icon as keyof typeof iconMap] || Laugh;
             return (
               <Link
                 key={clinic.id}
                 href={`/clinics/${clinic.slug}`}
                 className="group flex items-center rounded-md px-2 py-2 hover:bg-accent transition-colors"
+                
               >
                 {IconComponent && (
                   <IconComponent
@@ -82,7 +83,8 @@ export default function ClinicsList({ clinics }: ClinicsListProps) {
           <h2 className="py-2 text-base text-muted-foreground">Otras Clinicas</h2>
           <ul className="flex flex-col gap-1">
             {sidebarClinics.map((clinic) => {
-              const IconComponent = iconMap[clinic.icon as keyof typeof iconMap] || Stethoscope;
+              const IconComponent = iconMap[clinic.icon as keyof typeof iconMap] || Laugh;
+              console.log(clinic.title, clinic.icon)
               return (
                 <li key={clinic.id}>
                   <Link

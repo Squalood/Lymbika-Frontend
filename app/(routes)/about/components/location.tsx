@@ -10,8 +10,6 @@ const LymbikaLocation = ({ contact }: LymbikaLocationProps) => {
     return null;
   }
 
-  console.log(contact)
-
   return (
     <div className="max-w-4xl mx-auto py-20 px-6 sm:py-12">
       <div className="flex flex-col lg:flex-row gap-10 lg:items-center">

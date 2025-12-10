@@ -39,7 +39,7 @@ const iconMap: Record<string, LucideIcon> = {
 };
 
 // Icono por defecto si no se encuentra
-const DefaultIcon = Stethoscope;
+const DefaultIcon = Laugh;
 
 export default function Clinics({ data }: ClinicsListProps) {
   if (!data || data.length === 0) return null;
@@ -50,8 +50,6 @@ export default function Clinics({ data }: ClinicsListProps) {
     .sort(() => Math.random() - 0.5)
     .slice(0, 2);
   const smallCards = data.slice(0);
-
-  console.log(data)
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
