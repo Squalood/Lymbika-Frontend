@@ -67,8 +67,8 @@ interface AuthUserProps {
     return (
         <div ref={searchRef}>
             <div className={`${positionAbs} flex items-center justify-between p-4 mx-auto sm:max-w-4xl md:max-w-6xl`}>
-                <h1 className={`text-3xl ${textColor} cursor-pointer`} onClick={() => router.push("/")}>
-                    Lym<span className="font-bold">bika</span>
+                <h1 className={`text-2xl ${textColor} cursor-pointer`} onClick={() => router.push("/")}>
+                    Lymbika <span className="font-bold">Healthcare</span>
                 </h1>
                 <div className="items-center justify-between hidden lg:flex z-50">
                     <MenuList />  
