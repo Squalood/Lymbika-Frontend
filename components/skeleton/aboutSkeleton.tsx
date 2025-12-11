@@ -11,21 +11,21 @@ export default function AboutSkeleton() {
       {/* about body */}
       <div className="max-w-4xl px-6 py-4 lg:px-8 lg:py-4 mx-auto">
         <div className="grid gap-10 mb-8">
-            <Skeleton className="h-12 w-1/3" />
-            <Skeleton className="h-[200px] w-full rounded-lg" />    
+          <Skeleton className="h-12 w-1/3" />
+          <Skeleton className="h-[200px] w-full rounded-lg" />
         </div>
         <div className="grid gap-10 mb-8">
-            <Skeleton className="h-12 w-1/3" />
-            <Skeleton className="h-[200px] w-full rounded-lg" />    
+          <Skeleton className="h-12 w-1/3" />
+          <Skeleton className="h-[200px] w-full rounded-lg" />
         </div>
         <Skeleton className="h-12 w-1/3 mb-8" />
         <div className="grid grid-cols-2 md:grid-cols-3 gap-18">
-            {[...Array(6)].map((_, i) => (
-                <div className="flex flex-col items-center">
-                  <Skeleton key={i} className="w-[100px] h-[100px] rounded-full" />  
-                </div>
-            ))}
-          </div>
+          {[...Array(6)].map((_, i) => (
+            <div key={i} className="flex flex-col items-center">
+              <Skeleton className="w-[100px] h-[100px] rounded-full" />
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* LymbikaLocation */}
@@ -38,7 +38,6 @@ export default function AboutSkeleton() {
         </div>
         <Skeleton className="h-[400px] w-full rounded-xl" />
       </section>
-
     </div>
   );
 }
