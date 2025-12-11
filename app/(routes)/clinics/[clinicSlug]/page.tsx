@@ -13,6 +13,7 @@ import ClinicGallery from "./components/clinicGallety";
 import { useGetClinicDoctor } from "@/api/useGetClinicsDoctorBySlug";
 import ClinicProducts from "./components/products";
 import { useGetClinicServices } from "@/api/useGetClinicsServiceBySlug";
+import VideoSection from "./components/videoSection";
 
 export default function ClinicPage() {
   const { clinicSlug } = useParams();
@@ -49,6 +50,7 @@ export default function ClinicPage() {
       <ClinicProducts clinicSlug={clinicSlug as string} clinicTitle={clinic.title} />
       <WhyUs features={clinic.features} />
       <Doctor data={doctor} />   
+      <VideoSection clinic={clinic}/>
       <Testimonials list={clinic.testimonials} />
       
       {clinic.gallery && clinic.gallery.length > 0 && (

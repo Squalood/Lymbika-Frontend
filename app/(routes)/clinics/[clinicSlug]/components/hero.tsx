@@ -66,7 +66,7 @@ const Hero = ({ data }: HeroProps) => {
           <div className="flex flex-row gap-2 lg:gap-4">
             <Icon size={size} className="text-primary"/>
             <h1 className={`text-4xl md:text-6xl font-semibold mb-6 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              {data.heroTitle} <span className="text-primary font-normal">by Lymbika</span>
+              {data.heroTitle} 
             </h1>
           </div>
           <p className={`text-lg md:text-2xl text-muted-foreground mb-8 transition-all duration-700 delay-100 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>

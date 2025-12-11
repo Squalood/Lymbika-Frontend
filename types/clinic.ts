@@ -16,7 +16,7 @@ export type ClinicType = {
   scheduleLink: string;
   icon: string;
 
-  services: {    //este es el serevice que quiero agarrar
+  services: {  
     id: number;
     title: string;
     description: string;
@@ -68,4 +68,5 @@ export type ClinicType = {
   };
 
   featuredClinic: boolean;
+
 };

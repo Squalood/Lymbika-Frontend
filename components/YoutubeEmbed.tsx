@@ -1,10 +1,17 @@
 interface YoutubeEmbedProps {
   videoId: string; // Solo el ID del video (no la URL completa)
+  orientation?: "horizontal" | "vertical"; // Orientación del video
 }
 
-const YoutubeEmbed = ({ videoId }: YoutubeEmbedProps) => {
+const YoutubeEmbed = ({ videoId, orientation = "horizontal" }: YoutubeEmbedProps) => {
+    const isVertical = orientation === "vertical";
+    
     return ( 
-        <div className="w-full aspect-video rounded-xl overflow-hidden shadow-lg">
+        <div className={`w-full rounded-xl overflow-hidden shadow-lg ${
+            isVertical 
+                ? "max-w-xs mx-auto aspect-[9/16] rounded-2xl shadow-2xl" 
+                : "aspect-video"
+        }`}>
             <iframe
                 className="w-full h-full"
                 src={`https://www.youtube.com/embed/${videoId}`}
@@ -13,7 +20,7 @@ const YoutubeEmbed = ({ videoId }: YoutubeEmbedProps) => {
                 allowFullScreen>
             </iframe>
         </div>
-     );
+    );
 }
  
 export default YoutubeEmbed;
