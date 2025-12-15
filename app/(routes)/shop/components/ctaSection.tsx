@@ -5,7 +5,7 @@ import Link from "next/link";
 const CTASection = () => {
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
         {/* Bottom CTA */}
         <div className="text-center mt-16">
             <Card className="bg-gray-50 border-0">
