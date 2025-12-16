@@ -11,7 +11,7 @@ const Hero = ({ hero }: HeroProps) => {
   if (!hero) return null;
 
   return (
-    <div className="relative rounded-br-[5rem] bg-primary px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 overflow-hidden lg:py-[18rem] py-48 flex items-center">
+    <div className="relative h-[450px] md:h-[600px] lg:h-[700px] rounded-br-[5rem] bg-primary px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 overflow-hidden flex items-center">
       {/* Imagen de fondo */}
       <div className="absolute inset-0 z-0">
         {hero.image?.url && (
@@ -19,13 +19,13 @@ const Hero = ({ hero }: HeroProps) => {
             src={hero.image.url}
             alt={hero.title}
             fill
-            className="w-full h-full object-cover opacity-25"
+            className="object-cover opacity-25"
           />
         )}
       </div>
 
       {/* Contenido */}
-      <div className="relative z-10 lg:w-3/4 xl:w-2/4">
+      <div className="relative z-10 lg:w-3/4 xl:w-2/4 mt-12 lg:mt-32">
         <h1 className="text-white text-2xl md:text-5xl font-bold leading-tight">
           {hero.title}
         </h1>
