@@ -82,7 +82,7 @@ export default function Clinics({ data }: ClinicsListProps) {
               </div>
               <div className="p-4 pt-0 relative z-10">
                 <div className="inline-flex items-center gap-2 text-xs md:text-sm font-medium group-hover:text-white/70">
-                  Ver detalles
+                  Acceder
                   <ChevronRight size={20} />
                 </div>
               </div>

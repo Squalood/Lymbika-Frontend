@@ -25,8 +25,8 @@ const Hero = ({ hero }: HeroProps) => {
       </div>
 
       {/* Contenido */}
-      <div className="relative z-10 lg:w-3/4 xl:w-2/4 mt-12 lg:mt-32">
-        <h1 className="text-white text-2xl md:text-5xl font-bold leading-tight">
+      <div className="relative px-4 z-10 lg:w-3/4 xl:w-2/4 mt-28">
+        <h1 className="text-white text-2xl md:text-4xl lg:text-5xl font-bold leading-tight">
           {hero.title}
         </h1>
         <p className="text-blue-100 text-sm md:text-xl leading-snug mt-4 w-5/6 md:w-full">
