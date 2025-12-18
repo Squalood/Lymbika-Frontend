@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ClinicType } from "@/types/clinic";
 import { useWindowSize } from "@/hooks/useWindowSize";
+import * as gtag from "@/lib/gtag";
 
 type HeroProps = {
   data: ClinicType;
@@ -45,7 +46,14 @@ const Hero = ({ data }: HeroProps) => {
   const { width } = useWindowSize();
   const size = width >= 1024 ? 56 : width >= 768 ? 52 : 40;
 
-  console.log(data.title, data.icon)
+  const ScheduleLink = () => {
+      gtag.event({
+        action: "click_schedule",
+        category: "engagement",
+        label: "Botón Agendar Cita en contacto de clinica",
+      });
+      window.open(data.scheduleLink || "#", "_blank");
+    };
 
   return (
     <section className="relative h-96 md:h-[500px] lg:h-[600px] flex items-center pt-20 overflow-hidden ">
@@ -74,11 +82,11 @@ const Hero = ({ data }: HeroProps) => {
           </p>
 
           <div className={`flex flex-col sm:flex-row gap-4 transition-all duration-700 delay-200 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <Button variant="outline" size="lg" asChild>
-              <Link href="#contacto">
-                <Calendar />
-                Agenda tu cita
-              </Link>
+            <Button variant="outline" size="lg" >
+              <Link href="#" onClick={ScheduleLink}>
+                  <Calendar className="w-5 h-5 mr-2" />
+                  Agendar Cita
+                </Link>
             </Button>
           </div>
         </div>
