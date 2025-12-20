@@ -70,11 +70,8 @@ const Contact = ({ data }: ContactProps) => {
 
             {/* Botones */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="w-full sm:w-1/2" onClick={ContactNumber}>
-                <MessageSquare className="w-5 h-5 mr-2" />
-                WhatsApp
-              </Button>
-              <Button size="lg" className="w-full sm:w-1/2" asChild>
+              
+              <Button size="lg" className="w-full " asChild>
                 <Link href="#" onClick={ScheduleLink}>
                   <Calendar className="w-5 h-5 mr-2" />
                   Agendar Cita

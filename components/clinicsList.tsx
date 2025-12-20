@@ -84,7 +84,6 @@ export default function ClinicsList({ clinics }: ClinicsListProps) {
           <ul className="flex flex-col gap-1">
             {sidebarClinics.map((clinic) => {
               const IconComponent = iconMap[clinic.icon as keyof typeof iconMap] || Laugh;
-              console.log(clinic.title, clinic.icon)
               return (
                 <li key={clinic.id}>
                   <Link

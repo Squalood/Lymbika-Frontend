@@ -5,6 +5,11 @@ type RichTextRendererProps = {
 };
 
 const RichTextRenderer: React.FC<RichTextRendererProps> = ({ content }) => {
+  // Agrega esta validación
+  if (!content || !Array.isArray(content) || content.length === 0) {
+    return <div className="text-gray-500">No hay contenido disponible</div>;
+  }
+
   return (
     <div className="space-y-4">
       {content.map((node, idx) => {
@@ -12,8 +17,11 @@ const RichTextRenderer: React.FC<RichTextRendererProps> = ({ content }) => {
           case "paragraph":
             return (
               <p key={idx}>
-                {node.children.map((child, cIdx) => (
-                  <RichTextChildRenderer key={cIdx} child={child as RichTextChild} />
+                {node.children?.map((child, cIdx) => (
+                  <RichTextChildRenderer
+                    key={cIdx}
+                    child={child as RichTextChild}
+                  />
                 ))}
               </p>
             );
@@ -22,11 +30,11 @@ const RichTextRenderer: React.FC<RichTextRendererProps> = ({ content }) => {
             if (node.format === "unordered") {
               return (
                 <ul key={idx} className="list-disc pl-5 space-y-1">
-                  {node.children.map((item, i) => {
+                  {node.children?.map((item, i) => {
                     const listItem = item as ListItemNode;
                     return (
                       <li key={i}>
-                        {listItem.children.map((child, j) => (
+                        {listItem.children?.map((child, j) => (
                           <RichTextChildRenderer key={j} child={child} />
                         ))}
                       </li>
@@ -37,11 +45,11 @@ const RichTextRenderer: React.FC<RichTextRendererProps> = ({ content }) => {
             } else if (node.format === "ordered") {
               return (
                 <ol key={idx} className="list-decimal pl-5 space-y-1">
-                  {node.children.map((item, i) => {
+                  {node.children?.map((item, i) => {
                     const listItem = item as ListItemNode;
                     return (
                       <li key={i}>
-                        {listItem.children.map((child, j) => (
+                        {listItem.children?.map((child, j) => (
                           <RichTextChildRenderer key={j} child={child} />
                         ))}
                       </li>
@@ -50,27 +58,58 @@ const RichTextRenderer: React.FC<RichTextRendererProps> = ({ content }) => {
                 </ol>
               );
             }
-            return null;
+            return (
+              <div className="text-gray-500">No hay contenido disponible</div>
+            );
 
           case "heading":
-            const headingChildren = node.children.map((child, cIdx) => (
-              <RichTextChildRenderer key={cIdx} child={child as RichTextChild} />
+            const headingChildren = node.children?.map((child, cIdx) => (
+              <RichTextChildRenderer
+                key={cIdx}
+                child={child as RichTextChild}
+              />
             ));
-            if (node.level === 1) return <h1 key={idx} className="text-3xl font-bold">{headingChildren}</h1>;
-            if (node.level === 2) return <h2 key={idx} className="text-2xl font-bold">{headingChildren}</h2>;
-            if (node.level === 3) return <h3 key={idx} className="text-xl font-bold">{headingChildren}</h3>;
-            if (node.level === 4) return <h4 key={idx} className="text-lg font-bold">{headingChildren}</h4>;
-            return null;
+            if (node.level === 1)
+              return (
+                <h1 key={idx} className="text-3xl font-bold">
+                  {headingChildren}
+                </h1>
+              );
+            if (node.level === 2)
+              return (
+                <h2 key={idx} className="text-2xl font-bold">
+                  {headingChildren}
+                </h2>
+              );
+            if (node.level === 3)
+              return (
+                <h3 key={idx} className="text-xl font-bold">
+                  {headingChildren}
+                </h3>
+              );
+            if (node.level === 4)
+              return (
+                <h4 key={idx} className="text-lg font-bold">
+                  {headingChildren}
+                </h4>
+              );
+            return (
+              <div className="text-gray-500">No hay contenido disponible</div>
+            );
 
           default:
-            return null;
+            return (
+              <div className="text-gray-500">No hay contenido disponible</div>
+            );
         }
       })}
     </div>
   );
 };
 
-const RichTextChildRenderer: React.FC<{ child: RichTextChild }> = ({ child }) => {
+const RichTextChildRenderer: React.FC<{ child: RichTextChild }> = ({
+  child,
+}) => {
   let className = "";
   if (child.bold) className += " font-semibold";
   if (child.italic) className += " italic";
