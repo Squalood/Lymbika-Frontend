@@ -2,7 +2,7 @@
 
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { MessageSquare, Calendar, Clock, MapPin } from "lucide-react";
+import { Calendar, Clock, MapPin } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import Link from "next/link";
 import { ClinicType } from "@/types/clinic";
@@ -18,6 +18,7 @@ const Contact = ({ data }: ContactProps) => {
     triggerOnce: true
   });
 
+  /*
   const ContactNumber = () => {
     gtag.event({
       action: "click_whatsapp",
@@ -26,7 +27,7 @@ const Contact = ({ data }: ContactProps) => {
     });
 
     window.open(data.contactWhatsappLink || "#", "_blank");
-  };
+  };*/
   const ScheduleLink = () => {
     gtag.event({
       action: "click_schedule",
