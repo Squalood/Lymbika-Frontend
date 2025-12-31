@@ -38,7 +38,7 @@ const Footer = () => {
                 <div className="sm:flex sm:items-center sm:justify-between">
                     <p className="flex justify-center py-4 sm:py-0 gap-1">
                         <span className="font-bold">Lymbika</span>
-                        <span>Healtcare System</span>
+                        <span>Healthcare System</span>
                     </p>
                     <ul className="flex flex-wrap justify-center items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
                         {dataFooter.map((data) => (
