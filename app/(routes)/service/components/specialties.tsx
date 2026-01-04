@@ -22,7 +22,7 @@ const Specialties = () => {
 
       {servicesLoading ? (<SkeletonGalleryCol3 grid={6} />
       ) : (
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-5 px-4">
+        <div className="grid grid-cols-2 gap-2 lg:grid-cols-3 sm:gap-5 px-4">
           {primaryServices.map((service) => (
             <ServiceCard key={service.id} service={service} />
           ))}
