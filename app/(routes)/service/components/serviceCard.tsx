@@ -6,7 +6,7 @@ const ServiceCard = ({ service }: { service: ServiceType }) => {
     return (
       <Link
         href={`/service/${service.slug}`}
-        className="relative max-w-xs mx-auto overflow-hidden bg-no-repeat bg-cover rounded-lg"
+        className="relative max-w-xs mx-auto overflow-hidden bg-no-repeat bg-cover rounded-full group"
       >
         {service.image?.url ? (
           <Image
@@ -14,7 +14,7 @@ const ServiceCard = ({ service }: { service: ServiceType }) => {
             alt={service.serviceName}
             width={270}
             height={200}
-            className="transition duration-300 ease-in-out rounded-full hover:scale-110 sm:max-w-[250px] "
+            className="transition-all duration-300 ease-in-out rounded-full group-hover:scale-105 group-hover:brightness-110 group-hover:shadow-2xl sm:max-w-[250px]"
           />
         ) : (
           <div className="w-[270px] h-[200px] bg-gray-300 flex items-center justify-center">
