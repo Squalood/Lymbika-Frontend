@@ -140,7 +140,9 @@ export async function loginUserAction(
   const cookieStore = await cookies();
   cookieStore.set("jwt", responseData.jwt, config);
 
-  redirect("/dashboard");
+  // Obtener la URL de callback del formulario, si no hay, ir a /dashboard
+  const callbackUrl = payload.get("callbackUrl") as string || "/dashboard";
+  redirect(callbackUrl);
 
   return {
     ...prevState,

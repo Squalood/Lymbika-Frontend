@@ -28,9 +28,13 @@ const INITIAL_STATE = {
 export function ReviewForm({
   user,
   doctor,
+  compact = false,
+  doctorSlug,
 }: {
   user?: number;
   doctor: number;
+  compact?: boolean;
+  doctorSlug?: string;
 }) {
   const [formState, formAction] = useActionState(createReviewAction, INITIAL_STATE);
 
@@ -61,20 +65,26 @@ export function ReviewForm({
       setOpen(false);
 
       setTimeout(() => {
-        window.location.reload();
+        // Si es modo compact y hay slug, redirigir a la página del doctor con anchor a reviews
+        if (compact && doctorSlug) {
+          window.location.href = `/doctor/${doctorSlug}#reviews`;
+        } else {
+          window.location.reload();
+        }
       }, 300);
 
     } else if (formState.strapiErrors) {
       toast.error(formState.message || "Hubo un problema al enviar tu review.");
     }
-  }, [formState]);
+  }, [formState, compact, doctorSlug]);
 
   return (
-    <div className="py-4 flex justify-center">
+    <div className={compact ? "" : "py-4 flex justify-center"}>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button
-            className="w-60 mx-auto"
+            className={compact ? "" : "w-60 mx-auto"}
+            variant={compact ? "link" : "default"}
             onClick={(e) => {
               if (!user) {
                 e.preventDefault();

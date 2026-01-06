@@ -43,7 +43,7 @@ export function Search({category}:Props) {
   };
 
   return (
-    <div className="relative w-full sm:w-1/3">
+    <div className="relative w-full">
       <Input
         type="text"
         placeholder={`Buscar ${category}`} //
