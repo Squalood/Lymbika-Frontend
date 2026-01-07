@@ -122,7 +122,7 @@ interface AuthUserProps {
                     <ItemsMenuMobile user={user} />
                 </div>
             </div>
-            <div className={`${positionSea} relative flex justify-end w-full lg:max-w-5xl xl:max-w-6xl mx-auto `}>
+            <div className={`${positionSea} relative flex justify-end w-11/12 lg:max-w-5xl xl:max-w-6xl mx-auto`}>
                 <AnimatePresence>
                     {showSearch && (
                     <motion.div

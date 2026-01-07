@@ -42,5 +42,6 @@ export type DoctorType = {
       videoID: string;
     }[];
     reviews: ReviewType[];
+    contactButton: string;
   };
   

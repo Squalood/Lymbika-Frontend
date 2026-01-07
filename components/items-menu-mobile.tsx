@@ -53,8 +53,10 @@ const ItemsMenuMobile = ({ user }: NavbarProps) => {
   const cart = useCart();
   const { lovedItems } = UseLovedProducts();
 
-  const menuItemClass = "flex items-center gap-3 px-4 py-3 hover:bg-accent rounded-md transition-colors";
-  const subItemClass = "flex items-center gap-2 px-4 py-2 hover:bg-accent rounded-md transition-colors text-sm";
+  const menuItemClass =
+    "flex items-center gap-3 px-4 py-3 hover:bg-accent rounded-md transition-colors";
+  const subItemClass =
+    "flex items-center gap-2 px-4 py-2 hover:bg-accent rounded-md transition-colors text-sm";
 
   return (
     <Sheet>
@@ -127,16 +129,16 @@ const ItemsMenuMobile = ({ user }: NavbarProps) => {
                   </AccordionTrigger>
                   <AccordionContent className="pb-0">
                     <div className="space-y-1 pl-2 mt-1">
-                      {clinics?.map((clinic: ClinicType) => (
-                        <Link
-                          key={clinic.id}
-                          href={`/clinics/${clinic.slug}`}
-                          className={subItemClass}
-                        >
-                          <ChevronRight className="w-4 h-4 text-muted-foreground" />
-                          {clinic.title}
-                        </Link>
-                      ))}
+                      {clinics?.sort((a, b) => a.title.localeCompare(b.title, "es")).map((clinic: ClinicType) => (
+                          <Link
+                            key={clinic.id}
+                            href={`/clinics/${clinic.slug}`}
+                            className={subItemClass}
+                          >
+                            <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                            {clinic.title}
+                          </Link>
+                        ))}
                     </div>
                   </AccordionContent>
                 </AccordionItem>
@@ -144,7 +146,10 @@ const ItemsMenuMobile = ({ user }: NavbarProps) => {
                 {/* Farmacia */}
                 <AccordionItem value="pharmacy" className="border-none">
                   <AccordionTrigger className="px-2 py-3 hover:no-underline hover:bg-accent rounded-md">
-                    <Link href="/shop" className="flex items-center gap-2 font-semibold flex-1">
+                    <Link
+                      href="/shop"
+                      className="flex items-center gap-2 font-semibold flex-1"
+                    >
                       <PillBottle className="w-4 h-4" />
                       Farmacia
                     </Link>
