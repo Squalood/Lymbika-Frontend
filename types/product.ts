@@ -26,4 +26,8 @@ export type ProductType = {
     title: string;
     slug: string;
   };
+  videos: {
+    id: number;
+    videoID: string;
+  }[];
 };

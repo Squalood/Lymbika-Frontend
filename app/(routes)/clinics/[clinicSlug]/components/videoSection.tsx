@@ -1,4 +1,5 @@
 import YoutubeEmbed from "@/components/YoutubeEmbed";
+import TiktokEmbed from "@/components/TiktokEmbed";
 import { ClinicType } from "@/types/clinic";
 import {
   Carousel,
@@ -10,6 +11,13 @@ import {
 
 export type InfoclinicProps = {
   clinic: ClinicType;
+};
+
+// Función para detectar la plataforma del video basándose en el formato del ID
+const detectVideoPlatform = (videoId: string): "youtube" | "tiktok" => {
+  // TikTok IDs son números largos (típicamente 19 dígitos)
+  // YouTube IDs son alfanuméricos cortos (típicamente 11 caracteres)
+  return /^\d{15,}$/.test(videoId) ? "tiktok" : "youtube";
 };
 
 const VideoSection = ({ clinic }: InfoclinicProps) => {
@@ -43,21 +51,32 @@ const VideoSection = ({ clinic }: InfoclinicProps) => {
                 className={`w-full ${getMaxWidth()} mx-auto`}
             >
                 <CarouselContent>
-                    {clinic.videos.map((video) => (
-                        <CarouselItem key={video.id} className={getBasisClass()}>
-                            <div className="p-2">
-                                <YoutubeEmbed 
-                                    videoId={video.videoID} 
-                                    orientation="vertical"
-                                />
-                            </div>
-                        </CarouselItem>
-                    ))}
+                    {clinic.videos.map((video) => {
+                        const platform = detectVideoPlatform(video.videoID);
+
+                        return (
+                            <CarouselItem key={video.id} className={getBasisClass()}>
+                                <div className="p-2">
+                                    {platform === "youtube" ? (
+                                        <YoutubeEmbed
+                                            videoId={video.videoID}
+                                            orientation="vertical"
+                                        />
+                                    ) : (
+                                        <TiktokEmbed
+                                            videoId={video.videoID}
+                                            orientation="vertical"
+                                        />
+                                    )}
+                                </div>
+                            </CarouselItem>
+                        );
+                    })}
                 </CarouselContent>
                 {videoCount > 1 && (
                     <>
-                        <CarouselPrevious className="left-2 md:hidden" />
-                        <CarouselNext className="right-2 md:hidden" />
+                        <CarouselPrevious className="left-2" />
+                        <CarouselNext className="right-2" />
                     </>
                 )}
             </Carousel>
