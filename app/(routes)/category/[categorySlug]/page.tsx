@@ -13,20 +13,32 @@ import { Skeleton } from "@/components/ui/skeleton";
 import SkeletonList from "@/components/skeleton/skeletonList";
 import ProductCard from "@/components/productCard";
 
+// Configuración de productos por página según dispositivo
+const PRODUCTS_PER_PAGE_MOBILE = 8;  // 2 cols x 4 filas
+const PRODUCTS_PER_PAGE_DESKTOP = 9; // 3 cols x 3 filas
 
 export default function Page() {
     const params = useParams();
     const { categorySlug } = params;
-    
+
     const [page, setPage] = useState(1);
-    const [typeFilter, setFilterType] = useState<string>(''); // Define el estado de typeFilter
+    const [typeFilter, setFilterType] = useState<string>('');
     const [filteredProducts, setFilteredProducts] = useState<ProductType[]>([]);
     const [totalFilteredPages, setTotalFilteredPages] = useState(1);
-    
+    const [isMobile, setIsMobile] = useState(false);
+
+    // Detectar si es móvil (coincide con md:hidden del CSS)
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    const productsPerPage = isMobile ? PRODUCTS_PER_PAGE_MOBILE : PRODUCTS_PER_PAGE_DESKTOP;
+
     // ✅ Llamamos a la API con todos los productos de la categoría
-    const { result, loading } = useGetCategoryProduct(categorySlug ?? '', 1); // 🚀 Traemos todos los productos en una sola petición
-    
-    const productsPerPage = 9; // 👈 Número de productos por página
+    const { result, loading } = useGetCategoryProduct(categorySlug ?? '', 1);
 
     //Lee el query desde los parámetros de búsqueda
     const searchParams = useSearchParams();
@@ -54,7 +66,7 @@ export default function Page() {
           setTotalFilteredPages(Math.ceil(filtered.length / productsPerPage));
           setPage(1);
         }
-      }, [result, typeFilter, loading, query]);
+      }, [result, typeFilter, loading, query, productsPerPage]);
 
     // 🔹 Hacer scroll hacia arriba al cambiar de página
     useEffect(() => {
@@ -110,8 +122,8 @@ export default function Page() {
               <div className="ml-7">
                 <ItemsFilterMobile setFilterType={setFilterType} />
               </div>
-              <div className="mt-4 grid grid-cols-2 gap-4 mx-auto px-4">
-                  {renderProductList(9)}
+              <div className="mt-4 grid grid-cols-2 gap-1 sm:gap-4 mx-auto px-4">
+                  {renderProductList(8)}
               </div>
           </div>
 

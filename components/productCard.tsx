@@ -32,7 +32,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
   return (
     <Card
-      className="w-40 sm:w-48 lg:w-64 max-h-96 group relative space-y-4 overflow-hidden p-2 sm:p-4 cursor-pointer hover:shadow-md transition"
+      className="w-auto sm:w-48 lg:w-64 max-h-96 group relative space-y-4 overflow-hidden p-2 sm:p-4 cursor-pointer hover:shadow-md transition"
       onClick={handleCardClick}
     >
       <figure className="group-hover:opacity-90">
@@ -68,7 +68,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <Button
           variant="outline"
           size="icon"
-          className={`flex-shrink-0 z-10 transition-colors ${
+          className={`hidden sm:flex flex-shrink-0 z-10 transition-colors ${
             isLoved(product) ? "bg-blue-100 text-blue-500 border-blue-200" : ""
           }`}
           onClick={(e) => {
