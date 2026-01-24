@@ -49,7 +49,7 @@ export default function ClinicPage() {
       <Services services={services} />
       <ClinicProducts clinicSlug={clinicSlug as string} clinicTitle={clinic.title} />
       <WhyUs features={clinic.features} />
-      <Doctor data={doctor} />   
+      <Doctor data={doctor} doctorPageSlug={clinic.doctorPage?.slug} />   
       <VideoSection clinic={clinic}/>
       <Testimonials list={clinic.testimonials} />
       

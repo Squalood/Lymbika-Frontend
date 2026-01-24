@@ -7,12 +7,14 @@ import { ClinicType } from "@/types/clinic";
 import RichTextRenderer from "@/components/rich-text-renderer";
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import Link from "next/link";
 
 type DoctorProps = {
   data: ClinicType["doctor"];
+  doctorPageSlug?: string;
 };
 
-export default function Doctor({ data }: DoctorProps) {
+export default function Doctor({ data, doctorPageSlug }: DoctorProps) {
   const { ref, inView } = useInView({
     threshold: 0.1,
     triggerOnce: true
@@ -42,7 +44,13 @@ export default function Doctor({ data }: DoctorProps) {
             <div className="mt-10 flex justify-center flex-col gap-4 px-6 sm:px-0">
               <h2 className="text-sm text-gray-400">Médico Encargado</h2>
               <div className="space-y-6">
-                <h2 className="text-2xl sm:text-3xl font-bold ">{data.name}</h2>
+                {doctorPageSlug ? (
+                  <Link href={`/doctor/${doctorPageSlug}`} className="text-2xl sm:text-3xl font-bold hover:text-primary transition-colors">
+                    {data.name}
+                  </Link>
+                ) : (
+                  <h2 className="text-2xl sm:text-3xl font-bold">{data.name}</h2>
+                )}
                 <p className="text-muted-foreground text-base sm:text-lg">{data.description}</p> 
               </div>
             </div>

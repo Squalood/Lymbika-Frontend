@@ -69,4 +69,9 @@ export type ClinicType = {
 
   featuredClinic: boolean;
 
+  doctorPage: {
+    id: number;
+    doctorName: string;
+    slug: string;
+  };
 };

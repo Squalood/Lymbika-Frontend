@@ -9,12 +9,13 @@ import { ResponseType } from "@/types/response";
 import { Separator } from "@/components/ui/separator";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import SkeletonDoctor from "@/components/skeleton/doctorSkeletor";
-
 import DoctorTop from "./doctor-top";
 import DoctorAbout from "./doctor-about";
 import SimpleSchedule from "./simpleSchedule";
 import DoctorPrice from "./doctor-price";
 import DoctorGallery from "./doctor-gallery";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const TABS = [
   { key: "about", label: "Sobre el Doctor" },
@@ -62,7 +63,7 @@ const DoctorShow = () => {
       <Separator className="my-6" />
 
       {/* Mobile Select */}
-      <div className="block lg:hidden max-w-48 mb-6 ml-2">
+      <div className="flex justify-between gap-8 lg:hidden mb-6 mx-4">
         <Select value={activeTab} onValueChange={(val) => setActiveTab(val as typeof activeTab)}>
           <SelectTrigger>
             <SelectValue placeholder="Selecciona una opción" />
@@ -75,11 +76,16 @@ const DoctorShow = () => {
             ))}
           </SelectContent>
         </Select>
+        {doctor.clinic?.slug && (
+          <Button asChild>
+            <Link href={`/clinics/${doctor.clinic.slug}`}>Ir a Clinica</Link>
+          </Button>
+        )}
       </div>
 
       {/* Desktop Tabs */}
       <div
-        className="relative hidden lg:flex bg-muted p-1 rounded-full w-fit mb-2 gap-1"
+        className="relative hidden lg:flex justify-between bg-muted p-1 rounded-full w-fit mb-2 gap-1"
         role="tablist"
         aria-label="Opciones de vista del doctor"
       >
@@ -107,7 +113,13 @@ const DoctorShow = () => {
             </button>
           );
         })}
+        {doctor.clinic?.slug && (
+          <Button asChild>
+            <Link href={`/clinics/${doctor.clinic.slug}`}>Ir a Clinica</Link>
+          </Button>
+        )}
       </div>
+      
 
       {/* Tab content */}
       {renderTabContent}

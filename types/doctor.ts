@@ -43,5 +43,10 @@ export type DoctorType = {
     }[];
     reviews: ReviewType[];
     contactButton: string;
+    clinic: {
+      id: number;
+      title: string;
+      slug: string;
+    };
   };
   
