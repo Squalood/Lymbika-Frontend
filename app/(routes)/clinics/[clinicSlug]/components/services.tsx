@@ -47,7 +47,7 @@ export default function Services({ services }: ServicesProps) {
             {services.map((service, index) => (
               <CarouselItem
                 key={service.id}
-                className="basis-2/3 lg:basis-1/4 mx-auto my-2"
+                className="basis-2/3 md:basis-1/3 lg:basis-1/4 mx-auto my-2"
               >
                 <ServiceCard service={service} index={index} inView={inView} />
               </CarouselItem>

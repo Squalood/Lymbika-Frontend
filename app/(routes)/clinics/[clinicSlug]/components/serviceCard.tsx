@@ -21,7 +21,7 @@ const ServiceCard = ({ service, index = 0, inView = true }: ServiceCardProps) =>
 
   return (
     <Card
-      className={`w-60 md:w-full h-full group relative space-y-4 overflow-hidden p-4 sm:p-4 hover:shadow-md transition-all duration-700 ${
+      className={`w-auto md:w-full h-full group relative space-y-4 overflow-hidden p-4 sm:p-4 hover:shadow-md transition-all duration-700 ${
         inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       }`}
       style={{ transitionDelay: `${index * 100}ms` }}
