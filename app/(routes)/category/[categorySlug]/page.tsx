@@ -1,7 +1,8 @@
 "use client";
 import { useGetCategoryProduct } from "@/api/useCategoryProduct";
+import { useGetCategories } from "@/api/getCategories";
 import { Separator } from "@/components/ui/separator";
-import { useParams, useSearchParams } from "next/navigation"; 
+import { useParams, useSearchParams } from "next/navigation";
 import FiltersControlsCategory from "./components/filters-controls-category";
 import SkeletonSchema from "@/components/skeleton/skeletonSchema";
 import { ProductType } from "@/types/product";
@@ -12,6 +13,15 @@ import { Search } from "@/components/searchBar";
 import { Skeleton } from "@/components/ui/skeleton";
 import SkeletonList from "@/components/skeleton/skeletonList";
 import ProductCard from "@/components/productCard";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { ChevronDownIcon } from "lucide-react";
+import Link from "next/link";
 
 // Configuración de productos por página según dispositivo
 const PRODUCTS_PER_PAGE_MOBILE = 8;  // 2 cols x 4 filas
@@ -20,6 +30,7 @@ const PRODUCTS_PER_PAGE_DESKTOP = 9; // 3 cols x 3 filas
 export default function Page() {
     const params = useParams();
     const { categorySlug } = params;
+    const { result: categories } = useGetCategories();
 
     const [page, setPage] = useState(1);
     const [typeFilter, setFilterType] = useState<string>('');
@@ -97,13 +108,29 @@ export default function Page() {
         <div id="title" className="max-w-6xl py-4 mx-auto sm:py-16 sm:px-24">
             
           {/* Título de categoría */}
-          <div className="flex flex-col gap-6 sm:flex-row justify-between py-4 px-8">
+          <div className="flex flex-col gap-6 sm:flex-row justify-between py-4 px-4">
               {loading ? (
-                    <Skeleton className="w-60 h-10"/>  
+                    <Skeleton className="w-60 h-10"/>
               ) : filteredProducts.length > 0 ? (
-                  <h1 className="text-3xl font-medium">
-                  {filteredProducts[0]?.category?.categoryName}
-                  </h1>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <button className="flex items-center gap-2 text-3xl font-medium hover:text-primary transition-colors">
+                        {filteredProducts[0]?.category?.categoryName}
+                        <ChevronDownIcon className="size-5" />
+                      </button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="start">
+                      <DropdownMenuGroup>
+                        {categories.map((category) => (
+                          <DropdownMenuItem key={category.id} asChild>
+                            <Link href={`/category/${category.slug}`}>
+                              {category.categoryName}
+                            </Link>
+                          </DropdownMenuItem>
+                        ))}
+                      </DropdownMenuGroup>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
               ) : (
                   <h1 className="text-xl font-medium text-muted-foreground">
                   Búsqueda no encontrada
@@ -112,7 +139,9 @@ export default function Page() {
               {loading ? (
                   <Skeleton className="w-full sm:w-1/3 h-10"/>
               ) : (
-              <Search category={filteredProducts[0]?.category?.categoryName} />
+              <div className="w-full sm:w-80">
+                <Search category={filteredProducts[0]?.category?.categoryName} />
+              </div>
               )}
           </div>
           <Separator />
@@ -122,7 +151,7 @@ export default function Page() {
               <div className="ml-7">
                 <ItemsFilterMobile setFilterType={setFilterType} />
               </div>
-              <div className="mt-4 grid grid-cols-2 gap-1 sm:gap-4 mx-auto px-4">
+              <div className="mt-4 grid grid-cols-2 gap-1 sm:gap-4 mx-auto px-2">
                   {renderProductList(8)}
               </div>
           </div>

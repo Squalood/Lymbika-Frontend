@@ -10,8 +10,8 @@ const ChooseCategory = () => {
     const { result, loading }: ResponseType = useGetCategories()
 
     return ( 
-        <div className="sm:max-w-4xl py-4 mx-4 lg:mx-auto sm:py-16">
-            <h3 className="px-6 pb-4 text-3xl sm:pb-8">Categorías de la Farmacia</h3>
+        <div className="sm:max-w-4xl py-4 mx-2 lg:mx-auto sm:py-16">
+            <h3 className="px-2 pb-4 text-3xl sm:pb-8">Categorías de la Farmacia</h3>
             {loading && 
                 <SkeletonGalleryCol3 grid={6} />
             }
@@ -35,7 +35,7 @@ const ChooseCategory = () => {
                                 <span className="text-gray-700">Sin imagen</span>
                             </div>
                         )}
-                        <p className="absolute w-full py-0 sm:py-2 text-lg font-bold text-center text-white bottom-5 backdrop-blur-lg">
+                        <p className="absolute w-full py-0 sm:py-1 text-xs sm:text-lg font-bold text-center text-white bottom-5 backdrop-blur-lg">
                             {category.categoryName}
                         </p>
                     </Link>

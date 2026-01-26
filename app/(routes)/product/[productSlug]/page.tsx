@@ -18,9 +18,9 @@ export default function Page (){
 
     if (result == null){
         return(
-            <div className="max-w-6xl py-4 mx-auto sm:py-32 sm:px-24">
+            <div className="max-w-6xl mx-auto py-4 px-4 sm:py-32 sm:px-24">
                 <div className="grid sm:grid-cols-2">
-                    <div>
+                    <div className="w-full overflow-hidden">
                         <CarouselProductSkeleton/>
                     </div>
                     <div className="pt-8 sm:pt-0 sm:px-12">

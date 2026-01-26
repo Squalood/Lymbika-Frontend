@@ -44,7 +44,7 @@ const HeroSection = ({ hero }: HeroProps) => {
                 Juárez • Chihuahua • Delicias • Frontera
               </Badge>
 
-              <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
+              <h1 className="text-3xl lg:text-6xl font-bold leading-tight">
                 La Primera
                 <span className="block bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent">
                   E-Pharmacy
@@ -52,7 +52,7 @@ const HeroSection = ({ hero }: HeroProps) => {
                 <span className="block text-white">de la Frontera</span>
               </h1>
 
-              <p className="text-xl text-blue-100 leading-relaxed max-w-xl">
+              <p className="sm:text-xl text-blue-100 leading-relaxed max-w-xl">
                 Revolucionamos el cuidado de tu salud con tecnología avanzada, 
                 precios competitivos y la comodidad de comprar desde casa y 
                 recoger en sucursal.

@@ -26,7 +26,7 @@ const Hero = ({ hero }: HeroProps) => {
 
       {/* Contenido */}
       <div className="relative px-4 z-10 lg:w-3/4 xl:w-2/4 mt-28">
-        <h1 className="text-white text-2xl md:text-4xl lg:text-5xl font-bold leading-tight">
+        <h1 className="text-white text-xl md:text-4xl lg:text-5xl font-bold leading-tight">
           {hero.title}
         </h1>
         <p className="text-blue-100 text-sm md:text-xl leading-snug mt-4 w-5/6 md:w-full">
@@ -38,8 +38,7 @@ const Hero = ({ hero }: HeroProps) => {
           <div className="mt-6">
             <Button
               variant="outline"
-              size="lg"
-              className="bg-transparent text-white border-white hover:bg-white hover:text-primary md:text-lg"
+              className="bg-transparent text-white border-white hover:bg-white hover:text-primary text-xs md:text-lg"
               asChild
             >
               <Link

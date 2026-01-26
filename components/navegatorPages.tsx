@@ -1,5 +1,7 @@
+"use client";
+
 import Link from "next/link";
-import { SlashIcon } from "lucide-react";
+import { ChevronDownIcon, SlashIcon } from "lucide-react";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,12 +11,22 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { ProductType } from "@/types/product";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import { useGetCategories } from "@/api/getCategories";
 
 export type datatProps = {
   product: ProductType;
 };
 
-const NavegatorPages = ({ product}: datatProps) => {
+const NavegatorPages = ({ product }: datatProps) => {
+  const { result: categories } = useGetCategories();
+
   return (
     <Breadcrumb>
       <BreadcrumbList>
@@ -27,11 +39,27 @@ const NavegatorPages = ({ product}: datatProps) => {
           <SlashIcon />
         </BreadcrumbSeparator>
         <BreadcrumbItem>
-          <BreadcrumbLink asChild>
-            <Link href={`/category/${product.category.slug}`}>
-              {product.category.categoryName}
-            </Link>
-          </BreadcrumbLink>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button className="flex items-center gap-1">
+                {product.category.categoryName}
+                <ChevronDownIcon className="size-3.5" />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start">
+              <DropdownMenuGroup>
+                {categories.map((category) => (
+                  <DropdownMenuItem key={category.id}>
+                    <BreadcrumbLink asChild>
+                      <Link href={`/category/${category.slug}`}>
+                        {category.categoryName}
+                      </Link>
+                    </BreadcrumbLink>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </BreadcrumbItem>
         <BreadcrumbSeparator>
           <SlashIcon />
