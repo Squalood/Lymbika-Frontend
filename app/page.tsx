@@ -16,10 +16,17 @@ import { useGetPromo } from "@/api/getPromo"
 import Hero from "@/components/front-page";
 import { useGetPageHero } from "@/api/getPageHeroBySlug";
 import HeroSkeleton from "@/components/skeleton/heroSkeleton";
+import GalleryCarouselSkeleton from "@/components/skeleton/galleryCarouselSkeleton";
+import TuristSectionSkeleton from "@/components/skeleton/turistSectionSkeleton";
+import GalleryCarousel from "@/components/galleryCarousel";
+import { useGetPage } from "@/api/getPageBySlug";
+import { useGetGallery } from "@/api/getGalleryBySlug";
 
 export default function Home() {
+  const { page, loading: pageLoading } = useGetPage("front-page");
   const { hero, loading } = useGetPageHero("front-page");
   const {promo} = useGetPromo("front-page");
+  const { gallery, loading: galleryLoading } = useGetGallery("front-page");
   const promoItems = promo?.flatMap(page => page.promo).filter(p => p && p.image?.url) || [];
 
   const heroData = hero[0]?.hero;
@@ -36,7 +43,8 @@ export default function Home() {
       <CarouselTextBanner />
       <ChooseCategory />
       <PlanSection/>
-      <TuristSection/>
+      {pageLoading ? <TuristSectionSkeleton /> : <TuristSection title={page[0]?.videos?.[0]?.title} videoId={page[0]?.videos?.[0]?.videoID}/>}
+      {galleryLoading ? <GalleryCarouselSkeleton /> : <GalleryCarousel gallery={gallery}/>}
       <SurgeryFaq/>
       <BannerProduct />
     </main>

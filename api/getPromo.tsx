@@ -8,8 +8,6 @@ export function useGetPromo(slug: string) {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (!slug) return; 
-
     (async() => {
         try {
             const res = await fetch (url);

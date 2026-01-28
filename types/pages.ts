@@ -83,4 +83,18 @@ export type PageType = {
   imagenRe1: {
     url: string;
   };
+
+  videos: {
+    id: number;
+    title: string;
+    videoID: string;
+  }[];
+
+  gallery: {
+    id: number;
+    title: string;
+    images: {
+      url: string;
+    };
+  }[];
 };
