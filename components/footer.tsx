@@ -27,7 +27,7 @@ const dataFooter = [
     {
         id: 5,
         name: "Politica de privacidad",
-        link: "#"
+        link: "/privacidad"
     }
 ]
 

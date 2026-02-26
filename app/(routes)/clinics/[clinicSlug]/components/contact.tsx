@@ -34,7 +34,7 @@ const Contact = ({ data }: ContactProps) => {
       category: "engagement",
       label: "Botón Agendar Cita en contacto de clinica",
     });
-    window.open(data.scheduleLink || "#", "_blank");
+    window.open(data.scheduleLink || data.contactWhatsappLink, "_blank");
   };
 
   return (

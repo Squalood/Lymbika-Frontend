@@ -4,18 +4,18 @@ import { Button } from "@/components/ui/button";
 type FiltersControlsCategoryProps = {
     setFilterType: (tipo: string) => void;
     typeFilter: string;
+    availableTypes: string[];
 };
 
-const FiltersControlsCategory = ({ setFilterType, typeFilter }: FiltersControlsCategoryProps) => {
-    
-    // Resetear filtro
+const FiltersControlsCategory = ({ setFilterType, typeFilter, availableTypes }: FiltersControlsCategoryProps) => {
+
     const resetFilters = () => {
-        setFilterType("");  // Restablece el filtro a un valor vacío
+        setFilterType("");
     };
 
-    return ( 
-        <div className="sm:w-1/5 sm:mt-5 p-6">
-            <FilterType setFilterType={setFilterType} typeFilter={typeFilter} />
+    return (
+        <div className="shrink-0 sm:w-1/5 sm:mt-5 p-6">
+            <FilterType setFilterType={setFilterType} typeFilter={typeFilter} availableTypes={availableTypes} />
 
             {(typeFilter) && (
                 <div className="mt-4 text-center">

@@ -56,6 +56,11 @@ export default function Page() {
     const query = searchParams.get("query")?.toLowerCase() || "";
 
 
+    // 🔹 Tipos únicos disponibles en esta categoría
+    const availableTypes = result
+        ? [...new Set(result.map((p) => p.tipo).filter(Boolean))]
+        : [];
+
     // 🔹 Aplicamos el filtro antes de paginar
     useEffect(() => {
         if (result && !loading) {
@@ -149,7 +154,7 @@ export default function Page() {
           {/* Modo móvil */}
           <div className="flex flex-col mt-4 md:hidden">
               <div className="ml-7">
-                <ItemsFilterMobile setFilterType={setFilterType} />
+                <ItemsFilterMobile setFilterType={setFilterType} availableTypes={availableTypes} />
               </div>
               <div className="mt-4 grid grid-cols-2 gap-1 sm:gap-4 mx-auto px-2">
                   {renderProductList(8)}
@@ -161,9 +166,9 @@ export default function Page() {
               {loading ? (
                     <SkeletonList grid={9}/>  
               ) : (
-                  <FiltersControlsCategory setFilterType={setFilterType} typeFilter={typeFilter}/> 
+                  <FiltersControlsCategory setFilterType={setFilterType} typeFilter={typeFilter} availableTypes={availableTypes}/>
               )}
-              <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="flex-1 min-w-0 mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {renderProductList(9)}
               </div>
           </div>

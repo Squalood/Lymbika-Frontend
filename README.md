@@ -9,7 +9,6 @@ Plataforma web de marketplace y servicios de salud que conecta usuarios con prod
 | **Framework** | Next.js 15 (App Router, Turbopack) |
 | **UI** | React 19, TypeScript 5 |
 | **Estilos** | Tailwind CSS 3.4, Radix UI, Framer Motion |
-| **Estado** | Zustand 5 |
 | **Pagos** | Stripe |
 | **Backend** | API REST (Strapi) alojado en Render |
 | **Imágenes** | Cloudinary + Next.js Image Optimization |
