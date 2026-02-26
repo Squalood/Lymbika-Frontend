@@ -50,7 +50,7 @@ const TuristSection = ({
                 {/* Info column */}
                 <div className="flex flex-col gap-6">
                     <blockquote className="text-xl font-medium italic text-gray-800 border-l-4 border-primary pl-5">
-                        "{quote}"
+                        &ldquo;{quote}&rdquo;
                     </blockquote>
 
                     <p className="text-gray-600 leading-relaxed">
