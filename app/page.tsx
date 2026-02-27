@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link"
-import BannerProduct from "@/components/banner-product"
 import CarouselServices from "@/components/carousel-services"
 import CarouselTextBanner from "@/components/carousel-text-banner"
 import ChooseCategory from "@/components/choose-category"
