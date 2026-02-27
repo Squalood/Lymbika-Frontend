@@ -14,7 +14,7 @@ const HospitaSection = () => {
     if (error) return <div className="text-center text-red-500 py-20">Error al cargar hospitales: {error}</div>;
   
     return (
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <h1 className="px-6 text-3xl">Hospitales en Ciudad Juárez</h1>
         <HospitaCarousel hospitals={hospitals} />
       </div>

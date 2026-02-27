@@ -11,7 +11,7 @@ const Hero = ({ hero }: HeroProps) => {
   if (!hero) return null;
 
   return (
-    <div className="relative h-[450px] md:h-[600px] lg:h-[700px] rounded-br-[5rem] bg-primary px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 overflow-hidden flex items-center">
+    <div className="relative h-[450px] md:h-[600px] lg:h-[700px]  bg-primary px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 overflow-hidden flex items-center">
       {/* Imagen de fondo */}
       <div className="absolute inset-0 z-0">
         {hero.image?.url && (

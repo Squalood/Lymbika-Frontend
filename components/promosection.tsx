@@ -60,7 +60,7 @@ const PromoCarousel = ({ data, aspectRatio = "square" }: PromoProps) => {
   }, [api]);
 
   return (
-    <div className="max-w-4xl mx-auto px-4 mt-0 mb-10 sm:py-10">
+    <div className="max-w-6xl mx-auto px-4 mt-0 mb-10 sm:py-10">
       <h1 className="py-4 font-bold text-xl">Nuestras últimas promociones</h1>
       <Carousel
         setApi={setApi}

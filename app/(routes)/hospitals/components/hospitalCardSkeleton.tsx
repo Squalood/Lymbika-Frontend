@@ -8,7 +8,7 @@ const HospitalGridSkeleton = () => {
     const columns = width >= 1024 ? 3 : width >= 640 ? 2 : 1;
 
     return (
-    <div className="px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto max-w-4xl">
+    <div className="px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto max-w-6xl">
       <div className="mb-10">
         <Skeleton className="h-8 w-48" />
       </div>

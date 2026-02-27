@@ -21,7 +21,7 @@ const DoctorReel = ({ doctors: externalDoctors, title = "Nuestros Doctores", act
 
   if (!externalDoctors && loading) {
     return (
-      <div className="max-w-4xl mx-auto ">
+      <div className="max-w-6xl mx-auto ">
           <SkeletonDoctorCardVertical/>
       </div>
     );
@@ -34,7 +34,7 @@ const DoctorReel = ({ doctors: externalDoctors, title = "Nuestros Doctores", act
   );
 
   return (
-    <div className="px-4 py-2 sm:px-6 lg:px-8 mx-auto max-w-4xl">
+    <div className="px-4 py-2 sm:px-6 lg:px-8 mx-auto max-w-6xl">
       <h1 className="px-0 py-6 text-3xl">{title}</h1>
       {doctorsWithReviews.length === 0 ? (
         <p className="text-center text-muted-foreground">No se encontraron doctores.</p>

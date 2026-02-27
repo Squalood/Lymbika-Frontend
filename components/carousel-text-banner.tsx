@@ -3,7 +3,7 @@
 import Marquee from "react-fast-marquee"
 import { useRouter } from "next/navigation"
 import { Card, CardContent } from "@/components/ui/card"
-import { ShoppingBag, BadgeCheck, Clock, GraduationCap, Shield, CreditCard, Hospital, Stethoscope, MessageCircleHeart, BookUser, ShieldCheck } from "lucide-react"
+import { ShoppingBag, BadgeCheck, Clock, GraduationCap, Shield, CreditCard, Hospital, Stethoscope, MessageCircleHeart, BookUser, ShieldCheck, Plane } from "lucide-react"
 import React from "react"
 import es from "@/locals/es.json"
 
@@ -73,6 +73,12 @@ export const dataCarouselTop = [
         title: es.autoCarrouselBanner.id11,
         link: "#!",
         icon: <ShieldCheck size={32}/>, 
+    },
+    {
+        id: 12,
+        title: es.autoCarrouselBanner.id12,
+        link: "#!",
+        icon: <Plane size={32}/>, 
     }
 ];
 
@@ -80,7 +86,7 @@ const CarouselTextBanner = () => {
     const router = useRouter();
 
     return (
-        <div className="bg-gray-200 dark:bg-primary py-5">
+        <div className="bg-gray-200 dark:bg-primary py-4">
             <Marquee
                 gradient={false} // sin bordes sombreados
                 speed={40} // ajusta la velocidad
@@ -90,12 +96,12 @@ const CarouselTextBanner = () => {
                     <div
                         key={id}
                         onClick={() => router.push(link)}
-                        className="cursor-pointer mx-4 min-w-[300px] flex justify-center items-center"
+                        className="cursor-pointer mx-4 min-w-[250px] flex justify-center items-center"
                     >
                         <Card className="shadow-none border-none bg-transparent">
-                            <CardContent className="flex flex-row justify-center items-center gap-2 p-2 text-center">
-                                {React.cloneElement(icon, { className: "text-primary w-8 h-8" })}
-                                <p className="sm:text-base text-sm text-wrap dark:text-secondary">
+                            <CardContent className="flex flex-row justify-center items-center gap-2 py-0 text-center">
+                                {React.cloneElement(icon, { className: "text-primary w-4 h-4" })}
+                                <p className="sm:text-base text-xs text-wrap dark:text-secondary">
                                     {title}
                                 </p>
                             </CardContent>

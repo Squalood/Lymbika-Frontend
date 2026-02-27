@@ -52,7 +52,7 @@ export default function Clinics({ data }: ClinicsListProps) {
   const smallCards = data.slice(0);
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-10">
+    <div className="max-w-6xl mx-auto px-4 py-10">
       <div className="mb-10">
         <h2 className="text-2xl md:text-3xl">Nuestras Clínicas</h2>
       </div>

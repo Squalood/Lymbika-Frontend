@@ -23,7 +23,7 @@ const GalleryCarousel = ({ gallery, loading }: GalleryCarouselProps) => {
   if (loading || !gallery || !Array.isArray(gallery.images) || gallery.images.length === 0) return null;
 
   return (
-    <div className="max-w-4xl mx-auto mt-8 md:mt-32">
+    <div className="max-w-6xl mx-auto mt-8 md:mt-32">
       <h1 className="px-6 text-3xl mb-8">{gallery.title}</h1>
       <Carousel
         plugins={[
