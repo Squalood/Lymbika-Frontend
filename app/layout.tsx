@@ -27,7 +27,7 @@ export default async function RootLayout({children,}: Readonly<{children: React.
   const userData = await getUserMeLoader();
 
   return (
-    <html lang="es" className="overflow-x-hidden">
+    <html lang="es">
       <body className={urbanist.className}>
 
         {/* Google Analytics */}

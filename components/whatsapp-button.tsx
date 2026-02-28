@@ -18,7 +18,7 @@ export default function WhatsAppButton() {
       href="https://wa.me/526561100446"
       target="_blank"
       rel="noopener noreferrer"
-      style={{ position: "fixed", bottom: "24px", right: "24px", zIndex: 9999 }}
+      style={{ position: "fixed", bottom: "24px", right: "12px", zIndex: 9999 }}
       className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white text-sm font-semibold shadow-lg transition-colors duration-200 md:px-4 md:py-3 md:rounded-full p-3 rounded-full"
     >
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 shrink-0">
