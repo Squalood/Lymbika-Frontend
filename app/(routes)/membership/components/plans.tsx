@@ -3,7 +3,6 @@
     import { Check, IdCard, MoveRight, PersonStanding, PhoneCall, Pill, Stethoscope } from "lucide-react";
     import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
     import { Button } from "@/components/ui/button";
-    import es from "@/locals/es.json";
     import { useState } from "react";
     import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
     import PlanToggle from "./PlanToggle";
@@ -11,6 +10,8 @@
 
     interface PlansMemberPageProps {
       plans: MembershipType[];
+      title?: string;
+      description?: string;
     }
 
     const iconMap = {
@@ -21,8 +22,7 @@
       Pill: <Pill size={20} className="stroke-primary" />
     } as const;
 
-    const PlansMemberPage = ({ plans }: PlansMemberPageProps) =>  {
-      const { title, description} = es.PlansMemberPage;
+    const PlansMemberPage = ({ plans, title, description }: PlansMemberPageProps) =>  {
       const [isFamilyPlan, setIsFamilyPlan] = useState(false);
 
       return (
