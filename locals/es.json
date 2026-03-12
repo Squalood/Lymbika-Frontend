@@ -1,457 +1,50 @@
 {
-  "navbar":{
-    "programas":{
+  "navbar": {
+    "programas": {
       "program1": "Control de Peso Integral",
       "program2": "Agente Médico",
       "program3": "Menopausia Activa",
       "program4": "Neuroterapia"
     },
-    "botton4":"¿Eres doctor?"
-    },
-  "programsNavs":{
-    "title": "Programas Lymbika",
-    "description": "Stay in the know with insights from industry experts.",
-    "cards": [
-      {
-        "type": "background",
-        "titleBold": "Control de Peso Integral",
-        "titleRest": "Mejoramos tu salud desde el metabolismo.",
-        "image": "/images/peso-hero.png",
-        "cta": "Leer más",
-        "link": "/programs/weightControl"
-      },
-      {
-        "type": "background",
-        "titleBold": "¿No sabes dónde atenderte ni cuánto te costará? Nosotros lo resolvemos por ti.",
-        "titleRest": "Sin filas, sin confusión, sin dudas",
-        "image": "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=560&q=80",
-        "cta": "Haz tu cotización gratuita",
-        "link": "https://wa.me/526561100446"
-        
-      },
-      {
-        "type": "normal",
-        "title": "Control de Peso",
-        "description": "Mejoramos tu salud desde el metabolismo.",
-        "icon": "HeartPulse",
-        "cta": "Leer más",
-        "link": "/programs/weightControl",
-        "cost": "$400/mes"
-      },
-      {
-        "type": "normal",
-        "title": "Agente Médico",
-        "description": "Cirugías seguras, acompañadas de principio a fin.",
-        "icon": "Stethoscope",
-        "cta": "Leer más",
-        "link": "/programs/medicalAgent",
-        "cost": "$200/Consulta"
-      },
-      
-      {
-        "type": "normal",
-        "title": "Menopausia",
-        "description": "Bienestar femenino para una nueva etapa.",
-        "icon": "ScanHeart",
-        "cta": "Leer más",
-        "link": "/programs/menopause",
-        "cost": "$400/mes"
-      },
-      {
-        "type": "normal",
-        "title": "Neuroterapia",
-        "description": "Nueva alternativa para tratar problemas neurológicos.",
-        "icon": "Brain",
-        "cta": "Leer más",
-        "link": "/programs/neurotherapy",
-        "cost": "$1,000/Sesion"
-      }
-    ]
+    "botton4": "¿Eres doctor?"
   },
-  "about":{
-    "mission":{
-      "title":"Misión",
-      "description":"Nos dedicamos a desarrollar el mejor sistema de salud del mundo, brindando un servicio integral de la más alta calidad. Nuestra objetivo es mejorar la comunicación y el abordaje entre profesionales de la salud y pacientes, con el fin de optimizar los resultados y la experiencia de atención médica. Nos comprometemos a eliminar gastos innecesarios y triangulaciones que puedan retrasar la mejoría, para así garantizar que nuestros pacientes  reciban una atención médica eficiente y efectiva que esté a la altura de los estándares más elevados a costos razonables."
+  "about": {
+    "mission": {
+      "title": "Misión",
+      "description": "Nos dedicamos a desarrollar el mejor sistema de salud del mundo, brindando un servicio integral de la más alta calidad. Nuestra objetivo es mejorar la comunicación y el abordaje entre profesionales de la salud y pacientes, con el fin de optimizar los resultados y la experiencia de atención médica. Nos comprometemos a eliminar gastos innecesarios y triangulaciones que puedan retrasar la mejoría, para así garantizar que nuestros pacientes  reciban una atención médica eficiente y efectiva que esté a la altura de los estándares más elevados a costos razonables."
     },
-    "vision":{
-      "title":"Visión",
-      "description":"En Lymbika estamos construyendo el puente digital de la nueva era de la salud, conectando a pacientes con y sin seguro en la franja fronteriza con médicos certificados, tecnología de vanguardia y procesos humanizados. Nuestra misión es proteger al paciente, empoderar al médico y estandarizar la atención médica de alta calidad, eliminando abusos, gastos innecesarios y barreras que históricamente han limitado el acceso. Somos la interfaz entre el futuro y la salud digna que todos merecen."
+    "vision": {
+      "title": "Visión",
+      "description": "En Lymbika estamos construyendo el puente digital de la nueva era de la salud, conectando a pacientes con y sin seguro en la franja fronteriza con médicos certificados, tecnología de vanguardia y procesos humanizados. Nuestra misión es proteger al paciente, empoderar al médico y estandarizar la atención médica de alta calidad, eliminando abusos, gastos innecesarios y barreras que históricamente han limitado el acceso. Somos la interfaz entre el futuro y la salud digna que todos merecen."
     },
-    "Securities":{
-      "title":"Valores",
-      "item1":"Calidad",
-      "item2":"Transparencia",
-      "item3":"Ética",
-      "item4":"Empatía",
-      "item5":"Responsabilidad",
-      "item6":"Honestidad"
+    "Securities": {
+      "title": "Valores",
+      "item1": "Calidad",
+      "item2": "Transparencia",
+      "item3": "Ética",
+      "item4": "Empatía",
+      "item5": "Responsabilidad",
+      "item6": "Honestidad"
     }
   },
-  "PlansMemberPage": {
-    "title": "MediClub",
-    "description": "Con nuestra membresía mensual MediClub, accede a medicamentos y productos de la salud a precio de proveedor, diseñado para cuidar la economía de nuestros pacientes.",
-    "plans": [
-      {
-        "name": "Lymbika Cuida",
-        "icon": "Stethoscope",
-        "priceP": 450,
-        "priceF": 850,
-        "description": "Atención médica primaria para ti o tu familia.",
-        "button": {
-          "label": "Regístrate ahora",
-          "icon": "MoveRight",
-          "variant": "default",
-          "linkP": "https://buy.stripe.com/3cIcN5fdv9iEdGEcvfaVa0I",
-          "linkF": "https://buy.stripe.com/eVq6oHghzdyUdGEgLvaVa0J"
-        },
-        "features": [
-          {
-            "title": "Consultas médicas y nutricionales ilimitadas"
-          },
-          {
-            "title": "Seguimiento y recetas sin costo adicional"
-          },
-          {
-            "title": "Atención médica general ilimitada"
-          }
-        ]
-      },
-      {
-        "name": "Mediclub personal",
-        "icon": "Pill",
-        "priceP": 200,
-        "priceF": 350,
-        "description": "Orientación médica continua sin complicaciones",
-        "button": {
-          "label": "Regístrate ahora",
-          "icon": "MoveRight",
-          "variant": "outline",
-          "linkP": "https://buy.stripe.com/00geYQ2hxgs016o5kQ",
-          "linkF": "https://buy.stripe.com/dR67wo1dt6RqeXe5kX"
-        },
-        "features": [
-          {
-            "title": "Medicamentos a precio de proveedor"
-          },
-          {
-            "title": "Orientación médica general por WhatsApp"
-          },
-          {
-            "title":  "Consultas médicas a precio preferencial"
-          },
-          {
-            "title":  "Apoyo con gestión de estudios e interpretaciones"
-          }
-        ]
-      },
-      {
-        "name": "Lymbika Empresas",
-        "icon": "Building2",
-        "priceP": 390,
-        "priceF": 690,
-        "description": "Salud accesible para tu equipo de trabajo.",
-        "button": {
-          "label": "Reservar una reunión",
-          "icon": "PhoneCall",
-          "variant": "outline",
-          "link": "https://wa.me/526561100446"
-        },
-        "features": [
-          {
-            "title": "Planes por empleado o grupo"
-          },
-          {
-            "title": "Consultas y medicamentos subsidiados"
-          },
-          {
-            "title": "Reduce ausentismo, mejora productividad"
-          }
-        ]
-      }
-    ]
-  },    
-    "titleServices": "Atención Primaria y Especialidades",
-    "titlesurgery": "Cirugías y Procedimientos",
-    "autoCarrouselBanner":{
-      "id1":"Más del 90% de satisfacción",
-      "id2":"Medicamentos a precio de proveedor",
-      "id3":"No más esperas",
-      "id4":"Especialistas certificados",
-      "id5":"No se requiere aseguranza",
-      "id6":"Cirugías a credito",
-      "id7":"⁠Más de 30 especialidades",
-      "id8":"Hospitales certificados",
-      "id9":"Satisfacción 9/10",
-      "id10":"Más de 200 familias afiliadas",
-      "id11":"Médicos Certificados",
-      "id12":"Atención binacional Juárez · El Paso"
-    },
-    "frontpage":{
-      "title": "Cirugía rápida, segura y sin complicaciones en el momento que más importa.",
-      "description": "Lymbika encuentra al especialista, hospital y precio ideal en días, no meses, gestionando cada paso, de la cita al alta médica."
-    },
-    "WeightControlPage":{
-        "title":"Tu salud no empieza con una dieta. Empieza con un plan médico real.",
-        "section1":{
-          "title": "¿En que consiste el programa de control de peso?",
-          "description": "Un plan de 6 meses de atención médica y nutricional combinada, diseñado para lograr una pérdida mínima de 20 kg en pacientes con sobrepeso u obesidad. Seguimiento integral, seguro y personalizado."
-        },
-        "section2":{
-          "title": "Equipo multidisciplinario",
-          "item1": {
-            "title": "Medicina General",
-            "description": "Manejo farmacologico "
-          },
-          "item2": {
-            "title": "Nutrición",
-            "description": "Dieta personalizada"
-          },
-          "item3": {
-            "title": "Psicología",
-            "description": "Opcional: apoyo emocional"
-          }
-        },
-        "section3":{
-          "title": "¿Para quién es?",
-          "description": "Si has intentado bajar de peso sin éxito.\n Buscas un enfoque médico real, no solo dietas.\n Tienes más de 10 kg por perder.\n Estás comprometido con tu salud."
-        },
-        "section4":{
-          "title": "¿Qué incluye?",
-          "description": "Valoración médica y nutricional inicial Plan de alimentación y ajustes mensuales Monitoreo de peso y progresos cada 15 días Opciones farmacológicas y prequirúrgicas si es necesario Evaluación de metas bimestrales"
-          },
-        "testimonialsTitle": "Testimonios de clientes",
-        "testimonials":[
-          {
-            "user": " Alejandra Ortega",
-            "city": "Ciudad Juárez, Chih",
-            "commenary": "Perdí 16 kilos en 4 meses. Nunca imaginé lograrlo sin sufrimiento ni obsesión. Lo que más me gustó fue el trato humano, el seguimiento constante y la confianza que me dieron desde el primer día" 
-          },
-          {
-            "user": "Elena De la Rosa",
-            "city": "Chihuahua, Chih.",
-            "commenary": "Bajé 18 kilos en 90 días. Lo mejor no fue solo el peso perdido, sino lo que recuperé: mi salud, mi ánimo, y mi confianza. La guía médica y el enfoque humano hicieron toda la diferencia."
-          },
-          {
-            "user": "Lluvia Lamelas",
-            "city": "Ciudad Delicias, Chih.",
-            "commenary": "Después de años de intentar dietas sin resultados duraderos, encontré un programa que realmente entiende a las mujeres. En 4 meses bajé 17 kilos sin sentirme restringida. Me siento con más energía, más segura… y feliz de volver a verme al espejo."
-          },
-          {
-            "user": "Guillermina Mendoza",
-            "city": "El Paso, TX",
-            "commenary": "Perdí 10 kilos en 2 meses. Lo que más me sorprendió fue lo personalizado del acompañamiento. No solo te dan una dieta, te enseñan a cambiar tu vida sin extremos."
-          }
-        ],
-        "Plans":{
-          "title1": "Plan estándar (con tratamiento oral)",
-          "title2": "Plan con medicamento inyectable (GLP-1)",
-          "card1": {
-            "title": "Sin membresía",
-            "price": 1599,
-            "p1": "Consulta médica mensual",
-            "p2": "Consulta nutricional mensual",
-            "p3": "Tratamiento oral",
-            "p4": "No incluye suplementos"
-          },
-          "card2": {
-            "title": "Con membresía Mediclub",
-            "price": 1249,
-            "p1": "Consulta médica mensual",
-            "p2": "Consulta nutricional mensual",
-            "p3": "Tratamiento oral ",
-            "p4": "Suplementos a precio proveedor"
-          },
-          "card3": {
-            "title": "Sin membresía",
-            "price": 4500,
-            "p1": "Consulta médica mensual",
-            "p2": "Consulta nutricional mensual",
-            "p3": "Tratamiento escalonado de  GLP-1",
-            "p3sub": "(1 pluma de 0.25 mg – microdosis)",
-            "p4": "Escalamiento de dosis disponible si es indicado médicamente (con costo adicional)",
-            "pX": "No incluye suplementos"
-          },
-          "card4": {
-            "title": "Con membresía Mediclub",
-            "price": 4000,
-            "p1": "Consulta médica mensual",
-            "p2": "Consulta nutricional mensual",
-            "p3": "Tratamiento escalonado de GLP-1",
-            "p3sub": "(1 pluma de 0.25 mg – microdosis)",
-            "p4": "Posibilidad de escalar dosis con precio preferencial",
-            "pX": "Suplementos a precio de proveedor"
-          }
-        },
-        "cost":{
-          "title": "¿Listos para el cambio?",
-          "p1": "Consulta inicial: $300 MXN",
-          "p2": "Programa integral desde $1400/mes",
-          "p3": "Resultados visibles desde el primer mes"
-        }
-    },
-    "MedicalAgentPage":{
-        "title":"Agente Médico",
-        "section1":{
-          "title": "Te ayudamos a encontrar tu círugia."
-        },
-        "section2":{
-          "title": "¿Qué es un Agente Médico?",
-          "description": "Tu Guía de Confianza antes, durante y después de la cirugía. Un profesional capacitado que te informa, te acompaña y te protege en cada paso del proceso quirúrgico."
-        },
-        "section3":{
-          "title": "Preguntas frecuentes",
-          "item1": {
-            "title": "¿Que hace por ti?",
-            "description": "Te ayuda a entender lo que sigue. Revisa que no te falte ningún estudio o documento. Está presente el día de tu cirugía. Da seguimiento médico real y humano. Te acompaña en tus dudas, tus miedos y tu recuperación."
-          },
-          "item2": {
-            "title": "¿Por qué lo necesitas?",
-            "description": "Porque los cirujanos no pueden estar en todo. Porque las familias no siempre saben qué hacer. Porque mereces una cirugía con respaldo completo. Porque nadie debería estar solo en un momento así. "
-          }
-        },
-        "section4":{
-          "title": "¿Cuanto cuesta?",
-          "p1": "Solo $200 MXN o $10 USD",
-          "p2": "El precio de una consulta, la tranquilidad de todo un proceso."
-        }
-    },
-    "MenopausePage":{
-      "hero":{
-        "title": "Transforma tu salud, redescubre tu equilibrio.",
-        "description": "Un plan integral mensual diseñado para acompañarte en una etapa vital de cambio, con atención cálida, personalizada y profesional."
-      },
-      "section1":{
-        "title": "¿Qué es Renacer?",
-        "description": "Un programa médico diseñado para mujeres en perimenopausia o menopausia, donde el médico general se convierte en tu guía confiable, apoyado por especialistas en nutrición, ginecología, salud emocional y medicina estética si así lo requieres."
-      },
-      "section2":{
-        "title":"¿Que ofrece?",
-        "item1":"Control de Peso",
-        "item2":"Orientacion Estetica",
-        "item3":"Valoracion Médica",
-        "item4":"Orientacion Dermatologíca",
-        "item5":"Control de Ansiedad",
-        "item6":"Mejoria Habitos Nocturnos"
-      },
-      "Plans":{
-        "title": "Precios",
-        "card1": {
-          "title": "Sin membresía",
-          "price": 4699,
-          "p1": "Consulta médica mensual",
-          "p2": "Consulta nutricional mensual",
-          "p3": "Tratamiento farmacologico ",
-          "p4": "Laboratorios femeninos",
-          "p5": "Terapia complementaria I.V.",
-          "p6": "Seguimiento digital"
-        },
-        "card2": {
-          "title": "Con membresía Mediclub",
-          "price": 3999,
-          "p1": "Consulta médica mensual",
-          "p2": "Consulta nutricional mensual",
-          "p3": "Tratamiento farmacológico",
-          "p4": "Laboratorios femeninos",
-          "p5": "Terapia complementaria I.V.",
-          "p6": "Seguimiento digital "
-        }
-      }
-    },
-    "NeuroterapiaPage":{
-      "section1":{
-        "title": "NEUROTERAPIA",
-        "description": "TERAPIA TRANSCRANEAL ELECTROMAGNÉTICA"
-      },
-      "section2":{
-        "title": "Controla lo incontrolable",
-        "description": "La estimulación magnética transcraneal (rTMS) permite regular la actividad cerebral sin medicamentos. Es una terapia eficaz en casos de ansiedad resistente, secuelas neurológicas y trastornos cognitivos funcionales, con mejoras visibles desde las primeras sesiones."
-      },
-      "section3":{
-        "title": "Servicios Ofrecidos",
-        "item1": {
-          "title": "🧘‍♀️ Ansiedad y Depresión",
-          "description": "Trastorno de ansiedad generalizada y depresión mayor, resistentes a tratamiento farmacológico."
-        },
-        "item2": {
-          "title": "🧠 Secuelas Neurológicas Post-EVC",
-          "description": "Secuelas motoras y cognitivas tras evento vascular cerebral (EVC), con activación de neuroplasticidad y recuperación funcional."
-        },
-        "item3": {
-          "title": "🧩 Trastornos Ejecutivos",
-          "description": "Disfunciones cognitivas como lentitud mental, desregulación emocional y fatiga cerebral."
-        }
-      },
-      "section4":{
-        "title": "¿Que dice la ciencia?",
-        "item1": {
-          "title": "📚 Evidéncia Clinica",
-          "description": "La estimulación magnética transcraneal repetitiva (rTMS) ha sido avalada por la FDA (EE.UU.) y la Asociación Psiquiátrica Americana como tratamiento eficaz para la depresión resistente y trastornos de ansiedad."
-        },
-        "item2": {
-          "title": "🔬 Neuroplasticidad Real",
-          "description": "Estudios neurofisiológicos han demostrado que rTMS modula la corteza cerebral, mejorando conexiones neuronales afectadas por eventos como EVC o disfunciones emocionales crónicas (Lancet Neurology, 2020)."
-        },
-        "item3": {
-          "title": "🌍 Aplicación Global",
-          "description": "Utilizada en hospitales de alto nivel en Europa y EE.UU., rTMS es una terapia en expansión por su seguridad, eficacia y tolerancia, aplicada cada vez más como alternativa o complemento a tratamientos farmacológicos tradicionales."
-        }
-      },
-      "sectionPromo":{
-        "title": "Promo",
-        "items": [
-          { "title": "Evaluación inicial gratuita" },
-          { "title": "30 sesiones en promedio" },
-          { "title": "Se aplican 1 o 2 veces por semana, según tu diagnóstico." },
-          { "title": "💰 Precio promocional: $1,000 MXN por sesión en las primeras 5 " },
-          { "title": "Respuesta clinica a las 5 sesiones" },
-          { "title": "SIN EFECTOS ADVERSOS significativos." }
-        ]
-      }
-  },
-  "HealtHub":{
-    "HeroSection":{
-      "title": "Lymbika Health Hubs ",
-      "subtitle": "for Doctors",
-      "description": "Forma parte del nuevo ecosistema de salud en la frontera."
-    },
-    "Section1":{
-      "title":"¿Como funciona?",
-      "Description":"Lymbika Healthcare System es una red de salud que conecta profesionales, hospitales, farmacias, laboratorios y pacientes a través de un ecosistema físico y digital único.",
-      "item1":{
-        "title":"1.Más pacientes, menos fricción",
-        "Description":"Atrae nuevos pacientes a través de nuestra red y mejora la experiencia con herramientas digitales para agendar, comunicar y fidelizar.."
-      },
-      "item2":{
-        "title":"2. Ecosistema inteligente y flexible",
-        "Description":"Conéctate a una red donde tú eliges con quién colaborar: farmacia, laboratorios, cirujanos, especialistas y más. "
-      },
-      "item3":{
-        "title":"3. Crea tu nuevo sistema de salud",
-        "Description":"Sé parte del nuevo modelo de salud. Crece con nosotros, sin altas inversiones y con impacto real."
-      }
-    },
-    "Testimonials":{
-      "title":"Que dicen nuestros médicos",
-      "item1":{
-        "user":"Dr. Jose Orlando Guinto",
-        "sub": "Neurocírujano",
-        "comentary":"Gracias a Lymbika he podido moverme con facilidad entre diferentes hospitales y coordinar mis cirugías  y pacientes con mayor autonomía. El sistema se adapta a mi forma de trabajar."
-      },
-      "item2":{
-        "user":"Dr. Andrea Manjarrez",
-        "sub": "Medicina general ",
-        "comentary":"Con Lymbika he podido conectar a mis pacientes con cirugías, laboratorios y especialistas de forma rápida. Es como tener una red completa al alcance de mi consulta."
-      },
-      "item3":{
-        "user":"Dra. Bonny Muñoz",
-        "sub": "Medicina interna",
-        "comentary":"Con Lymbika he encontrado acceso rápido a medicamentos de alta especialidad para mis pacientes, además de soporte en estudios y referencias."
-      }
-    }
+  "titleServices": "Atención Primaria y Especialidades",
+  "titlesurgery": "Cirugías y Procedimientos",
+  "autoCarrouselBanner": {
+    "id1": "Más del 90% de satisfacción",
+    "id2": "Medicamentos a precio de proveedor",
+    "id3": "No más esperas",
+    "id4": "Especialistas certificados",
+    "id5": "No se requiere aseguranza",
+    "id6": "Cirugías a credito",
+    "id7": "⁠Más de 30 especialidades",
+    "id8": "Hospitales certificados",
+    "id9": "Satisfacción 9/10",
+    "id10": "Más de 200 familias afiliadas",
+    "id11": "Médicos Certificados",
+    "id12": "Atención binacional Juárez · El Paso"
   },
   "faq": {
     "title": "Preguntas Frecuentes sobre Nuestras Membresías",
-    "descripction":"Conoce todos los detalles sobre nuestras membresías, sus beneficios, cobertura y cómo te acompañamos en cada paso de tu cuidado médico."
+    "descripction": "Conoce todos los detalles sobre nuestras membresías, sus beneficios, cobertura y cómo te acompañamos en cada paso de tu cuidado médico."
   }
-  
 }
