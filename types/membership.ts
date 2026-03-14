@@ -1,7 +1,9 @@
 export type MembershipType = {
   id: number;
   name: string;
-  icon: string; 
+  icon: string;
+  order?: number;
+  featured?: boolean;
   priceP: number;
   priceF: number;
   description: string;
@@ -16,4 +18,10 @@ export type MembershipType = {
   features: {
     title: string;
   }[];
+  secondaryButton?: {
+    label: string;
+    icon?: string;
+    linkP?: string;
+    linkF?: string;
+  };
 };

@@ -84,6 +84,13 @@ export type PageType = {
     url: string;
   };
 
+  badge: {
+    id: number,
+    boldText: string;
+    text: string;
+    tag?: string;
+  }[];
+
   videos: {
     id: number;
     title: string;

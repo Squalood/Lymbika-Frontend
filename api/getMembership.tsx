@@ -14,10 +14,15 @@ export function useGetMembership() {
         const json = await res.json();
 
         if (json.data && Array.isArray(json.data)) {
-          const formattedPlans = json.data.map((item: any) => ({
-            id: item.id,
-            ...item,
-          }));
+          const formattedPlans = json.data
+            .map((item: any) => ({
+              id: item.id,
+              ...item,
+              order: item.order ?? 0,
+              featured: item.featured ?? false,
+              secondaryButton: item.secondaryButton ?? undefined,
+            }))
+            .sort((a: any, b: any) => a.order - b.order || a.id - b.id);
           setMemberships(formattedPlans);
         } else {
           setMemberships([]);
