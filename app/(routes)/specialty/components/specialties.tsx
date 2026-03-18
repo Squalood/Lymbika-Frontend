@@ -4,7 +4,7 @@ import { useGetServices } from "@/api/getService";
 import { ResponseType } from "@/types/response";
 import { ServiceType } from "@/types/service";
 import SkeletonGalleryCol3 from "@/components/skeleton/skeletonGalleryCol3";
-import ServiceCard from "./serviceCard";
+import SpecialtyCard from "./specialtyCard";
 
 const Specialties = () => {
   const { result: servicesResult, loading: servicesLoading }: ResponseType = useGetServices();
@@ -24,7 +24,7 @@ const Specialties = () => {
       ) : (
         <div className="grid grid-cols-2 gap-2 lg:grid-cols-3 sm:gap-5 px-4">
           {primaryServices.map((service) => (
-            <ServiceCard key={service.id} service={service} />
+            <SpecialtyCard key={service.id} service={service} />
           ))}
         </div>
       )}
@@ -35,7 +35,7 @@ const Specialties = () => {
       ) : (
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-5 px-4">
           {specialtyServices.map((service) => (
-            <ServiceCard key={service.id} service={service} />
+            <SpecialtyCard key={service.id} service={service} />
           ))}
         </div>
       )}

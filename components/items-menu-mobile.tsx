@@ -107,7 +107,7 @@ const ItemsMenuMobile = ({ user }: NavbarProps) => {
                   </AccordionTrigger>
                   <AccordionContent className="pb-0">
                     <div className="space-y-1 pl-2 mt-1">
-                      <Link href="/service" className={subItemClass}>
+                      <Link href="/specialty" className={subItemClass}>
                         <ChevronRight className="w-4 h-4 text-muted-foreground" />
                         {es.titleServices}
                       </Link>

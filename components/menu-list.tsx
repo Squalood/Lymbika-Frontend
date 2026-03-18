@@ -71,7 +71,7 @@ const MenuList = () => {
               <ListItem href="/shop" title="Farmacia y Tienda">
                 Accede a nuestros artículos
               </ListItem>
-              <ListItem href="/service" title={es.titleServices}>
+              <ListItem href="/specialty" title={es.titleServices}>
                 Tratamientos y servicios con doctores especializados.
               </ListItem>
               <ListItem href="/surgery" title= {es.titlesurgery}> 

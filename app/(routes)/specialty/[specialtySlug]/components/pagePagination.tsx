@@ -18,7 +18,7 @@ export const PagePaginationPrevious = ({ result, currentSlug }: Props) => {
     <Pagination>
       <PaginationContent>
         <PaginationItem>
-          <PaginationPrevious href={`/service/${prev.slug}`}>
+          <PaginationPrevious href={`/specialty/${prev.slug}`}>
           </PaginationPrevious>
         </PaginationItem>
       </PaginationContent>
@@ -36,7 +36,7 @@ export const PagePaginationNext = ({ result, currentSlug }: Props) => {
     <Pagination>
       <PaginationContent>
         <PaginationItem>
-          <PaginationNext href={`/service/${next.slug}`}>
+          <PaginationNext href={`/specialty/${next.slug}`}>
           </PaginationNext>
         </PaginationItem>
       </PaginationContent>

@@ -63,9 +63,7 @@ const ClinicProducts = ({ clinicSlug, clinicTitle }: ClinicProductsProps) => {
       {loading ? (
         <SkeletonSchema grid={3} />
       ) : noProducts ? (
-        <p className="text-center text-muted-foreground py-10">
-          No hay productos disponibles para esta clínica.
-        </p>
+        <br/>
       ) : (
         <Carousel
           plugins={[autoplay.current]}

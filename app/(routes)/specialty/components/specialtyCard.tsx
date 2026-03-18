@@ -2,10 +2,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { ServiceType } from "@/types/service";
 
-const ServiceCard = ({ service }: { service: ServiceType }) => {
+const SpecialtyCard = ({ service }: { service: ServiceType }) => {
     return (
       <Link
-        href={`/service/${service.slug}`}
+        href={`/specialty/${service.slug}`}
         className="relative max-w-xs mx-auto overflow-hidden bg-no-repeat bg-cover rounded-full group"
       >
         {service.image?.url ? (
@@ -28,4 +28,4 @@ const ServiceCard = ({ service }: { service: ServiceType }) => {
     );
   };
   
-  export default ServiceCard;
+  export default SpecialtyCard;

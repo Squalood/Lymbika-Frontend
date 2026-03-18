@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(ls:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(find \"app/\\(routes\\)/specialty\" -type f)",
+      "Bash(find \"app/\\(routes\\)/service\" -type f)"
     ]
   }
 }

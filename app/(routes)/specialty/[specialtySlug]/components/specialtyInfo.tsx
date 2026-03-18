@@ -10,18 +10,18 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Stethoscope, Check, ChevronDown, ChevronUp } from "lucide-react";
 
-const ServiceInfo = () => {
-  const { serviceSlug } = useParams();
+const SpecialtyInfo = () => {
+  const { specialtySlug } = useParams();
   const { result, loading } = useGetServices();
   const [service, setService] = useState<ServiceType | null>(null);
   const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     if (!loading && Array.isArray(result)) {
-      const found = result.find((s: ServiceType) => s.slug === serviceSlug);
+      const found = result.find((s: ServiceType) => s.slug === specialtySlug);
       if (found) setService(found);
     }
-  }, [loading, result, serviceSlug]);
+  }, [loading, result, specialtySlug]);
 
   if (loading) return <SkeletonInfo />;
   if (!service) return null;
@@ -128,4 +128,4 @@ const ServiceInfo = () => {
   );
 };
 
-export default ServiceInfo;
+export default SpecialtyInfo;

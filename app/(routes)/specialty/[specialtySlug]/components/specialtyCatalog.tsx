@@ -7,9 +7,9 @@ import { useGetDoctorsByCategory } from "@/api/getDoctorsByCategory";
 import SkeletonDoctorCard from "@/components/skeleton/doctorCardSkeleton";
 import { Separator } from "@/components/ui/separator";
 
-const ServiceCatalog = () => {
+const SpecialtyCatalog = () => {
   const params = useParams();
-  const categorySlug = typeof params.serviceSlug === "string" ? params.serviceSlug : "";
+  const categorySlug = typeof params.specialtySlug === "string" ? params.specialtySlug : "";
 
   const { result, loading, error } = useGetDoctorsByCategory(categorySlug, "service");
 
@@ -31,4 +31,4 @@ const ServiceCatalog = () => {
   );
 };
 
-export default ServiceCatalog;
+export default SpecialtyCatalog;

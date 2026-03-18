@@ -8,17 +8,17 @@ import {ResponseType} from '@/types/response';
 import { Skeleton } from "@/components/ui/skeleton";
 import { PagePaginationNext, PagePaginationPrevious } from "./pagePagination";
 
-const ServiceTitle = () => {
-  const { serviceSlug } = useParams() as { serviceSlug: string };
+const SpecialtyTitle = () => {
+  const { specialtySlug } = useParams() as { specialtySlug: string };
   const { result, loading }:ResponseType = useGetServices();
   const [service, setService] = useState<ServiceType | null>(null);
 
   useEffect(() => {
     if (!loading && Array.isArray(result)) {
-      const found = result.find((s: ServiceType) => s.slug === serviceSlug);
+      const found = result.find((s: ServiceType) => s.slug === specialtySlug);
       if (found) setService(found);
     }
-  }, [loading, result, serviceSlug]);
+  }, [loading, result, specialtySlug]);
 
   return (
     <div className="max-w-xs md:max-w-4xl mx-auto">
@@ -31,13 +31,13 @@ const ServiceTitle = () => {
       ) : (
         <div className="relative flex items-center justify-between mb-4">
           <div>
-            <PagePaginationPrevious result={result} currentSlug={serviceSlug} />
+            <PagePaginationPrevious result={result} currentSlug={specialtySlug} />
           </div>
           <h1 className="absolute left-1/2 -translate-x-1/2 text-2xl font-medium text-center">
             {service.serviceName}
           </h1>
           <div>
-          <PagePaginationNext result={result} currentSlug={serviceSlug} />
+          <PagePaginationNext result={result} currentSlug={specialtySlug} />
           </div>
         </div>
       )}
@@ -45,4 +45,4 @@ const ServiceTitle = () => {
   );
 };
 
-export default ServiceTitle;
+export default SpecialtyTitle;

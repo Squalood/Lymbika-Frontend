@@ -13,7 +13,7 @@ const CarouselServices = () => {  //separar ese componente indicando si es de se
     // Transformamos los datos individualmente
     const serviceItems = (servicesResult || []).map((service: ServiceType) => ({
         id: `service-${service.id}`,
-        cate: "service",
+        cate: "specialty",
         name: service.serviceName,
         imageUrl: service.image?.url,
         slug: service.slug,

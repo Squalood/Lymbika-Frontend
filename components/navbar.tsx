@@ -133,7 +133,7 @@ interface AuthUserProps {
                         transition={{ duration: 0.3 }}
                         className="absolute top-full w-full sm:w-96 z-50 mt-2"
                     >
-                        <SearchGeneral allProducts={products} allDoctors={doctors} allServices={services} allSurgeries={surgery} allCategories={category} />
+                        <SearchGeneral allProducts={products} allDoctors={doctors} allServices={services ?? []} allSurgeries={surgery} allCategories={category} />
                     </motion.div>
                     )}
                 </AnimatePresence>
