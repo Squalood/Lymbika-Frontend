@@ -14,7 +14,7 @@ interface TuristSectionProps {
 }
 
 const TuristSection = ({
-    label = "¿Vienes de EE.UU. o del extranjero?",
+    label = "¿Vienes de fuera O del extranjero?",
     title,
     videoId,
     videoLabel = "Lymbika — Acerca de nosotros",
