@@ -1,4 +1,5 @@
 import { ReviewType } from "./review";
+import { ServiceRateType } from "./medicalService";
 
 export type DoctorType = {
     id: number;
@@ -48,5 +49,6 @@ export type DoctorType = {
       title: string;
       slug: string;
     };
+    service_rates: ServiceRateType[];
   };
   

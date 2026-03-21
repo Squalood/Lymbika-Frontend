@@ -1,31 +1,34 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ServiceType } from "@/types/service";
+import { ChevronRight } from "lucide-react";
 
-const SpecialtyCard = ({ service }: { service: ServiceType }) => {
-    return (
-      <Link
-        href={`/specialty/${service.slug}`}
-        className="relative max-w-xs mx-auto overflow-hidden bg-no-repeat bg-cover rounded-full group"
-      >
-        {service.image?.url ? (
-          <Image
-            src={service.image.url}
-            alt={service.serviceName}
-            width={270}
-            height={200}
-            className="transition-all duration-300 ease-in-out rounded-full group-hover:scale-105 group-hover:brightness-110 group-hover:shadow-2xl sm:max-w-[250px]"
-          />
+type SpecialtyCardProps = {
+  name: string;
+  imageUrl?: string;
+  href: string;
+};
+
+const SpecialtyCard = ({ name, imageUrl, href }: SpecialtyCardProps) => {
+  return (
+    <Link
+      href={href}
+      className="flex items-center gap-3 p-3 bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition-shadow"
+    >
+      <div className="relative w-12 h-12 shrink-0 rounded-full overflow-hidden bg-gray-100">
+        {imageUrl ? (
+          <Image src={imageUrl} alt={name} fill className="object-cover" />
         ) : (
-          <div className="w-[270px] h-[200px] bg-gray-300 flex items-center justify-center">
-            <span className="text-gray-700">Sin imagen</span>
+          <div className="w-full h-full flex items-center justify-center text-xl text-gray-300">
+            🩺
           </div>
         )}
-        <p className="absolute w-full py-0 sm:py-2 text-base sm:text-lg font-bold text-center text-white bottom-5 backdrop-blur-lg">
-          {service.serviceName}
-        </p>
-      </Link>
-    );
-  };
-  
-  export default SpecialtyCard;
+      </div>
+      <span className="flex-1 text-sm font-medium text-gray-800 leading-snug line-clamp-2">
+        {name}
+      </span>
+      <ChevronRight className="w-4 h-4 text-gray-400 shrink-0" />
+    </Link>
+  );
+};
+
+export default SpecialtyCard;
