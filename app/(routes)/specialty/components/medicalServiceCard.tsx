@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { MedicalServiceType } from "@/types/medicalService";
+import { formatPrice } from "@/lib/formatPrice";
 
 const TYPE_LABELS: Record<string, string> = {
   consultation: "Consulta",
@@ -17,9 +18,10 @@ const TYPE_COLORS: Record<string, string> = {
 type Props = {
   service: MedicalServiceType;
   href: string;
+  minPrice?: number;
 };
 
-const MedicalServiceCard = ({ service, href }: Props) => (
+const MedicalServiceCard = ({ service, href, minPrice }: Props) => (
   <Link
     href={href}
     className="flex flex-col rounded-2xl border border-gray-100 bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow"
@@ -38,10 +40,17 @@ const MedicalServiceCard = ({ service, href }: Props) => (
         </span>
       )}
     </div>
-    <div className="p-4">
+    <div className="flex flex-col flex-1 p-4 gap-1">
       <p className="font-semibold text-gray-800 leading-snug">{service.name}</p>
       {service.description && (
         <p className="text-xs text-gray-400 mt-1 line-clamp-2">{service.description}</p>
+      )}
+      {minPrice !== undefined && (
+        <div className="flex justify-end mt-auto pt-3">
+          <span className="text-sm font-bold text-blue-700">
+            desde {formatPrice(minPrice)}
+          </span>
+        </div>
       )}
     </div>
   </Link>

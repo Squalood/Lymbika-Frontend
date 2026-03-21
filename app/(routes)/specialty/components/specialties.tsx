@@ -1,17 +1,16 @@
 "use client";
 
 import { useGetServices } from "@/api/getService";
-import { useGetAllMedicalServices } from "@/api/useGetAllMedicalServices";
+import { useGetMedicalServiceCatalog } from "@/api/useGetMedicalServiceCatalog";
 import { ResponseType } from "@/types/response";
 import { ServiceType } from "@/types/service";
-import { MedicalServiceType } from "@/types/medicalService";
 import SkeletonGalleryCol3 from "@/components/skeleton/skeletonGalleryCol3";
 import SpecialtyCard from "./specialtyCard";
 import MedicalServiceCard from "./medicalServiceCard";
 
 const Specialties = () => {
   const { result: servicesResult, loading: servicesLoading }: ResponseType = useGetServices();
-  const { medicalServices, loading: msLoading } = useGetAllMedicalServices();
+  const { items: msItems, loading: msLoading } = useGetMedicalServiceCatalog();
 
   const primaryServices: ServiceType[] = (servicesResult || []).filter((s: ServiceType) => s.atePrimary);
   const specialtyServices: ServiceType[] = (servicesResult || []).filter((s: ServiceType) => !s.atePrimary);
@@ -63,13 +62,14 @@ const Specialties = () => {
           <SkeletonGalleryCol3 grid={8} />
         ) : (
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-3 sm:gap-3 px-4">
-            {medicalServices
-              .filter((ms: MedicalServiceType) => ms.specialty?.slug)
-              .map((ms: MedicalServiceType) => (
+            {msItems
+              .filter((item) => item.service.specialty?.slug)
+              .map((item) => (
                 <MedicalServiceCard
-                  key={ms.id}
-                  service={ms}
-                  href={`/specialty/${ms.specialty!.slug}/${ms.slug}`}
+                  key={item.service.id}
+                  service={item.service}
+                  href={`/specialty/${item.service.specialty!.slug}/${item.service.slug}`}
+                  minPrice={item.minPrice}
                 />
               ))}
           </div>
