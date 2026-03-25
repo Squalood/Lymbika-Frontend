@@ -22,6 +22,7 @@ import { useGetPage } from "@/api/getPageBySlug";
 import { useGetGallery } from "@/api/getGalleryBySlug";
 import AlyusSection from "@/components/alyusSection";
 import AreDoctorsSection from "@/components/areDoctorsSection";
+import VideosSection from "@/components/videosSection";
 
 export default function Home() {
   const { page, loading: pageLoading } = useGetPage("front-page");
@@ -45,6 +46,7 @@ export default function Home() {
       <HospitaSection />
       <ChooseCategory />
       <PlanSection/>
+      {page[0] && <VideosSection data={page[0]}/>}
       {galleryLoading ? <GalleryCarouselSkeleton /> : <GalleryCarousel gallery={gallery}/>}
       <SurgeryFaq/>
       <AlyusSection {...page[0]?.landingPageJson?.alyusSection} />

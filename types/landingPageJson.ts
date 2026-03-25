@@ -24,6 +24,9 @@ export type LandingPageJson = {
       role: string;
     };
   };
+  videosSection?: {
+    title?: string;
+  };
   alyusSection?: {
     badge?: string;
     label?: string;
