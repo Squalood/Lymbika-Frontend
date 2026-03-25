@@ -38,7 +38,7 @@ export default function Home() {
       {loading ? <HeroSkeleton /> : <Hero hero={heroData}/>}
       <CarouselTextBanner />
       <Page/>
-      {pageLoading ? <TuristSectionSkeleton /> : <TuristSection title={page[0]?.videos?.[0]?.title} videoId={page[0]?.videos?.[0]?.videoID}/>}
+      {pageLoading ? <TuristSectionSkeleton /> : <TuristSection {...page[0]?.landingPageJson?.turistSection} />}
       <CarouselServices/>
       <DoctorReel/>
       {promoItems.length > 0 && <PromoCarousel data={promo} aspectRatio="video"/>}
@@ -47,8 +47,8 @@ export default function Home() {
       <PlanSection/>
       {galleryLoading ? <GalleryCarouselSkeleton /> : <GalleryCarousel gallery={gallery}/>}
       <SurgeryFaq/>
-      <AlyusSection/>
-      <AreDoctorsSection/>
+      <AlyusSection {...page[0]?.landingPageJson?.alyusSection} />
+      <AreDoctorsSection {...page[0]?.landingPageJson?.areDoctorsSection} />
     </main>
   )
 }

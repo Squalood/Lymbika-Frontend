@@ -1,3 +1,5 @@
+import { LandingPageJson } from "./landingPageJson";
+
 export type PageType = {
   id: number;
   namePage: string;
@@ -104,4 +106,6 @@ export type PageType = {
       url: string;
     };
   }[];
+
+  landingPageJson: LandingPageJson;
 };

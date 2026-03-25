@@ -14,18 +14,22 @@ interface TuristSectionProps {
 }
 
 const TuristSection = ({
-    label = "¿Vienes de fuera O del extranjero?",
+    label,
     title,
     videoId,
-    videoLabel = "Lymbika — Acerca de nosotros",
-    quote = "Atención médica de clase mundial en Juárez, coordinada para ti desde el primer día",
-    description = "Lymbika nació para resolver lo que el sistema de salud tradicional no puede: encontrar al especialista correcto, al precio correcto, en el hospital correcto — sin que tú tengas que hacer el trabajo de coordinación.",
-    ceoName = "Dr. Gabriel Omar Parra Pizarro",
-    ceoRole = "Director General & CEO · Lymbika Healthcare",
-    ctaText = "📅 Agendar desde El Paso →",
-    ctaHref = "https://wa.me/526561100446",
+    videoLabel,
+    quote,
+    description,
+    ceoName,
+    ceoRole,
+    ctaText,
+    ctaHref,
 }: TuristSectionProps) => {
-    if (!title || !videoId) return null;
+    if (!title || !videoId) return (
+        <section className="max-w-6xl mx-auto px-6 py-16 mb-8">
+            <p className="text-sm text-gray-400">No se pudieron cargar los datos de esta sección.</p>
+        </section>
+    );
 
     return (
         <section className="max-w-6xl mx-auto px-6 py-16 mb-8">
