@@ -20,7 +20,7 @@ import Link from "next/link";
 const TABS = [
   { key: "about", label: "Sobre el Doctor" },
   { key: "calendar", label: "Disponibilidad" },
-  { key: "prices", label: "Precios" },
+  { key: "prices", label: "Servicios" },
   { key: "gallery", label: "Galería" },
 ] as const;
 
