@@ -1,5 +1,6 @@
 import { ReviewType } from "./review";
 import { ServiceRateType } from "./medicalService";
+import { RichTextNode } from "./rich-text";
 
 export type DoctorType = {
     id: number;
@@ -50,5 +51,9 @@ export type DoctorType = {
       slug: string;
     };
     service_rates: ServiceRateType[];
+    experience: RichTextNode[];
+    mainImage:{
+      url: string;
+    };
   };
   

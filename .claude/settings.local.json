@@ -5,7 +5,8 @@
       "Bash(npm install:*)",
       "Bash(find \"app/\\(routes\\)/specialty\" -type f)",
       "Bash(find \"app/\\(routes\\)/service\" -type f)",
-      "Bash(find \"c:/Users/ananc/Desktop/Lymbika/e-lymbika/frontend-lymbika/app/\\(routes\\)\" -type d -name \"*specialty*\" -o -type d -name \"*service*\")"
+      "Bash(find \"c:/Users/ananc/Desktop/Lymbika/e-lymbika/frontend-lymbika/app/\\(routes\\)\" -type d -name \"*specialty*\" -o -type d -name \"*service*\")",
+      "Bash(npm uninstall:*)"
     ],
     "additionalDirectories": [
       "c:\\Users\\ananc\\Desktop\\Lymbika\\e-lymbika\\frontend-lymbika\\app\\(routes)\\specialty\\[specialtySlug]\\components"
