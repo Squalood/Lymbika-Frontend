@@ -17,16 +17,21 @@ import { CartMobileBar } from "./cart-mobile-bar";
 import { AuthUserProps } from "./types";
 import { ProductType } from "@/types/product";
 import { ClinicType } from "@/types/clinic";
+import { ServiceRateType } from "@/types/medicalService";
 
 
 interface CartClientPageProps {
   user: AuthUserProps | null;
 }
 
-type CartItem = ProductType | ClinicType["services"][number];
+type CartItem = ProductType | ClinicType["services"][number] | ServiceRateType;
 
 const isProduct = (item: CartItem): item is ProductType => {
   return "productName" in item;
+};
+
+const isServiceRate = (item: CartItem): item is ServiceRateType => {
+  return "medical_service" in item;
 };
 
 const getItemPrice = (item: CartItem, user: AuthUserProps | null): number => {
@@ -35,11 +40,13 @@ const getItemPrice = (item: CartItem, user: AuthUserProps | null): number => {
     return useMemberPrice ? item.priceMember : item.price;
   }
 
-  return item.price ?? 0; 
+  return item.price ?? 0;
 };
 
 const getItemName = (item: CartItem): string => {
-  return isProduct(item) ? item.productName : item.title;
+  if (isProduct(item)) return item.productName;
+  if (isServiceRate(item)) return item.medical_service.name;
+  return item.title;
 };
 
 
