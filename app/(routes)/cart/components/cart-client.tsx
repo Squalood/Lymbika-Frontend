@@ -52,7 +52,7 @@ export default function CartClientPage({ user }: CartClientPageProps) {
         name: getItemName(item), 
         quantity: item.quantity,
         price: getItemPrice(item, user), 
-        type: isProduct(item) ? "product" : "service", 
+        type: "product",
       }));
 
       const res = await makePaymentRequest.post("/api/orders", {

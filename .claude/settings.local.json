@@ -7,7 +7,8 @@
       "Bash(find \"app/\\(routes\\)/service\" -type f)",
       "Bash(find \"c:/Users/ananc/Desktop/Lymbika/e-lymbika/frontend-lymbika/app/\\(routes\\)\" -type d -name \"*specialty*\" -o -type d -name \"*service*\")",
       "Bash(npm uninstall:*)",
-      "Bash(ls \"c:/Users/ananc/Desktop/Lymbika/e-lymbika/frontend-lymbika/app/\\(routes\\)/specialty/[specialtySlug]/components/\")"
+      "Bash(ls \"c:/Users/ananc/Desktop/Lymbika/e-lymbika/frontend-lymbika/app/\\(routes\\)/specialty/[specialtySlug]/components/\")",
+      "Read(//c/Users/ananc/Desktop/Lymbika/e-lymbika/backend-ecommerce/src/api/order/controllers/**)"
     ],
     "additionalDirectories": [
       "c:\\Users\\ananc\\Desktop\\Lymbika\\e-lymbika\\frontend-lymbika\\app\\(routes)\\specialty\\[specialtySlug]\\components"
