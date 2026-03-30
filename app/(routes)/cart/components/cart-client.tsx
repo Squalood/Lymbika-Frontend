@@ -16,38 +16,18 @@ import { CartSummary } from "./cart-summary";
 import { CartMobileBar } from "./cart-mobile-bar";
 import { AuthUserProps } from "./types";
 import { ProductType } from "@/types/product";
-import { ClinicType } from "@/types/clinic";
-import { ServiceRateType } from "@/types/medicalService";
 
 
 interface CartClientPageProps {
   user: AuthUserProps | null;
 }
 
-type CartItem = ProductType | ClinicType["services"][number] | ServiceRateType;
-
-const isProduct = (item: CartItem): item is ProductType => {
-  return "productName" in item;
+const getItemPrice = (item: ProductType, user: AuthUserProps | null): number => {
+  const useMemberPrice = user?.mediClubRegular && item.priceMember > 0;
+  return useMemberPrice ? item.priceMember : item.price;
 };
 
-const isServiceRate = (item: CartItem): item is ServiceRateType => {
-  return "medical_service" in item;
-};
-
-const getItemPrice = (item: CartItem, user: AuthUserProps | null): number => {
-  if (isProduct(item)) {
-    const useMemberPrice = user?.mediClubRegular && item.priceMember > 0;
-    return useMemberPrice ? item.priceMember : item.price;
-  }
-
-  return item.price ?? 0;
-};
-
-const getItemName = (item: CartItem): string => {
-  if (isProduct(item)) return item.productName;
-  if (isServiceRate(item)) return item.medical_service.name;
-  return item.title;
-};
+const getItemName = (item: ProductType): string => item.productName;
 
 
 export default function CartClientPage({ user }: CartClientPageProps) {

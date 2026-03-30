@@ -64,9 +64,11 @@ export default function CartItem({ product, user }: CartItemProps) {
                     {product.productName}
                   </h2>
                 </Link>
-                <Badge variant="secondary" className="mt-1.5 text-xs">
-                  {product.category.categoryName}
-                </Badge>
+                {product.category && (
+                  <Badge variant="secondary" className="mt-1.5 text-xs">
+                    {product.category.categoryName}
+                  </Badge>
+                )}
               </div>
 
               {/* Botón eliminar */}
