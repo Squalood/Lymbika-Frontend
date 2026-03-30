@@ -14,6 +14,7 @@ import { useGetClinicDoctor } from "@/api/useGetClinicsDoctorBySlug";
 import ClinicProducts from "./components/products";
 import { useGetClinicServices } from "@/api/useGetClinicsServiceBySlug";
 import VideoSection from "./components/videoSection";
+import { ServiceRateType } from "@/types/medicalService";
 
 export default function ClinicPage() {
   const { clinicSlug } = useParams();
@@ -38,15 +39,31 @@ export default function ClinicPage() {
   }
   const { doctor } = DoctorClinic;
 
-  if (!ServicesClinic || !ServicesClinic.services) {
-    return <p>No se encontró información de los servicios.</p>;
-  }
-  const { services } = ServicesClinic;
+  const rawRates = ServicesClinic?.service_rates ?? [];
+
+  const servicesToShow: ServiceRateType[] =
+    rawRates.length > 0
+      ? rawRates
+      : (clinic.services ?? []).map((s) => ({
+          id: s.id,
+          price: s.price,
+          duration_min: null,
+          notes: null,
+          medical_service: {
+            id: s.id,
+            name: s.title,
+            slug: "",
+            description: s.description,
+            image: s.image ?? null,
+            type: "procedure" as const,
+            specialty: null,
+          },
+        }));
 
   return (
     <div className="relative">
       <Hero data={clinic} /> 
-      <Services services={services} />
+      <Services services={servicesToShow} />
       <ClinicProducts clinicSlug={clinicSlug as string} clinicTitle={clinic.title} />
       <WhyUs features={clinic.features} />
       <Doctor data={doctor} doctorPageSlug={clinic.doctorPage?.slug} />   

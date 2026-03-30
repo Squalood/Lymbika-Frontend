@@ -4,17 +4,18 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { ProductType } from "@/types/product";
 import { ClinicType } from "@/types/clinic";
+import { ServiceRateType } from "@/types/medicalService";
 import { toast } from "sonner";
 
 // ✅ Tipo unión para productos y servicios
-export type CartItem = (ProductType | ClinicType["services"][number]) & { quantity: number };
+export type CartItem = (ProductType | ClinicType["services"][number] | ServiceRateType) & { quantity: number };
 
 // ✅ Tipo específico para productos en el carrito (retrocompatibilidad)
 export type CartProduct = ProductType & { quantity: number };
 
 interface CartStore {
     items: CartItem[];
-    addItem: (data: ProductType | ClinicType["services"][number]) => void;
+    addItem: (data: ProductType | ClinicType["services"][number] | ServiceRateType) => void;
     isInCart: (id: number) => boolean;
     removeItem: (id: number) => void;
     removeAll: () => void;
@@ -25,7 +26,7 @@ interface CartStore {
 export const useCart = create(persist<CartStore>((set, get) => ({
     items: [],
 
-    addItem: (data: ProductType | ClinicType["services"][number]) => {
+    addItem: (data: ProductType | ClinicType["services"][number] | ServiceRateType) => {
         const currentItems = get().items;
         const existingItem = currentItems.find((item) => item.id === data.id);
 

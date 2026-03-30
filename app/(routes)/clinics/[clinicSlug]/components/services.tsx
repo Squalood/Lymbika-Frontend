@@ -10,11 +10,11 @@ import {
 import Autoplay from "embla-carousel-autoplay";
 import { useInView } from "react-intersection-observer";
 import { useRef } from "react";
-import { ClinicType } from "@/types/clinic";
+import { ServiceRateType } from "@/types/medicalService";
 import ServiceCard from "./serviceCard";
 
 type ServicesProps = {
-  services: ClinicType["services"];
+  services: ServiceRateType[];
 };
 
 export default function Services({ services }: ServicesProps) {

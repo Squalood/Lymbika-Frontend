@@ -1,23 +1,20 @@
 "use client";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { CheckIcon, PlusIcon } from "lucide-react";
+import { Stethoscope } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import { useCart } from "@/hooks/use-cart";
-import { ClinicType } from "@/types/clinic";
+import { ServiceRateType } from "@/types/medicalService";
 import PriceToggle from "@/components/priceToggle";
 
 type ServiceCardProps = {
-  service: ClinicType["services"][number];
+  service: ServiceRateType;
   index?: number;
   inView?: boolean;
 };
 
 const ServiceCard = ({ service, index = 0, inView = true }: ServiceCardProps) => {
-  const { addItem, isInCart } = useCart();
-  const inCart = isInCart(service.id);
 
-  const imageUrl = service.image?.url || "/placeholder-image.webp";
+  const ms = service.medical_service;
 
   return (
     <Card
@@ -27,48 +24,40 @@ const ServiceCard = ({ service, index = 0, inView = true }: ServiceCardProps) =>
       style={{ transitionDelay: `${index * 100}ms` }}
     >
       <figure className="group-hover:opacity-90">
-        <Image
-          className="w-48 rounded-lg aspect-square mx-auto"
-          src={imageUrl}
-          width={300}
-          height={500}
-          alt={service.title}
-        />
+        {ms.image?.url ? (
+          <Image
+            className="w-48 rounded-lg aspect-square mx-auto"
+            src={ms.image.url}
+            width={300}
+            height={500}
+            alt={ms.name}
+          />
+        ) : (
+          <div className="w-48 aspect-square mx-auto rounded-lg bg-accent flex items-center justify-center">
+            <Stethoscope className="size-16 text-muted-foreground/40" />
+          </div>
+        )}
       </figure>
 
       <div className="space-y-2">
-        <h3 className="text-lg font-semibold">{service.title}</h3>
+        <h3 className="text-lg font-semibold">{ms.name}</h3>
         <p className="text-lg font-semibold text-primary">
           <PriceToggle price={service.price} />
         </p>
-        <p className="text-sm text-muted-foreground">
-          {service.description}
-        </p>
+        {service.duration_min && (
+          <p className="text-sm text-muted-foreground">{service.duration_min} min</p>
+        )}
+        <p className="text-sm text-muted-foreground">{ms.description}</p>
+        {service.notes && (
+          <p className="text-xs text-muted-foreground italic">{service.notes}</p>
+        )}
       </div>
 
       <div className="flex gap-1 sm:gap-4">
-        <Button
-          variant="outline"
-          className={`w-full z-10 px-3 sm:px-4 ${
-            inCart ? "bg-green-100 text-green-500 border-green-200" : ""
-          }`}
-          disabled={inCart}
-          onClick={(e) => {
-            e.stopPropagation();
-            if (!inCart) addItem(service);
-          }}
-        >
-          {inCart ? (
-            <>
-              <CheckIcon className="size-4 me-1 text-green-500" />
-              Añadido
-            </>
-          ) : (
-            <>
-              <PlusIcon className="size-4 me-1" />
-              Añadir
-            </>
-          )}
+        <Button variant="outline" className="w-full z-10 px-3 sm:px-4" asChild>
+          <a href="#contacto">
+            Agendar
+          </a>
         </Button>
       </div>
     </Card>
