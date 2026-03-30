@@ -6,7 +6,6 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/formatPrice";
 import { CartItem } from "@/hooks/use-cart";
-import { ProductType } from "@/types/product";
 import { AuthUserProps } from "./types";
 
 interface CartOrderSummaryProps {
@@ -22,24 +21,13 @@ interface CartOrderSummaryProps {
   onCheckout: () => void;
 }
 
-// Type guard: producto
-const isProduct = (item: CartItem): item is ProductType & { quantity: number } => {
-  return "productName" in item;
-};
-
 // Nombre del item
-const getItemName = (item: CartItem): string => {
-  return isProduct(item) ? item.productName : item.title;
-};
+const getItemName = (item: CartItem): string => item.productName;
 
 // Precio final por item
 const getItemPrice = (item: CartItem, user: AuthUserProps | null): number => {
-  if (isProduct(item)) {
-    const useMemberPrice = user?.mediClubRegular && item.priceMember > 0;
-    return useMemberPrice ? item.priceMember : item.price;
-  }
-
-  return item.price ?? 0;
+  const useMemberPrice = user?.mediClubRegular && item.priceMember > 0;
+  return useMemberPrice ? item.priceMember : item.price;
 };
 
 export function CartOrderSummary({

@@ -3,26 +3,10 @@ import { CartOrderSummary } from "./cart-order-summary";
 import { CartSummaryProps } from "./types";
 import { useCart } from "@/hooks/use-cart";
 import { CartItem } from "@/hooks/use-cart";
-import { ProductType } from "@/types/product";
 
-// Type guard: detecta producto
-const isProduct = (item: CartItem): item is ProductType & { quantity: number } => {
-  return "productName" in item;
-};
-
-// Precio correcto
 const getItemPrice = (item: CartItem, user: CartSummaryProps["user"]): number => {
-  if (isProduct(item)) {
-    const useMemberPrice = user?.mediClubRegular && item.priceMember > 0;
-    return useMemberPrice ? item.priceMember : item.price;
-  }
-
-  return item.price ?? 0;
-};
-
-// Precio original sin descuento
-const getOriginalPrice = (item: CartItem): number => {
-  return item.price ?? 0;
+  const useMemberPrice = user?.mediClubRegular && item.priceMember > 0;
+  return useMemberPrice ? item.priceMember : item.price;
 };
 
 export function CartSummary({ user, isDelivery, setIsDelivery, onCheckout }: CartSummaryProps) {
@@ -30,7 +14,7 @@ export function CartSummary({ user, isDelivery, setIsDelivery, onCheckout }: Car
   const deliveryCost = isDelivery ? 200 : 0;
 
   const subtotal = items.reduce((total, item) => {
-    return total + getOriginalPrice(item) * item.quantity;
+    return total + item.price * item.quantity;
   }, 0);
 
   const totalPrice = items.reduce((total, item) => {
