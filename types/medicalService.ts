@@ -4,7 +4,7 @@ export type MedicalServiceType = {
   slug: string;
   description: string;
   image: { url: string } | null;
-  type: "consultation" | "procedure" | "surgery";
+  type: "consultation" | "procedure" | "study";
   specialty: { slug: string } | null;
 };
 

@@ -24,7 +24,7 @@ type Props = {
 const MedicalServiceCard = ({ service, href, minPrice }: Props) => (
   <Link
     href={href}
-    className="flex flex-col rounded-2xl border border-gray-100 bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow"
+    className="flex flex-col h-full rounded-2xl border border-gray-100 bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow"
   >
     <div className="relative w-full h-40 bg-gray-100 shrink-0">
       {service.image?.url ? (
