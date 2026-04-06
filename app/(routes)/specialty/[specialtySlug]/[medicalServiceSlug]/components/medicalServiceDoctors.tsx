@@ -38,46 +38,62 @@ const MedicalServiceDoctors = () => {
               href={`/doctor/${rate.doctor.slug}`}
               className="flex flex-col rounded-2xl border border-gray-100 bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow"
             >
-              {/* Doctor image */}
-              <div className="relative w-full h-44 bg-gray-100 shrink-0">
-                {rate.doctor.image?.[0]?.url ? (
+              {/* Banner */}
+              <div className="relative w-full h-28 bg-gray-100 shrink-0">
+                {rate.doctor.bannerImage?.url ? (
                   <Image
-                    src={rate.doctor.image[0].url}
+                    src={rate.doctor.bannerImage.url}
                     alt={rate.doctor.doctorName}
                     fill
                     className="object-cover"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <span className="text-5xl text-gray-300">👨‍⚕️</span>
-                  </div>
+                  <div className="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200" />
                 )}
               </div>
 
-              {/* Content */}
-              <div className="flex flex-col flex-1 p-4 gap-1">
-                <p className="font-semibold text-gray-800 leading-snug">{rate.doctor.doctorName}</p>
-                {rate.doctor.clinic && (
-                  <p className="flex items-center gap-1 text-xs text-gray-400">
-                    <MapPin className="w-3 h-3 shrink-0" />
-                    {rate.doctor.clinic.title}
-                  </p>
-                )}
-                {rate.notes && (
-                  <p className="text-xs text-gray-400 mt-0.5">{rate.notes}</p>
-                )}
-                <div className="flex items-center justify-between mt-auto pt-3">
-                  {rate.duration_min ? (
-                    <span className="flex items-center gap-1 text-xs text-gray-400">
-                      <Clock className="w-3 h-3" />
-                      {rate.duration_min} min
-                    </span>
+              {/* Avatar overlapping banner */}
+              <div className="relative px-4">
+                <div className="absolute -top-8 left-4 w-16 h-16 rounded-full border-4 border-white bg-gray-100 overflow-hidden shadow-sm">
+                  {rate.doctor.image?.[0]?.url ? (
+                    <Image
+                      src={rate.doctor.image[0].url}
+                      alt={rate.doctor.doctorName}
+                      fill
+                      className="object-cover"
+                    />
                   ) : (
-                    <span />
+                    <div className="w-full h-full flex items-center justify-center text-2xl text-gray-300">
+                      👨‍⚕️
+                    </div>
                   )}
-                  <span className="text-base font-bold text-blue-700">
-                    {formatPrice(rate.price)}
-                  </span>
+                </div>
+
+                {/* Content */}
+                <div className="flex flex-col pt-10 pb-4 gap-1">
+                  <p className="font-semibold text-gray-800 leading-snug">{rate.doctor.doctorName}</p>
+                  {rate.doctor.services?.map((s) => (
+                    <p key={s.id} className="flex items-center gap-1 text-xs text-gray-400">
+                      <MapPin className="w-3 h-3 shrink-0" />
+                      <span>{s.serviceName}</span>
+                    </p>
+                  ))}
+                  {rate.notes && (
+                    <p className="text-xs text-gray-400 mt-0.5">{rate.notes}</p>
+                  )}
+                  <div className="flex items-center justify-between mt-auto pt-3">
+                    {rate.duration_min ? (
+                      <span className="flex items-center gap-1 text-xs text-gray-400">
+                        <Clock className="w-3 h-3" />
+                        {rate.duration_min} min
+                      </span>
+                    ) : (
+                      <span />
+                    )}
+                    <span className="text-base font-bold text-blue-700">
+                      {formatPrice(rate.price)}
+                    </span>
+                  </div>
                 </div>
               </div>
             </Link>

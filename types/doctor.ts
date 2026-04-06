@@ -26,7 +26,7 @@ export type DoctorType = {
     location: string;
     bannerImage: {
       url: string;
-    };
+    } | null;
     priceCon: number | null;
     facebook: string;
     instagram: string;

@@ -1,3 +1,5 @@
+import { DoctorType } from "./doctor";
+
 export type MedicalServiceType = {
   id: number;
   name: string;
@@ -21,10 +23,5 @@ export type ServiceRateWithDoctorType = {
   price: number;
   duration_min: number | null;
   notes: string | null;
-  doctor: {
-    doctorName: string;
-    slug: string;
-    image: { url: string }[];
-    clinic: { title: string; slug: string } | null;
-  };
+  doctor: DoctorType;
 };
