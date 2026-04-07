@@ -10,6 +10,7 @@ export type ProductType = {
   price: number;
   tipo: string;
   isFeatured: boolean;
+  conReceta: boolean;
   images: {
     id: number;
     url: string;

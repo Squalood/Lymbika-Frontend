@@ -15,7 +15,7 @@ import { UseLovedProducts } from "@/hooks/use-loved-products";
 import { formatPrice } from "@/lib/formatPrice";
 import { cn } from "@/lib/utils";
 import { ProductType } from "@/types/product";
-import { X, ShoppingCart, ArrowRight } from "lucide-react";
+import { X, ShoppingCart, ArrowRight, ShieldAlert } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -110,6 +110,13 @@ const LovedItemsProduct = ({ product }: LovedItemsProductProps) => {
                   {product.category.categoryName}
                 </Badge>
 
+                {product.conReceta && (
+                  <div className="flex items-center gap-2 px-3 py-2 text-sm text-orange-600 bg-orange-50 border border-orange-200 rounded-md w-fit">
+                    <ShieldAlert size={14} className="shrink-0" />
+                    <span>Requiere receta médica</span>
+                  </div>
+                )}
+
                 {/* Descripción breve si existe */}
                 {product.description && (
                   <p className="text-sm text-muted-foreground line-clamp-2 hidden sm:block">
@@ -128,9 +135,10 @@ const LovedItemsProduct = ({ product }: LovedItemsProductProps) => {
                       <Button
                         className="w-full sm:w-auto gap-2"
                         onClick={addToCheckout}
+                        disabled={product.conReceta || isAdding}
                       >
                         <ShoppingCart className="w-4 h-4" />
-                        {isAdding ? "Añadiendo..." : "Añadir a Carrito"}
+                        {product.conReceta ? "Requiere receta médica" : isAdding ? "Añadiendo..." : "Añadir a Carrito"}
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent>

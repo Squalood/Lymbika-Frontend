@@ -5,7 +5,7 @@ import { useCart } from "@/hooks/use-cart";
 import { UseLovedProducts } from "@/hooks/use-loved-products";
 import { formatPrice } from "@/lib/formatPrice";
 import { ProductType } from "@/types/product";
-import { Heart } from "lucide-react";
+import { Heart, ShieldAlert } from "lucide-react";
 
 export type InfoProductProps = {
     product: ProductType
@@ -31,14 +31,20 @@ const InfoProduct = ({ product }: InfoProductProps) => {
                             {product.tipo}
                         </p>
                     )}
-                    
                 </div>
-                <p className="px-2 py-1 text-slate-400 text-xs w-fit"> 
+                <p className="px-2 py-1 text-slate-400 text-xs w-fit">
                     {product.sal}
                 </p>
             </div>
 
             <Separator className="my-4" />
+
+            {product.conReceta && (
+                <div className="flex items-center gap-2 px-3 py-2 mb-4 text-sm text-orange-600 bg-orange-50 border border-orange-200 rounded-md w-full">
+                    <ShieldAlert size={16} className="shrink-0" />
+                    <span>Requiere receta médica</span>
+                </div>
+            )}
 
             {Array.isArray(product.descriptionPro) && product.descriptionPro.length > 0 ? (
                 <RichTextRenderer content={product.descriptionPro} />
@@ -62,7 +68,13 @@ const InfoProduct = ({ product }: InfoProductProps) => {
             </div>
 
             <div className="flex items-center gap-5">
-                <Button className="w-full" onClick={() => addItem(product)}>Comprar</Button>
+                <Button
+                    className="w-full"
+                    onClick={() => addItem(product)}
+                    disabled={product.conReceta}
+                >
+                    {product.conReceta ? "Requiere receta médica" : "Comprar"}
+                </Button>
                 <Heart
                     width={30}
                     strokeWidth={1}
