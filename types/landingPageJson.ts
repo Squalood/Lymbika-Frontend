@@ -45,4 +45,68 @@ export type LandingPageJson = {
       text: string;
     }[];
   };
+
+  // — Secciones de la ruta /healthHubs (slug: doctores) —
+  doctoresHeroStats?: { value: string; label: string }[];
+  doctoresSection1?: {
+    stat?: { value?: string; text?: string; highlight?: string; rest?: string };
+    badge?: string;
+    title?: string;
+    description?: string;
+    cards?: { icon: string; title: string; description: string }[];
+  };
+  doctoresSection2?: {
+    badge?: string;
+    title?: string;
+    description?: string;
+    colRol?: string;
+    colCost?: string;
+    colLymbika?: string;
+    rows?: { rol: string; cost: string; lymbika: string }[];
+    totalLabel?: string;
+    totalCost?: string;
+    totalLymbika?: string;
+    banner?: string;
+  };
+  doctoresSection3?: {
+    badge?: string;
+    title?: string;
+    description?: string;
+    departments?: { icon: string; name: string; items: string[] }[];
+    notice?: string;
+  };
+  doctoresSection4?: {
+    badge?: string;
+    title?: string;
+    steps?: { icon: string; title: string; description: string }[];
+    testimonial?: { quote: string; author: string };
+  };
+  doctoresPlansSection?: {
+    badge?: string;
+    title?: string;
+    description?: string;
+    popularLabel?: string;
+    commitment?: string;
+    entryPlan?: {
+      title?: string;
+      description?: string;
+      badges?: string[];
+      disclaimer?: string;
+      price?: string;
+      priceUnit?: string;
+    };
+  };
+  doctoresFaqSection?: {
+    badge?: string;
+    title?: string;
+    cardTitle?: string;
+    cardSubtitle?: string;
+    notice?: string;
+  };
+  doctoresCtaSection?: {
+    title?: string;
+    description?: string;
+    primaryBtn?: { label: string; href: string };
+    secondaryBtn?: { label: string; href: string };
+  };
 };

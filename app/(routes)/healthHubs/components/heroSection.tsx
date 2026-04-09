@@ -1,88 +1,58 @@
 import Image from "next/image";
-import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { ArrowRight } from "lucide-react";
 import { PageType } from "@/types/pages";
-
-// 🔹 Beneficios estáticos
-const benefits = [
-  { icon: ArrowRight, text: "Colaboración entre médicos" },
-  { icon: ArrowRight, text: "Acceso a pacientes" },
-  { icon: ArrowRight, text: "Soporte administrativo" },
-];
+import { LandingPageJson } from "@/types/landingPageJson";
 
 type MedicalHeroProps = {
   hero: PageType["hero"];
+  stats?: LandingPageJson["doctoresHeroStats"];
 };
 
-const MedicalHero = ({ hero }: MedicalHeroProps) => {
+const MedicalHero = ({ hero, stats }: MedicalHeroProps) => {
   if (!hero) return null;
 
   return (
-    <section className="relative bg-gradient-to-br from-primary-light via-card to-background py-20 overflow-hidden w-full">
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-primary/10"></div>
+    <section className="w-full py-6 px-3 md:py-10 md:px-8">
+      {/* Card contenedora con fondo navy */}
+      <div className="relative bg-[#0b1630] rounded-2xl overflow-hidden max-w-6xl mx-auto px-5 py-8 md:px-8 md:py-12">
+        {/* Círculos decorativos de fondo */}
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[500px] md:h-[500px] rounded-full bg-[#1a2f5e]/60 blur-3xl pointer-events-none" />
+        <div className="absolute right-10 top-1/2 -translate-y-1/2 w-[180px] h-[180px] md:w-[300px] md:h-[300px] rounded-full bg-[#1e3a7a]/40 blur-2xl pointer-events-none" />
 
-      <div className="relative z-10 max-w-4xl mx-auto px-4 grid lg:grid-cols-2 gap-12 items-center">
-        {/* Columna izquierda */}
-        <div className="space-y-8">
-          <div className="space-y-6">
-            {/* Badge estático */}
-            <Badge className="bg-primary text-primary-foreground text-base px-4 py-2">
-              👨‍⚕️ Nueva Red Médica
-            </Badge>
+        <div className="relative z-10 grid lg:grid-cols-2 gap-8 items-center">
+          {/* Columna izquierda */}
+          <div className="space-y-5 md:space-y-8">
+            {/* Badge */}
+            <span className="inline-block bg-[#1a2f5e] text-[#7eb3f5] text-xs font-semibold tracking-widest uppercase px-4 py-2 rounded-full border border-[#2a4a8a]">
+              Para médicos especialistas
+            </span>
 
-            {/* Título desde API */}
-            <h1 className="text-4xl md:text-6xl font-bold leading-tight text-foreground">
+            {/* Título */}
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight text-white">
               {hero.title}
             </h1>
 
-            {/* Descripción desde API */}
-            <p className="text-xl text-muted-foreground leading-relaxed">
+            {/* Descripción */}
+            <p className="text-[#8fa8cc] text-sm md:text-base leading-relaxed max-w-md">
               {hero.description}
             </p>
-          </div>
 
-          {/* Badges de beneficios (estáticos) */}
-          <div className="flex flex-wrap gap-3">
-            {benefits.map((benefit, index) => (
-              <Badge
-                key={index}
-                variant="secondary"
-                className="flex items-center space-x-2 bg-card/90 text-foreground px-4 py-2 text-sm border border-primary/20"
-              >
-                <benefit.icon className="h-4 w-4 text-primary" />
-                <span>{benefit.text}</span>
-              </Badge>
-            ))}
-          </div>
-
-          {/* Botón CTA desde API */}
-          {hero.buttonText && hero.buttonUrl && (
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button
-                asChild
-                size="lg"
-                className="bg-primary hover:bg-primary/90 hover:shadow-lg transition-all duration-300 text-lg px-8 py-6"
-              >
-                <Link
-                  href={hero.buttonUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+            {/* Stats */}
+            <div className="flex gap-0 pt-1">
+              {stats?.map((stat, i) => (
+                <div
+                  key={i}
+                  className={`pr-4 md:pr-6 ${i > 0 ? "pl-4 md:pl-6 border-l border-[#2a4a8a]" : ""}`}
                 >
-                  {hero.buttonText}
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
+                  <p className="text-xl md:text-2xl font-bold text-white">{stat.value}</p>
+                  <p className="text-[#7eb3f5] text-xs mt-0.5 leading-tight">{stat.label}</p>
+                </div>
+              ))}
             </div>
-          )}
-        </div>
+          </div>
 
-        {/* Columna derecha: Imagen desde API */}
-        <Card className="overflow-hidden border-0 shadow-2xl">
-          <div className="relative w-full h-[400px]">
-            {hero.image?.url && (
+          {/* Columna derecha: Imagen */}
+          {hero.image?.url && (
+            <div className="relative w-full h-[220px] md:h-[320px] lg:h-[380px] rounded-xl overflow-hidden shadow-2xl">
               <Image
                 src={hero.image.url}
                 alt={hero.title}
@@ -90,10 +60,10 @@ const MedicalHero = ({ hero }: MedicalHeroProps) => {
                 priority
                 className="object-cover"
               />
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent"></div>
-          </div>
-        </Card>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0b1630]/30 to-transparent" />
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );

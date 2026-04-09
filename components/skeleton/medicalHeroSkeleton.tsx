@@ -1,58 +1,42 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 
 const MedicalHeroSkeleton = () => {
   return (
-    <section className="relative bg-gradient-to-br from-primary-light via-card to-background py-20 overflow-hidden w-full">
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-primary/10"></div>
-
-      <div className="relative z-10 max-w-4xl mx-auto px-4 grid lg:grid-cols-2 gap-12 items-center">
-        {/* Columna izquierda */}
-        <div className="space-y-8">
-          <div className="space-y-6">
-            {/* Badge estático */}
-            <Badge className="bg-primary text-primary-foreground text-base px-4 py-2">
-              👨‍⚕️ Nueva Red Médica
-            </Badge>
-
-            {/* Título skeleton */}
-            <Skeleton className="h-12 w-3/4" />
-
-            {/* Descripción skeleton */}
-            <Skeleton className="h-6 w-full" />
-            <Skeleton className="h-6 w-5/6" />
+    <section className="w-full py-6 px-3 md:py-10 md:px-8">
+      <div className="relative bg-[#0b1630] rounded-2xl overflow-hidden max-w-6xl mx-auto px-5 py-8 md:px-8 md:py-12">
+        <div className="relative z-10 grid lg:grid-cols-2 gap-8 items-center">
+          {/* Columna izquierda */}
+          <div className="space-y-5 md:space-y-8">
+            {/* Badge */}
+            <Skeleton className="h-7 w-48 rounded-full bg-white/10" />
+            {/* Título */}
+            <div className="space-y-2">
+              <Skeleton className="h-10 w-full bg-white/10" />
+              <Skeleton className="h-10 w-4/5 bg-white/10" />
+            </div>
+            {/* Descripción */}
+            <div className="space-y-2">
+              <Skeleton className="h-4 w-full bg-white/10" />
+              <Skeleton className="h-4 w-5/6 bg-white/10" />
+              <Skeleton className="h-4 w-4/6 bg-white/10" />
+            </div>
+            {/* Stats */}
+            <div className="flex gap-0 pt-1">
+              {Array.from({ length: 3 }).map((_, i) => (
+                <div
+                  key={i}
+                  className={`pr-4 md:pr-6 ${i > 0 ? "pl-4 md:pl-6" : ""}`}
+                >
+                  <Skeleton className="h-7 w-16 bg-white/10 mb-1" />
+                  <Skeleton className="h-3 w-24 bg-white/10" />
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* Badges de beneficios skeleton */}
-          <div className="flex flex-wrap gap-3">
-            {Array.from({ length: 3 }).map((_, i) => (
-              <Skeleton
-                key={i}
-                className="h-8 w-32 rounded-full"
-              />
-            ))}
-          </div>
-
-          {/* Botón skeleton */}
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Button
-              disabled
-              size="lg"
-              className="bg-primary text-primary-foreground w-40 h-12 opacity-50"
-            >
-              <Skeleton className="h-5 w-20 mx-auto" />
-            </Button>
-          </div>
+          {/* Columna derecha: imagen */}
+          <Skeleton className="w-full h-[220px] md:h-[320px] lg:h-[380px] rounded-xl bg-white/10" />
         </div>
-
-        {/* Columna derecha: Imagen skeleton */}
-        <Card className="overflow-hidden border-0 shadow-2xl">
-          <div className="relative w-full h-[400px] flex items-center justify-center">
-            <Skeleton className="h-full w-full" />
-          </div>
-        </Card>
       </div>
     </section>
   );
