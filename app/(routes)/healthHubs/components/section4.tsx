@@ -39,7 +39,7 @@ const Section4 = ({ data }: Props) => {
       {testimonial && (
         <div className="border-l-4 border-primary bg-primary/5 rounded-r-xl px-6 py-5 space-y-3">
           <p className="text-sm md:text-base text-foreground leading-relaxed italic">
-            "{testimonial.quote}"
+            &ldquo;{testimonial.quote}&rdquo;
           </p>
           <p className="text-sm text-primary font-medium">{testimonial.author}</p>
         </div>
