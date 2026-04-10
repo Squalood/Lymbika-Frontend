@@ -108,7 +108,12 @@ const PlansSection = ({ data, texts }: PlansProps) => {
       </Carousel>
 
       {texts?.entryPlan && (
-        <div className="mt-10 bg-[#0b1630] rounded-2xl px-6 py-6 flex flex-col sm:flex-row sm:items-center gap-6">
+        <Link
+          href={texts.entryPlan.href ?? "#"}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-10 bg-[#0b1630] hover:bg-[#112045] transition-all duration-300 hover:scale-[1.02] rounded-2xl px-6 py-6 flex flex-col sm:flex-row sm:items-center gap-6 group cursor-pointer"
+        >
           <div className="flex-1 space-y-3">
             {texts.entryPlan.title && <h3 className="text-white font-bold text-lg">{texts.entryPlan.title}</h3>}
             {texts.entryPlan.description && <p className="text-white/60 text-sm">{texts.entryPlan.description}</p>}
@@ -121,11 +126,12 @@ const PlansSection = ({ data, texts }: PlansProps) => {
             )}
             {texts.entryPlan.disclaimer && <p className="text-white/40 text-xs">{texts.entryPlan.disclaimer}</p>}
           </div>
-          <div className="shrink-0 text-right">
+          <div className="shrink-0 text-right flex items-center gap-2">
             {texts.entryPlan.price && <span className="text-4xl font-extrabold text-white">{texts.entryPlan.price}</span>}
             {texts.entryPlan.priceUnit && <span className="text-white/60 text-sm ml-1">{texts.entryPlan.priceUnit}</span>}
+            <MoveRight className="w-5 h-5 text-white/40 group-hover:text-white/80 group-hover:translate-x-1 transition-all duration-200 ml-2" />
           </div>
-        </div>
+        </Link>
       )}
     </div>
   );

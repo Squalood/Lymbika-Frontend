@@ -110,7 +110,7 @@ export default function Page() {
       };
     
     return (
-        <div id="title" className="max-w-6xl py-4 mx-auto sm:py-16 sm:px-24">
+        <div id="title" className="max-w-6xl py-4 mx-auto sm:py-16">
             
           {/* Título de categoría */}
           <div className="flex flex-col gap-6 sm:flex-row justify-between py-4 px-4">
@@ -162,14 +162,22 @@ export default function Page() {
           </div>
 
           {/* Modo escritorio */}
-          <div className="hidden md:flex md:justify-between">
+          <div className="hidden md:flex md:items-start md:gap-8 mt-8">
               {loading ? (
-                    <SkeletonList grid={9}/>  
+                  <SkeletonList grid={9} />
               ) : (
-                  <FiltersControlsCategory setFilterType={setFilterType} typeFilter={typeFilter} availableTypes={availableTypes}/>
+                  <FiltersControlsCategory setFilterType={setFilterType} typeFilter={typeFilter} availableTypes={availableTypes} />
               )}
-              <div className="flex-1 min-w-0 mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {renderProductList(9)}
+              <div className="flex-1 min-w-0 grid grid-cols-2 sm:grid-cols-3 gap-6">
+                  {loading ? (
+                      <SkeletonSchema grid={9} />
+                  ) : paginatedProducts.length > 0 ? (
+                      paginatedProducts.map((product) => (
+                          <ProductCard key={product.id} product={product} />
+                      ))
+                  ) : (
+                      <p className="col-span-full text-center text-gray-500">No hay Productos</p>
+                  )}
               </div>
           </div>
 

@@ -114,7 +114,7 @@ export function CartOrderSummary({
 
           {user?.mediClubRegular && ahorro > 0 && (
             <div className="flex justify-between text-xs sm:text-sm text-green-600">
-              <span>Ahorro MediClub</span>
+              <span>Ahorro HealthPass</span>
               <span className="font-semibold">-{formatPrice(ahorro)}</span>
             </div>
           )}

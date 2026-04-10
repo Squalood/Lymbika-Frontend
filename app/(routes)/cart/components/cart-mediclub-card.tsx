@@ -23,7 +23,7 @@ export function CartMediClubCard({ user }: CartMediClubCardProps) {
           {user?.mediClubRegular ? (
             <Badge className="w-full justify-center py-2 bg-green-600 hover:bg-green-700 text-xs sm:text-sm">
               <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
-              Precio MediClub aplicado
+              Precio HealthPass aplicado
             </Badge>
           ) : (
             <Button asChild className="w-full text-xs sm:text-sm" variant="default" size="sm">

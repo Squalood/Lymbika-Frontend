@@ -94,6 +94,7 @@ export type LandingPageJson = {
       disclaimer?: string;
       price?: string;
       priceUnit?: string;
+      href?: string;
     };
   };
   doctoresFaqSection?: {

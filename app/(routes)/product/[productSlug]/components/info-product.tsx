@@ -61,7 +61,7 @@ const InfoProduct = ({ product }: InfoProductProps) => {
                 </div>
                 {hasMemberPrice && (
                     <div>
-                        <p className="text-xs">Precio MediClub</p>
+                        <p className="text-xs">Precio HealthPass</p>
                         <p className="text-2xl text-green-400">{formatPrice(product.priceMember)}</p>
                     </div>
                 )}

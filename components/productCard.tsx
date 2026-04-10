@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { CheckIcon, Heart, HeartIcon, PlusIcon } from "lucide-react";
+import { CheckIcon, Heart, HeartIcon, PlusIcon, ShieldAlert } from "lucide-react";
 import { ProductType } from "@/types/product";
 import { useCart } from "@/hooks/use-cart";
 import { Card } from "./ui/card";
@@ -35,7 +35,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       className="w-auto sm:w-48 lg:w-64 max-h-96 group relative space-y-4 overflow-hidden p-2 sm:p-4 cursor-pointer hover:shadow-md transition"
       onClick={handleCardClick}
     >
-      <figure className="group-hover:opacity-90">
+      <figure className="group-hover:opacity-90 relative">
         <Image
           className="w-full rounded-lg aspect-square"
           src={imageUrl}
@@ -43,6 +43,12 @@ const ProductCard = ({ product }: ProductCardProps) => {
           height={500}
           alt={product.productName}
         />
+        {product.conReceta && (
+          <div className="absolute top-2 left-2 flex items-center gap-1 px-2 py-1 text-xs text-orange-600 bg-orange-50 border border-orange-200 rounded-md">
+            <ShieldAlert size={12} className="shrink-0" />
+            <span>Con receta</span>
+          </div>
+        )}
       </figure>
 
       <div className="flex flex-col lg:flex-row justify-between">
@@ -85,13 +91,18 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <Button
           variant= "outline"
           className={`w-full z-10 px-3 sm:px-4 ${inCart ? "bg-green-100 text-green-500 border-green-200" : ""}`}
-          disabled={inCart}
+          disabled={inCart || product.conReceta}
           onClick={(e) => {
             e.stopPropagation();
             if (!inCart) addItem(product) ;
           }}
         >
-          {inCart ? (
+          {product.conReceta ? (
+            <>
+              <ShieldAlert className="size-4 me-1" />
+              Con receta
+            </>
+          ) : inCart ? (
             <>
               <CheckIcon className="size-4 me-1 text-green-500" />
               Añadir
