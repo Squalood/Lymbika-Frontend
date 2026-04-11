@@ -11,7 +11,6 @@ import Contact from "./components/contact";
 import ClinicSkeleton from "@/components/skeleton/clinicSkeleton";
 import ClinicGallery from "./components/clinicGallety";
 import { useGetClinicDoctor } from "@/api/useGetClinicsDoctorBySlug";
-import ClinicProducts from "./components/products";
 import { useGetClinicServices } from "@/api/useGetClinicsServiceBySlug";
 import VideoSection from "./components/videoSection";
 import { ServiceRateType } from "@/types/medicalService";
@@ -64,7 +63,6 @@ export default function ClinicPage() {
     <div className="relative">
       <Hero data={clinic} /> 
       <Services services={servicesToShow} />
-      <ClinicProducts clinicSlug={clinicSlug as string} clinicTitle={clinic.title} />
       <WhyUs features={clinic.features} />
       <Doctor data={doctor} doctorPageSlug={clinic.doctorPage?.slug} />   
       <VideoSection clinic={clinic}/>
