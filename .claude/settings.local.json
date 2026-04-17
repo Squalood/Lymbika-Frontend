@@ -8,7 +8,13 @@
       "Bash(find \"c:/Users/ananc/Desktop/Lymbika/e-lymbika/frontend-lymbika/app/\\(routes\\)\" -type d -name \"*specialty*\" -o -type d -name \"*service*\")",
       "Bash(npm uninstall:*)",
       "Bash(ls \"c:/Users/ananc/Desktop/Lymbika/e-lymbika/frontend-lymbika/app/\\(routes\\)/specialty/[specialtySlug]/components/\")",
-      "Read(//c/Users/ananc/Desktop/Lymbika/e-lymbika/backend-ecommerce/src/api/order/controllers/**)"
+      "Read(//c/Users/ananc/Desktop/Lymbika/e-lymbika/backend-ecommerce/src/api/order/controllers/**)",
+      "Read(//c/Users/ananc/Desktop/Lymbika/e-lymbika/components/ui/**)",
+      "Bash(awk '{print $NF}')",
+      "Bash(grep -v \"^\\\\\\\\.\")",
+      "Bash(grep -E \"\\\\.tsx$\")",
+      "Bash(npx next *)",
+      "Bash(npx tsc *)"
     ],
     "additionalDirectories": [
       "c:\\Users\\ananc\\Desktop\\Lymbika\\e-lymbika\\frontend-lymbika\\app\\(routes)\\specialty\\[specialtySlug]\\components"

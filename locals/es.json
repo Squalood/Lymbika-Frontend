@@ -46,5 +46,71 @@
   "faq": {
     "title": "Preguntas Frecuentes sobre Nuestras Membresías",
     "descripction": "Conoce todos los detalles sobre nuestras membresías, sus beneficios, cobertura y cómo te acompañamos en cada paso de tu cuidado médico."
+  },
+  "clinics": {
+    "breadcrumb": {
+      "home": "Inicio",
+      "clinics": "Clínicas"
+    },
+    "hero": {
+      "badge": "Clínica Especializada",
+      "scheduleButton": "Agendar Cita",
+      "servicesButton": "Ver Servicios",
+      "statsServices": "Servicios",
+      "statsTestimonials": "Testimonios"
+    },
+    "services": {
+      "badge": "Servicios",
+      "title": "Nuestros Servicios",
+      "description": "Conoce nuestros tratamientos y agenda tu cita",
+      "typeConsultation": "Consulta",
+      "typeProcedure": "Procedimiento",
+      "typeStudy": "Estudio",
+      "durationTooltip": "Duración aproximada del servicio",
+      "scheduleButton": "Agendar"
+    },
+    "whyUs": {
+      "badge": "Diferenciadores",
+      "title": "¿Por qué elegirnos?"
+    },
+    "doctor": {
+      "badge": "Equipo Médico",
+      "title": "Conoce a tu especialista",
+      "roleBadge": "Médico Encargado",
+      "accordionTrigger": "Formación y Experiencia",
+      "viewProfile": "Ver perfil completo"
+    },
+    "video": {
+      "badge": "Multimedia",
+      "title": "Conoce nuestra clínica"
+    },
+    "testimonials": {
+      "badge": "Testimonios",
+      "title": "Lo que dicen nuestros pacientes",
+      "basedOn": "Basado en",
+      "reviewSingular": "reseña",
+      "reviewPlural": "reseñas",
+      "reviewSuffix": "de pacientes"
+    },
+    "gallery": {
+      "badge": "Instalaciones",
+      "title": "Galería de la Clínica",
+      "dialogTitle": "Galería de imágenes",
+      "noContent": "No hay contenido disponible.",
+      "videoBadge": "Video"
+    },
+    "contact": {
+      "badge": "Contacto",
+      "title": "Contacto y Ubicación",
+      "infoTitle": "Información de Contacto",
+      "addressLabel": "Dirección",
+      "scheduleLabel": "Horario de Atención",
+      "scheduleButton": "Agendar Cita",
+      "whatsappButton": "WhatsApp",
+      "fallbackCity": "Cd Juarez, México"
+    },
+    "floatingCta": "Agendar Cita",
+    "notFound": "Clínica no encontrada.",
+    "doctorNotFound": "No se encontró información del doctor."
   }
 }

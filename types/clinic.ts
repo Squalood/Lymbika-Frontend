@@ -74,4 +74,73 @@ export type ClinicType = {
     doctorName: string;
     slug: string;
   };
+
+  pageTexts: {
+    hero: {
+      badge: string;
+      scheduleButton: string;
+      servicesButton: string;
+      statsServices: string;
+      statsTestimonials: string;
+    };
+    services: {
+      badge: string;
+      title: string;
+      description: string;
+      typeConsultation: string;
+      typeProcedure: string;
+      typeStudy: string;
+      durationTooltip: string;
+      scheduleButton: string;
+    };
+    whyUs: {
+      badge: string;
+      title: string;
+    };
+    doctor: {
+      badge: string;
+      title: string;
+      roleBadge: string;
+      accordionTrigger: string;
+      viewProfile: string;
+    };
+    video: {
+      badge: string;
+      title: string;
+    };
+    testimonials: {
+      badge: string;
+      title: string;
+      basedOn: string;
+      reviewSingular: string;
+      reviewPlural: string;
+      reviewSuffix: string;
+    };
+    gallery: {
+      badge: string;
+      title: string;
+      dialogTitle: string;
+      noContent: string;
+      videoBadge: string;
+    };
+    contact: {
+      badge: string;
+      title: string;
+      infoTitle: string;
+      addressLabel: string;
+      scheduleLabel: string;
+      scheduleButton: string;
+      whatsappButton: string;
+      fallbackCity: string;
+    };
+    breadcrumb: {
+      home: string;
+      clinics: string;
+    };
+    floatingCta: string;
+    notFound: string;
+    doctorNotFound: string;
+  } | null;
+
+  colorPage: "navy" | "pink" | "green" | "blue" | "red" | null;
 };
