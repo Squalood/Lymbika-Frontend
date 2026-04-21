@@ -84,7 +84,7 @@ const Contact = ({ data, texts }: ContactProps) => {
                 <MapPin className="w-5 h-5 text-[#7eb3f5] mt-1 shrink-0" />
                 <div>
                   <p className="font-medium">{texts.addressLabel}</p>
-                  <p className="text-[#8fa8cc] whitespace-pre-line text-sm">
+                  <p className="text-[#b6d5ff] whitespace-pre-line text-sm">
                     {data.contactLocation}
                   </p>
                 </div>
@@ -96,7 +96,7 @@ const Contact = ({ data, texts }: ContactProps) => {
                 <Clock className="w-5 h-5 text-[#7eb3f5] mt-1 shrink-0" />
                 <div>
                   <p className="font-medium">{texts.scheduleLabel}</p>
-                  <p className="text-[#8fa8cc] text-sm">
+                  <p className="text-[#b6d5ff] text-sm">
                     {data.contactSchedule}
                   </p>
                 </div>

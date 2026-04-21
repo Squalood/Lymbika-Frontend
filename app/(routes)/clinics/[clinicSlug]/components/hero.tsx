@@ -101,9 +101,6 @@ const Hero = ({ data, serviceCount, testimonialCount, texts }: HeroProps) => {
     <section ref={ref} className="w-full px-3 pb-6 md:px-8">
       {/* Card contenedora con fondo navy */}
       <div className="relative rounded-2xl overflow-hidden max-w-6xl mx-auto px-5 py-8 md:px-8 md:py-12" style={{ backgroundColor: "var(--clinic-dark-bg, #0b1630)" }}>
-        {/* Circulos decorativos */}
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[500px] md:h-[500px] rounded-full bg-[#1a2f5e]/60 blur-3xl pointer-events-none" />
-        <div className="absolute right-10 top-1/2 -translate-y-1/2 w-[180px] h-[180px] md:w-[300px] md:h-[300px] rounded-full bg-[#1e3a7a]/40 blur-2xl pointer-events-none" />
 
         <div className="relative z-10 grid lg:grid-cols-2 gap-8 items-center">
           {/* Columna izquierda: texto */}
@@ -129,7 +126,7 @@ const Hero = ({ data, serviceCount, testimonialCount, texts }: HeroProps) => {
 
             {/* Subtitulo */}
             <p
-              className={`text-[#8fa8cc] text-sm md:text-base leading-relaxed max-w-md transition-all duration-700 delay-200 ${
+              className={`text-[#bfd2ed] text-sm md:text-base leading-relaxed max-w-md transition-all duration-700 delay-200 ${
                 inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               }`}
             >
@@ -153,7 +150,7 @@ const Hero = ({ data, serviceCount, testimonialCount, texts }: HeroProps) => {
                     <p className="text-xl md:text-2xl font-bold text-white">
                       {stat.value}
                     </p>
-                    <p className="text-[#7eb3f5] text-xs mt-0.5 leading-tight">
+                    <p className="text-[#bfd2ed] text-xs mt-0.5 leading-tight">
                       {stat.label}
                     </p>
                   </div>

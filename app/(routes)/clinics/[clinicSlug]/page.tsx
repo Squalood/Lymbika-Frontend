@@ -21,9 +21,9 @@ import es from "@/locals/es.json";
 
 const colorThemes: Record<string, { primary: string; primaryForeground: string; darkBg: string }> = {
   navy: { primary: "222 60% 12%", primaryForeground: "210 40% 98%", darkBg: "#0b1630" },
-  pink: { primary: "330 81% 60%", primaryForeground: "210 40% 98%", darkBg: "#2d0a1e" },
-  green: { primary: "142 71% 45%", primaryForeground: "210 40% 98%", darkBg: "#0a2016" },
-  red: { primary: "0 84% 60%", primaryForeground: "210 40% 98%", darkBg: "#2d0a0a" },
+  pink: { primary: "330 81% 60%", primaryForeground: "210 40% 98%", darkBg: "#bd195e" },
+  green: { primary: "142 71% 45%", primaryForeground: "210 40% 98%", darkBg: "#15803d" },
+  red: { primary: "0 84% 60%", primaryForeground: "210 40% 98%", darkBg: "#b91c1c" },
 };
 
 export default function ClinicPage() {
