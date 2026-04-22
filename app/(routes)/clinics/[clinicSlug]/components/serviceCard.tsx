@@ -26,19 +26,18 @@ type ServiceCardTexts = {
   scheduleButton: string;
 };
 
-type ServiceCardProps = {
-  service: ServiceRateType;
-  index?: number;
-  inView?: boolean;
-  texts: ServiceCardTexts;
-};
+type ServiceCardProps =
+  | { empty: true; service?: never; texts?: never; index?: number; inView?: boolean }
+  | { empty?: false; service: ServiceRateType; texts: ServiceCardTexts; index?: number; inView?: boolean };
 
-const ServiceCard = ({
-  service,
-  index = 0,
-  inView = true,
-  texts,
-}: ServiceCardProps) => {
+const ServiceCard = (props: ServiceCardProps) => {
+  if (props.empty) {
+    return (
+      <Card className="w-auto md:w-full h-full border-2 border-dashed border-muted-foreground/20 bg-muted/30 shadow-none" />
+    );
+  }
+
+  const { service, texts, index = 0, inView = true } = props;
   const ms = service.medical_service;
 
   const typeLabels: Record<string, string> = {
@@ -99,6 +98,9 @@ const ServiceCard = ({
 
       <CardContent className="px-4 pb-2 space-y-1.5 flex-1">
         <h3 className="text-base font-semibold leading-tight">{ms.name}</h3>
+        {service.doctor?.doctorName && (
+          <p className="text-xs text-muted-foreground">{service.doctor.doctorName}</p>
+        )}
         <span className="text-lg font-bold text-primary block">
           <PriceToggle price={service.price} />
         </span>

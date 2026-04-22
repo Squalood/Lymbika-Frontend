@@ -16,6 +16,7 @@ export type ServiceRateType = {
   duration_min: number | null;
   notes: string | null;
   medical_service: MedicalServiceType;
+  doctor?: { doctorName: string } | null;
 };
 
 export type ServiceRateWithDoctorType = {

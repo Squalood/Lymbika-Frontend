@@ -63,9 +63,9 @@
       "badge": "Servicios",
       "title": "Nuestros Servicios",
       "description": "Conoce nuestros tratamientos y agenda tu cita",
-      "typeConsultation": "Consulta",
-      "typeProcedure": "Procedimiento",
-      "typeStudy": "Estudio",
+      "typeConsultation": "Consultas",
+      "typeProcedure": "Procedimientos médicos",
+      "typeStudy": "Estudios médicos",
       "durationTooltip": "Duración aproximada del servicio",
       "scheduleButton": "Agendar"
     },
