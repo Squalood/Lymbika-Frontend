@@ -14,7 +14,9 @@
       "Bash(grep -v \"^\\\\\\\\.\")",
       "Bash(grep -E \"\\\\.tsx$\")",
       "Bash(npx next *)",
-      "Bash(npx tsc *)"
+      "Bash(npx tsc *)",
+      "Bash(grep -E \"\\\\.\\(config|json|xml|txt\\)$\")",
+      "Bash(xargs grep *)"
     ],
     "additionalDirectories": [
       "c:\\Users\\ananc\\Desktop\\Lymbika\\e-lymbika\\frontend-lymbika\\app\\(routes)\\specialty\\[specialtySlug]\\components"

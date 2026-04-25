@@ -16,9 +16,6 @@ module.exports = {
   },
   additionalPaths: async (config) => {
     const dynamicRoutes = [
-      '/shop',
-      '/membership',
-      '/about',
       '/category/medicamentos',
       '/category/pediatrico',
       '/category/cronicos',
@@ -27,7 +24,12 @@ module.exports = {
       '/category/suplementos',
       '/service/neurocirugia',
       '/service/cirugia-general',
-      '/surgery/senos-paranasales'
+      '/clinics/clinica-de-ginecologia',
+      '/clinics/clinica-de-neurologia',
+      '/clinics/clinica-de-pediatria',
+      '/clinics/clinica-renal',
+      '/clinics/clinica-de-cardiologia',
+      '/doctor/dr-jose-orlando-guinto-nava',
     ];
 
     return dynamicRoutes.map((path) => ({
