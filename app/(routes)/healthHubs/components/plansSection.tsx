@@ -1,8 +1,7 @@
 "use client";
 
-import { Check, X, Star, CalendarClock, MoveRight } from "lucide-react";
+import { Check, X, Star, CalendarClock, MoveRight, Mail, Phone, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { PageType } from "@/types/pages";
 import { LandingPageJson } from "@/types/landingPageJson";
 import { formatPrice } from "@/lib/formatPrice";
@@ -13,6 +12,32 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
+import { useState } from "react";
+
+const TRUST_STEPS = [
+  {
+    icon: Mail,
+    title: "Confirmación inmediata",
+    description: "Recibes un correo de confirmación en segundos con el detalle de tu plan y tu factura.",
+  },
+  {
+    icon: Phone,
+    title: "Te contactamos en menos de 24h",
+    description: "Un asesor de Lymbika te escribe para coordinar tu onboarding y resolver cualquier duda.",
+  },
+  {
+    icon: Rocket,
+    title: "Día 1: acceso y configuración",
+    description: "Activamos tu cuenta y agendamos una sesión para configurar la plataforma a tu medida.",
+  },
+];
 
 type PlansProps = {
   data: PageType[];
@@ -21,6 +46,7 @@ type PlansProps = {
 
 const PlansSection = ({ data, texts }: PlansProps) => {
   const planItems = data.flatMap((page) => page.plan ?? []);
+  const [pendingLink, setPendingLink] = useState<string | null>(null);
 
   return (
     <div className="w-full max-w-6xl mx-auto py-12 px-4 md:px-8">
@@ -42,6 +68,7 @@ const PlansSection = ({ data, texts }: PlansProps) => {
         )}
       </div>
 
+      {/* planes convencionales */}
       <Carousel opts={{ align: "start", loop: false }} className="w-full">
         <CarouselContent>
           {planItems.slice(0, 3).map((paquete) => {
@@ -91,8 +118,8 @@ const PlansSection = ({ data, texts }: PlansProps) => {
                       </div>
                     )}
                     {paquete.link ? (
-                      <Button asChild className="w-full gap-2" variant={isProminent ? "default" : "outline"}>
-                        <Link href={paquete.link}>Empezar <MoveRight className="w-4 h-4" /></Link>
+                      <Button className="w-full gap-2" variant={isProminent ? "default" : "outline"} onClick={() => setPendingLink(paquete.link!)}>
+                        Empezar <MoveRight className="w-4 h-4" />
                       </Button>
                     ) : (
                       <Button disabled className="w-full" variant="outline">No disponible</Button>
@@ -107,11 +134,10 @@ const PlansSection = ({ data, texts }: PlansProps) => {
         <CarouselNext className="-right-4 bg-white/80 hover:bg-white shadow-md" />
       </Carousel>
 
+      {/* plan de entrada */}
       {texts?.entryPlan && (
-        <Link
-          href={texts.entryPlan.href ?? "#"}
-          target="_blank"
-          rel="noopener noreferrer"
+        <div
+          onClick={() => setPendingLink(texts.entryPlan?.href ?? "#")}
           className="mt-10 bg-[#0b1630] hover:bg-[#112045] transition-all duration-300 hover:scale-[1.02] rounded-2xl px-6 py-6 flex flex-col sm:flex-row sm:items-center gap-6 group cursor-pointer"
         >
           <div className="flex-1 space-y-3">
@@ -131,8 +157,44 @@ const PlansSection = ({ data, texts }: PlansProps) => {
             {texts.entryPlan.priceUnit && <span className="text-white/60 text-sm ml-1">{texts.entryPlan.priceUnit}</span>}
             <MoveRight className="w-5 h-5 text-white/40 group-hover:text-white/80 group-hover:translate-x-1 transition-all duration-200 ml-2" />
           </div>
-        </Link>
+        </div>
       )}
+
+      {/* Modal de confianza */}
+      <Dialog open={!!pendingLink} onOpenChange={(open) => !open && setPendingLink(null)}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-lg font-bold">¿Qué pasa después de pagar?</DialogTitle>
+            <DialogDescription className="text-sm text-muted-foreground">
+              Antes de continuar, queremos que sepas exactamente qué esperar.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4 py-2">
+            {TRUST_STEPS.map(({ icon: Icon, title, description }) => (
+              <div key={title} className="flex gap-3">
+                <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                  <Icon className="w-4 h-4 text-primary" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-foreground">{title}</p>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <Button
+            className="w-full gap-2 mt-2"
+            onClick={() => {
+              if (pendingLink) window.open(pendingLink, "_blank", "noopener,noreferrer");
+              setPendingLink(null);
+            }}
+          >
+            Ir a pago <MoveRight className="w-4 h-4" />
+          </Button>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

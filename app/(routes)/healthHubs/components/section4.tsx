@@ -10,7 +10,7 @@ const Section4 = ({ data }: Props) => {
   const { badge, title, steps, testimonial } = data;
 
   return (
-    <section className="w-full py-12 px-4 md:px-8 max-w-6xl mx-auto space-y-8">
+    <section className="w-full py-4 px-4 md:px-8 max-w-6xl mx-auto space-y-8">
       <div className="space-y-3">
         {badge && <span className="text-xs font-bold tracking-widest uppercase text-primary">{badge}</span>}
         {title && <h2 className="text-2xl md:text-3xl font-bold text-foreground leading-snug">{title}</h2>}

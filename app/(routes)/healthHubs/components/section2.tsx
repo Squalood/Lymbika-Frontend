@@ -16,7 +16,7 @@ const Section2 = ({ data }: Props) => {
   const { badge, title, description, colRol, colCost, colLymbika, rows, totalLabel, totalCost, totalLymbika, banner } = data;
 
   return (
-    <section className="w-full py-12 px-4 md:px-20 max-w-6xl mx-auto space-y-8">
+    <section className="w-full py-4 px-4 md:px-20 max-w-6xl mx-auto space-y-8">
       {/* Encabezado */}
       <div className="space-y-3">
         {badge && (
