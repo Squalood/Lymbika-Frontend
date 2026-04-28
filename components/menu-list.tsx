@@ -74,8 +74,8 @@ const MenuList = () => {
               <ListItem href="/specialty" title={es.titleServices}>
                 Tratamientos y servicios con doctores especializados.
               </ListItem>
-              <ListItem href="/surgery" title= {es.titlesurgery}> 
-                Tratamiento de enfermedades o condiciones a través de procedimientos quirúrgicos.
+              <ListItem href="/healthHubs" title= {es.navbar.botton4}> 
+                Del consultorio al negocio. El sistema operativo de tu práctica médica privada.
               </ListItem>
               <ListItem href="/membership" title="Planes y Membresías">
                 Con nuestra membresía MediClub, accede a medicamentos y productos de la salud a precio de proveedor. 

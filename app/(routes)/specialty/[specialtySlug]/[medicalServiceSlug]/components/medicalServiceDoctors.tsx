@@ -32,7 +32,7 @@ const MedicalServiceDoctors = () => {
         </div>
       ) : availableRates.length === 0 ? (
         <div className="flex flex-col items-center gap-4 py-12 text-center">
-          <p className="text-gray-500">Aún no hay doctores disponibles para esta especialidad.</p>
+          <p className="text-gray-500">Mandanos un mensaje para agendar directamente.</p>
           <a
             href="https://wa.me/526561100446?text=Hola%2C%20me%20gustar%C3%ADa%20solicitar%20un%20doctor%20para%20esta%20especialidad"
             target="_blank"
