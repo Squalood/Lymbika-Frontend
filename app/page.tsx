@@ -38,8 +38,8 @@ export default function Home() {
       <TopContact/>
       {loading ? <HeroSkeleton /> : <Hero hero={heroData}/>}
       <CarouselTextBanner />
-      <Page/>
       {pageLoading ? <TuristSectionSkeleton /> : <TuristSection {...page[0]?.landingPageJson?.turistSection} />}
+      <Page/>
       <CarouselServices/>
       <DoctorReel/>
       {promoItems.length > 0 && <PromoCarousel data={promo} aspectRatio="video"/>}
