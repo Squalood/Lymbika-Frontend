@@ -9,7 +9,7 @@ export function useGetPlan(slug: string) {
   useEffect(() => {
     if (!slug) return; 
 
-    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/pages?filters[slug][$eq]=${slug}&populate[plan][populate]=*`;
+    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/pages?filters[slug][$eq]=${slug}&populate[plan][populate]=*&populate[ModalPlan][populate][TrustStep]=*`;
 
     (async () => {
       try {

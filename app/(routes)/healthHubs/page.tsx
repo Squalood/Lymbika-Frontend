@@ -39,7 +39,7 @@ export default function Page() {
           <Section1 data={json?.doctoresSection1} />
           <Section2 data={json?.doctoresSection2} />
           <Section3 data={json?.doctoresSection3} />
-          <PlansSection data={plan} texts={json?.doctoresPlansSection} />
+          <PlansSection data={plan} texts={json?.doctoresPlansSection} modalPlan={plan[0]?.ModalPlan?.[0]} />
           <Section4 data={json?.doctoresSection4} />
           <FaqSection data={json?.doctoresFaqSection} />
           <CTASection data={json?.doctoresCtaSection} />

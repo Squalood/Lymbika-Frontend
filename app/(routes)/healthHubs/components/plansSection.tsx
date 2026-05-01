@@ -9,7 +9,10 @@ import {
   Mail,
   Phone,
   Rocket,
+  LucideIcon,
 } from "lucide-react";
+
+const iconMap: Record<string, LucideIcon> = { Mail, Phone, Rocket };
 import { Button } from "@/components/ui/button";
 import { PageType } from "@/types/pages";
 import { LandingPageJson } from "@/types/landingPageJson";
@@ -30,33 +33,13 @@ import {
 } from "@/components/ui/dialog";
 import { useState } from "react";
 
-const TRUST_STEPS = [
-  {
-    icon: Mail,
-    title: "Confirmación inmediata",
-    description:
-      "Recibes un correo de confirmación en segundos con el detalle de tu plan y tu factura.",
-  },
-  {
-    icon: Phone,
-    title: "Te contactamos en menos de 24h",
-    description:
-      "Un asesor de Lymbika te escribe para coordinar tu onboarding y resolver cualquier duda.",
-  },
-  {
-    icon: Rocket,
-    title: "Día 1: acceso y configuración",
-    description:
-      "Activamos tu cuenta y agendamos una sesión para configurar la plataforma a tu medida.",
-  },
-];
-
 type PlansProps = {
   data: PageType[];
   texts?: LandingPageJson["doctoresPlansSection"];
+  modalPlan?: PageType["ModalPlan"][number];
 };
 
-const PlansSection = ({ data, texts }: PlansProps) => {
+const PlansSection = ({ data, texts, modalPlan }: PlansProps) => {
   const planItems = data.flatMap((page) => page.plan ?? []);
   const [pendingLink, setPendingLink] = useState<string | null>(null);
 
@@ -236,29 +219,32 @@ const PlansSection = ({ data, texts }: PlansProps) => {
         <DialogContent className="max-w-md">
           <DialogHeader>
             <DialogTitle className="text-lg font-bold">
-              ¿Qué pasa después de pagar?
+              {modalPlan?.title ?? "¿Qué pasa después de pagar?"}
             </DialogTitle>
-            <DialogDescription className="text-sm text-muted-foreground">
-              Antes de continuar, queremos que sepas exactamente qué esperar.
-            </DialogDescription>
+            {modalPlan?.subtitle && (
+              <DialogDescription className="text-sm text-muted-foreground">
+                {modalPlan.subtitle}
+              </DialogDescription>
+            )}
           </DialogHeader>
 
           <div className="space-y-4 py-2">
-            {TRUST_STEPS.map(({ icon: Icon, title, description }) => (
-              <div key={title} className="flex gap-3">
-                <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                  <Icon className="w-4 h-4 text-primary" />
+            {modalPlan?.TrustStep?.map(({ id, icon, title, description }) => {
+              const Icon = iconMap[icon];
+              return (
+                <div key={id} className="flex gap-3">
+                  {Icon && (
+                    <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                      <Icon className="w-4 h-4 text-primary" />
+                    </div>
+                  )}
+                  <div>
+                    <p className="text-sm font-semibold text-foreground">{title}</p>
+                    <p className="text-xs text-muted-foreground leading-relaxed">{description}</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-sm font-semibold text-foreground">
-                    {title}
-                  </p>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    {description}
-                  </p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           <Button
@@ -269,7 +255,7 @@ const PlansSection = ({ data, texts }: PlansProps) => {
               setPendingLink(null);
             }}
           >
-            Ir a pago <MoveRight className="w-4 h-4" />
+            {modalPlan?.ctaLabel ?? "Ir a pago"} <MoveRight className="w-4 h-4" />
           </Button>
         </DialogContent>
       </Dialog>

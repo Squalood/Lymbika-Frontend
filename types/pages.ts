@@ -107,5 +107,18 @@ export type PageType = {
     };
   }[];
 
+  ModalPlan: {
+    id: number;
+    title: string;
+    subtitle: string;
+    ctaLabel: string;
+    TrustStep: {
+      id: number;
+      icon: "Mail" | "Phone" | "Rocket";
+      title: string;
+      description: string;
+    }[];
+  }[];
+
   landingPageJson: LandingPageJson;
 };
