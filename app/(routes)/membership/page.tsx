@@ -25,8 +25,8 @@ async function getMembershipData() {
 
   const memberships: MembershipType[] = Array.isArray(membershipsJson.data)
     ? membershipsJson.data
-        .map((item: any) => ({ ...item, order: item.order ?? 0, featured: item.featured ?? false }))
-        .sort((a: any, b: any) => a.order - b.order || a.id - b.id)
+        .map((item: MembershipType) => ({ ...item, order: item.order ?? 0, featured: item.featured ?? false }))
+        .sort((a: MembershipType, b: MembershipType) => (a.order ?? 0) - (b.order ?? 0) || a.id - b.id)
     : [];
 
   const heroPage: PageType | null = heroJson.data?.[0] ?? null;
