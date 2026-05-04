@@ -41,12 +41,12 @@ const CarouselPartner = () => {
                                     <CardContent className="flex flex-col justify-center p-2 items-center text-center">
                                         {imageUrl && (
                                             <div className="relative w-full h-12 sm:h-20 my-4">
-                                                <Image 
-                                                    src={imageUrl} 
-                                                    alt={title} 
-                                                    layout="fill" 
-                                                    objectFit="contain" 
-                                                    className="rounded-lg"
+                                                <Image
+                                                    src={imageUrl}
+                                                    alt={title}
+                                                    fill
+                                                    sizes="100vw"
+                                                    className="object-contain rounded-lg"
                                                 />
                                             </div>
                                         )}

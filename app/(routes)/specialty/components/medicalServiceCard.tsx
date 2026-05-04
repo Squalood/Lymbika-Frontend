@@ -28,7 +28,7 @@ const MedicalServiceCard = ({ service, href, minPrice }: Props) => (
   >
     <div className="relative w-full h-40 bg-gray-100 shrink-0">
       {service.image?.url ? (
-        <Image src={service.image.url} alt={service.name} fill className="object-cover" />
+        <Image src={service.image.url} alt={service.name} fill sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw" className="object-cover" />
       ) : (
         <div className="w-full h-full flex items-center justify-center">
           <span className="text-4xl text-gray-300">🩺</span>

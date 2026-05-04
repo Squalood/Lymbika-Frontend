@@ -42,6 +42,7 @@ const GalleryCarousel = ({ gallery, loading }: GalleryCarouselProps) => {
                   src={image.url}
                   alt={gallery.title}
                   fill
+                  sizes="(max-width: 1024px) 50vw, 33vw"
                   className="object-cover"
                 />
               </div>

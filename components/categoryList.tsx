@@ -29,6 +29,7 @@ export default function CategoryList({ category }: CategoryListProps) {
                     src={category.mainImage.url}
                     alt={category.categoryName}
                     fill
+                    sizes="48px"
                     className="rounded-full object-cover"
                   />
                 </div>

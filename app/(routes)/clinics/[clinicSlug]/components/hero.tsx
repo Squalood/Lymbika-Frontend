@@ -197,6 +197,7 @@ const Hero = ({ data, serviceCount, testimonialCount, texts }: HeroProps) => {
               alt={data.title}
               fill
               priority
+              sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0b1630]/30 to-transparent" />

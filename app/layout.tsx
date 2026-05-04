@@ -28,7 +28,7 @@ export default async function RootLayout({children,}: Readonly<{children: React.
   const userData = await getUserMeLoader();
 
   return (
-    <html lang="es">
+    <html lang="es" data-scroll-behavior="smooth">
       <body className={urbanist.className}>
 
         {/* Google Analytics */}

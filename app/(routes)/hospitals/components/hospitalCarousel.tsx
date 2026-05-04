@@ -61,6 +61,7 @@ const HospitaCarousel = ({ hospitals }: HospitaSectionProps) => {
                       src={imagenUrl}
                       alt={`Imagen de ${hospitalName}`}
                       fill
+                      sizes="(max-width: 640px) 85vw, (max-width: 768px) 50vw, 33vw"
                       className="object-cover"
                     />
                   </div>

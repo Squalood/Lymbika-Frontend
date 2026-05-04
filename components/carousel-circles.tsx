@@ -30,12 +30,12 @@ const CarouselComponent: React.FC<CarouselComponentProps> = ({ items, loading })
                                 <Card className="relative w-full h-full overflow-hidden rounded-full shadow-lg border-none transition duration-300 ease-in-out hover:scale-110">
                                     {/* Imagen */}
                                     {item.imageUrl && (
-                                        <Image 
-                                            src={item.imageUrl} 
-                                            alt={item.name} 
-                                            layout="fill" 
-                                            objectFit="cover" 
-                                            className="absolute inset-0 rounded-full"
+                                        <Image
+                                            src={item.imageUrl}
+                                            alt={item.name}
+                                            fill
+                                            sizes="(max-width: 640px) 160px, 240px"
+                                            className="object-cover rounded-full"
                                         />
                                     )}
                                     {/* Texto */}

@@ -23,12 +23,12 @@ const ChooseCategory = () => {
                         className="relative max-w-xs mx-auto overflow-hidden bg-no-repeat bg-cover rounded-lg"
                     >
                         {category.mainImage?.url ? (
-                            <Image 
+                            <Image
                                 src={category.mainImage.url}
                                 alt={category.categoryName}
                                 width={270}
                                 height={200}
-                                className="transition duration-300 ease-in-out rounded-lg hover:scale-110"
+                                className="w-full h-auto transition duration-300 ease-in-out rounded-lg hover:scale-110"
                             />
                         ) : (
                             <div className="w-[270px] h-[200px] bg-gray-300 flex items-center justify-center">

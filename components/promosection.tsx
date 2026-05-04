@@ -85,7 +85,8 @@ const PromoCarousel = ({ data, aspectRatio = "square" }: PromoProps) => {
                   src={promo.image.url}
                   alt={promo.title}
                   fill
-                  className="object-cover "
+                  sizes="(max-width: 640px) 67vw, (max-width: 768px) 50vw, 33vw"
+                  className="object-cover"
                 />
               </Link>
             </CarouselItem>

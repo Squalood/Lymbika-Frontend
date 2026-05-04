@@ -19,6 +19,8 @@ const Hero = ({ hero }: HeroProps) => {
             src={hero.image.url}
             alt={hero.title}
             fill
+            priority
+            sizes="100vw"
             className="object-cover opacity-25 object-[90%_50%] md:object-center"
           />
         )}
