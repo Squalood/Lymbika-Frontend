@@ -1,22 +1,17 @@
-"use client";
-
-import { useGetClinic } from "@/api/useGetClinicsBySlug";
-import { useParams } from "next/navigation";
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import Hero from "./components/hero";
 import Services from "./components/services";
 import WhyUs from "./components/whyUs";
 import Doctor from "./components/doctor";
 import Testimonials from "./components/testimonials";
 import Contact from "./components/contact";
-import ClinicSkeleton from "@/components/skeleton/clinicSkeleton";
 import ClinicGallery from "./components/clinicGallety";
-import { useGetClinicDoctor } from "@/api/useGetClinicsDoctorBySlug";
-import { useGetClinicServices } from "@/api/useGetClinicsServiceBySlug";
 import VideoSection from "./components/videoSection";
-import { Button } from "@/components/ui/button";
-import { Calendar } from "lucide-react";
 import ClinicBreadcrumb from "./components/clinicBreadcrumb";
-import * as gtag from "@/lib/gtag";
+import FloatingCta from "./components/FloatingCta";
+import { ClinicType } from "@/types/clinic";
+import { ServiceRateType } from "@/types/medicalService";
 import es from "@/locals/es.json";
 
 const colorThemes: Record<string, { primary: string; primaryForeground: string; darkBg: string }> = {
@@ -26,42 +21,50 @@ const colorThemes: Record<string, { primary: string; primaryForeground: string; 
   red: { primary: "0 84% 60%", primaryForeground: "210 40% 98%", darkBg: "#b91c1c" },
 };
 
-export default function ClinicPage() {
-  const { clinicSlug } = useParams();
-  const { clinic, loading } = useGetClinic(clinicSlug as string);
-  const { DoctorClinic } = useGetClinicDoctor(clinicSlug as string);
-  const { ServicesClinic } = useGetClinicServices(clinicSlug as string);
+const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-  if (loading) {
-    return <ClinicSkeleton />;
-  }
+async function getClinicData(slug: string) {
+  const [clinicRes, doctorRes, servicesRes] = await Promise.all([
+    fetch(`${BASE}/api/clinics?filters[slug][$eq]=${slug}&populate=*`, { next: { revalidate: 3600 } }),
+    fetch(`${BASE}/api/clinics?filters[slug][$eq]=${slug}&populate[doctor][populate]=*`, { next: { revalidate: 3600 } }),
+    fetch(`${BASE}/api/clinics?filters[slug][$eq]=${slug}&populate[service_rates][populate][medical_service][populate]=image&populate[service_rates][populate][doctor]=true`, { next: { revalidate: 3600 } }),
+  ]);
 
-  if (!clinic) {
-    return (
-      <div className="py-40 text-center">
-        <p className="text-destructive">{es.clinics.notFound}</p>
-      </div>
-    );
-  }
+  const [clinicJson, doctorJson, servicesJson] = await Promise.all([
+    clinicRes.json(),
+    doctorRes.json(),
+    servicesRes.json(),
+  ]);
 
-  if (!DoctorClinic || !DoctorClinic.doctor) {
-    return <p>{es.clinics.doctorNotFound}</p>;
-  }
-  const { doctor } = DoctorClinic;
-
-  const serviceRates = ServicesClinic?.service_rates ?? [];
-
-  // Textos: pageTexts de Strapi con fallback a es.json local
-  const t = clinic.pageTexts ?? es.clinics;
-
-  const handleSchedule = () => {
-    gtag.event({
-      action: "click_schedule",
-      category: "engagement",
-      label: "CTA flotante movil - Agendar Cita",
-    });
-    window.open(clinic.scheduleLink || clinic.contactWhatsappLink, "_blank");
+  return {
+    clinic: (clinicJson.data[0] ?? null) as ClinicType | null,
+    doctorClinic: (doctorJson.data[0] ?? null) as ClinicType | null,
+    servicesClinic: (servicesJson.data[0] ?? null) as { service_rates: ServiceRateType[] } | null,
   };
+}
+
+type Props = { params: Promise<{ clinicSlug: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { clinicSlug } = await params;
+  const { clinic } = await getClinicData(clinicSlug);
+  if (!clinic) return {};
+  return {
+    title: `${clinic.title} | Lymbika Healthcare`,
+    description: clinic.heroSubtitle,
+  };
+}
+
+export default async function ClinicPage({ params }: Props) {
+  const { clinicSlug } = await params;
+  const { clinic, doctorClinic, servicesClinic } = await getClinicData(clinicSlug);
+
+  if (!clinic) notFound();
+  if (!doctorClinic?.doctor) notFound();
+
+  const doctor = doctorClinic.doctor;
+  const serviceRates = servicesClinic?.service_rates ?? [];
+  const t = clinic.pageTexts ?? es.clinics;
 
   const theme = clinic.colorPage ? colorThemes[clinic.colorPage] : undefined;
   const themeStyle = theme
@@ -81,14 +84,11 @@ export default function ClinicPage() {
         <ClinicGallery clinic={clinic} texts={t.gallery} />
       )}
       <Contact data={clinic} texts={t.contact} />
-
-      {/* CTA flotante movil */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 p-4 bg-background/95 backdrop-blur border-t md:hidden">
-        <Button size="lg" className="w-full" onClick={handleSchedule}>
-          <Calendar className="w-5 h-5 mr-2" />
-          {t.floatingCta}
-        </Button>
-      </div>
+      <FloatingCta
+        scheduleLink={clinic.scheduleLink}
+        contactWhatsappLink={clinic.contactWhatsappLink}
+        label={t.floatingCta}
+      />
     </div>
   );
 }
