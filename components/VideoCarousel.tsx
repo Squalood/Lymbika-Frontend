@@ -1,3 +1,5 @@
+"use client";
+
 import YoutubeEmbed from "@/components/YoutubeEmbed";
 import TiktokEmbed from "@/components/TiktokEmbed";
 import {

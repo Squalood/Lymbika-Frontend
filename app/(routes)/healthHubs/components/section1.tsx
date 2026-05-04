@@ -1,3 +1,5 @@
+"use client";
+
 import { Timer, PhoneMissed, ClipboardList, BarChart2, LucideIcon } from "lucide-react";
 import { LandingPageJson } from "@/types/landingPageJson";
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";

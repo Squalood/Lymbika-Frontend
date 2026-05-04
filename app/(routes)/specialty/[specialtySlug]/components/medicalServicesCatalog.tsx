@@ -1,12 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { useParams } from "next/navigation";
-import { useGetMedicalServiceCatalog } from "@/api/useGetMedicalServiceCatalog";
 import { MedicalServiceType } from "@/types/medicalService";
-import SkeletonGalleryCol3 from "@/components/skeleton/skeletonGalleryCol3";
 import MedicalServiceCard from "../../components/medicalServiceCard";
 import { Button } from "@/components/ui/button";
+
+export type MedicalServiceCatalogItem = {
+  service: MedicalServiceType;
+  minPrice: number;
+};
 
 const TYPE_LABELS: Record<MedicalServiceType["type"], string> = {
   consultation: "Consultas",
@@ -30,14 +32,13 @@ const getButtonClass = (total: number): string | null => {
   return "block";
 };
 
-const MedicalServicesCatalog = () => {
-  const params = useParams();
-  const specialtySlug = typeof params.specialtySlug === "string" ? params.specialtySlug : "";
+type Props = {
+  items: MedicalServiceCatalogItem[];
+  specialtySlug: string;
+};
 
-  const { items, loading } = useGetMedicalServiceCatalog();
+const MedicalServicesCatalog = ({ items, specialtySlug }: Props) => {
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
-
-  const filtered = items.filter((item) => item.service.specialty?.slug === specialtySlug);
 
   const toggle = (type: string) =>
     setExpanded((prev) => ({ ...prev, [type]: !prev[type] }));
@@ -45,13 +46,13 @@ const MedicalServicesCatalog = () => {
   return (
     <div className="max-w-6xl py-4 mx-auto px-4 space-y-8">
       <h2 className="text-2xl font-medium">Servicios disponibles</h2>
-      {loading ? (
-        <SkeletonGalleryCol3 grid={8} />
-      ) : filtered.length === 0 ? (
-        <p className="text-center text-gray-500 py-8">No hay servicios disponibles para esta especialidad.</p>
+      {items.length === 0 ? (
+        <p className="text-center text-gray-500 py-8">
+          No hay servicios disponibles para esta especialidad.
+        </p>
       ) : (
-        TYPE_ORDER.filter((type) => filtered.some((item) => item.service.type === type)).map((type) => {
-          const typeItems = filtered.filter((item) => item.service.type === type);
+        TYPE_ORDER.filter((type) => items.some((item) => item.service.type === type)).map((type) => {
+          const typeItems = items.filter((item) => item.service.type === type);
           const isExpanded = expanded[type];
           const buttonClass = getButtonClass(typeItems.length);
 

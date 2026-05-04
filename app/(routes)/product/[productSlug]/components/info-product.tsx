@@ -1,3 +1,5 @@
+"use client";
+
 import RichTextRenderer from "@/components/rich-text-renderer";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";

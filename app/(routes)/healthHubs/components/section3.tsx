@@ -1,3 +1,5 @@
+"use client";
+
 import { Megaphone, Settings, LayoutDashboard, ArrowRight, TriangleAlert, LucideIcon } from "lucide-react";
 import { LandingPageJson } from "@/types/landingPageJson";
 import Autoplay from "embla-carousel-autoplay";

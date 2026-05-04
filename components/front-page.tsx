@@ -4,7 +4,7 @@ import Link from "next/link";
 import { PageType } from "@/types/pages";
 
 type HeroProps = {
-  hero: PageType["hero"];
+  hero: PageType["hero"] | undefined;
 };
 
 const Hero = ({ hero }: HeroProps) => {

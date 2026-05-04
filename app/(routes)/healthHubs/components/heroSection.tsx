@@ -3,7 +3,7 @@ import { PageType } from "@/types/pages";
 import { LandingPageJson } from "@/types/landingPageJson";
 
 type MedicalHeroProps = {
-  hero: PageType["hero"];
+  hero: PageType["hero"] | undefined;
   stats?: LandingPageJson["doctoresHeroStats"];
 };
 

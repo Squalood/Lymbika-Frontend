@@ -1,15 +1,17 @@
-"use client";
-
-import { useGetClinics } from "@/api/useGetClinics";
+import { ClinicType } from "@/types/clinic";
 import Clinics from "./[clinicSlug]/components/clinics";
-import NavsClinicsSkeleton from "@/components/skeleton/navsclinicsSkeleton";
 
-export default function Page() {
-  const { clinics, loading } = useGetClinics();
+const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-  if (loading) return <NavsClinicsSkeleton/>
+async function getClinics(): Promise<ClinicType[]> {
+  const res = await fetch(`${BASE}/api/clinics?populate=*`, {
+    next: { revalidate: 3600 },
+  });
+  const json = await res.json();
+  return Array.isArray(json.data) ? json.data : [];
+}
 
-  return (
-      <Clinics data={clinics} />
-  );
+export default async function Page() {
+  const clinics = await getClinics();
+  return <Clinics data={clinics} />;
 }

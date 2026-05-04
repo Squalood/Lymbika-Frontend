@@ -1,51 +1,56 @@
-"use client"
-
-import { useGetProductBySlug } from "@/api/getProductBySlug";
-import { ResponseType } from "@/types/response";
-import { useParams } from "next/navigation"
-import SkeletonProduct from "./components/skeleton-product";
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import CarouselProduct from "./components/carousel-product";
 import InfoProduct from "./components/info-product";
-import CarouselProductSkeleton from "./components/carouselProductSkeleton";
 import { Separator } from "@/components/ui/separator";
 import NavegatorPages from "@/components/navegatorPages";
 import VideoCarousel from "@/components/VideoCarousel";
+import { ProductType } from "@/types/product";
 
-export default function Page (){
-    const params = useParams()
-    const {productSlug} = params;
-    const { result }: ResponseType = useGetProductBySlug(productSlug ?? '')
+const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-    if (result == null){
-        return(
-            <div className="max-w-6xl mx-auto py-4 px-4 sm:py-32 sm:px-24">
-                <div className="grid sm:grid-cols-2">
-                    <div className="w-full overflow-hidden">
-                        <CarouselProductSkeleton/>
-                    </div>
-                    <div className="pt-8 sm:pt-0 sm:px-12">
-                        <SkeletonProduct/>
-                    </div>
-                </div>
-            </div>
-        )
-    }
+async function getProduct(slug: string): Promise<ProductType | null> {
+  const res = await fetch(
+    `${BASE}/api/products?filters[slug][$eq]=${slug}&populate=*`,
+    { next: { revalidate: 3600 } }
+  );
+  const json = await res.json();
+  return json.data?.[0] ?? null;
+}
 
-    return(
-        <div className="max-w-6xl py-4 mx-auto sm:py-16 sm:px-24">
-            <div className="sm:ml-1 ml-3">
-              <NavegatorPages product={result[0]}/>
-            </div>
-            <Separator className="my-4"/>
-            <div className="grid sm:grid-cols-2">
-                <div>
-                    <CarouselProduct product={result[0]}/>
-                </div>
-                <div className="sm:px-12">
-                    <InfoProduct product={result[0]}/>
-                </div>
-            </div>
-            <VideoCarousel videos={result[0].videos || []} />
+type Props = { params: Promise<{ productSlug: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { productSlug } = await params;
+  const product = await getProduct(productSlug);
+  if (!product) return {};
+  return {
+    title: `${product.productName} | Lymbika`,
+    description: product.description,
+  };
+}
+
+export default async function Page({ params }: Props) {
+  const { productSlug } = await params;
+  const product = await getProduct(productSlug);
+
+  if (!product) notFound();
+
+  return (
+    <div className="max-w-6xl py-4 mx-auto sm:py-16 sm:px-24">
+      <div className="sm:ml-1 ml-3">
+        <NavegatorPages product={product} />
+      </div>
+      <Separator className="my-4" />
+      <div className="grid sm:grid-cols-2">
+        <div>
+          <CarouselProduct product={product} />
         </div>
-    )
+        <div className="sm:px-12">
+          <InfoProduct product={product} />
+        </div>
+      </div>
+      <VideoCarousel videos={product.videos || []} />
+    </div>
+  );
 }

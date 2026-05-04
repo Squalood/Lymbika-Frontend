@@ -1,56 +1,77 @@
-"use client";
-
-import CarouselServices from "@/components/carousel-services"
-import CarouselTextBanner from "@/components/carousel-text-banner"
-import ChooseCategory from "@/components/choose-category"
-import TopContact from "@/components/top-contact"
-import HospitaSection from "./(routes)/hospitals/components/hospitalsSection"
-import PlanSection from "./(routes)/membership/components/plansSection"
-import DoctorReel from "./(routes)/doctor-catalog/components/doctorReel"
-import SurgeryFaq from "./(routes)/surgery/components/surgeryFaq"
-import TuristSection from "@/components/turistSection"
-import Page from "./(routes)/clinics/page"
-import PromoCarousel from "@/components/promosection"
-import { useGetPromo } from "@/api/getPromo"
+import CarouselServices from "@/components/carousel-services";
+import CarouselTextBanner from "@/components/carousel-text-banner";
+import ChooseCategory from "@/components/choose-category";
+import TopContact from "@/components/top-contact";
+import HospitaSection from "./(routes)/hospitals/components/hospitalsSection";
+import PlanSection from "./(routes)/membership/components/plansSection";
+import DoctorReel from "./(routes)/doctor-catalog/components/doctorReel";
+import SurgeryFaq from "./(routes)/surgery/components/surgeryFaq";
+import TuristSection from "@/components/turistSection";
+import ClinicsClientWrapper from "./(routes)/clinics/ClinicsClientWrapper";
+import PromoCarousel from "@/components/promosection";
 import Hero from "@/components/front-page";
-import { useGetPageHero } from "@/api/getPageHeroBySlug";
-import HeroSkeleton from "@/components/skeleton/heroSkeleton";
-import GalleryCarouselSkeleton from "@/components/skeleton/galleryCarouselSkeleton";
-import TuristSectionSkeleton from "@/components/skeleton/turistSectionSkeleton";
 import GalleryCarousel from "@/components/galleryCarousel";
-import { useGetPage } from "@/api/getPageBySlug";
-import { useGetGallery } from "@/api/getGalleryBySlug";
 import AlyusSection from "@/components/alyusSection";
 import AreDoctorsSection from "@/components/areDoctorsSection";
 import VideosSection from "@/components/videosSection";
+import { PageType } from "@/types/pages";
 
-export default function Home() {
-  const { page, loading: pageLoading } = useGetPage("front-page");
-  const { hero, loading } = useGetPageHero("front-page");
-  const {promo} = useGetPromo("front-page");
-  const { gallery, loading: galleryLoading } = useGetGallery("front-page");
-  const promoItems = promo?.flatMap(page => page.promo).filter(p => p && p.image?.url) || [];
+const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-  const heroData = hero[0]?.hero;
+async function getHomeData() {
+  const [pageRes, heroRes, galleryRes] = await Promise.all([
+    fetch(
+      `${BASE}/api/pages?filters[slug][$eq]=front-page&populate=*`,
+      { next: { revalidate: 3600 } }
+    ),
+    fetch(
+      `${BASE}/api/pages?filters[slug][$eq]=front-page&populate[hero][populate]=image&populate[promo][populate]=image`,
+      { next: { revalidate: 3600 } }
+    ),
+    fetch(
+      `${BASE}/api/pages?filters[slug][$eq]=front-page&populate[gallery][populate]=images`,
+      { next: { revalidate: 3600 } }
+    ),
+  ]);
+
+  const [pageJson, heroJson, galleryJson] = await Promise.all([
+    pageRes.json(),
+    heroRes.json(),
+    galleryRes.json(),
+  ]);
+
+  const page: PageType | null = pageJson.data?.[0] ?? null;
+  const heroPage: PageType | null = heroJson.data?.[0] ?? null;
+  const gallery = galleryJson.data?.[0]?.gallery ?? null;
+
+  return { page, heroPage, gallery };
+}
+
+export default async function Home() {
+  const { page, heroPage, gallery } = await getHomeData();
+
+  const heroData = heroPage?.hero;
+  const promoData: PageType[] = page ? [page] : [];
+  const promoItems = promoData.flatMap((p) => p.promo).filter((p) => p && p.image?.url);
 
   return (
     <main>
-      <TopContact/>
-      {loading ? <HeroSkeleton /> : <Hero hero={heroData}/>}
+      <TopContact />
+      <Hero hero={heroData} />
       <CarouselTextBanner />
-      {pageLoading ? <TuristSectionSkeleton /> : <TuristSection {...page[0]?.landingPageJson?.turistSection} />}
-      <Page/>
-      <CarouselServices/>
-      <DoctorReel/>
-      {promoItems.length > 0 && <PromoCarousel data={promo} aspectRatio="video"/>}
+      <TuristSection {...page?.landingPageJson?.turistSection} />
+      <ClinicsClientWrapper />
+      <CarouselServices />
+      <DoctorReel />
+      {promoItems.length > 0 && <PromoCarousel data={promoData} aspectRatio="video" />}
       <HospitaSection />
       <ChooseCategory />
-      <PlanSection/>
-      {page[0] && <VideosSection data={page[0]}/>}
-      {galleryLoading ? <GalleryCarouselSkeleton /> : <GalleryCarousel gallery={gallery}/>}
-      <SurgeryFaq/>
-      <AlyusSection {...page[0]?.landingPageJson?.alyusSection} />
-      <AreDoctorsSection {...page[0]?.landingPageJson?.areDoctorsSection} />
+      <PlanSection />
+      {page && <VideosSection data={page} />}
+      <GalleryCarousel gallery={gallery} />
+      <SurgeryFaq />
+      <AlyusSection {...page?.landingPageJson?.alyusSection} />
+      <AreDoctorsSection {...page?.landingPageJson?.areDoctorsSection} />
     </main>
-  )
+  );
 }

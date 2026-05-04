@@ -3,12 +3,9 @@
 import { useEffect, useState } from "react";
 import clsx from "clsx";
 import { motion } from "framer-motion";
-import { useParams } from "next/navigation";
-import { useGetDoctorBySlug } from "@/api/getDoctorBySlug";
-import { ResponseType } from "@/types/response";
+import { DoctorType } from "@/types/doctor";
 import { Separator } from "@/components/ui/separator";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import SkeletonDoctor from "@/components/skeleton/doctorSkeletor";
 import DoctorTop from "./doctor-top";
 import DoctorAbout from "./doctor-about";
 import SimpleSchedule from "./simpleSchedule";
@@ -24,31 +21,14 @@ const TABS = [
   { key: "gallery", label: "Galería" },
 ] as const;
 
-const DoctorShow = () => {
-  const { doctorSlug } = useParams();
-  const slug = typeof doctorSlug === "string" ? doctorSlug : ""; 
-  const { loading, result }: ResponseType = useGetDoctorBySlug(slug);
-  const doctor = result && result.length > 0 ? result[0] : null;
-
+const DoctorShow = ({ doctor }: { doctor: DoctorType }) => {
   const [activeTab, setActiveTab] = useState<(typeof TABS)[number]["key"]>("about");
 
   useEffect(() => {
-    if (!loading && doctor && typeof window !== "undefined") {
+    if (typeof window !== "undefined") {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
-  }, [loading, doctor]);
-
-  if (!slug) {
-    return <div className="text-center py-10">No se encontró el doctor.</div>;
-  }
-
-  if (loading || !doctor) {
-    return (
-      <div className="max-w-6xl py-4 mx-auto sm:py-20 sm:px-24">
-        <SkeletonDoctor />
-      </div>
-    );
-  }
+  }, []);
 
   const renderTabContent = {
     about: <DoctorAbout doctor={doctor} />,

@@ -1,3 +1,5 @@
+"use client";
+
 import { useGetDoctors } from "@/api/getDoctor";
 import { useGetProducts } from "@/api/getProducts";
 import { SearchGeneral } from "@/components/searchGeneral";
@@ -9,7 +11,7 @@ import { ShoppingCart, MapPin, Clock, Shield } from "lucide-react";
 import { PageType } from "@/types/pages";
 
 type HeroProps = {
-  hero: PageType["hero"];
+  hero: PageType["hero"] | undefined;
 };
 
 const HeroSection = ({ hero }: HeroProps) => {
