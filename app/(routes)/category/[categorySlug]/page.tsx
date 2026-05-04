@@ -51,7 +51,6 @@ export default async function Page({ params }: Props) {
     <CategoryClient
       initialProducts={products}
       categories={categories}
-      categorySlug={categorySlug}
     />
   );
 }

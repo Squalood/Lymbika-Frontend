@@ -4,14 +4,11 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { Separator } from "@/components/ui/separator";
 import FiltersControlsCategory from "./filters-controls-category";
-import SkeletonSchema from "@/components/skeleton/skeletonSchema";
 import { ProductType } from "@/types/product";
 import { CategoryType } from "@/types/category";
 import ItemsFilterMobile from "./filter-type-mobile";
 import PaginationControls from "./pagination";
 import { Search } from "@/components/searchBar";
-import { Skeleton } from "@/components/ui/skeleton";
-import SkeletonList from "@/components/skeleton/skeletonList";
 import ProductCard from "@/components/productCard";
 import {
   DropdownMenu,
@@ -29,10 +26,9 @@ const PRODUCTS_PER_PAGE_DESKTOP = 9;
 type Props = {
   initialProducts: ProductType[];
   categories: CategoryType[];
-  categorySlug: string;
 };
 
-export default function CategoryClient({ initialProducts, categories, categorySlug }: Props) {
+export default function CategoryClient({ initialProducts, categories }: Props) {
   const [page, setPage] = useState(1);
   const [typeFilter, setFilterType] = useState<string>("");
   const [filteredProducts, setFilteredProducts] = useState<ProductType[]>(initialProducts);
@@ -72,7 +68,7 @@ export default function CategoryClient({ initialProducts, categories, categorySl
     page * productsPerPage
   );
 
-  const renderProductList = (skeletonCount: number) => {
+  const renderProductList = () => {
     if (paginatedProducts.length > 0) {
       return paginatedProducts.map((product) => (
         <ProductCard key={product.id} product={product} />
@@ -117,7 +113,7 @@ export default function CategoryClient({ initialProducts, categories, categorySl
           <ItemsFilterMobile setFilterType={setFilterType} availableTypes={availableTypes} />
         </div>
         <div className="mt-4 grid grid-cols-2 gap-1 sm:gap-4 mx-auto px-2">
-          {renderProductList(8)}
+          {renderProductList()}
         </div>
       </div>
 
