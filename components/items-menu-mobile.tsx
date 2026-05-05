@@ -5,7 +5,6 @@ import {
   Menu,
   ShoppingCart,
   Heart,
-  Hospital,
   PillBottle,
   UsersRound,
   SquareActivity,
@@ -89,6 +88,9 @@ const ItemsMenuMobile = ({ user }: NavbarProps) => {
                 <Link href="/healthHubs" className={menuItemClass}>
                   {es.navbar.botton4}
                 </Link>
+                <Link href="/specialty" className={menuItemClass}>
+                  Especialidades médicas
+                </Link>
               </div>
             </div>
 
@@ -97,28 +99,6 @@ const ItemsMenuMobile = ({ user }: NavbarProps) => {
             {/* Accordion Sections */}
             <div className="px-4">
               <Accordion type="multiple" className="w-full">
-                {/* Servicios */}
-                <AccordionItem value="services" className="border-none">
-                  <AccordionTrigger className="px-2 py-3 hover:no-underline hover:bg-accent rounded-md">
-                    <div className="flex items-center gap-2 font-semibold">
-                      <Hospital className="w-4 h-4" />
-                      Servicios
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent className="pb-0">
-                    <div className="space-y-1 pl-2 mt-1">
-                      <Link href="/specialty" className={subItemClass}>
-                        <ChevronRight className="w-4 h-4 text-muted-foreground" />
-                        {es.titleServices}
-                      </Link>
-                      <Link href="/surgery" className={subItemClass}>
-                        <ChevronRight className="w-4 h-4 text-muted-foreground" />
-                        {es.titlesurgery}
-                      </Link>
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-
                 {/* Clínicas */}
                 <AccordionItem value="clinics" className="border-none">
                   <AccordionTrigger className="px-2 py-3 hover:no-underline hover:bg-accent rounded-md">
@@ -129,16 +109,40 @@ const ItemsMenuMobile = ({ user }: NavbarProps) => {
                   </AccordionTrigger>
                   <AccordionContent className="pb-0">
                     <div className="space-y-1 pl-2 mt-1">
-                      {clinics?.sort((a, b) => a.title.localeCompare(b.title, "es")).map((clinic: ClinicType) => (
-                          <Link
-                            key={clinic.id}
-                            href={`/clinics/${clinic.slug}`}
-                            className={subItemClass}
-                          >
-                            <ChevronRight className="w-4 h-4 text-muted-foreground" />
-                            {clinic.title}
-                          </Link>
-                        ))}
+                      {(() => {
+                        const sorted = [...(clinics ?? [])].sort((a, b) =>
+                          a.title.localeCompare(b.title, "es")
+                        );
+                        const featured = sorted.filter((c) => c.featuredClinic);
+                        const rest = sorted.filter((c) => !c.featuredClinic);
+                        return (
+                          <>
+                            {featured.map((clinic: ClinicType) => (
+                              <Link
+                                key={clinic.id}
+                                href={`/clinics/${clinic.slug}`}
+                                className={subItemClass}
+                              >
+                                <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                                {clinic.title}
+                              </Link>
+                            ))}
+                            {featured.length > 0 && rest.length > 0 && (
+                              <Separator className="my-1" />
+                            )}
+                            {rest.map((clinic: ClinicType) => (
+                              <Link
+                                key={clinic.id}
+                                href={`/clinics/${clinic.slug}`}
+                                className={subItemClass}
+                              >
+                                <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                                {clinic.title}
+                              </Link>
+                            ))}
+                          </>
+                        );
+                      })()}
                     </div>
                   </AccordionContent>
                 </AccordionItem>
