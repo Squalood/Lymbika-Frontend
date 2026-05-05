@@ -18,7 +18,9 @@
       "Bash(grep -E \"\\\\.\\(config|json|xml|txt\\)$\")",
       "Bash(xargs grep *)",
       "Bash(del \"c:\\\\Users\\\\ananc\\\\Desktop\\\\Lymbika\\\\e-lymbika\\\\frontend-lymbika\\\\public\\\\robots.txt\")",
-      "Bash(Remove-Item \"c:\\\\Users\\\\ananc\\\\Desktop\\\\Lymbika\\\\e-lymbika\\\\frontend-lymbika\\\\middleware.ts\")"
+      "Bash(Remove-Item \"c:\\\\Users\\\\ananc\\\\Desktop\\\\Lymbika\\\\e-lymbika\\\\frontend-lymbika\\\\middleware.ts\")",
+      "Bash(curl -s \"https://lymbika.com/sitemap.xml\")",
+      "Bash(curl -s \"https://lymbika.com/sitemap-0.xml\")"
     ],
     "additionalDirectories": [
       "c:\\Users\\ananc\\Desktop\\Lymbika\\e-lymbika\\frontend-lymbika\\app\\(routes)\\specialty\\[specialtySlug]\\components"

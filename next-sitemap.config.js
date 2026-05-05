@@ -1,7 +1,7 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
   siteUrl: process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://lymbika.com',
-  generateRobotsTxt: true,
+  generateRobotsTxt: false,
   changefreq: 'weekly',
   priority: 0.7,
   sitemapSize: 5000,
@@ -22,8 +22,6 @@ module.exports = {
       '/category/cuidado-belleza',
       '/category/especiales',
       '/category/suplementos',
-      '/service/neurocirugia',
-      '/service/cirugia-general',
       '/clinics/clinica-de-ginecologia',
       '/clinics/clinica-de-neurologia',
       '/clinics/clinica-de-pediatria',
