@@ -18,7 +18,7 @@ const SearchPreview = ({ type, id, name, slug, imageUrl, sal }: Props) => {
     const basePath =
       type === "product" ? "/product/"
       : type === "doctor" ? "/doctor/"
-      : type === "service" ? "/service/"
+      : type === "service" ? "/specialty/"
       : type === "surgery" ? "/surgery/"
       : "/category/";
     replace(`${basePath}${slug}`);

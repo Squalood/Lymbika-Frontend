@@ -6,17 +6,18 @@ module.exports = {
   changefreq: 'weekly',
   priority: 0.7,
   sitemapSize: 5000,
-  // Aquí defines las rutas manualmente si tienes rutas dinámicas
   transform: async (config, path) => {
     return {
-      loc: path, 
+      loc: path,
       changefreq: config.changefreq,
       priority: config.priority,
       lastmod: new Date().toISOString(),
     };
   },
   additionalPaths: async (config) => {
-    const dynamicRoutes = [
+    const BASE = process.env.NEXT_PUBLIC_BACKEND_URL || 'https://lymbika-backend.onrender.com';
+
+    const staticRoutes = [
       '/category/medicamentos',
       '/category/pediatrico',
       '/category/cronicos',
@@ -31,10 +32,28 @@ module.exports = {
       '/doctor/dr-jose-orlando-guinto-nava',
     ];
 
-    return dynamicRoutes.map((path) => ({
+    // Fetch slugs de todos los productos
+    let productRoutes = [];
+    try {
+      const res = await fetch(
+        `${BASE}/api/products?fields[0]=slug&pagination[pageSize]=2000&pagination[page]=1`
+      );
+      const json = await res.json();
+      if (Array.isArray(json.data)) {
+        productRoutes = json.data
+          .filter((item) => item.slug)
+          .map((item) => `/product/${item.slug}`);
+      }
+    } catch (err) {
+      console.warn('Error fetching product slugs for sitemap:', err.message);
+    }
+
+    const allRoutes = [...staticRoutes, ...productRoutes];
+
+    return allRoutes.map((path) => ({
       loc: `${config.siteUrl}${path}`,
       changefreq: 'weekly',
-      priority: 0.7,
+      priority: path.startsWith('/product/') ? 0.6 : 0.7,
       lastmod: new Date().toISOString(),
     }));
   },
