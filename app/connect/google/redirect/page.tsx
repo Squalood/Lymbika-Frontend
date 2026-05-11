@@ -11,10 +11,10 @@ const cookieConfig = {
 export default async function GoogleCallbackPage({
   searchParams,
 }: {
-  searchParams: Promise<{ access_token?: string }>;
+  searchParams: Promise<{ access_token?: string; id_token?: string }>;
 }) {
   const params = await searchParams;
-  const accessToken = params.access_token;
+  const accessToken = params.access_token ?? params.id_token;
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   if (!accessToken || !backendUrl) {
