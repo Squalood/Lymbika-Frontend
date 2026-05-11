@@ -7,13 +7,21 @@ const cookieConfig = {
   secure: process.env.NODE_ENV === "production",
 };
 
+function getBaseUrl(request: NextRequest): string {
+  const forwardedHost = request.headers.get("x-forwarded-host");
+  const forwardedProto = request.headers.get("x-forwarded-proto") ?? "https";
+  if (forwardedHost) return `${forwardedProto}://${forwardedHost}`;
+  return request.nextUrl.origin;
+}
+
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const accessToken = searchParams.get("access_token") ?? searchParams.get("id_token");
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+  const baseUrl = getBaseUrl(request);
 
   if (!accessToken || !backendUrl) {
-    return NextResponse.redirect(new URL("/signin?error=google_auth_failed", request.url));
+    return NextResponse.redirect(new URL("/signin?error=google_auth_failed", baseUrl));
   }
 
   try {
@@ -33,10 +41,10 @@ export async function GET(request: NextRequest) {
       return NextResponse.redirect(new URL("/signin?error=google_auth_failed", request.url));
     }
 
-    const response = NextResponse.redirect(new URL("/dashboard", request.url));
+    const response = NextResponse.redirect(new URL("/dashboard", baseUrl));
     response.cookies.set("jwt", jwt, cookieConfig);
     return response;
   } catch {
-    return NextResponse.redirect(new URL("/signin?error=google_auth_failed", request.url));
+    return NextResponse.redirect(new URL("/signin?error=google_auth_failed", baseUrl));
   }
 }
