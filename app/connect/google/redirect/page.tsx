@@ -15,23 +15,27 @@ export default async function GoogleCallbackPage({
 }) {
   const params = await searchParams;
   const accessToken = params.access_token;
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-  if (!accessToken) {
+  if (!accessToken || !backendUrl) {
     redirect("/signin?error=google_auth_failed");
   }
 
-  // Exchange Google access_token for Strapi JWT
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/google/callback?access_token=${accessToken}`,
-    { cache: "no-store" }
-  );
+  let jwt: string | null = null;
 
-  if (!res.ok) {
-    redirect("/signin?error=google_auth_failed");
+  try {
+    const res = await fetch(
+      `${backendUrl}/api/auth/google/callback?access_token=${accessToken}`,
+      { cache: "no-store" }
+    );
+
+    if (res.ok) {
+      const data = await res.json();
+      jwt = data?.jwt ?? null;
+    }
+  } catch {
+    // fetch failed, jwt stays null
   }
-
-  const data = await res.json();
-  const jwt = data?.jwt;
 
   if (!jwt) {
     redirect("/signin?error=google_auth_failed");
