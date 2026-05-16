@@ -1,3 +1,4 @@
+import { BookingDialog } from "@/components/booking-dialog";
 import { Button } from "@/components/ui/button";
 import { DoctorType } from "@/types/doctor";
 import {
@@ -22,10 +23,17 @@ const DoctorTop = (props: InfoDoctorProps) => {
       ? doctor.image[0].url
       : "/placeholder-image.webp";
 
-  const contactUrl = doctor.contactButton
-    ? doctor.contactButton.startsWith("http")
-      ? doctor.contactButton
-      : `https://wa.me/${doctor.contactButton}`
+  const hasEmbedUrl =
+    !!doctor.contactButton && doctor.contactButton.startsWith("http");
+
+  const embedUrl = hasEmbedUrl
+    ? doctor.contactButton!.includes("?")
+      ? `${doctor.contactButton}&embed=1`
+      : `${doctor.contactButton}?embed=1`
+    : null;
+
+  const whatsappUrl = doctor.contactButton && !hasEmbedUrl
+    ? `https://wa.me/${doctor.contactButton}`
     : "https://wa.me/526561100446";
 
   return (
@@ -63,7 +71,7 @@ const DoctorTop = (props: InfoDoctorProps) => {
               </h2>
               {/* Mostrar "Agente Médico" solo si tiene Medicina General */}
               {doctor.services?.some(
-                (s) => s.serviceName === "Medicina General "
+                (s) => s.serviceName === "Medicina General ",
               ) && (
                 <p className="ml-3 mx-auto w-40 flex justify-center gap-2 text-xs lg:text-sm font-semibold text-primary bg-blue-100 py-2 px-2 rounded-full">
                   <CheckCircle size={16} className="text-primary" />
@@ -105,12 +113,27 @@ const DoctorTop = (props: InfoDoctorProps) => {
         </div>
 
         <div className="flex flex-col items-center justify-center mb-6 md:mb-0 sm:w-48">
-          <Button className="w-1/2 md:w-full mr-0"asChild>
-            <Link href={contactUrl} target="_blank" rel="noopener noreferrer">
-              <CalendarCheck className="mr-2" />
-              Solicitar cita
-            </Link>
-          </Button>
+          
+          {embedUrl ? (
+            <BookingDialog
+              src={embedUrl}
+              title={`Solicitar cita — ${doctor.doctorName}`}
+              trigger={
+                <Button className="w-1/2 md:w-full mr-0">
+                  <CalendarCheck className="mr-2" />
+                  Solicitar cita
+                </Button>
+              }
+            />
+          ) : (
+            <Button className="w-1/2 md:w-full mr-0" asChild>
+              <Link href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                <CalendarCheck className="mr-2" />
+                Solicitar cita
+              </Link>
+            </Button>
+          )}
+
           <div className="flex justify-between pt-6">
             <ul className="flex space-x-6">
               {doctor.instagram && (

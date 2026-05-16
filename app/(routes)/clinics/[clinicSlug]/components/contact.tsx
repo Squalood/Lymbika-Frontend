@@ -1,5 +1,6 @@
 "use client";
 
+import { BookingDialog } from "@/components/booking-dialog";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -30,13 +31,21 @@ const Contact = ({ data, texts }: ContactProps) => {
     triggerOnce: true,
   });
 
-  const ScheduleLink = () => {
+  const hasEmbedUrl =
+    !!data.scheduleLink && data.scheduleLink.startsWith("http");
+
+  const embedUrl = hasEmbedUrl
+    ? data.scheduleLink.includes("?")
+      ? `${data.scheduleLink}&embed=1`
+      : `${data.scheduleLink}?embed=1`
+    : null;
+
+  const trackScheduleOpen = () => {
     gtag.event({
       action: "click_schedule",
       category: "engagement",
       label: "Bot\u00f3n Agendar Cita en contacto de clinica",
     });
-    window.open(data.scheduleLink || data.contactWhatsappLink, "_blank");
   };
 
   const WhatsAppLink = () => {
@@ -106,14 +115,22 @@ const Contact = ({ data, texts }: ContactProps) => {
 
               {/* Buttons */}
               <div className="flex flex-col sm:flex-row gap-3 pt-2">
-                <Button
-                  size="lg"
-                  className="bg-white text-primary hover:bg-white/90 w-full"
-                  onClick={ScheduleLink}
-                >
-                  <Calendar className="w-5 h-5 mr-2" />
-                  {texts.scheduleButton}
-                </Button>
+                {embedUrl && (
+                  <BookingDialog
+                    src={embedUrl}
+                    title={`${texts.scheduleButton} — ${data.title}`}
+                    trigger={
+                      <Button
+                        size="lg"
+                        className="bg-white text-primary hover:bg-white/90 w-full"
+                        onClick={trackScheduleOpen}
+                      >
+                        <Calendar className="w-5 h-5 mr-2" />
+                        {texts.scheduleButton}
+                      </Button>
+                    }
+                  />
+                )}
                 {data.contactWhatsappLink && (
                   <Button
                     variant="outline"

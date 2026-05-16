@@ -1,5 +1,6 @@
 "use client";
 
+import { BookingDialog } from "@/components/booking-dialog";
 import { Button } from "@/components/ui/button";
 import {
   Ambulance,
@@ -79,13 +80,21 @@ const Hero = ({ data, serviceCount, testimonialCount, texts }: HeroProps) => {
   const DefaultIcon = Stethoscope;
   const Icon = iconMap[data.icon] || DefaultIcon;
 
-  const ScheduleLink = () => {
+  const hasEmbedUrl =
+    !!data.scheduleLink && data.scheduleLink.startsWith("http");
+
+  const embedUrl = hasEmbedUrl
+    ? data.scheduleLink.includes("?")
+      ? `${data.scheduleLink}&embed=1`
+      : `${data.scheduleLink}?embed=1`
+    : null;
+
+  const trackScheduleOpen = () => {
     gtag.event({
       action: "click_schedule",
       category: "engagement",
       label: "Bot\u00f3n Agendar Cita en hero de clinica",
     });
-    window.open(data.scheduleLink || data.contactWhatsappLink, "_blank");
   };
 
   const stats = [
@@ -164,14 +173,22 @@ const Hero = ({ data, serviceCount, testimonialCount, texts }: HeroProps) => {
                 inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               }`}
             >
-              <Button
-                size="lg"
-                className="bg-white text-primary hover:bg-white/90"
-                onClick={ScheduleLink}
-              >
-                <Calendar className="h-5 w-5 mr-2" />
-                {texts.scheduleButton}
-              </Button>
+              {embedUrl && (
+                <BookingDialog
+                  src={embedUrl}
+                  title={`${texts.scheduleButton} — ${data.title}`}
+                  trigger={
+                    <Button
+                      size="lg"
+                      className="bg-white text-primary hover:bg-white/90"
+                      onClick={trackScheduleOpen}
+                    >
+                      <Calendar className="h-5 w-5 mr-2" />
+                      {texts.scheduleButton}
+                    </Button>
+                  }
+                />
+              )}
               <Button
                 variant="outline"
                 size="lg"
