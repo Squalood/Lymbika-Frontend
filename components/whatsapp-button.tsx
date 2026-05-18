@@ -6,12 +6,18 @@ import Link from "next/link";
 
 export default function WhatsAppButton() {
   const [mounted, setMounted] = useState(false);
+  const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    const observer = new MutationObserver(() => {
+      setHidden(document.body.classList.contains("booking-open"));
+    });
+    observer.observe(document.body, { attributeFilter: ["class"] });
+    return () => observer.disconnect();
   }, []);
 
-  if (!mounted) return null;
+  if (!mounted || hidden) return null;
 
   return createPortal(
     <Link

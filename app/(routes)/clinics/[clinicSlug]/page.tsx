@@ -86,7 +86,6 @@ export default async function ClinicPage({ params }: Props) {
       <Contact data={clinic} texts={t.contact} />
       <FloatingCta
         scheduleLink={clinic.scheduleLink}
-        contactWhatsappLink={clinic.contactWhatsappLink}
         label={t.floatingCta}
       />
     </div>
