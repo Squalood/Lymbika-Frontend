@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ChevronDownIcon } from "lucide-react";
 import Link from "next/link";
+import CategoryBreadcrumb from "./category-breadcrumb";
 
 const PRODUCTS_PER_PAGE_MOBILE = 8;
 const PRODUCTS_PER_PAGE_DESKTOP = 9;
@@ -77,30 +78,12 @@ export default function CategoryClient({ initialProducts, categories }: Props) {
     return <p className="col-span-full text-center text-gray-500">No hay Productos</p>;
   };
 
+  const currentCategory = initialProducts[0]?.category;
+
   return (
     <div id="title" className="max-w-6xl py-4 mx-auto sm:py-16">
-      <div className="flex flex-col gap-6 sm:flex-row justify-between py-4 px-4">
-        {filteredProducts.length > 0 ? (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <button className="flex items-center gap-2 text-3xl font-medium hover:text-primary transition-colors">
-                {filteredProducts[0]?.category?.categoryName}
-                <ChevronDownIcon className="size-5" />
-              </button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="start">
-              <DropdownMenuGroup>
-                {categories.map((category) => (
-                  <DropdownMenuItem key={category.id} asChild>
-                    <Link href={`/category/${category.slug}`}>{category.categoryName}</Link>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuGroup>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        ) : (
-          <h1 className="text-xl font-medium text-muted-foreground">Búsqueda no encontrada</h1>
-        )}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-4 py-2">
+        <CategoryBreadcrumb currentCategory={currentCategory} categories={categories} />
         <div className="w-full sm:w-80">
           <Search category={filteredProducts[0]?.category?.categoryName} />
         </div>

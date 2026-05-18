@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ChevronDownIcon, SlashIcon } from "lucide-react";
+import { ChevronDownIcon } from "lucide-react";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -35,14 +35,12 @@ const NavegatorPages = ({ product }: datatProps) => {
             <Link href="/shop">Farmacia</Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
-        <BreadcrumbSeparator>
-          <SlashIcon />
-        </BreadcrumbSeparator>
+        <BreadcrumbSeparator />
         <BreadcrumbItem>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <button className="flex items-center gap-1">
-                {product.category.categoryName}
+                Categorías
                 <ChevronDownIcon className="size-3.5" />
               </button>
             </DropdownMenuTrigger>
@@ -61,9 +59,17 @@ const NavegatorPages = ({ product }: datatProps) => {
             </DropdownMenuContent>
           </DropdownMenu>
         </BreadcrumbItem>
-        <BreadcrumbSeparator>
-          <SlashIcon />
-        </BreadcrumbSeparator>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+          <BreadcrumbLink asChild>
+            <Link href={`/category/${product.category?.slug ?? ""}`}>
+              <p className="truncate max-w-32 lg:max-w-48">
+                {product.category?.categoryName ?? "Categoría"}
+              </p>
+            </Link>
+          </BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
         <BreadcrumbItem>
           <BreadcrumbPage title={product.productName}>
             {/* Responsive truncation */}
