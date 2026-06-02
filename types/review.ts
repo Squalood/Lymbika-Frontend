@@ -14,9 +14,14 @@ export type ReviewType = {
     lastName: string;
     mediClubRegular: boolean;
   };
-  doctor: {
+  doctor?: {
     id: number;
     doctorName: string;
+    slug: string;
+  };
+  product?: {
+    id: number;
+    productName: string;
     slug: string;
   };
 };

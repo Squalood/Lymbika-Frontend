@@ -1,4 +1,5 @@
 import { RichTextNode } from "@/types/rich-text";
+import { ReviewType } from "@/types/review";
 
 export type ProductType = {
   id: number;
@@ -31,4 +32,5 @@ export type ProductType = {
     id: number;
     videoID: string;
   }[];
+  reviews?: ReviewType[];
 };

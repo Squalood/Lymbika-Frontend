@@ -5,6 +5,7 @@ import InfoProduct from "./components/info-product";
 import { Separator } from "@/components/ui/separator";
 import NavegatorPages from "@/components/navegatorPages";
 import VideoCarousel from "@/components/VideoCarousel";
+import ProductReviews from "./components/product-reviews";
 import { ProductType } from "@/types/product";
 
 const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
@@ -84,6 +85,8 @@ export default async function Page({ params }: Props) {
           </div>
         </div>
         <VideoCarousel videos={product.videos || []} />
+        <Separator className="my-8" />
+        <ProductReviews productSlug={productSlug} productId={product.id} />
       </div>
     </>
   );
