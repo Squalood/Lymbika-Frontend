@@ -10,7 +10,7 @@ type CategoryListProps = {
 };
 
 export default function CategoryList({ category }: CategoryListProps) {
-  const gridCategory = category.filter(category => category).slice(0, 6);
+  const gridCategory = category.filter(category => category?.mainImage?.url).slice(0, 6);
   
   return (
     <div className="w-[600px] py-4 px-8 flex gap-2">
@@ -26,7 +26,7 @@ export default function CategoryList({ category }: CategoryListProps) {
               >
                 <div className="relative w-12 h-12 flex-shrink-0">
                   <Image
-                    src={category.mainImage.url}
+                    src={category.mainImage!.url}
                     alt={category.categoryName}
                     fill
                     sizes="48px"
