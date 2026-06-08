@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import ChooseCategory from "@/components/choose-category";
 import FeaturedProducts from "@/components/featured-products";
 import { FeaturesSection } from "./components/featuresSection";
@@ -6,6 +7,14 @@ import CTASection from "./components/ctaSection";
 import PromoCarousel from "@/components/promosection";
 import PlanSection from "../membership/components/plansSection";
 import { PageType } from "@/types/pages";
+
+export const metadata: Metadata = {
+  title: "Farmacia | Lymbika",
+  description: "Encuentra medicamentos, suplementos y productos de cuidado personal. Compra en línea con entrega a domicilio.",
+  alternates: {
+    canonical: "https://lymbika.com/shop",
+  },
+};
 
 const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
 
