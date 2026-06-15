@@ -1,8 +1,8 @@
-import { PageType } from "@/types/pages";
+import { AboutPageType } from "@/types/single-types/about";
 import Image from "next/image";
 
 type LymbikaLocationProps = {
-  contact?: PageType["Contact"];
+  contact?: AboutPageType["contact"];
 };
 
 const LymbikaLocation = ({ contact }: LymbikaLocationProps) => {
