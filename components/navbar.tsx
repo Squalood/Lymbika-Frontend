@@ -17,17 +17,19 @@ import { useGetServices } from "@/api/getService";
 import { ResponseType } from "@/types/response";
 import { useGetSugery } from "@/api/getSugery";
 import { useGetCategories } from "@/api/getCategories";
+import { NavbarSectionType } from "@/types/single-types/navbar";
 
 interface AuthUserProps {
     username: string;
     email: string;
   }
-  
+
   interface NavbarProps {
     user: AuthUserProps | null;
+    navContent?: NavbarSectionType;
   }
 
-  const Navbar = ({ user }: NavbarProps) => {
+  const Navbar = ({ user, navContent }: NavbarProps) => {
     const router = useRouter();
     const pathname = usePathname();
     const cart = useCart();
@@ -68,10 +70,10 @@ interface AuthUserProps {
         <div ref={searchRef}>
             <div className={`${positionAbs} flex items-center justify-between p-4 mx-auto sm:max-w-4xl md:max-w-6xl`}>
                 <h1 className={`text-2xl ${textColor} cursor-pointer`} onClick={() => router.push("/")}>
-                    Lymbika <span className="font-bold">Health</span>
+                    {navContent?.h1_brand_name ?? "Lymbika"} <span className="font-bold">{navContent?.h1_brand_suffix ?? "Healthcare"}</span>
                 </h1>
                 <div className="items-center justify-between hidden lg:flex z-50">
-                    <MenuList />  
+                    <MenuList navContent={navContent} />
                 </div>
 
                 <div className="items-center justify-between gap-2 sm:gap-2 hidden lg:flex">

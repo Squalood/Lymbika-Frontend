@@ -1,0 +1,21 @@
+export type NavbarSectionType = {
+  h1_brand_name: string;
+  h1_brand_suffix: string;
+  about_brand_image: { url: string } | null;
+  about_trigger: string;
+  about_brand: string;
+  about_brand_description: string;
+  pharmacy_item_title: string;
+  pharmacy_item_description: string;
+  services_item_title: string;
+  services_item_description: string;
+  doctors_item_title: string;
+  doctors_item_description: string;
+  membership_item_title: string;
+  membership_item_description: string;
+  clinics_trigger: string;
+  clinics_featured_title: string;
+  clinics_others_title: string;
+  pharmacy_trigger: string;
+  doctors_link: string;
+};

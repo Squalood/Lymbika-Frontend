@@ -8,7 +8,7 @@ const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
 async function getAboutPageContent(): Promise<AboutPageType | undefined> {
   const res = await fetch(
     `${BASE}/api/about-page?populate[value][populate]=*&populate[contact][populate][image]=true&populate[hero_image]=true`,
-    { cache: "no-store" }
+    { next: { revalidate: 300 } }
   );
   if (!res.ok) return undefined;
   const json = await res.json();

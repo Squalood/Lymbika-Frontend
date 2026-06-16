@@ -10,6 +10,23 @@ import NextTopLoader from 'nextjs-toploader'
 import { getUserMeLoader } from "./data/services/get-user-me-loader";
 import Script from "next/script";
 import Image from "next/image";
+import { NavbarSectionType } from "@/types/single-types/navbar";
+
+const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
+
+async function getNavbarContent(): Promise<NavbarSectionType | undefined> {
+  try {
+    const res = await fetch(
+      `${BASE}/api/navbar-section?populate=about_brand_image`,
+      { next: { revalidate: 3600 } }
+    );
+    if (!res.ok) return undefined;
+    const json = await res.json();
+    return json.data ?? undefined;
+  } catch {
+    return undefined;
+  }
+}
 
 const urbanist = Urbanist({ subsets: ["latin"], display: "swap" });
 
@@ -25,7 +42,10 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({children,}: Readonly<{children: React.ReactNode;}>) {
-  const userData = await getUserMeLoader();
+  const [userData, navContent] = await Promise.all([
+    getUserMeLoader(),
+    getNavbarContent(),
+  ]);
 
   return (
     <html lang="es" data-scroll-behavior="smooth">
@@ -72,7 +92,7 @@ export default async function RootLayout({children,}: Readonly<{children: React.
         </noscript>
 
         <NextTopLoader/>
-        <Navbar user={userData.ok ? userData.data : null} />
+        <Navbar user={userData.ok ? userData.data : null} navContent={navContent} />
           {children}
         <Toaster richColors/>
         <Footer />

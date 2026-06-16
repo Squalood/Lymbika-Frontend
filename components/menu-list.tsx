@@ -13,22 +13,28 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 import {ResponseType} from '@/types/response';
-import { useGetCategories } from "@/api/getCategories" 
+import { useGetCategories } from "@/api/getCategories"
 import { Skeleton } from "./ui/skeleton"
 import Image from "next/image"
 import { usePathname, useRouter } from "next/navigation"
-import es from "@/locals/es.json";
 import { useGetClinics } from "@/api/useGetClinics"
 import ClinicsList from "./clinicsList"
 import CategoryList from "./categoryList"
+import { NavbarSectionType } from "@/types/single-types/navbar"
 
-const MenuList = () => {
-  const { loading, result,}:ResponseType = useGetCategories(); 
-  const { clinics } = useGetClinics(); 
-  const pathname = usePathname(); 
+type MenuListProps = {
+  navContent?: NavbarSectionType;
+};
+
+const MenuList = ({ navContent }: MenuListProps) => {
+  const { loading, result,}:ResponseType = useGetCategories();
+  const { clinics } = useGetClinics();
+  const pathname = usePathname();
   const router = useRouter();
 
   const navStyle = pathname === "/" ? "" : "text-black"
+
+  const brandImageUrl = navContent?.about_brand_image?.url ?? "/logos/logo-lymbika.svg";
 
   if (loading) {
     return <div className="grid grid-cols-4 gap-4">
@@ -43,7 +49,9 @@ const MenuList = () => {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger className={navStyle}>Sobre Nosotros</NavigationMenuTrigger>
+          <NavigationMenuTrigger className={navStyle}>
+            {navContent?.about_trigger ?? "Sobre Nosotros"}
+          </NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid gap-2 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
               <li className="row-span-4">
@@ -52,47 +60,55 @@ const MenuList = () => {
                     className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted to-primary p-6 no-underline outline-none focus:shadow-md"
                     href="/about"
                   >
-                    <Image 
-                        src='/logos/logo-lymbika.svg'
-                        alt="imagen" 
+                    <Image
+                        src={brandImageUrl}
+                        alt="imagen"
                         width={500}
                         height={500}
                         className="rounded-xl"
                     />
                     <div className="mb-2 mt-4 text-lg font-bold text-muted">
-                      Lymbika
+                      {navContent?.about_brand ?? "Lymbika"}
                     </div>
                     <p className="text-sm leading-tight text-muted">
-                      Hacemos la salud accesible: Procesos claros, precios transparentes y una experiencia diseñada para tu comodidad.
+                      {navContent?.about_brand_description ?? "Hacemos la salud accesible: Procesos claros, precios transparentes y una experiencia diseñada para tu comodidad."}
                     </p>
                   </Link>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="/shop" title="Farmacia y Tienda">
-                Accede a nuestros artículos
+              <ListItem href="/shop" title={navContent?.pharmacy_item_title ?? "Farmacia y Tienda"}>
+                {navContent?.pharmacy_item_description ?? "Accede a nuestros artículos"}
               </ListItem>
-              <ListItem href="/specialty" title={es.titleServices}>
-                Tratamientos y servicios con doctores especializados.
+              <ListItem href="/specialty" title={navContent?.services_item_title ?? "Atención Primaria y Especialidades"}>
+                {navContent?.services_item_description ?? "Tratamientos y servicios con doctores especializados."}
               </ListItem>
-              <ListItem href="/healthHubs" title= {es.navbar.botton4}> 
-                Del consultorio al negocio. El sistema operativo de tu práctica médica privada.
+              <ListItem href="/healthHubs" title={navContent?.doctors_item_title ?? "¿Eres doctor?"}>
+                {navContent?.doctors_item_description ?? "Del consultorio al negocio. El sistema operativo de tu práctica médica privada."}
               </ListItem>
-              <ListItem href="/membership" title="Planes y Membresías">
-                Con nuestra membresía MediClub, accede a medicamentos y productos de la salud a precio de proveedor. 
+              <ListItem href="/membership" title={navContent?.membership_item_title ?? "Planes y Membresías"}>
+                {navContent?.membership_item_description ?? "Con nuestra membresía MediClub, accede a medicamentos y productos de la salud a precio de proveedor."}
               </ListItem>
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger className={navStyle}>Clínicas</NavigationMenuTrigger>
+          <NavigationMenuTrigger className={navStyle}>
+            {navContent?.clinics_trigger ?? "Clínicas"}
+          </NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ClinicsList clinics={clinics}/>
+            <ClinicsList
+              clinics={clinics}
+              featuredTitle={navContent?.clinics_featured_title}
+              othersTitle={navContent?.clinics_others_title}
+            />
           </NavigationMenuContent>
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger className={navStyle} onClick={() => router.push("/shop")}>Farmacia</NavigationMenuTrigger>
+          <NavigationMenuTrigger className={navStyle} onClick={() => router.push("/shop")}>
+            {navContent?.pharmacy_trigger ?? "Farmacia"}
+          </NavigationMenuTrigger>
           <NavigationMenuContent>
             <CategoryList category={result}/>
           </NavigationMenuContent>
@@ -101,7 +117,7 @@ const MenuList = () => {
         <NavigationMenuItem>
           <NavigationMenuLink asChild>
             <Link href={`/healthHubs/`} className={`${navigationMenuTriggerStyle()} ${navStyle}`}>
-              {es.navbar.botton4}
+              {navContent?.doctors_link ?? "¿Eres doctor?"}
             </Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
@@ -119,7 +135,7 @@ const ListItem = React.forwardRef<
   return (
     <li>
       <NavigationMenuLink asChild>
-        <a 
+        <a
           ref={ref}
           className={cn(
             "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",

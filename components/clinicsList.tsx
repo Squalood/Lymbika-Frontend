@@ -6,6 +6,8 @@ import { ClinicType } from "@/types/clinic";
 
 type ClinicsListProps = {
   clinics: ClinicType[];
+  featuredTitle?: string;
+  othersTitle?: string;
 };
 
 const iconMap = {
@@ -31,7 +33,7 @@ const iconMap = {
   Ambulance
 };
 
-export default function ClinicsList({ clinics }: ClinicsListProps) {
+export default function ClinicsList({ clinics, featuredTitle, othersTitle }: ClinicsListProps) {
   // Filtrar clínicas destacadas para el grid (máximo 6)
   const gridClinics = clinics.filter(clinic => clinic.featuredClinic === true).slice(0, 6);
   
@@ -42,7 +44,7 @@ export default function ClinicsList({ clinics }: ClinicsListProps) {
     <div className="w-[900px] p-4 flex gap-2">
       {/* Grid principal - 75% */}
       <div className={`${sidebarClinics.length <= 6 ? "w-3/4" : "w-1/2"} my-auto`}>
-        <h2 className="py-2 text-base text-muted-foreground">Clinicas destacadas</h2>
+        <h2 className="py-2 text-base text-muted-foreground">{featuredTitle ?? "Clinicas destacadas"}</h2>
         <div className={`grid gap-2 ${gridClinics.length === 1 ? "grid-cols-1" : gridClinics.length === 2 ? "grid-cols-2" : "grid-cols-3"}`}>
           {gridClinics.map((clinic) => {
             const IconComponent = iconMap[clinic.icon as keyof typeof iconMap] || Laugh;
@@ -80,7 +82,7 @@ export default function ClinicsList({ clinics }: ClinicsListProps) {
       {/* Lista lateral - 25% */}
       {sidebarClinics.length > 0 && (
         <div className={`${sidebarClinics.length <= 6 ? "w-1/4" : "w-1/2"} border-l border-border pl-3`}>
-          <h2 className="py-2 text-base text-muted-foreground">Otras Clinicas</h2>
+          <h2 className="py-2 text-base text-muted-foreground">{othersTitle ?? "Otras Clinicas"}</h2>
           <ul className={`grid gap-1 ${sidebarClinics.length > 6 ? "grid-cols-3" : "grid-cols-1"}`}>
             {sidebarClinics.map((clinic) => {
               const IconComponent = iconMap[clinic.icon as keyof typeof iconMap] || Laugh;
