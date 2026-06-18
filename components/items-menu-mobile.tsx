@@ -28,7 +28,6 @@ import Link from "next/link";
 import { CategoryType } from "@/types/category";
 import { useGetCategories } from "@/api/getCategories";
 import { ResponseType } from "@/types/response";
-import es from "@/locals/es.json";
 import { useCart } from "@/hooks/use-cart";
 import { UseLovedProducts } from "@/hooks/use-loved-products";
 import { LoggedInUser } from "./custom/UserLogin";
@@ -36,6 +35,7 @@ import { useGetClinics } from "@/api/useGetClinics";
 import { ClinicType } from "@/types/clinic";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+import { NavbarSectionType } from "@/types/single-types/navbar";
 
 interface AuthUserProps {
   username: string;
@@ -44,9 +44,10 @@ interface AuthUserProps {
 
 interface NavbarProps {
   user: AuthUserProps | null;
+  navContent?: NavbarSectionType;
 }
 
-const ItemsMenuMobile = ({ user }: NavbarProps) => {
+const ItemsMenuMobile = ({ user, navContent }: NavbarProps) => {
   const { loading, result }: ResponseType = useGetCategories();
   const { clinics } = useGetClinics();
   const cart = useCart();
@@ -68,7 +69,7 @@ const ItemsMenuMobile = ({ user }: NavbarProps) => {
       <SheetContent side="right" className="w-3/4 rounded-l-lg p-0">
         <ScrollArea className="h-full">
           <SheetHeader className="px-6 py-4 border-b">
-            <SheetTitle>Menú</SheetTitle>
+            <SheetTitle>{navContent?.mobile_menu_title ?? "Menú"}</SheetTitle>
           </SheetHeader>
 
           <div className="py-4">
@@ -76,20 +77,20 @@ const ItemsMenuMobile = ({ user }: NavbarProps) => {
             <div className="px-4 mb-4">
               <div className="flex items-center gap-2 px-2 py-2 text-sm font-semibold text-muted-foreground">
                 <UsersRound className="w-4 h-4" />
-                Sobre Nosotros
+                {navContent?.about_trigger ?? "Sobre Nosotros"}
               </div>
               <div className="space-y-1 mt-2">
                 <Link href="/about" className={menuItemClass}>
-                  Lymbika
+                  {navContent?.about_brand ?? "Lymbika"}
                 </Link>
                 <Link href="/membership" className={menuItemClass}>
-                  Membresías
+                  {navContent?.membership_item_title ?? "Membresías"}
                 </Link>
                 <Link href="/healthHubs" className={menuItemClass}>
-                  {es.navbar.botton4}
+                  {navContent?.doctors_link ?? "¿Eres doctor?"}
                 </Link>
                 <Link href="/specialty" className={menuItemClass}>
-                  Especialidades médicas
+                  {navContent?.services_item_title ?? "Especialidades médicas"}
                 </Link>
               </div>
             </div>
@@ -104,7 +105,7 @@ const ItemsMenuMobile = ({ user }: NavbarProps) => {
                   <AccordionTrigger className="px-2 py-3 hover:no-underline hover:bg-accent rounded-md">
                     <div className="flex items-center gap-2 font-semibold">
                       <SquareActivity className="w-4 h-4" />
-                      Clínicas
+                      {navContent?.clinics_trigger ?? "Clínicas"}
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="pb-0">
@@ -155,7 +156,7 @@ const ItemsMenuMobile = ({ user }: NavbarProps) => {
                       className="flex items-center gap-2 font-semibold flex-1"
                     >
                       <PillBottle className="w-4 h-4" />
-                      Farmacia
+                      {navContent?.pharmacy_trigger ?? "Farmacia"}
                     </Link>
                   </AccordionTrigger>
                   <AccordionContent className="pb-0">
@@ -183,12 +184,12 @@ const ItemsMenuMobile = ({ user }: NavbarProps) => {
             {/* Cuenta Section */}
             <div className="px-4">
               <div className="flex items-center gap-2 px-2 py-2 text-sm font-semibold text-muted-foreground">
-                Cuenta
+                {navContent?.mobile_account_section ?? "Cuenta"}
               </div>
               <div className="space-y-1 mt-2">
                 <Link href="/cart" className={menuItemClass}>
                   <ShoppingCart className="w-4 h-4" />
-                  <span className="flex-1">Carrito</span>
+                  <span className="flex-1">{navContent?.mobile_cart_link ?? "Carrito"}</span>
                   {cart.items.length > 0 && (
                     <span className="font-semibold bg-primary text-primary-foreground px-2 py-0.5 rounded-full text-xs">
                       {cart.items.length}
@@ -197,7 +198,7 @@ const ItemsMenuMobile = ({ user }: NavbarProps) => {
                 </Link>
                 <Link href="/loved-products" className={menuItemClass}>
                   <Heart className="w-4 h-4" />
-                  <span className="flex-1">Mi Lista</span>
+                  <span className="flex-1">{navContent?.mobile_wishlist_link ?? "Mi Lista"}</span>
                   {lovedItems.length > 0 && (
                     <span className="font-semibold bg-primary text-primary-foreground px-2 py-0.5 rounded-full text-xs">
                       {lovedItems.length}
@@ -206,7 +207,7 @@ const ItemsMenuMobile = ({ user }: NavbarProps) => {
                 </Link>
                 <Link href="/dashboard" className={menuItemClass}>
                   <User className="w-4 h-4" />
-                  <span className="flex-1">Usuario</span>
+                  <span className="flex-1">{navContent?.mobile_user_link ?? "Usuario"}</span>
                   {user && (
                     <div className="text-xs text-muted-foreground">
                       <LoggedInUser userData={user} />

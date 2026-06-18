@@ -18,4 +18,9 @@ export type NavbarSectionType = {
   clinics_others_title: string;
   pharmacy_trigger: string;
   doctors_link: string;
+  mobile_menu_title: string;
+  mobile_account_section: string;
+  mobile_cart_link: string;
+  mobile_wishlist_link: string;
+  mobile_user_link: string;
 };
