@@ -1,6 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import { BookingDialog } from "@/components/booking-dialog";
+import WhatsAppQrDialog from "@/components/whatsapp-qr-dialog";
+import { useIsDesktop } from "@/hooks/use-is-desktop";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -48,16 +51,24 @@ const Contact = ({ data, texts }: ContactProps) => {
     });
   };
 
+  const isDesktop = useIsDesktop();
+  const [dialogOpen, setDialogOpen] = useState(false);
+
   const WhatsAppLink = () => {
     gtag.event({
       action: "click_whatsapp",
       category: "engagement",
       label: "Bot\u00f3n WhatsApp en contacto de clinica",
     });
-    window.open(data.contactWhatsappLink || "#", "_blank");
+    if (isDesktop) {
+      setDialogOpen(true);
+    } else {
+      window.open(data.contactWhatsappLink || "#", "_blank");
+    }
   };
 
   return (
+    <>
     <section id="contacto" className="section bg-accent/50 pb-24 md:pb-12">
       <div ref={ref} className="max-w-4xl mx-4 md:mx-8 lg:mx-auto px-4">
         {/* Section header */}
@@ -182,6 +193,12 @@ const Contact = ({ data, texts }: ContactProps) => {
         </div>
       </div>
     </section>
+    <WhatsAppQrDialog
+      url={data.contactWhatsappLink || undefined}
+      open={dialogOpen}
+      onOpenChange={setDialogOpen}
+    />
+    </>
   );
 };
 

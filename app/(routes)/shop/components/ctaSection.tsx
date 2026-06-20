@@ -1,8 +1,15 @@
+"use client";
+
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
-import Link from "next/link";
+import { useIsDesktop } from "@/hooks/use-is-desktop";
+import WhatsAppQrDialog from "@/components/whatsapp-qr-dialog";
+import { WHATSAPP_URL } from "@/lib/constants";
 
 const CTASection = () => {
+  const isDesktop = useIsDesktop();
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
@@ -18,11 +25,14 @@ const CTASection = () => {
                     Consulta gratis y recibe recomendaciones personalizadas.
                     </CardDescription>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
-                        <Link href="https://wa.me/526561100446" target="_blank" rel="noopener noreferrer">
+                    <Button
+                        size="lg"
+                        className="bg-primary hover:bg-primary/90"
+                        onClick={isDesktop ? () => setDialogOpen(true) : () => window.open(WHATSAPP_URL, "_blank")}
+                    >
                         📲 Mándanos tu receta
-                        </Link>
                     </Button>
+                    <WhatsAppQrDialog open={dialogOpen} onOpenChange={setDialogOpen} />
                     </div>
                 </CardContent>
             </Card>

@@ -1,8 +1,14 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { DoctorType } from "@/types/doctor";
 import { CalendarCheck, SquareActivity, Star, Stethoscope } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useIsDesktop } from "@/hooks/use-is-desktop";
+import WhatsAppQrDialog from "@/components/whatsapp-qr-dialog";
+import { WHATSAPP_URL } from "@/lib/constants";
 import {
   Card,
   CardHeader,
@@ -14,12 +20,15 @@ type ProductDoctorProps = {
 };
 
 const CardDoctor = ({ doctor }: ProductDoctorProps) => {
+  const isDesktop = useIsDesktop();
+  const [dialogOpen, setDialogOpen] = useState(false);
   const imageUrl =
     doctor.image && doctor.image.length > 0
       ? doctor.image[0].url
       : "/placeholder-image.webp";
 
   return (
+  <>
     <Card className="hover:shadow-md transition-all duration-200">
       <Link href={`/doctor/${doctor.slug}`} className="block">
         <CardHeader className="flex flex-row items-center gap-4">
@@ -67,7 +76,7 @@ const CardDoctor = ({ doctor }: ProductDoctorProps) => {
         {/* Botón a la derecha */}
         <div className="self-start">
           <Button
-            onClick={() => window.open("https://wa.me/526561100446", "_blank")}
+            onClick={(e) => { e.preventDefault(); isDesktop ? setDialogOpen(true) : window.open(WHATSAPP_URL, "_blank"); }}
           >
             <CalendarCheck className="mr-2" />
             Solicitar cita
@@ -76,6 +85,8 @@ const CardDoctor = ({ doctor }: ProductDoctorProps) => {
       </CardContent>
       </Link>
     </Card>
+    <WhatsAppQrDialog open={dialogOpen} onOpenChange={setDialogOpen} />
+  </>
   );
 };
 

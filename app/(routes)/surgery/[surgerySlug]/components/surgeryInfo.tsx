@@ -2,6 +2,9 @@
 
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useIsDesktop } from "@/hooks/use-is-desktop";
+import WhatsAppQrDialog from "@/components/whatsapp-qr-dialog";
+import { WHATSAPP_URL } from "@/lib/constants";
 import Image from "next/image";
 import { SugeryType } from "@/types/sugery";
 import { useGetSugery } from "@/api/getSugery";
@@ -15,6 +18,8 @@ const SurgeryInfo = () => {
   const { result, loading } = useGetSugery();
   const [surgery, setSurgery] = useState<SugeryType | null>(null);
   const [isExpanded, setIsExpanded] = useState(false);
+  const isDesktop = useIsDesktop();
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   useEffect(() => {
     if (!loading && Array.isArray(result)) {
@@ -97,12 +102,13 @@ const SurgeryInfo = () => {
 
             {/* Botón de WhatsApp */}
             <div className="flex justify-start">
-              <Button 
+              <Button
                 className="gap-2"
-                onClick={() => window.open("https://wa.me/526561100446", "_blank")}
+                onClick={isDesktop ? () => setDialogOpen(true) : () => window.open(WHATSAPP_URL, "_blank")}
               >
                 <Stethoscope className="w-4 h-4" /> Solicitar Agente Médico
               </Button>
+              <WhatsAppQrDialog open={dialogOpen} onOpenChange={setDialogOpen} />
             </div>
           </div>
 

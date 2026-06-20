@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { XCircle, MapPin, Phone } from "lucide-react";
+import WhatsAppTrigger from "@/components/whatsapp-trigger";
 
 const PageSuccessError = () => {
   return (
@@ -16,10 +17,10 @@ const PageSuccessError = () => {
         </p>
 
         <div className="mt-6 flex flex-col gap-3 text-sm font-medium">
-          <Link href="https://wa.me/526561100446" className="flex items-center gap-2 text-primary hover:underline" target="_blank" rel="noopener noreferrer">
+          <WhatsAppTrigger className="flex items-center gap-2 text-primary hover:underline">
             <Phone className="w-4 h-4" />
             Contacto de atención
-          </Link>
+          </WhatsAppTrigger>
 
           <Link href="https://maps.app.goo.gl/wddxisYk7CM7cGVg6" className="flex items-center gap-2 text-primary hover:underline" target="_blank" rel="noopener noreferrer">
             <MapPin className="w-4 h-4" />

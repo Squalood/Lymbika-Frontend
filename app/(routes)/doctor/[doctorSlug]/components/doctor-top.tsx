@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { BookingDialog } from "@/components/booking-dialog";
 import { Button } from "@/components/ui/button";
 import { DoctorType } from "@/types/doctor";
@@ -10,6 +13,8 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useIsDesktop } from "@/hooks/use-is-desktop";
+import WhatsAppQrDialog from "@/components/whatsapp-qr-dialog";
 
 export type InfoDoctorProps = {
   doctor: DoctorType;
@@ -17,6 +22,8 @@ export type InfoDoctorProps = {
 
 const DoctorTop = (props: InfoDoctorProps) => {
   const { doctor } = props;
+  const isDesktop = useIsDesktop();
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const imageUrl =
     doctor.image && doctor.image.length > 0
@@ -126,12 +133,16 @@ const DoctorTop = (props: InfoDoctorProps) => {
               }
             />
           ) : (
-            <Button className="w-1/2 md:w-full mr-0" asChild>
-              <Link href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+            <>
+              <Button
+                className="w-1/2 md:w-full mr-0"
+                onClick={isDesktop ? () => setDialogOpen(true) : () => window.open(whatsappUrl, "_blank")}
+              >
                 <CalendarCheck className="mr-2" />
                 Solicitar cita
-              </Link>
-            </Button>
+              </Button>
+              <WhatsAppQrDialog url={whatsappUrl} open={dialogOpen} onOpenChange={setDialogOpen} />
+            </>
           )}
 
           <div className="flex justify-between pt-6">
