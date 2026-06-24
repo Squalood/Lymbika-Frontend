@@ -13,9 +13,9 @@ async function getCategoryData(slug: string): Promise<{
   const [productsRes, categoriesRes] = await Promise.all([
     fetch(
       `${BASE}/api/products?populate=*&filters[category][slug][$eq]=${slug}&pagination[pageSize]=1000`,
-      { next: { revalidate: 3600 } }
+      { next: { revalidate: 300 } }
     ),
-    fetch(`${BASE}/api/categories?populate=*`, { next: { revalidate: 3600 } }),
+    fetch(`${BASE}/api/categories?populate=*`, { next: { revalidate: 300 } }),
   ]);
 
   const [productsJson, categoriesJson] = await Promise.all([

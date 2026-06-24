@@ -15,32 +15,47 @@ const ChooseCategory = () => {
             {loading && 
                 <SkeletonGalleryCol3 grid={6} />
             }
-            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-5">
-                {!loading && result?.map((category: CategoryType) => (
-                    <Link 
-                        key={category.id} 
-                        href={`/category/${category.slug}`}
-                        className="relative max-w-xs mx-auto overflow-hidden bg-no-repeat bg-cover rounded-lg"
-                    >
-                        {category.mainImage?.url ? (
-                            <Image
-                                src={category.mainImage.url}
-                                alt={category.categoryName}
-                                width={270}
-                                height={200}
-                                className="w-full h-auto transition duration-300 ease-in-out rounded-lg hover:scale-110"
-                            />
-                        ) : (
-                            <div className="w-[270px] h-[200px] bg-gray-300 flex items-center justify-center">
-                                <span className="text-gray-700">Sin imagen</span>
+            {!loading && (() => {
+                const withImage = result?.filter((c: CategoryType) => c.mainImage?.url) ?? [];
+                const withoutImage = result?.filter((c: CategoryType) => !c.mainImage?.url) ?? [];
+                return (
+                    <>
+                        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-5">
+                            {withImage.map((category: CategoryType) => (
+                                <Link
+                                    key={category.id}
+                                    href={`/category/${category.slug}`}
+                                    className="relative max-w-xs mx-auto overflow-hidden bg-no-repeat bg-cover rounded-lg"
+                                >
+                                    <Image
+                                        src={category.mainImage!.url}
+                                        alt={category.categoryName}
+                                        width={270}
+                                        height={200}
+                                        className="w-full h-auto transition duration-300 ease-in-out rounded-lg hover:scale-110"
+                                    />
+                                    <p className="absolute w-full py-0 sm:py-1 text-xs sm:text-lg font-bold text-center text-white bottom-5 backdrop-blur-lg">
+                                        {category.categoryName}
+                                    </p>
+                                </Link>
+                            ))}
+                        </div>
+                        {withoutImage.length > 0 && (
+                            <div className="flex flex-wrap gap-2 mt-4">
+                                {withoutImage.filter((c: CategoryType) => c.slug).map((category: CategoryType) => (
+                                    <Link
+                                        key={category.id}
+                                        href={`/category/${category.slug}`}
+                                        className="flex-1 text-center px-4 py-1.5 text-sm font-medium border border-gray-400 rounded-md text-gray-700 hover:border-primary hover:text-primary transition-colors"
+                                    >
+                                        {category.categoryName}
+                                    </Link>
+                                ))}
                             </div>
                         )}
-                        <p className="absolute w-full py-0 sm:py-1 text-xs sm:text-lg font-bold text-center text-white bottom-5 backdrop-blur-lg">
-                            {category.categoryName}
-                        </p>
-                    </Link>
-                ))}
-            </div>
+                    </>
+                );
+            })()}
         </div>
      );
 }
