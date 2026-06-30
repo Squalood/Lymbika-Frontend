@@ -49,7 +49,14 @@ export type ServiceRateType = {
   price: number;
   duration_min: number | null;
   notes: string | null;
-  medical_service: { id: number; name: string; slug: string };
+  medical_service: {
+    id: number;
+    name: string;
+    slug: string;
+    description: string;
+    image: { url: string } | null;
+    type: "consultation" | "procedure" | "study";
+  };
   doctor?: { doctorName: string } | null;
   package_label: string | null;
   package_items: string[] | null;
