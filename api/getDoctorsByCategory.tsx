@@ -10,8 +10,8 @@ export function useGetDoctorsByCategory(slug: string, type: CategoryType) {
 
   // Construye la URL dinámicamente según el tipo
   const url = slug
-    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/doctors?populate=*&filters[${type === "service" ? "services" : "surgeries"}][slug][$eq]=${slug}`
-    : `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/doctors?populate=*`;
+    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/doctors?populate=*&pagination[pageSize]=100&filters[${type === "service" ? "services" : "surgeries"}][slug][$eq]=${slug}`
+    : `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/doctors?populate=*&pagination[pageSize]=100`;
 
   useEffect(() => {
     (async () => {

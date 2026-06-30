@@ -2,7 +2,7 @@ import { DoctorType } from "@/types/doctor";
 import { useEffect, useState } from "react";
 
 export function useGetDoctors() {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/doctors?populate=*`;
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/doctors?populate=*&pagination[pageSize]=100`;
   const [doctors, setResult] = useState<DoctorType[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
