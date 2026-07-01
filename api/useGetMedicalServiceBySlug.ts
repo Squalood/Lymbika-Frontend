@@ -23,6 +23,7 @@ export function useGetMedicalServiceBySlug(slug: string) {
           `&populate[landing_video_url]=*` +
           `&populate[landing_gallery][fields][0]=url` +
           `&populate[faq_group][populate][faq]=*` +
+          `&populate[landingTexts]=*` +
           `&populate[service_rates][populate][doctor][fields][0]=doctorName` +
           `&populate[service_rates][populate][doctor][fields][1]=slug` +
           `&populate[service_rates][populate][doctor][fields][2]=contactButton` +

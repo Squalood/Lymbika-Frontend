@@ -42,6 +42,31 @@ export type LandingVideoType = {
 
 export type FaqGroupType = FaqType;
 
+export type LandingTextsType = {
+  hero_price_label: string | null;
+  hero_primary_button: string | null;
+  hero_secondary_button: string | null;
+  video_label: string | null;
+  benefits_label: string | null;
+  benefits_title: string | null;
+  package_label_section: string | null;
+  package_title: string | null;
+  package_cta_button: string | null;
+  gallery_label: string | null;
+  gallery_title: string | null;
+  doctors_label: string | null;
+  doctors_label_plural: string | null;
+  doctors_title: string | null;
+  doctors_title_plural: string | null;
+  doctors_profile_button: string | null;
+  faq_label: string | null;
+  faq_header_title: string | null;
+  faq_header_subtitle: string | null;
+  cta_title: string | null;
+  cta_subtitle: string | null;
+  cta_button: string | null;
+};
+
 // ─── Service Rate ────────────────────────────────────────────────────────────
 
 export type ServiceRateType = {
@@ -91,5 +116,6 @@ export type MedicalServiceType = {
   landing_video_url?: LandingVideoType | null;
   landing_gallery?: { url: string }[] | null;
   faq_group?: FaqGroupType | null;
+  landingTexts?: LandingTextsType | null;
   service_rates?: ServiceRateWithDoctorType[];
 };

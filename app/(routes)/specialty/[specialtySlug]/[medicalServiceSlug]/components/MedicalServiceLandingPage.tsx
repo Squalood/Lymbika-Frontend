@@ -56,6 +56,7 @@ export default function MedicalServiceLandingPage({
   const gallery = service.landing_gallery ?? [];
   const faqGroup = service.faq_group ?? null;
   const serviceRates = service.service_rates ?? [];
+  const t = service.landingTexts;
 
   return (
     <div className="min-h-screen bg-background">
@@ -111,17 +112,17 @@ export default function MedicalServiceLandingPage({
 
           {hero?.price_display && (
             <div className="inline-flex items-baseline gap-2 mb-9 px-7 py-3.5 rounded-2xl border border-white/20 bg-white/10">
-              <span className="text-xs font-semibold text-white/65 tracking-widest uppercase self-center">desde</span>
               <span className="text-3xl font-extrabold text-white tracking-tight">{hero.price_display}</span>
+              <span className="text-xs font-semibold text-white/65 tracking-widest uppercase self-center">{t?.hero_price_label ?? "Todo incluido"}</span>
             </div>
           )}
 
           <div className="flex gap-3 justify-center flex-wrap mb-10">
             <Button asChild className="rounded-full px-8 gap-2">
-              <a href="#package">Ver los paquetes <MoveRight className="w-4 h-4" /></a>
+              <a href="#package">{t?.hero_primary_button ?? "Ver los paquetes"} <MoveRight className="w-4 h-4" /></a>
             </Button>
             <Button asChild variant="outline" className="rounded-full px-8 border-white/35 text-white hover:bg-white/10 hover:text-white bg-transparent backdrop-blur-sm">
-              <a href="#beneficios">Conocer más</a>
+              <a href="#beneficios">{t?.hero_secondary_button ?? "Conocer más"}</a>
             </Button>
           </div>
 
@@ -170,7 +171,7 @@ export default function MedicalServiceLandingPage({
         <section className="w-full py-4 px-4 md:px-8 max-w-6xl mx-auto space-y-6">
           <div className="space-y-3 text-center">
             <span className="text-xs font-bold tracking-widest uppercase text-primary">
-              Testimonios reales
+              {t?.video_label ?? "Testimonios reales"}
             </span>
             <h2 className="text-2xl md:text-3xl font-bold text-foreground leading-snug">
               {video.title ?? "Resultados reales, pacientes reales"}
@@ -193,10 +194,10 @@ export default function MedicalServiceLandingPage({
         <section id="beneficios" className="w-full py-4 px-4 md:px-8 max-w-6xl mx-auto space-y-8">
           <div className="space-y-3 text-center">
             <span className="text-xs font-bold tracking-widest uppercase text-primary">
-              El procedimiento
+              {t?.benefits_label ?? "El procedimiento"}
             </span>
             <h2 className="text-2xl md:text-3xl font-bold text-foreground leading-snug">
-              Por qué elegir este procedimiento
+              {t?.benefits_title ?? "Por qué elegir este procedimiento"}
             </h2>
           </div>
 
@@ -256,10 +257,10 @@ export default function MedicalServiceLandingPage({
         <section id="package" className="w-full py-4 px-4 md:px-8 max-w-6xl mx-auto space-y-8">
           <div className="space-y-3 text-center">
             <span className="text-xs font-bold tracking-widest uppercase text-primary">
-              Inversión
+              {t?.package_label_section ?? "Inversión"}
             </span>
             <h2 className="text-2xl md:text-3xl font-bold text-foreground leading-snug">
-              Todo incluido, sin sorpresas
+              {t?.package_title ?? "Todo incluido, sin sorpresas"}
             </h2>
           </div>
 
@@ -307,7 +308,7 @@ export default function MedicalServiceLandingPage({
                   )}
                   {rate.doctor?.contactButton
                     ? <ContactButton contactButton={rate.doctor.contactButton} className="w-full" />
-                    : <Button className="w-full gap-2" asChild><a href="#contacto">Agendar valoración <MoveRight className="w-4 h-4" /></a></Button>
+                    : <Button className="w-full gap-2" asChild><a href="#contacto">{t?.package_cta_button ?? "Agendar valoración"} <MoveRight className="w-4 h-4" /></a></Button>
                   }
                 </div>
               </div>
@@ -322,10 +323,10 @@ export default function MedicalServiceLandingPage({
         <section id="resultados" className="w-full py-4 px-4 md:px-8 max-w-6xl mx-auto space-y-8">
           <div className="space-y-3 text-center">
             <span className="text-xs font-bold tracking-widest uppercase text-primary">
-              Resultados
+              {t?.gallery_label ?? "Resultados"}
             </span>
             <h2 className="text-2xl md:text-3xl font-bold text-foreground leading-snug">
-              Resultados reales
+              {t?.gallery_title ?? "Resultados reales"}
             </h2>
           </div>
 
@@ -356,10 +357,10 @@ export default function MedicalServiceLandingPage({
         <section className="w-full py-4 px-4 md:px-8 max-w-6xl mx-auto space-y-8">
           <div className="space-y-3 text-center">
             <span className="text-xs font-bold tracking-widest uppercase text-primary">
-              {serviceRates.length === 1 ? "Tu especialista" : "Nuestros especialistas"}
+              {serviceRates.length === 1 ? (t?.doctors_label ?? "Tu especialista") : (t?.doctors_label_plural ?? "Nuestros especialistas")}
             </span>
             <h2 className="text-2xl md:text-3xl font-bold text-foreground leading-snug">
-              {serviceRates.length === 1 ? "Conoce a tu especialista" : "Conoce a nuestros especialistas"}
+              {serviceRates.length === 1 ? (t?.doctors_title ?? "Conoce a tu especialista") : (t?.doctors_title_plural ?? "Conoce a nuestros especialistas")}
             </h2>
           </div>
 
@@ -393,7 +394,7 @@ export default function MedicalServiceLandingPage({
                     )}
                     <Button asChild variant="outline" className="gap-2 mt-1" size="sm">
                       <Link href={`/doctor/${doctor.slug}`}>
-                        Ver perfil <ArrowRight className="w-3.5 h-3.5" />
+                        {t?.doctors_profile_button ?? "Ver perfil"} <ArrowRight className="w-3.5 h-3.5" />
                       </Link>
                     </Button>
                   </div>
@@ -409,7 +410,7 @@ export default function MedicalServiceLandingPage({
         <section className="w-full py-4 px-4 md:px-8 max-w-6xl mx-auto space-y-6">
           <div className="space-y-3 text-center">
             <span className="text-xs font-bold tracking-widest uppercase text-primary">
-              Preguntas frecuentes
+              {t?.faq_label ?? "Preguntas frecuentes"}
             </span>
             {faqGroup.title && (
               <h2 className="text-2xl md:text-3xl font-bold text-foreground leading-snug">
@@ -425,8 +426,8 @@ export default function MedicalServiceLandingPage({
 
           <div className="rounded-2xl border overflow-hidden">
             <div className="bg-[#0b1630] px-6 py-5">
-              <h3 className="text-white font-bold text-base">Resolvemos tus dudas</h3>
-              <p className="text-white/60 text-sm mt-1">Todo lo que necesitas saber antes de tu consulta</p>
+              <h3 className="text-white font-bold text-base">{t?.faq_header_title ?? "Resolvemos tus dudas"}</h3>
+              <p className="text-white/60 text-sm mt-1">{t?.faq_header_subtitle ?? "Todo lo que necesitas saber antes de tu consulta"}</p>
             </div>
             <Accordion type="single" collapsible className="bg-card divide-y">
               {faqGroup.faq.map((item, i) => (
@@ -451,15 +452,15 @@ export default function MedicalServiceLandingPage({
       <section id="contacto" className="py-10 px-4 md:px-8 max-w-6xl mx-auto">
         <div className="bg-primary rounded-2xl px-8 py-12 flex flex-col items-center text-center space-y-6">
           <h2 className="text-2xl md:text-3xl font-bold text-white">
-            ¿Listo para dar el siguiente paso?
+            {t?.cta_title ?? "¿Listo para dar el siguiente paso?"}
           </h2>
           <p className="text-white/80 text-sm md:text-base max-w-xl">
-            Agenda tu valoración sin compromiso. Un especialista te guiará en cada etapa del proceso.
+            {t?.cta_subtitle ?? "Agenda tu valoración sin compromiso. Un especialista te guiará en cada etapa del proceso."}
           </p>
           {serviceRates[0]?.doctor?.contactButton && (
             <ContactButton
               contactButton={serviceRates[0].doctor.contactButton}
-              label="Agendar mi valoración"
+              label={t?.cta_button ?? "Agendar mi valoración"}
               className="bg-white text-primary hover:bg-white/90 font-semibold"
             />
           )}
