@@ -52,7 +52,7 @@ export default function MedicalServiceLandingPage({
   const hero = service.landingHero;
   const stats = service.landingStat ?? [];
   const benefits = service.landingBenefit ?? [];
-  const video = service.landing_video_url;
+  // const video = service.landing_video_url;
   const gallery = service.landing_gallery ?? [];
   const faqGroup = service.faq_group ?? null;
   const serviceRates = service.service_rates ?? [];
@@ -166,8 +166,8 @@ export default function MedicalServiceLandingPage({
         </div>
       )}
 
-      {/* ─── VIDEO TESTIMONIAL ─────────────────────────────────────── */}
-      {video?.videoID && (
+      {/* ─── VIDEO TESTIMONIAL (desactivado) ──────────────────────── */}
+      {/* {video?.videoID && (
         <section className="w-full py-4 px-4 md:px-8 max-w-6xl mx-auto space-y-6">
           <div className="space-y-3 text-center">
             <span className="text-xs font-bold tracking-widest uppercase text-primary">
@@ -187,7 +187,7 @@ export default function MedicalServiceLandingPage({
             />
           </div>
         </section>
-      )}
+      )} */}
 
       {/* ─── BENEFITS ──────────────────────────────────────────────── */}
       {benefits.length > 0 && (
