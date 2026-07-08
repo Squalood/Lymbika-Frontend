@@ -55,8 +55,9 @@ const ClinicProducts = ({ clinicSlug, clinicTitle }: ClinicProductsProps) => {
           allProducts={products}
           allDoctors={doctors}
           allServices={[]}
-          allSurgeries={[]}
           allCategories={[]}
+          allMedicalServices={[]}
+          allClinics={[]}
         />
       </div>
 

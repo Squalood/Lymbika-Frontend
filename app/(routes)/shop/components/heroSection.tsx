@@ -66,9 +66,10 @@ const HeroSection = ({ hero }: HeroProps) => {
               <SearchGeneral 
                 allProducts={products} 
                 allDoctors={doctors} 
-                allServices={[]} 
-                allSurgeries={[]} 
+                allServices={[]}
                 allCategories={[]}
+                allMedicalServices={[]}
+                allClinics={[]}
               />
             </div>
           </div>

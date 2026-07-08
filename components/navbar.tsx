@@ -15,8 +15,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useGetDoctors } from "@/api/getDoctor";
 import { useGetServices } from "@/api/getService";
 import { ResponseType } from "@/types/response";
-import { useGetSugery } from "@/api/getSugery";
 import { useGetCategories } from "@/api/getCategories";
+import { useGetAllMedicalServices } from "@/api/useGetAllMedicalServices";
+import { useGetClinics } from "@/api/useGetClinics";
 import { NavbarSectionType } from "@/types/single-types/navbar";
 
 interface AuthUserProps {
@@ -38,8 +39,9 @@ interface AuthUserProps {
     const { products } = useGetProducts();
     const { doctors } = useGetDoctors();
     const { result: services }: ResponseType = useGetServices();
-    const { result: surgery }: ResponseType = useGetSugery();
     const { result: category }: ResponseType = useGetCategories();
+    const { medicalServices } = useGetAllMedicalServices();
+    const { clinics } = useGetClinics();
     
 
     const [showSearch, setShowSearch] = useState(false);
@@ -135,7 +137,7 @@ interface AuthUserProps {
                         transition={{ duration: 0.3 }}
                         className="absolute top-full w-full sm:w-96 z-50 mt-2"
                     >
-                        <SearchGeneral allProducts={products} allDoctors={doctors} allServices={services ?? []} allSurgeries={surgery} allCategories={category} />
+                        <SearchGeneral allProducts={products} allDoctors={doctors} allServices={services ?? []} allCategories={category} allMedicalServices={medicalServices} allClinics={clinics} />
                     </motion.div>
                     )}
                 </AnimatePresence>

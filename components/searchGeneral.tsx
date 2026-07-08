@@ -6,9 +6,10 @@ import { ChevronRight, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { ProductType } from "@/types/product";
 import { DoctorType } from "@/types/doctor";
-import { ServiceType } from "@/types/service";
-import { SugeryType } from "@/types/sugery";
+import { ServiceType, ServiceIconType } from "@/types/service";
 import { CategoryType } from "@/types/category";
+import { MedicalServiceType } from "@/types/medicalService";
+import { ClinicType } from "@/types/clinic";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import SearchPreview from "./searchPreview";
@@ -17,25 +18,30 @@ type Props = {
   allProducts: ProductType[];
   allDoctors: DoctorType[];
   allServices: ServiceType[];
-  allSurgeries: SugeryType[];
   allCategories: CategoryType[];
+  allMedicalServices: MedicalServiceType[];
+  allClinics: ClinicType[];
 };
 
 type SearchableItem = {
-  type: "product" | "doctor" | "service" | "surgery" | "category";
+  type: "product" | "doctor" | "service" | "category" | "medicalService" | "clinic";
   id: number;
   name: string;
   slug: string;
   imageUrl: string;
   sal: string;
+  icon?: ServiceIconType | string;
+  medicalServiceType?: MedicalServiceType["type"];
+  specialtySlug?: string;
 };
 
 export function SearchGeneral({
   allProducts,
   allDoctors,
   allServices,
-  allSurgeries,
   allCategories,
+  allMedicalServices,
+  allClinics,
 }: Props) {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
@@ -91,16 +97,7 @@ export function SearchGeneral({
           sal: "nulo",
           slug: s.slug,
           imageUrl: s.image?.url || "/placeholder.png",
-        })),
-        ...allSurgeries.filter(s =>
-          s.surgeryName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(normalizedTerm)
-        ).map(s => ({
-          type: "surgery" as const,
-          id: s.id,
-          name: s.surgeryName,
-          sal: "nulo",
-          slug: s.slug,
-          imageUrl: s.image?.url || "/placeholder.png",
+          icon: s.icon,
         })),
         ...allCategories.filter(c =>
           c.categoryName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(normalizedTerm)
@@ -111,6 +108,29 @@ export function SearchGeneral({
           sal: "nulo",
           slug: c.slug,
           imageUrl: c.mainImage?.url || "/placeholder.png",
+        })),
+        ...allMedicalServices.filter(m =>
+          m.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(normalizedTerm)
+        ).map(m => ({
+          type: "medicalService" as const,
+          id: m.id,
+          name: m.name,
+          sal: "nulo",
+          slug: m.slug,
+          imageUrl: "",
+          medicalServiceType: m.type,
+          specialtySlug: m.specialty?.slug,
+        })),
+        ...allClinics.filter(cl =>
+          cl.title.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").includes(normalizedTerm)
+        ).map(cl => ({
+          type: "clinic" as const,
+          id: cl.id,
+          name: cl.title,
+          sal: "nulo",
+          slug: cl.slug,
+          imageUrl: "",
+          icon: cl.icon,
         })),
       ];
 
@@ -184,6 +204,9 @@ export function SearchGeneral({
                 slug={item.slug}
                 imageUrl={item.imageUrl}
                 sal={item.sal}
+                icon={item.icon}
+                medicalServiceType={item.medicalServiceType}
+                specialtySlug={item.specialtySlug}
               />
             ))}
           </ul>
