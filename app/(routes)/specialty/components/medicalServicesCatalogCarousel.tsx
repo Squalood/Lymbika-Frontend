@@ -34,7 +34,7 @@ const MedicalServicesCatalogCarousel = ({ items, loading, activeSpecialtySlug }:
       ) : filtered.length === 0 ? (
         <p className="text-sm text-gray-500 px-4">No hay servicios disponibles para esta especialidad.</p>
       ) : (
-        <div className="px-4 relative">
+        <div className="px-0 relative">
           <Carousel opts={{ align: "start" }}>
             <CarouselContent className="-ml-2 sm:-ml-4">
               {filtered.map((item) => (

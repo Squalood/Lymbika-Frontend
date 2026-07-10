@@ -87,7 +87,7 @@ const MedicalServiceCard = ({ service, href, minPrice, packageItems }: Props) =>
           </>
         )}
 
-        <div className="mt-auto pt-3 flex items-end justify-between gap-2">
+        <div className="mt-auto pt-3 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div>
             {minPrice !== undefined && (
               <>
@@ -97,7 +97,7 @@ const MedicalServiceCard = ({ service, href, minPrice, packageItems }: Props) =>
               </>
             )}
           </div>
-          <span className={cn(buttonVariants({ size: "sm" }), "shrink-0")}>Cotizar →</span>
+          <span className={cn(buttonVariants({ size: "sm" }), "w-full sm:w-auto shrink-0")}>Cotizar →</span>
         </div>
       </div>
     </Link>
