@@ -23,7 +23,15 @@
       "Bash(curl -s \"https://lymbika.com/sitemap-0.xml\")",
       "Read(//c/Users/ananc/Downloads/**)",
       "Bash(python3 -c ' *)",
-      "Bash(python3 -c \"import sys; [print\\(l.rstrip\\(\\)\\) for l in sys.stdin if 'base64' not in l]\")"
+      "Bash(python3 -c \"import sys; [print\\(l.rstrip\\(\\)\\) for l in sys.stdin if 'base64' not in l]\")",
+      "Skill(run)",
+      "Skill(run:*)",
+      "Bash(curl -s \"https://lymbika-backend.onrender.com/api/service-rates?populate[medical_service][fields][0]=name&fields[0]=price&fields[1]=package_items&pagination[pageSize]=100\")",
+      "Bash(node -e ' *)",
+      "Bash(curl -s \"https://lymbika-backend.onrender.com/api/service-rates?fields[0]=price&fields[1]=package_items&pagination[pageSize]=5\")",
+      "Bash(node -e \"let d='';process.stdin.on\\('data',c=>d+=c\\);process.stdin.on\\('end',\\(\\)=>console.log\\(d.slice\\(0,1000\\)\\)\\)\")",
+      "Bash(pkill -f \"next dev\")",
+      "Bash(pkill -f \"next-server\")"
     ],
     "additionalDirectories": [
       "c:\\Users\\ananc\\Desktop\\Lymbika\\e-lymbika\\frontend-lymbika\\app\\(routes)\\specialty\\[specialtySlug]\\components"
