@@ -56,6 +56,9 @@ export default function MedicalServiceLandingPage({
   const gallery = service.landing_gallery ?? [];
   const faqGroup = service.faq_group ?? null;
   const serviceRates = service.service_rates ?? [];
+  const uniqueDoctorRates = serviceRates.filter((r, idx, arr) =>
+    r.doctor && arr.findIndex((x) => x.doctor?.doctorName === r.doctor?.doctorName) === idx
+  );
   const t = service.landingTexts;
 
   return (
@@ -130,7 +133,7 @@ export default function MedicalServiceLandingPage({
             <div className="flex gap-2 justify-center flex-wrap">
               {hero.trust_pills.map((pill, i) => (
                 <span key={i} className="text-xs text-white/60 bg-white/8 border border-white/12 px-3 py-1 rounded-full">
-                  {pill}
+                  {pill.text}
                 </span>
               ))}
             </div>
@@ -264,56 +267,66 @@ export default function MedicalServiceLandingPage({
             </h2>
           </div>
 
-          <div className={`grid grid-cols-1 gap-6 ${packageRates.length > 1 ? "md:grid-cols-2" : "max-w-2xl mx-auto"}`}>
-            {packageRates.map((rate, i) => (
-              <div key={rate.id ?? i} className="rounded-2xl overflow-hidden border bg-white shadow-sm flex flex-col">
-                {/* Header oscuro */}
-                <div className="bg-[#0b1630] px-6 pt-6 pb-5 space-y-3">
-                  {rate.package_label && (
-                    <span className="inline-flex text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full bg-white/20 text-white">
-                      {rate.package_label}
-                    </span>
-                  )}
-                  <div>
-                    <h3 className="text-xl font-bold text-white">
-                      {rate.doctor?.doctorName ?? service.name}
-                    </h3>
-                  </div>
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-4xl font-extrabold text-white">
-                      ${rate.price.toLocaleString("es-MX")}
-                    </span>
-                    <span className="text-sm text-white/60">MXN</span>
-                  </div>
-                </div>
+          <Carousel opts={{ align: "center", loop: false }} className="w-full relative">
+            <CarouselContent className="-ml-4">
+              {packageRates.map((rate, i) => (
+                <CarouselItem key={rate.id ?? i} className="pl-4 basis-[88%] sm:basis-1/2 mx-auto">
+                  <div className="rounded-2xl overflow-hidden border bg-white shadow-sm flex flex-col h-full">
+                    {/* Header oscuro */}
+                    <div className="bg-[#0b1630] px-6 pt-6 pb-5 space-y-3">
+                      {rate.package_label && (
+                        <span className="inline-flex text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full bg-white/20 text-white">
+                          {rate.package_label}
+                        </span>
+                      )}
+                      <div>
+                        <h3 className="text-xl font-bold text-white">
+                          {rate.doctor?.doctorName ?? service.name}
+                        </h3>
+                      </div>
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-4xl font-extrabold text-white">
+                          ${rate.price.toLocaleString("es-MX")}
+                        </span>
+                        <span className="text-sm text-white/60">MXN</span>
+                      </div>
+                    </div>
 
-                {/* Items incluidos */}
-                {rate.package_items && rate.package_items.length > 0 && (
-                  <div className="flex-1 px-6 py-5">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
-                      {rate.package_items.map((item: string, j: number) => (
-                        <div key={j} className="flex items-start gap-2.5">
-                          <Check className="w-4 h-4 mt-0.5 text-primary shrink-0" />
-                          <p className="text-sm text-foreground">{item}</p>
+                    {/* Items incluidos */}
+                    {rate.package_items && rate.package_items.length > 0 && (
+                      <div className="flex-1 px-6 py-5">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
+                          {rate.package_items.map((item: string, j: number) => (
+                            <div key={j} className="flex items-start gap-2.5">
+                              <Check className="w-4 h-4 mt-0.5 text-primary shrink-0" />
+                              <p className="text-sm text-foreground">{item}</p>
+                            </div>
+                          ))}
                         </div>
-                      ))}
+                      </div>
+                    )}
+
+                    {/* Nota y CTA */}
+                    <div className="px-6 pb-6 pt-2 space-y-3">
+                      {rate.package_note && (
+                        <p className="text-xs text-muted-foreground border-t pt-3">{rate.package_note}</p>
+                      )}
+                      {rate.doctor?.contactButton
+                        ? <ContactButton contactButton={rate.doctor.contactButton} className="w-full" />
+                        : <Button className="w-full gap-2" asChild><a href="#contacto">{t?.package_cta_button ?? "Agendar valoración"} <MoveRight className="w-4 h-4" /></a></Button>
+                      }
                     </div>
                   </div>
-                )}
-
-                {/* Nota y CTA */}
-                <div className="px-6 pb-6 pt-2 space-y-3">
-                  {rate.package_note && (
-                    <p className="text-xs text-muted-foreground border-t pt-3">{rate.package_note}</p>
-                  )}
-                  {rate.doctor?.contactButton
-                    ? <ContactButton contactButton={rate.doctor.contactButton} className="w-full" />
-                    : <Button className="w-full gap-2" asChild><a href="#contacto">{t?.package_cta_button ?? "Agendar valoración"} <MoveRight className="w-4 h-4" /></a></Button>
-                  }
-                </div>
-              </div>
-            ))}
-          </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            {packageRates.length > 1 && (
+              <>
+                <CarouselPrevious className="-left-4 md:-left-6" />
+                <CarouselNext className="-right-4 md:-right-6" />
+              </>
+            )}
+          </Carousel>
         </section>
         );
       })()}
@@ -353,26 +366,31 @@ export default function MedicalServiceLandingPage({
       )}
 
       {/* ─── DOCTOR ────────────────────────────────────────────────── */}
-      {serviceRates.some((r) => r.doctor) && (
+      {uniqueDoctorRates.length > 0 && (
         <section className="w-full py-4 px-4 md:px-8 max-w-6xl mx-auto space-y-8">
           <div className="space-y-3 text-center">
             <span className="text-xs font-bold tracking-widest uppercase text-primary">
-              {serviceRates.length === 1 ? (t?.doctors_label ?? "Tu especialista") : (t?.doctors_label_plural ?? "Nuestros especialistas")}
+              {uniqueDoctorRates.length === 1 ? (t?.doctors_label ?? "Tu especialista") : (t?.doctors_label_plural ?? "Nuestros especialistas")}
             </span>
             <h2 className="text-2xl md:text-3xl font-bold text-foreground leading-snug">
-              {serviceRates.length === 1 ? (t?.doctors_title ?? "Conoce a tu especialista") : (t?.doctors_title_plural ?? "Conoce a nuestros especialistas")}
+              {uniqueDoctorRates.length === 1 ? (t?.doctors_title ?? "Conoce a tu especialista") : (t?.doctors_title_plural ?? "Conoce a nuestros especialistas")}
             </h2>
           </div>
 
           <div className="space-y-6">
-            {serviceRates.map((rate, i) => {
+            {uniqueDoctorRates.map((rate, i) => {
               const doctor = rate.doctor;
               if (!doctor) return null;
               const doctorImg = doctor.bannerImage?.url ?? doctor.image?.[0]?.url ?? null;
+              const MAX_W = 260;
+              const srcW = doctor.bannerImage?.width ?? null;
+              const srcH = doctor.bannerImage?.height ?? null;
+              const imgW = srcW && srcH ? Math.min(MAX_W, srcW) : MAX_W;
+              const imgH = srcW && srcH ? Math.round((srcH / srcW) * imgW) : MAX_W;
               return (
                 <div key={rate.id ?? i} className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
                   {/* Izquierda: card del doctor */}
-                  <div className="rounded-xl border bg-card p-5 flex flex-col sm:flex-row gap-5 items-start max-h-32 overflow-hidden">
+                  <div className="rounded-xl border bg-card p-5 flex flex-col sm:flex-row gap-5 items-start overflow-hidden">
                     <div className="shrink-0 w-20 h-20 rounded-xl overflow-hidden bg-muted">
                       {doctor.image?.[0]?.url ? (
                         <Image
@@ -406,12 +424,15 @@ export default function MedicalServiceLandingPage({
                   {/* Derecha: imagen */}
                   <div className="flex items-center justify-center">
                     {doctorImg ? (
-                      <div className="w-48 rounded-xl overflow-hidden bg-muted shrink-0">
+                      <div
+                        className="rounded-xl overflow-hidden bg-muted shrink-0"
+                        style={{ width: imgW, height: imgH }}
+                      >
                         <Image
                           src={imgUrl(doctorImg)}
                           alt={doctor.doctorName}
-                          width={96}
-                          height={96}
+                          width={imgW}
+                          height={imgH}
                           className="w-full h-full object-cover object-top"
                         />
                       </div>

@@ -9,13 +9,12 @@ export type LandingHeroType = {
   price_display: string | null;
   hero_video: { url: string } | null;
   hero_image: { url: string } | null;
-  trust_pills: string[] | null;
+  trust_pills: { text: string }[] | null;
 };
 
 export type LandingStatType = {
   number: string | null;
   label: string | null;
-  icon: string | null;
 };
 
 export type FeatureIconType =

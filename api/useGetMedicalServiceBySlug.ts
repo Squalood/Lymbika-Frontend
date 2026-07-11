@@ -18,6 +18,7 @@ export function useGetMedicalServiceBySlug(slug: string) {
           `?filters[slug][$eq]=${slug}` +
           `&populate[landingHero][populate][hero_video][fields][0]=url` +
           `&populate[landingHero][populate][hero_image][fields][0]=url` +
+          `&populate[landingHero][populate][trust_pills][fields][0]=text` +
           `&populate[landingStat]=*` +
           `&populate[landingBenefit]=*` +
           `&populate[landing_video_url]=*` +
@@ -28,7 +29,9 @@ export function useGetMedicalServiceBySlug(slug: string) {
           `&populate[service_rates][populate][doctor][fields][1]=slug` +
           `&populate[service_rates][populate][doctor][fields][2]=contactButton` +
           `&populate[service_rates][populate][doctor][populate][image][fields][0]=url` +
-          `&populate[service_rates][populate][doctor][populate][bannerImage][fields][0]=url`
+          `&populate[service_rates][populate][doctor][populate][bannerImage][fields][0]=url` +
+          `&populate[service_rates][populate][doctor][populate][bannerImage][fields][1]=width` +
+          `&populate[service_rates][populate][doctor][populate][bannerImage][fields][2]=height`
         );
         const json = await res.json();
 
