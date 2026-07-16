@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ClinicType } from "@/types/clinic";
 
 export function useGetClinics() {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/clinics?populate=*`;
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/clinics?populate=*&pagination[pageSize]=100`;
   const [clinics, setClinics] = useState<ClinicType[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");

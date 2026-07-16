@@ -3,7 +3,6 @@ import CarouselTextBanner from "@/components/carousel-text-banner";
 import ChooseCategory from "@/components/choose-category";
 import TopContact from "@/components/top-contact";
 import HospitaSection from "./(routes)/hospitals/components/hospitalsSection";
-import PlanSection from "./(routes)/membership/components/plansSection";
 import DoctorReel from "./(routes)/doctor-catalog/components/doctorReel";
 import SurgeryFaq from "./(routes)/surgery/components/surgeryFaq";
 import TuristSection from "@/components/turistSection";
@@ -66,11 +65,10 @@ export default async function Home() {
       {promoItems.length > 0 && <PromoCarousel data={promoData} aspectRatio="video" />}
       <HospitaSection />
       <ChooseCategory />
-      <PlanSection />
+      <AlyusSection {...page?.landingPageJson?.alyusSection} />
       {page && <VideosSection data={page} />}
       <GalleryCarousel gallery={gallery} />
       <SurgeryFaq />
-      <AlyusSection {...page?.landingPageJson?.alyusSection} />
       <AreDoctorsSection {...page?.landingPageJson?.areDoctorsSection} />
     </main>
   );

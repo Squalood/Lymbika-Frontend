@@ -12,7 +12,7 @@ export function useGetAllMedicalServices() {
       setLoading(true);
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/medical-services?populate[image][fields][0]=url&populate[specialty][fields][0]=slug`
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/medical-services?populate[image][fields][0]=url&populate[specialty][fields][0]=slug&pagination[pageSize]=200`
         );
         const json = await res.json();
 
