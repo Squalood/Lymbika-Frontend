@@ -3,46 +3,45 @@ import { useGetCategories } from "@/api/getCategories";
 import { CategoryType } from "@/types/category";
 import {ResponseType} from '@/types/response';
 import Link from "next/link";
-import Image from "next/image";
 import SkeletonGalleryCol3 from "./skeleton/skeletonGalleryCol3";
+import { CATEGORY_ICONS } from "@/lib/categoryIcons";
 
-const ChooseCategory = () => {
+const ChooseCategoryAlt = () => {
     const { result, loading }: ResponseType = useGetCategories()
 
-    return ( 
+    return (
         <div className="sm:max-w-6xl py-4 mx-2 lg:mx-auto sm:py-16">
             <h3 className="px-2 pb-4 text-3xl sm:pb-8">Categorías de la Farmacia</h3>
-            {loading && 
+            {loading &&
                 <SkeletonGalleryCol3 grid={6} />
             }
             {!loading && (() => {
-                const withImage = result?.filter((c: CategoryType) => c.mainImage?.url) ?? [];
-                const withoutImage = result?.filter((c: CategoryType) => !c.mainImage?.url) ?? [];
+                const withIcon = result?.filter((c: CategoryType) => c.icon) ?? [];
+                const withoutIcon = result?.filter((c: CategoryType) => !c.icon) ?? [];
                 return (
                     <>
                         <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-5">
-                            {withImage.map((category: CategoryType) => (
-                                <Link
-                                    key={category.id}
-                                    href={`/category/${category.slug}`}
-                                    className="relative max-w-xs mx-auto overflow-hidden bg-no-repeat bg-cover rounded-lg"
-                                >
-                                    <Image
-                                        src={category.mainImage!.url}
-                                        alt={category.categoryName}
-                                        width={270}
-                                        height={200}
-                                        className="w-full h-auto transition duration-300 ease-in-out rounded-lg hover:scale-110"
-                                    />
-                                    <p className="absolute w-full py-0 sm:py-1 text-xs sm:text-lg font-bold text-center text-white bottom-5 backdrop-blur-lg">
-                                        {category.categoryName}
-                                    </p>
-                                </Link>
-                            ))}
+                            {withIcon.map((category: CategoryType) => {
+                                const Icon = CATEGORY_ICONS[category.icon!];
+                                return (
+                                    <Link
+                                        key={category.id}
+                                        href={`/category/${category.slug}`}
+                                        className="group flex flex-col items-center gap-3 rounded-lg border border-gray-200 bg-white px-3 py-6 text-center transition-colors hover:border-primary hover:bg-primary/5"
+                                    >
+                                        <span className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary transition-all duration-300 ease-in-out group-hover:scale-125 group-hover:bg-primary group-hover:text-white">
+                                            <Icon size={28} strokeWidth={1.75} />
+                                        </span>
+                                        <p className="text-xs font-medium text-center text-gray-700 sm:text-sm group-hover:text-primary">
+                                            {category.categoryName}
+                                        </p>
+                                    </Link>
+                                );
+                            })}
                         </div>
-                        {withoutImage.length > 0 && (
+                        {withoutIcon.length > 0 && (
                             <div className="flex flex-wrap gap-2 mt-4">
-                                {withoutImage.filter((c: CategoryType) => c.slug).map((category: CategoryType) => (
+                                {withoutIcon.filter((c: CategoryType) => c.slug).map((category: CategoryType) => (
                                     <Link
                                         key={category.id}
                                         href={`/category/${category.slug}`}
@@ -59,5 +58,5 @@ const ChooseCategory = () => {
         </div>
      );
 }
- 
-export default ChooseCategory;
+
+export default ChooseCategoryAlt;
