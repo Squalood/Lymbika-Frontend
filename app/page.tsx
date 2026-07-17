@@ -3,7 +3,6 @@ import CarouselTextBanner from "@/components/carousel-text-banner";
 import ChooseCategory from "@/components/choose-category";
 import TopContact from "@/components/top-contact";
 import HospitaSection from "./(routes)/hospitals/components/hospitalsSection";
-import DoctorReel from "./(routes)/doctor-catalog/components/doctorReel";
 import SurgeryFaq from "./(routes)/surgery/components/surgeryFaq";
 import TuristSection from "@/components/turistSection";
 import ClinicsClientWrapper from "./(routes)/clinics/ClinicsClientWrapper";
@@ -66,7 +65,6 @@ export default async function Home() {
       <HospitaSection />
       <ChooseCategory />
       <AlyusSection {...page?.landingPageJson?.alyusSection} />
-      
       <GalleryCarousel gallery={gallery} />
       <SurgeryFaq />
       <AreDoctorsSection {...page?.landingPageJson?.areDoctorsSection} />

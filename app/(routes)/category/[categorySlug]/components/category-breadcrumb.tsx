@@ -34,7 +34,6 @@ export default function CategoryBreadcrumb({ currentCategory, categories }: Prop
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator>
-          <SlashIcon />
         </BreadcrumbSeparator>
         <BreadcrumbItem>
           <DropdownMenu>
@@ -56,7 +55,6 @@ export default function CategoryBreadcrumb({ currentCategory, categories }: Prop
           </DropdownMenu>
         </BreadcrumbItem>
         <BreadcrumbSeparator>
-          <SlashIcon />
         </BreadcrumbSeparator>
         <BreadcrumbItem>
           <BreadcrumbPage className="text-xl">{currentCategory?.categoryName}</BreadcrumbPage>
