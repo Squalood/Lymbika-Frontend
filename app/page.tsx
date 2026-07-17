@@ -61,12 +61,12 @@ export default async function Home() {
       <TuristSection {...page?.landingPageJson?.turistSection} />
       <ClinicsClientWrapper />
       <CarouselServices />
-      <DoctorReel />
+      {page && <VideosSection data={page} />}
       {promoItems.length > 0 && <PromoCarousel data={promoData} aspectRatio="video" />}
       <HospitaSection />
       <ChooseCategory />
       <AlyusSection {...page?.landingPageJson?.alyusSection} />
-      {page && <VideosSection data={page} />}
+      
       <GalleryCarousel gallery={gallery} />
       <SurgeryFaq />
       <AreDoctorsSection {...page?.landingPageJson?.areDoctorsSection} />
