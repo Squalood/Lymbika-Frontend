@@ -121,6 +121,7 @@ const PlansSection = ({ data, texts, modalPlan }: PlansProps) => {
         <CarouselContent>
           {planItems.slice(0, 3).map((paquete) => {
             const isProminent = !!paquete.prominent;
+            const isCustomPrice = Number(paquete.price) === 0;
             return (
               <CarouselItem
                 key={paquete.id ?? crypto.randomUUID()}
@@ -145,10 +146,18 @@ const PlansSection = ({ data, texts, modalPlan }: PlansProps) => {
                       </p>
                     </div>
                     <div className="flex items-baseline gap-2">
-                      <span className="text-4xl font-extrabold text-white">
-                        {formatPrice(paquete.price) ?? "—"}
-                      </span>
-                      <span className="text-sm text-white/60">MXN/mes</span>
+                      {isCustomPrice ? (
+                        <span className="text-2xl font-extrabold text-white">
+                          Alianza personalizada
+                        </span>
+                      ) : (
+                        <>
+                          <span className="text-4xl font-extrabold text-white">
+                            {formatPrice(paquete.price) ?? "—"}
+                          </span>
+                          <span className="text-sm text-white/60">MXN/mes</span>
+                        </>
+                      )}
                     </div>
                   </div>
 

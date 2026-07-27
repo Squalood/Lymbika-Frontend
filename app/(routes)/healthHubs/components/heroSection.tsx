@@ -23,7 +23,7 @@ const MedicalHero = ({ hero, stats }: MedicalHeroProps) => {
           <div className="space-y-5 md:space-y-8">
             {/* Badge */}
             <span className="inline-block bg-[#1a2f5e] text-[#7eb3f5] text-xs font-semibold tracking-widest uppercase px-4 py-2 rounded-full border border-[#2a4a8a]">
-              Para médicos especialistas
+              Para cirujanos, clínicas y hospitales
             </span>
 
             {/* Título */}
