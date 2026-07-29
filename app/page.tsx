@@ -58,8 +58,8 @@ export default async function Home() {
       <Hero hero={heroData} />
       <CarouselTextBanner />
       <TuristSection {...page?.landingPageJson?.turistSection} />
-      <ClinicsClientWrapper />
       <CarouselServices />
+      <ClinicsClientWrapper />
       {page && <VideosSection data={page} />}
       {promoItems.length > 0 && <PromoCarousel data={promoData} aspectRatio="video" />}
       <HospitaSection />
