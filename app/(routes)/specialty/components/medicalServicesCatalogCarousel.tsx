@@ -28,7 +28,7 @@ const MedicalServicesCatalogCarousel = ({ items, loading, activeSpecialtySlug }:
 
   return (
     <div className="space-y-4">
-      <h2 className="text-2xl font-semibold text-gray-900 mb-1">Servicios médicos</h2>
+      <h2 className="text-2xl font-semibold text-gray-900 mb-1">Cirugías, procedimientos y consultas</h2>
       {loading ? (
         <SkeletonGalleryCol3 grid={8} />
       ) : filtered.length === 0 ? (

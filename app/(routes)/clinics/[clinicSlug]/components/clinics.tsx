@@ -54,7 +54,7 @@ export default function Clinics({ data }: ClinicsListProps) {
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
       <div className="mb-10">
-        <h2 className="text-2xl md:text-3xl">Nuestras Clínicas</h2>
+        <h2 className="text-2xl md:text-3xl">Encuentra la atención que necesitas</h2>
       </div>
 
       <div className="flex flex-wrap gap-4">
