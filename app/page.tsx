@@ -39,7 +39,7 @@ async function getHomeData(): Promise<HomePageType | null> {
   try {
     const res = await fetch(
       `${BASE}/api/home-page?${SECTIONS_QUERY}`,
-      { next: { revalidate: 0 } }
+      { next: { revalidate: 300 } }
     );
     if (!res.ok) {
       console.error("[home-page] Strapi error:", res.status, await res.text());
