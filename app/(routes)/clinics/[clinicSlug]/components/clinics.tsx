@@ -12,6 +12,7 @@ import {
 
 type ClinicsListProps = {
   data: ClinicType[];
+  title?: string;
 };
 
 // Mapa de nombre de iconos a componentes
@@ -41,7 +42,7 @@ const iconMap: Record<string, LucideIcon> = {
 // Icono por defecto si no se encuentra
 const DefaultIcon = Laugh;
 
-export default function Clinics({ data }: ClinicsListProps) {
+export default function Clinics({ data, title }: ClinicsListProps) {
   if (!data || data.length === 0) return null;
 
   // Filtrar clínicas destacadas y seleccionar 2 aleatoriamente
@@ -54,7 +55,7 @@ export default function Clinics({ data }: ClinicsListProps) {
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
       <div className="mb-10">
-        <h2 className="text-2xl md:text-3xl">Encuentra la atención que necesitas</h2>
+        <h2 className="text-2xl md:text-3xl">{title ?? "Encuentra la atención que necesitas"}</h2>
       </div>
 
       <div className="flex flex-wrap gap-4">

@@ -1,9 +1,33 @@
 import Link from "next/link"
-import { LandingPageJson } from "@/types/landingPageJson"
 import ChatDemo from "@/components/chat-demo"
 import PlanSectionAlt from "@/app/(routes)/membership/components/plansSectionAlt"
+import { HomeFeature, HomeChatMessage } from "@/types/single-types/home"
+import {
+  Zap, Shield, Brain, Heart, Clock, Star, Globe, Phone, Lock,
+  Activity, Stethoscope, Users, Bot, Sparkles, Check, Cpu,
+  Smile, Medal, Leaf, FlaskConical, MonitorSmartphone,
+  MessageSquare, Calendar, CreditCard, Video, X,
+  type LucideIcon,
+} from "lucide-react"
 
-type AlyusSectionProps = NonNullable<LandingPageJson["alyusSection"]>
+const iconMap: Record<string, LucideIcon> = {
+  Zap, Shield, Brain, Heart, Clock, Star, Globe, Phone, Lock,
+  Activity, Stethoscope, Users, Bot, Sparkles, Check, Cpu,
+  Smile, Medal, Leaf, FlaskConical, MonitorSmartphone,
+  MessageSquare, Calendar, CreditCard, Video,
+}
+
+type AlyusSectionProps = {
+  badge?: string
+  label?: string
+  title?: string
+  description?: string
+  chatFooter?: string
+  ctaText?: string
+  ctaHref?: string
+  features?: HomeFeature[]
+  messages?: HomeChatMessage[]
+}
 
 const AlyusSection = ({
   badge,
@@ -31,7 +55,6 @@ const AlyusSection = ({
       <div className="relative max-w-6xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-[1fr_400px] gap-12 md:gap-14 items-center">
 
-          {/* Text */}
           <div>
             <p className="text-xs font-bold uppercase tracking-[2px] text-blue-300 mb-2.5">
               {label}
@@ -46,22 +69,23 @@ const AlyusSection = ({
               {description}
             </p>
 
-            {/* Features */}
             <div className="flex flex-col gap-3.5">
-              {features.map((f, i) => (
-                <div key={i} className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-base shrink-0 mt-0.5">
-                    {f.icon}
+              {features.map((f) => {
+                const Icon: LucideIcon = f.icon ? (iconMap[f.icon] ?? X) : X
+                return (
+                  <div key={f.id} className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center shrink-0 mt-0.5">
+                      <Icon size={16} className="text-white/80" />
+                    </div>
+                    <div>
+                      <p className="font-bold text-white text-sm mb-0.5">{f.title}</p>
+                      <p className="text-[13px] text-white/60 leading-snug">{f.description}</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-bold text-white text-sm mb-0.5">{f.title}</p>
-                    <p className="text-[13px] text-white/60 leading-snug">{f.desc}</p>
-                  </div>
-                </div>
-              ))}
+                )
+              })}
             </div>
 
-            {/* CTA deshabilitado temporalmente */}
             {false && ctaText && (
               <Link
                 href={ctaHref ?? "#"}
@@ -74,12 +98,10 @@ const AlyusSection = ({
             )}
           </div>
 
-          {/* Visual — chat mockup */}
           <ChatDemo status={badge} messages={messages} footer={chatFooter} />
 
         </div>
 
-        {/* Health Pass pricing */}
         <PlanSectionAlt />
       </div>
     </section>

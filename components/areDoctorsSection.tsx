@@ -1,8 +1,16 @@
 import Link from "next/link"
 import { Check } from "lucide-react"
-import { LandingPageJson } from "@/types/landingPageJson"
+import { HomeTestimonial } from "@/types/single-types/home"
 
-type AreDoctorsSectionProps = NonNullable<LandingPageJson["areDoctorsSection"]>
+type AreDoctorsSectionProps = {
+  badge?: string
+  title?: string
+  description?: string
+  ctaText?: string
+  ctaHref?: string
+  perks?: { id: number; text: string }[]
+  testimonial?: HomeTestimonial | null
+}
 
 const AreDoctorsSection = ({
   badge,
@@ -24,7 +32,6 @@ const AreDoctorsSection = ({
       <div className="relative max-w-6xl mx-auto px-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
 
-        {/* Left — text */}
         <div className="flex flex-col gap-6">
           <p className="text-xs font-bold uppercase tracking-[2px] text-blue-300 mb-2.5">
             {badge}
@@ -39,14 +46,13 @@ const AreDoctorsSection = ({
             {description}
           </p>
 
-          {/* Checklist */}
           <div className="flex flex-col gap-3">
-            {perks.map((perk, i) => (
-              <div key={i} className="flex items-center gap-3">
+            {perks.map((perk) => (
+              <div key={perk.id} className="flex items-center gap-3">
                 <div className="w-6 h-6 rounded-md bg-emerald-500/20 flex items-center justify-center shrink-0">
                   <Check className="w-4 h-4 text-emerald-500" />
                 </div>
-                <span className="text-sm font-semibold text-gray-200">{perk}</span>
+                <span className="text-sm font-semibold text-gray-200">{perk.text}</span>
               </div>
             ))}
           </div>
@@ -61,11 +67,10 @@ const AreDoctorsSection = ({
           </Link>
         </div>
 
-        {/* Right — testimonial */}
         {testimonial && (
           <div className="bg-white/[0.08] border border-white/[0.12] rounded-2xl p-8 flex flex-col gap-6">
             <p className="text-white/80 leading-relaxed italic text-base">
-              &ldquo;{testimonial.quote}&rdquo;
+              &ldquo;{testimonial.text}&rdquo;
             </p>
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-2xl shrink-0">

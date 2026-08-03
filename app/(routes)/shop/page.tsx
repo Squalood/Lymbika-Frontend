@@ -6,8 +6,6 @@ import HeroSection from "./components/heroSection";
 import CTASection from "./components/ctaSection";
 import PromoCarousel from "@/components/promosection";
 import PlanSection from "../membership/components/plansSection";
-import { PageType } from "@/types/pages";
-
 export const metadata: Metadata = {
   title: "Farmacia | Lymbika",
   description: "Encuentra medicamentos, suplementos y productos de cuidado personal. Compra en línea con entrega a domicilio.",
@@ -18,7 +16,10 @@ export const metadata: Metadata = {
 
 const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-async function getShopPage(): Promise<{ hero: PageType | null; promo: PageType | null }> {
+type ShopPromo = { id: number; title: string; image: { url: string }; link: string }
+type ShopPage = { hero?: { title: string; description: string; buttonText: string; buttonUrl: string; image: { url: string } }; promo: ShopPromo[] }
+
+async function getShopPage(): Promise<{ hero: ShopPage | null; promo: ShopPage | null }> {
   const [heroRes, promoRes] = await Promise.all([
     fetch(
       `${BASE}/api/pages?filters[slug][$eq]=farmacia&populate[hero][populate]=image&populate[promo][populate]=image&populate[plan][populate]=plus&populate[plan][populate]=less`,
@@ -41,12 +42,11 @@ async function getShopPage(): Promise<{ hero: PageType | null; promo: PageType |
 export default async function Page() {
   const { hero, promo } = await getShopPage();
   const heroData = hero?.hero;
-  const promoData = promo ? [promo] : [];
 
   return (
     <div>
       <HeroSection hero={heroData} />
-      <PromoCarousel data={promoData} />
+      <PromoCarousel promos={promo?.promo ?? []} />
       <FeaturedProducts />
       <ChooseCategory />
       <PlanSection />

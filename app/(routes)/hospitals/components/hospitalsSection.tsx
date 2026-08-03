@@ -5,7 +5,7 @@ import HospitaCarousel from "./hospitalCarousel";
 import HospitalCardSkeleton from "./hospitalCardSkeleton";
 
 
-const HospitaSection = () => {
+const HospitaSection = ({ title }: { title?: string }) => {
   
   const { loading, hospitals, error } = useGetHospitals();
   
@@ -15,7 +15,7 @@ const HospitaSection = () => {
   
     return (
       <div className="max-w-6xl mx-auto">
-        <h1 className="px-6 text-3xl">Hospitales en Ciudad Juárez</h1>
+        <h1 className="px-6 text-3xl">{title ?? "Hospitales en Ciudad Juárez"}</h1>
         <HospitaCarousel hospitals={hospitals} />
       </div>
       

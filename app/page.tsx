@@ -12,62 +12,152 @@ import GalleryCarousel from "@/components/galleryCarousel";
 import AlyusSection from "@/components/alyusSection";
 import AreDoctorsSection from "@/components/areDoctorsSection";
 import VideosSection from "@/components/videosSection";
-import { PageType } from "@/types/pages";
+import { HomePageType } from "@/types/single-types/home";
 
 const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-async function getHomeData() {
-  const [pageRes, heroRes, galleryRes] = await Promise.all([
-    fetch(
-      `${BASE}/api/pages?filters[slug][$eq]=front-page&populate=*`,
-      { next: { revalidate: 3600 } }
-    ),
-    fetch(
-      `${BASE}/api/pages?filters[slug][$eq]=front-page&populate[hero][populate]=image&populate[promo][populate]=image`,
-      { next: { revalidate: 3600 } }
-    ),
-    fetch(
-      `${BASE}/api/pages?filters[slug][$eq]=front-page&populate[gallery][populate]=images`,
-      { next: { revalidate: 3600 } }
-    ),
-  ]);
+const SECTIONS_QUERY = [
+  "populate[sections][on][hero.hero][populate][image][fields][0]=url",
+  "populate[sections][on][home.text-banner][populate][item]=true",
+  "populate[sections][on][home.turist-section][populate][testimonial]=true",
+  "populate[sections][on][home.videos-section][populate][videos]=true",
+  "populate[sections][on][home.promo-carousel][populate][promos][populate][image][fields][0]=url",
+  "populate[sections][on][home.alyus-section][populate][features]=true",
+  "populate[sections][on][home.alyus-section][populate][messages]=true",
+  "populate[sections][on][gallery.gallery][populate][images][fields][0]=url",
+  "populate[sections][on][home.are-doctors-section][populate][perks]=true",
+  "populate[sections][on][home.are-doctors-section][populate][testimonial]=true",
+  "populate[sections][on][home.clinics][fields][0]=title",
+  "populate[sections][on][home.carousel-services][fields][0]=title",
+  "populate[sections][on][home.carousel-services][fields][1]=subTitle",
+  "populate[sections][on][home.hospital-section][fields][0]=title",
+  "populate[sections][on][home.choose-category][fields][0]=title",
+  "populate[sections][on][home.surgery-faq][populate][faq_group][populate][faq]=true",
+].join("&");
 
-  const [pageJson, heroJson, galleryJson] = await Promise.all([
-    pageRes.json(),
-    heroRes.json(),
-    galleryRes.json(),
-  ]);
+async function getHomeData(): Promise<HomePageType | null> {
+  try {
+    const res = await fetch(
+      `${BASE}/api/home-page?${SECTIONS_QUERY}`,
+      { next: { revalidate: 0 } }
+    );
+    if (!res.ok) {
+      console.error("[home-page] Strapi error:", res.status, await res.text());
+      return null;
+    }
+    const json = await res.json();
+    return json.data ?? null;
+  } catch (err) {
+    console.error("[home-page] fetch failed:", err);
+    return null;
+  }
+}
 
-  const page: PageType | null = pageJson.data?.[0] ?? null;
-  const heroPage: PageType | null = heroJson.data?.[0] ?? null;
-  const gallery = galleryJson.data?.[0]?.gallery ?? null;
-
-  return { page, heroPage, gallery };
+export async function generateMetadata() {
+  const homePage = await getHomeData();
+  if (!homePage?.seoTitle) return {};
+  return {
+    title: homePage.seoTitle,
+    description: homePage.seoDescription,
+  };
 }
 
 export default async function Home() {
-  const { page, heroPage, gallery } = await getHomeData();
-
-  const heroData = heroPage?.hero;
-  const promoData: PageType[] = page ? [page] : [];
-  const promoItems = promoData.flatMap((p) => p.promo).filter((p) => p && p.image?.url);
+  const homePage = await getHomeData();
 
   return (
     <main>
       <TopContact />
-      <Hero hero={heroData} />
-      <CarouselTextBanner />
-      <TuristSection {...page?.landingPageJson?.turistSection} />
-      <CarouselServices />
-      <ClinicsClientWrapper />
-      {page && <VideosSection data={page} />}
-      {promoItems.length > 0 && <PromoCarousel data={promoData} aspectRatio="video" />}
-      <HospitaSection />
-      <ChooseCategory />
-      <AlyusSection {...page?.landingPageJson?.alyusSection} />
-      <GalleryCarousel gallery={gallery} />
-      <SurgeryFaq />
-      <AreDoctorsSection {...page?.landingPageJson?.areDoctorsSection} />
+      {homePage?.sections.map((section) => {
+        const sectionKey = `${section.__component}-${section.id}`;
+        switch (section.__component) {
+          case "hero.hero":
+            return <Hero key={sectionKey} data={section} />;
+          case "home.text-banner":
+            return <CarouselTextBanner key={sectionKey} items={section.item} />;
+          case "home.turist-section":
+            return (
+              <TuristSection
+                key={sectionKey}
+                label={section.label}
+                title={section.title}
+                description={section.description}
+                videoId={section.videoId}
+                videoLabel={section.videoLabel}
+                ctaText={section.ctaText}
+                ctaHref={section.ctaHref}
+                testimonial={section.testimonial}
+              />
+            );
+          case "home.videos-section":
+            return (
+              <VideosSection
+                key={sectionKey}
+                title={section.title}
+                videos={section.videos}
+              />
+            );
+          case "home.promo-carousel":
+            return (
+              <PromoCarousel
+                key={sectionKey}
+                aspectRatio={section.aspectRatio}
+                promos={section.promos}
+              />
+            );
+          case "home.alyus-section":
+            return (
+              <AlyusSection
+                key={sectionKey}
+                badge={section.badge}
+                label={section.label}
+                title={section.title}
+                description={section.description}
+                chatFooter={section.chatFooter}
+                ctaText={section.ctaText}
+                ctaHref={section.ctaHref}
+                features={section.features}
+                messages={section.messages}
+              />
+            );
+          case "gallery.gallery":
+            return (
+              <GalleryCarousel
+                key={sectionKey}
+                gallery={{
+                  id: section.id,
+                  title: section.title ?? "",
+                  images: section.images,
+                }}
+              />
+            );
+          case "home.are-doctors-section":
+            return (
+              <AreDoctorsSection
+                key={sectionKey}
+                badge={section.badge}
+                title={section.title}
+                description={section.description}
+                ctaText={section.ctaText}
+                ctaHref={section.ctaHref}
+                perks={section.perks}
+                testimonial={section.testimonial}
+              />
+            );
+          case "home.clinics":
+            return <ClinicsClientWrapper key={sectionKey} title={section.title} />;
+          case "home.carousel-services":
+            return <CarouselServices key={sectionKey} title={section.title} subTitle={section.subTitle} />;
+          case "home.hospital-section":
+            return <HospitaSection key={sectionKey} title={section.title} />;
+          case "home.choose-category":
+            return <ChooseCategory key={sectionKey} title={section.title} />;
+          case "home.surgery-faq":
+            return <SurgeryFaq key={sectionKey} title={section.title} faqGroup={section.faq_group} />;
+          default:
+            return null;
+        }
+      })}
     </main>
   );
 }

@@ -12,15 +12,21 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import Autoplay from "embla-carousel-autoplay";
-import { PageType } from "@/types/pages";
 
-type PromoProps = {
-  data: PageType[];
-  aspectRatio?: "square" | "video" | "portrait";
+type PromoItem = {
+  id: number;
+  title?: string;
+  link?: string;
+  image?: { url: string } | null;
 };
 
-const PromoCarousel = ({ data, aspectRatio = "square" }: PromoProps) => {
-  const promoItems = data.flatMap((page) => page.promo);
+type PromoCarouselProps = {
+  aspectRatio?: "square" | "video" | "portrait";
+  promos: PromoItem[];
+};
+
+const PromoCarousel = ({ promos, aspectRatio = "video" }: PromoCarouselProps) => {
+  const validPromos = promos.filter((p) => p.image?.url);
 
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
@@ -36,14 +42,11 @@ const PromoCarousel = ({ data, aspectRatio = "square" }: PromoProps) => {
   const basisClass =
     aspectRatio === "video"
       ? "basis-1/2"
-      : aspectRatio === "portrait"
-      ? "basis-1/3"
       : "basis-1/3";
 
   React.useEffect(() => {
     if (!api) return;
 
-    // función para sincronizar
     const update = () => {
       setCount(api.scrollSnapList().length);
       setCurrent(api.selectedScrollSnap());
@@ -59,20 +62,19 @@ const PromoCarousel = ({ data, aspectRatio = "square" }: PromoProps) => {
     };
   }, [api]);
 
+  if (validPromos.length === 0) return null;
+
   return (
     <div className="max-w-6xl mx-auto px-4 mt-0 mb-10 sm:py-10">
       <h1 className="py-4 font-bold text-xl">Nuestras últimas promociones</h1>
       <Carousel
         setApi={setApi}
-        opts={{
-          align: "start",
-          loop: true,
-        }}
+        opts={{ align: "start", loop: true }}
         plugins={[Autoplay({ delay: 4000 })]}
         className="w-full relative"
       >
         <CarouselContent className="-ml-2">
-          {promoItems.map((promo) => (
+          {validPromos.map((promo) => (
             <CarouselItem
               key={promo.id}
               className={`pl-2 basis-2/3 sm:basis-1/2 md:${basisClass}`}
@@ -82,8 +84,8 @@ const PromoCarousel = ({ data, aspectRatio = "square" }: PromoProps) => {
                 className={`block relative ${aspectClass} w-full overflow-hidden rounded-lg`}
               >
                 <Image
-                  src={promo.image.url}
-                  alt={promo.title}
+                  src={promo.image!.url}
+                  alt={promo.title ?? "Promoción"}
                   fill
                   sizes="(max-width: 640px) 67vw, (max-width: 768px) 50vw, 33vw"
                   className="object-cover"
@@ -93,12 +95,10 @@ const PromoCarousel = ({ data, aspectRatio = "square" }: PromoProps) => {
           ))}
         </CarouselContent>
 
-        {/* Flechas */}
         <CarouselPrevious className="left-2 sm:-left-10 bg-white/80 hover:bg-white shadow-md rounded-full" />
         <CarouselNext className="right-2 sm:-right-10 bg-white/80 hover:bg-white shadow-md rounded-full" />
       </Carousel>
 
-      {/* Dots */}
       {count > 0 && (
         <div className="flex justify-center mt-4 gap-2">
           {Array.from({ length: count }).map((_, index) => (

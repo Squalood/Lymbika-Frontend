@@ -1,16 +1,15 @@
 import YoutubeEmbed from "./YoutubeEmbed";
+import { HomeTestimonial } from "@/types/single-types/home";
 
 interface TuristSectionProps {
     label?: string;
     title?: string;
     videoId?: string;
     videoLabel?: string;
-    quote?: string;
     description?: string;
-    ceoName?: string;
-    ceoRole?: string;
     ctaText?: string;
     ctaHref?: string;
+    testimonial?: HomeTestimonial | null;
 }
 
 const TuristSection = ({
@@ -18,12 +17,10 @@ const TuristSection = ({
     title,
     videoId,
     videoLabel,
-    quote,
     description,
-    ceoName,
-    ceoRole,
     ctaText,
     ctaHref,
+    testimonial,
 }: TuristSectionProps) => {
     if (!title || !videoId) return (
         <section className="max-w-6xl mx-auto px-6 py-16 mb-8">
@@ -33,7 +30,6 @@ const TuristSection = ({
 
     return (
         <section className="max-w-6xl mx-auto px-6 py-16 mb-8">
-            {/* Header */}
             <div className="mb-10">
                 <p className="text-sm font-semibold uppercase tracking-widest text-primary mb-2">
                     {label}
@@ -43,34 +39,34 @@ const TuristSection = ({
                 </h2>
             </div>
 
-            {/* Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-                {/* Video column */}
                 <div className="flex flex-col gap-2">
                     <YoutubeEmbed videoId={videoId} />
                     <p className="text-center text-sm text-gray-500 mt-1">{videoLabel}</p>
                 </div>
 
-                {/* Info column */}
                 <div className="flex flex-col gap-6">
-                    <blockquote className="text-xl font-medium italic text-gray-800 border-l-4 border-primary pl-5">
-                        &ldquo;{quote}&rdquo;
-                    </blockquote>
+                    {testimonial?.text && (
+                        <blockquote className="text-xl font-medium italic text-gray-800 border-l-4 border-primary pl-5">
+                            &ldquo;{testimonial.text}&rdquo;
+                        </blockquote>
+                    )}
 
                     <p className="text-gray-600 leading-relaxed">
                         {description}
                     </p>
 
-                    {/* CEO Profile */}
-                    <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center text-2xl shrink-0">
-                            👨‍⚕️
+                    {(testimonial?.name || testimonial?.role) && (
+                        <div className="flex items-center gap-4">
+                            <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center text-2xl shrink-0">
+                                👨‍⚕️
+                            </div>
+                            <div>
+                                <p className="font-semibold text-gray-900">{testimonial.name}</p>
+                                <p className="text-sm text-gray-500">{testimonial.role}</p>
+                            </div>
                         </div>
-                        <div>
-                            <p className="font-semibold text-gray-900">{ceoName}</p>
-                            <p className="text-sm text-gray-500">{ceoRole}</p>
-                        </div>
-                    </div>
+                    )}
 
                     <a
                         href={ctaHref}
