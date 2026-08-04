@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { PageType } from "@/types/pages";
 
 export function useGetPageHero(slug: string | string[]) {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/pages?filters[slug][$eq]=${slug}&populate[hero][populate]=image&populate[promo][populate]=image&populate[plan][populate]=plus&populate[plan][populate]=less`;
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/pages?filters[slug][$eq]=${slug}&populate[hero][populate]=image&populate[promo][populate]=image`;
   const [hero, setPage] = useState<PageType[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");

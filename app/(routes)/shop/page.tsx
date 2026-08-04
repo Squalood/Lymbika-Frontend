@@ -22,7 +22,7 @@ type ShopPage = { hero?: { title: string; description: string; buttonText: strin
 async function getShopPage(): Promise<{ hero: ShopPage | null; promo: ShopPage | null }> {
   const [heroRes, promoRes] = await Promise.all([
     fetch(
-      `${BASE}/api/pages?filters[slug][$eq]=farmacia&populate[hero][populate]=image&populate[promo][populate]=image&populate[plan][populate]=plus&populate[plan][populate]=less`,
+      `${BASE}/api/pages?filters[slug][$eq]=farmacia&populate[hero][populate]=image&populate[promo][populate]=image`,
       { next: { revalidate: 3600 } }
     ),
     fetch(
@@ -30,6 +30,9 @@ async function getShopPage(): Promise<{ hero: ShopPage | null; promo: ShopPage |
       { next: { revalidate: 3600 } }
     ),
   ]);
+
+  if (!heroRes.ok) console.error("[shop-page] Strapi error (hero):", heroRes.status);
+  if (!promoRes.ok) console.error("[shop-page] Strapi error (promo):", promoRes.status);
 
   const [heroJson, promoJson] = await Promise.all([heroRes.json(), promoRes.json()]);
 
