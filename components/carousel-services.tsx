@@ -25,19 +25,19 @@ const CarouselServices = ({ title, subTitle }: { title?: string; subTitle?: stri
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 sm:py-12 space-y-8">
-      {title && <h2 className="text-3xl">{title}</h2>}
       <SpecialtiesSectionCarousel
         services={services}
         loading={servicesLoading}
         availableSlugs={availableSlugs}
         activeSlug={activeSpecialtySlug}
         onSelect={setActiveSpecialtySlug}
+        title={title}
       />
-      {subTitle && <h3 className="text-2xl">{subTitle}</h3>}
       <MedicalServicesCatalogCarousel
         items={items}
         loading={itemsLoading}
         activeSpecialtySlug={activeSpecialtySlug}
+        title={subTitle}
       />
     </div>
   );

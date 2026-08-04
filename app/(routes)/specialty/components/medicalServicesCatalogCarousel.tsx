@@ -15,9 +15,10 @@ type Props = {
   items: MedicalServiceCatalogItem[];
   loading: boolean;
   activeSpecialtySlug: string | null;
+  title?: string;
 };
 
-const MedicalServicesCatalogCarousel = ({ items, loading, activeSpecialtySlug }: Props) => {
+const MedicalServicesCatalogCarousel = ({ items, loading, activeSpecialtySlug, title }: Props) => {
   const filtered = items
     .filter(
       (item) =>
@@ -28,7 +29,7 @@ const MedicalServicesCatalogCarousel = ({ items, loading, activeSpecialtySlug }:
 
   return (
     <div className="space-y-4">
-      <h2 className="text-2xl font-semibold text-gray-900 mb-1">Cirugías, procedimientos y consultas</h2>
+      <h2 className="text-2xl font-semibold text-gray-900 mb-1">{title ?? "Cirugías, procedimientos y consultas"}</h2>
       {loading ? (
         <SkeletonGalleryCol3 grid={8} />
       ) : filtered.length === 0 ? (

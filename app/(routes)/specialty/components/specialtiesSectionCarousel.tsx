@@ -12,14 +12,15 @@ type Props = {
   availableSlugs: Set<string>;
   activeSlug: string | null;
   onSelect: (slug: string | null) => void;
+  title?: string;
 };
 
-const SpecialtiesSectionCarousel = ({ services, loading, availableSlugs, activeSlug, onSelect }: Props) => {
+const SpecialtiesSectionCarousel = ({ services, loading, availableSlugs, activeSlug, onSelect, title }: Props) => {
   const filteredServices = services.filter((service) => availableSlugs.has(service.slug));
 
   return (
     <div>
-      <h2 className="text-2xl font-semibold text-gray-900 mb-1">Especialidades</h2>
+      <h2 className="text-2xl font-semibold text-gray-900 mb-1">{title ?? "Especialidades"}</h2>
       <p className="text-sm text-gray-500 mb-6">Encuentra al especialista que necesitas</p>
 
       {loading ? (

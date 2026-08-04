@@ -21,7 +21,7 @@ const REPLY_PAUSE = 500
 const TYPING_DURATION = 700
 
 const ChatDemo = ({
-  avatar = "🤖",
+  avatar = "👨‍⚕️",
   name = "Alyus · Health Companion",
   status = "Activo 24/7",
   messages,
