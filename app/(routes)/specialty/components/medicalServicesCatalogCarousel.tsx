@@ -16,9 +16,14 @@ type Props = {
   loading: boolean;
   activeSpecialtySlug: string | null;
   title?: string;
+  emptyLabel?: string;
+  priceLabel?: string;
+  ctaLabel?: string;
+  showDetailsLabel?: string;
+  hideDetailsLabel?: string;
 };
 
-const MedicalServicesCatalogCarousel = ({ items, loading, activeSpecialtySlug, title }: Props) => {
+const MedicalServicesCatalogCarousel = ({ items, loading, activeSpecialtySlug, title, emptyLabel, priceLabel, ctaLabel, showDetailsLabel, hideDetailsLabel }: Props) => {
   const filtered = items
     .filter(
       (item) =>
@@ -33,7 +38,7 @@ const MedicalServicesCatalogCarousel = ({ items, loading, activeSpecialtySlug, t
       {loading ? (
         <SkeletonGalleryCol3 grid={8} />
       ) : filtered.length === 0 ? (
-        <p className="text-sm text-gray-500 px-4">No hay servicios disponibles para esta especialidad.</p>
+        <p className="text-sm text-gray-500 px-4">{emptyLabel ?? "No hay servicios disponibles para esta especialidad."}</p>
       ) : (
         <div className="px-0 relative">
           <Carousel opts={{ align: "start" }}>
@@ -45,6 +50,10 @@ const MedicalServicesCatalogCarousel = ({ items, loading, activeSpecialtySlug, t
                     href={`/specialty/${item.service.specialty!.slug}/${item.service.slug}`}
                     minPrice={item.minPrice}
                     packageItems={item.packageItems}
+                    priceLabel={priceLabel}
+                    ctaLabel={ctaLabel}
+                    showDetailsLabel={showDetailsLabel}
+                    hideDetailsLabel={hideDetailsLabel}
                   />
                 </CarouselItem>
               ))}

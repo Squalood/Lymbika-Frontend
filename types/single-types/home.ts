@@ -33,7 +33,7 @@ export type HomeSection =
   | { __component: "gallery.gallery"; id: number; title?: string; images: (HomeMedia & { id: number })[] }
   | { __component: "home.are-doctors-section"; id: number; badge?: string; title?: string; description?: string; ctaText?: string; ctaHref?: string; perks: { id: number; text: string }[]; testimonial?: HomeTestimonial | null }
   | { __component: "home.clinics"; id: number; title?: string }
-  | { __component: "home.carousel-services"; id: number; title?: string; subTitle?: string }
+  | { __component: "home.carousel-services"; id: number; title?: string; subTitle?: string; description?: string; allLabel?: string; emptyLabel?: string; priceLabel?: string; ctaLabel?: string; showDetailsLabel?: string; hideDetailsLabel?: string }
   | { __component: "home.hospital-section"; id: number; title?: string }
   | { __component: "home.choose-category"; id: number; title?: string }
   | { __component: "home.surgery-faq"; id: number; title?: string; faq_group?: FaqType | null }

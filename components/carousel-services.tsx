@@ -6,7 +6,19 @@ import { useGetMedicalServiceCatalog } from "@/api/useGetMedicalServiceCatalog";
 import SpecialtiesSectionCarousel from "@/app/(routes)/specialty/components/specialtiesSectionCarousel";
 import MedicalServicesCatalogCarousel from "@/app/(routes)/specialty/components/medicalServicesCatalogCarousel";
 
-const CarouselServices = ({ title, subTitle }: { title?: string; subTitle?: string }) => {
+type CarouselServicesProps = {
+  title?: string
+  subTitle?: string
+  description?: string
+  allLabel?: string
+  emptyLabel?: string
+  priceLabel?: string
+  ctaLabel?: string
+  showDetailsLabel?: string
+  hideDetailsLabel?: string
+}
+
+const CarouselServices = ({ title, subTitle, description, allLabel, emptyLabel, priceLabel, ctaLabel, showDetailsLabel, hideDetailsLabel }: CarouselServicesProps) => {
   const { result: servicesResult, loading: servicesLoading } = useGetServices();
   const { items, loading: itemsLoading } = useGetMedicalServiceCatalog();
   const [activeSpecialtySlug, setActiveSpecialtySlug] = useState<string | null>(null);
@@ -32,12 +44,19 @@ const CarouselServices = ({ title, subTitle }: { title?: string; subTitle?: stri
         activeSlug={activeSpecialtySlug}
         onSelect={setActiveSpecialtySlug}
         title={title}
+        description={description}
+        allLabel={allLabel}
       />
       <MedicalServicesCatalogCarousel
         items={items}
         loading={itemsLoading}
         activeSpecialtySlug={activeSpecialtySlug}
         title={subTitle}
+        emptyLabel={emptyLabel}
+        priceLabel={priceLabel}
+        ctaLabel={ctaLabel}
+        showDetailsLabel={showDetailsLabel}
+        hideDetailsLabel={hideDetailsLabel}
       />
     </div>
   );

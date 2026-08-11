@@ -13,15 +13,17 @@ type Props = {
   activeSlug: string | null;
   onSelect: (slug: string | null) => void;
   title?: string;
+  description?: string;
+  allLabel?: string;
 };
 
-const SpecialtiesSectionCarousel = ({ services, loading, availableSlugs, activeSlug, onSelect, title }: Props) => {
+const SpecialtiesSectionCarousel = ({ services, loading, availableSlugs, activeSlug, onSelect, title, description, allLabel }: Props) => {
   const filteredServices = services.filter((service) => availableSlugs.has(service.slug));
 
   return (
     <div>
       <h2 className="text-2xl font-semibold text-gray-900 mb-1">{title ?? "Especialidades"}</h2>
-      <p className="text-sm text-gray-500 mb-6">Encuentra al especialista que necesitas</p>
+      <p className="text-sm text-gray-500 mb-6">{description ?? "Encuentra al especialista que necesitas"}</p>
 
       {loading ? (
         <SkeletonGalleryCol3 grid={6} />
@@ -37,7 +39,7 @@ const SpecialtiesSectionCarousel = ({ services, loading, availableSlugs, activeS
                 : "bg-white text-gray-700 border-gray-200 hover:border-gray-300"
             )}
           >
-            Todos
+            {allLabel ?? "Todos"}
           </button>
           {filteredServices.map((service) => {
             const Icon = service.icon

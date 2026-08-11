@@ -27,9 +27,13 @@ type Props = {
   href: string;
   minPrice?: number;
   packageItems?: string[] | null;
+  priceLabel?: string;
+  ctaLabel?: string;
+  showDetailsLabel?: string;
+  hideDetailsLabel?: string;
 };
 
-const MedicalServiceCard = ({ service, href, minPrice, packageItems }: Props) => {
+const MedicalServiceCard = ({ service, href, minPrice, packageItems, priceLabel, ctaLabel, showDetailsLabel, hideDetailsLabel }: Props) => {
   const [showDetails, setShowDetails] = useState(false);
   const hasPackageItems = !!packageItems && packageItems.length > 0;
 
@@ -70,7 +74,7 @@ const MedicalServiceCard = ({ service, href, minPrice, packageItems }: Props) =>
               }}
               className="flex items-center gap-1 text-xs font-medium text-primary self-start mt-1"
             >
-              {showDetails ? "Ocultar detalles" : "Ver detalles"}
+              {showDetails ? (hideDetailsLabel ?? "Ocultar detalles") : (showDetailsLabel ?? "Ver detalles")}
               {showDetails ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
             </button>
 
@@ -91,13 +95,13 @@ const MedicalServiceCard = ({ service, href, minPrice, packageItems }: Props) =>
           <div>
             {minPrice !== undefined && (
               <>
-                <p className="text-[11px] text-gray-400 uppercase tracking-wide">Desde</p>
+                <p className="text-[11px] text-gray-400 uppercase tracking-wide">{priceLabel ?? "Desde"}</p>
                 <p className="text-lg font-bold text-blue-700 leading-tight">{formatPrice(minPrice)}</p>
                 <p className="text-[11px] text-gray-400">~{formatUS(minPrice)} USD</p>
               </>
             )}
           </div>
-          <span className={cn(buttonVariants({ size: "sm" }), "w-full sm:w-auto shrink-0")}>Cotizar →</span>
+          <span className={cn(buttonVariants({ size: "sm" }), "w-full sm:w-auto shrink-0")}>{ctaLabel ?? "Cotizar →"}</span>
         </div>
       </div>
     </Link>
