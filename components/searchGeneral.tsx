@@ -117,7 +117,7 @@ export function SearchGeneral({
           name: m.name,
           sal: "nulo",
           slug: m.slug,
-          imageUrl: "",
+          imageUrl: m.image?.url || "",
           medicalServiceType: m.type,
           specialtySlug: m.specialty?.slug,
         })),

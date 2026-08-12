@@ -24,7 +24,7 @@ export type HomeChatMessage = {
 }
 
 export type HomeSection =
-  | { __component: "hero.hero"; id: number; title?: string; description?: string; buttonText?: string; buttonUrl?: string; image?: HomeMedia | null }
+  | { __component: "hero.hero"; id: number; title?: string; description?: string; buttonText?: string; buttonUrl?: string; image?: HomeMedia | null; searchPlaceholder?: string; searchButtonText?: string; searchSuggestions?: string[] | null }
   | { __component: "home.text-banner"; id: number; item: { id: number; text: string; icon?: string }[] }
   | { __component: "home.turist-section"; id: number; label?: string; title?: string; description?: string; videoId?: string; videoLabel?: string; ctaText?: string; ctaHref?: string; testimonial?: HomeTestimonial | null }
   | { __component: "home.videos-section"; id: number; title?: string; videos: { id: number; videoID: string }[] }

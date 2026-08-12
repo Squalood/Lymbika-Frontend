@@ -42,8 +42,11 @@ const SearchPreview = ({ type, id, name, slug, imageUrl, sal, icon, medicalServi
   };
 
   const imageClass = type === "product" ? "rounded-none" : "rounded-full";
-  const isTextOnly = type === "category" || type === "medicalService";
-  const hasIconPreview = type === "service" || type === "clinic";
+  const isTextOnly = type === "category";
+  // Los servicios médicos no tienen icono: se muestran con su imagen y solo
+  // caen al icono genérico cuando no la tienen cargada.
+  const hasIconPreview =
+    type === "service" || type === "clinic" || (type === "medicalService" && !imageUrl);
 
   const typeLabel =
     type === "service" ? es.titleServices
