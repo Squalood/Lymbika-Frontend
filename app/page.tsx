@@ -108,7 +108,20 @@ export default async function Home() {
           case "home.clinics":
             return <ClinicsClientWrapper key={sectionKey} title={section.title} />;
           case "home.carousel-services":
-            return <CarouselServices key={sectionKey} title={section.title} subTitle={section.subTitle} />;
+            return (
+              <CarouselServices
+                key={sectionKey}
+                title={section.title}
+                subTitle={section.subTitle}
+                description={section.description}
+                allLabel={section.allLabel}
+                emptyLabel={section.emptyLabel}
+                priceLabel={section.priceLabel}
+                ctaLabel={section.ctaLabel}
+                showDetailsLabel={section.showDetailsLabel}
+                hideDetailsLabel={section.hideDetailsLabel}
+              />
+            );
           case "home.hospital-section":
             return <HospitaSection key={sectionKey} title={section.title} />;
           case "home.choose-category":
