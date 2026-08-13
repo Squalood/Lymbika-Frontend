@@ -1,53 +1,22 @@
-import { CardContent, CardHeader } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useWindowSize } from "@/hooks/useWindowSize";
 
-const HospitalGridSkeleton = () => {
-    const { width } = useWindowSize();
-
-    const columns = width >= 1024 ? 3 : width >= 640 ? 2 : 1;
-
-    return (
+const HospitalCardSkeleton = () => {
+  return (
     <div className="px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto max-w-6xl">
-      <div className="mb-10">
-        <Skeleton className="h-8 w-48" />
-      </div>
-      <div className={`grid grid-cols-${columns} gap-8`}>
-        {[...Array(columns)].map((_, index) => (
-          <div key={index} className="flex flex-col w-full h-[450px]">
-            <div className="relative h-56 w-full overflow-hidden rounded-t-xl">
-              <Skeleton className="w-full h-full" />
-            </div>
-            <CardHeader>
-              <Skeleton className="h-6 w-3/4 mb-2" />
-            </CardHeader>
-            <CardContent className="space-y-4 flex flex-col flex-grow">
-              <div className="grid grid-cols-2 gap-x-4 gap-y-2">
-                <div>
-                  <Skeleton className="h-4 w-24 mb-2" />
-                  <Skeleton className="h-5 w-24" />
-                </div>
-                <div>
-                  <Skeleton className="h-4 w-24 mb-2" />
-                  <Skeleton className="h-5 w-24" />
-                </div>
-                <div>
-                  <Skeleton className="h-4 w-24 mb-2" />
-                  <Skeleton className="h-5 w-24" />
-                </div>
-                <div>
-                  <Skeleton className="h-4 w-24 mb-2" />
-                  <Skeleton className="h-5 w-24" />
-                </div>
-              </div>
-
-              <Skeleton className="h-16 w-full" />
-            </CardContent>
-          </div>
+      <Skeleton className="h-8 w-48 mb-10" />
+      <div className="flex gap-4 overflow-hidden">
+        {[...Array(3)].map((_, index) => (
+          <Card key={index} className="shrink-0 basis-[85%] sm:basis-[50%] md:basis-[33%] flex flex-col items-center gap-3 p-6 py-8">
+            <Skeleton className="h-20 w-20 rounded-full" />
+            <Skeleton className="h-5 w-3/4" />
+            <Skeleton className="h-5 w-32" />
+            <Skeleton className="h-9 w-24 rounded-md" />
+          </Card>
         ))}
       </div>
     </div>
   );
 };
 
-export default HospitalGridSkeleton;
+export default HospitalCardSkeleton;
