@@ -21,7 +21,7 @@ const Hero = ({ data }: HeroProps) => {
   if (!data) return null;
 
   return (
-    <div className="relative h-[450px] md:h-[600px] lg:h-[700px] bg-primary px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 overflow-x-clip flex items-center">
+    <div className="relative md:h-[600px] lg:h-[700px] bg-primary px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 overflow-x-clip flex items-center">
       <div className="absolute inset-0 z-0">
         {data.image?.url && (
           <Image
@@ -35,7 +35,7 @@ const Hero = ({ data }: HeroProps) => {
         )}
       </div>
 
-      <div className="relative px-2 z-10 lg:w-3/4 xl:w-3/5 mt-28">
+      <div className="relative px-2 z-10 lg:w-3/4 xl:w-3/5 mt-52 mb-16">
         <h1 className="text-white text-2xl md:text-4xl lg:text-6xl font-bold leading-tight">
           {data.title}
         </h1>

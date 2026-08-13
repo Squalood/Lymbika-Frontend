@@ -8,7 +8,7 @@ import { MedicalServiceType } from "@/types/medicalService";
 
 const MEDICAL_SERVICE_TYPE_LABELS: Record<MedicalServiceType["type"], string> = {
   consultation: "Consulta",
-  procedure: "Procedimiento",
+  procedure: "Procedimiento/Cirugía",
   study: "Estudio",
 };
 

@@ -27,9 +27,9 @@ const CarouselTextBanner = ({ items }: { items: BannerItem[] }) => {
           return (
             <div key={id} className="mx-4 min-w-[250px] flex justify-center items-center">
               <Card className="shadow-none border-none bg-transparent">
-                <CardContent className="flex flex-row justify-center items-center gap-2 py-0 text-center">
+                <CardContent className="flex flex-row justify-center items-center gap-2 py-1 text-center">
                   <Icon className="text-primary w-4 h-4" />
-                  <p className="sm:text-base text-xs text-wrap dark:text-secondary">{text}</p>
+                  <p className="text-base text-wrap dark:text-secondary">{text}</p>
                 </CardContent>
               </Card>
             </div>
