@@ -15,9 +15,12 @@ interface WhatsAppQrDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   url?: string;
+  /** Una URL con mensaje prellenado sube la version del QR (mas modulos),
+   *  asi que necesita mas pixeles para seguir siendo escaneable. */
+  size?: number;
 }
 
-export default function WhatsAppQrDialog({ open, onOpenChange, url }: WhatsAppQrDialogProps) {
+export default function WhatsAppQrDialog({ open, onOpenChange, url, size = 200 }: WhatsAppQrDialogProps) {
   const resolvedUrl = url ?? WHATSAPP_URL;
 
   return (
@@ -30,7 +33,7 @@ export default function WhatsAppQrDialog({ open, onOpenChange, url }: WhatsAppQr
           </DialogDescription>
         </DialogHeader>
         <div className="flex justify-center py-4">
-          <QRCode value={resolvedUrl} size={200} />
+          <QRCode value={resolvedUrl} size={size} />
         </div>
         <Link
           href={resolvedUrl}

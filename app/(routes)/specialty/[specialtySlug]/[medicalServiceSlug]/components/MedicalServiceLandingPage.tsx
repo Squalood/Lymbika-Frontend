@@ -8,12 +8,15 @@ import {
   Ambulance, Bandage, Pill, Percent, CalendarPlus, UserRoundPlus,
   Waypoints, Presentation, ChartNoAxesCombined, Handshake, Globe,
   ScanHeart, HeartPulse, HeartHandshake, Home, Leaf, ShieldCheck,
-  UserCheck, PillBottle, ClipboardCheck,
+  UserCheck, PillBottle, ClipboardCheck, CreditCard,
   Check, MoveRight, ArrowRight, LucideIcon,
 } from "lucide-react";
 import { MedicalServiceType } from "@/types/medicalService";
 import { Button } from "@/components/ui/button";
 import { ContactButton } from "@/components/contact-button";
+import { WhatsAppCtaButton } from "@/components/whatsapp-cta-button";
+import HospitalCardSimple from "@/app/(routes)/hospitals/components/hospitalCardSimple";
+import { WHATSAPP_NUMBER } from "@/lib/constants";
 import {
   Carousel,
   CarouselContent,
@@ -39,6 +42,54 @@ const ICON_MAP: Record<string, LucideIcon> = {
   HeartHandshake, Home, Leaf, ShieldCheck, UserCheck, PillBottle, ClipboardCheck,
 };
 
+// Plazos de la terminal bancaria (Banregio).
+// sinIntereses: true  -> Lymbika absorbe la sobretasa (sale del margen). El paciente NO paga interés.
+// sinIntereses: false -> la sobretasa se suma al pago del paciente.
+const PLAZOS_FINANCIAMIENTO = [
+  { meses: 3, sobretasa: 0.035, sinIntereses: true },
+  { meses: 6, sobretasa: 0.055, sinIntereses: true },
+  { meses: 9, sobretasa: 0.085, sinIntereses: false },
+  { meses: 12, sobretasa: 0.115, sinIntereses: false },
+  { meses: 18, sobretasa: 0.15, sinIntereses: false },
+];
+
+// Piso para mostrar el bloque de financiamiento: no aplica en consultas ni estudios baratos.
+const FINANCIAMIENTO_MIN_PRICE = 10000;
+
+const fmtMXN = (n: number) => n.toLocaleString("es-MX", { maximumFractionDigits: 0 });
+
+function getWhatsAppMessage({
+  type,
+  name,
+  priceDisplay,
+  doctorName,
+}: {
+  type: MedicalServiceType["type"];
+  name: string;
+  priceDisplay?: string | null;
+  doctorName?: string | null;
+}): string {
+  const precio = priceDisplay ? ` (${priceDisplay.trim()})` : "";
+  // Los nombres en Strapi vienen con espacios sobrantes, hay que limpiarlos
+  // o el mensaje sale con doble espacio antes del punto final.
+  const doctor = doctorName?.trim();
+  const conDoctor = doctor ? ` con ${doctor}` : "";
+  switch (type) {
+    case "procedure":
+      return `Hola, quiero agendar mi valoración para ${name}${precio}${conDoctor}. Me gustaría conocer las opciones de pago a meses y los siguientes pasos.`;
+    case "consultation":
+      return `Hola, quiero agendar una consulta de ${name}${precio}${conDoctor}.`;
+    case "study":
+      return `Hola, quiero información sobre el estudio ${name}${precio}.`;
+    default:
+      return `Hola, me interesa información sobre ${name}.`;
+  }
+}
+
+function getWhatsAppUrl(opts: Parameters<typeof getWhatsAppMessage>[0]): string {
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(getWhatsAppMessage(opts))}`;
+}
+
 function imgUrl(url: string) {
   if (!url) return "";
   return url.startsWith("http") ? url : `${process.env.NEXT_PUBLIC_BACKEND_URL}${url}`;
@@ -56,6 +107,7 @@ export default function MedicalServiceLandingPage({
   const gallery = service.landing_gallery ?? [];
   const faqGroup = service.faq_group ?? null;
   const serviceRates = service.service_rates ?? [];
+  const hospitals = service.hospitals ?? [];
   const uniqueDoctorRates = serviceRates.filter((r, idx, arr) =>
     r.doctor && arr.findIndex((x) => x.doctor?.doctorName === r.doctor?.doctorName) === idx
   );
@@ -311,10 +363,24 @@ export default function MedicalServiceLandingPage({
                       {rate.package_note && (
                         <p className="text-xs text-muted-foreground border-t pt-3">{rate.package_note}</p>
                       )}
-                      {rate.doctor?.contactButton
-                        ? <ContactButton contactButton={rate.doctor.contactButton} className="w-full" />
-                        : <Button className="w-full gap-2" asChild><a href="#contacto">{t?.package_cta_button ?? "Agendar valoración"} <MoveRight className="w-4 h-4" /></a></Button>
-                      }
+                      {service.type === "procedure" ? (
+                        <WhatsAppCtaButton
+                          url={getWhatsAppUrl({
+                            type: service.type,
+                            name: service.name,
+                            priceDisplay: `$${fmtMXN(rate.price)} MXN`,
+                            doctorName: rate.doctor?.doctorName,
+                          })}
+                          label={t?.package_cta_button ?? "Agendar valoración"}
+                          className="w-full"
+                        />
+                      ) : rate.doctor?.contactButton ? (
+                        <ContactButton contactButton={rate.doctor.contactButton} className="w-full" />
+                      ) : (
+                        <Button className="w-full gap-2" asChild>
+                          <a href="#contacto">{t?.package_cta_button ?? "Agendar valoración"} <MoveRight className="w-4 h-4" /></a>
+                        </Button>
+                      )}
                     </div>
                   </div>
                 </CarouselItem>
@@ -328,6 +394,97 @@ export default function MedicalServiceLandingPage({
             )}
           </Carousel>
         </section>
+        );
+      })()}
+
+      {/* ─── FINANCIAMIENTO ───────────────────────────── */}
+      {(() => {
+        const packageRates = serviceRates.filter((r) => r.package_items && r.package_items.length > 0);
+        const source = packageRates.length > 0 ? packageRates : serviceRates;
+        // Se toma el precio más bajo para que el encabezado "Desde $X/mes" sea verdadero
+        // cuando hay varios paquetes con precios distintos.
+        const prices = source.map((r) => r.price).filter((v) => v > 0);
+        const price = prices.length > 0 ? Math.min(...prices) : 0;
+
+        // Solo procedimientos con precio suficiente. Consultas y estudios no muestran financiamiento.
+        if (service.type !== "procedure" || price < FINANCIAMIENTO_MIN_PRICE) return null;
+
+        const rows = PLAZOS_FINANCIAMIENTO.map((plazo) => {
+          const total = plazo.sinIntereses ? price : price * (1 + plazo.sobretasa);
+          return { ...plazo, monthly: Math.round(total / plazo.meses) };
+        });
+        const cheapest = rows.reduce((min, r) => (r.monthly < min.monthly ? r : min), rows[0]);
+        // La copia se deriva de PLAZOS_FINANCIAMIENTO para que no se desincronice de la tabla.
+        const maxMeses = Math.max(...rows.map((r) => r.meses));
+        const msi = rows.filter((r) => r.sinIntereses).map((r) => r.meses);
+        const conInteres = rows.filter((r) => !r.sinIntereses).map((r) => r.meses);
+
+        return (
+          <section id="financiamiento" className="w-full py-4 px-4 md:px-8 max-w-6xl mx-auto space-y-8">
+            <div className="space-y-3 text-center">
+              <span className="text-xs font-bold tracking-widest uppercase text-primary">
+                Financiamiento
+              </span>
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground leading-snug">
+                Págalo a plazos con tu tarjeta
+              </h2>
+              <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+                Difiere tu procedimiento hasta en {maxMeses} meses con tu tarjeta de crédito.
+                Sin trámites de buró: se procesa en tu valoración.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border overflow-hidden max-w-3xl mx-auto">
+              <div className="bg-[#0b1630] px-6 py-5 flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center shrink-0">
+                  <CreditCard className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-white font-bold text-base">Desde ${fmtMXN(cheapest.monthly)}/mes</h3>
+                  <p className="text-white/60 text-sm">a {cheapest.meses} meses</p>
+                </div>
+              </div>
+
+              <div className="bg-card divide-y">
+                {rows.map((r) => (
+                  <div key={r.meses} className="flex items-center justify-between px-6 py-4">
+                    <div className="flex items-center gap-3">
+                      <span className="font-semibold text-foreground text-sm w-20">{r.meses} meses</span>
+                      {r.sinIntereses ? (
+                        <span className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full bg-primary/10 text-primary">
+                          <Check className="w-3 h-3" /> Sin intereses
+                        </span>
+                      ) : (
+                        <span className="text-xs text-muted-foreground">con intereses</span>
+                      )}
+                    </div>
+                    <span className="text-lg font-bold text-foreground">
+                      ${fmtMXN(r.monthly)}<span className="text-xs font-normal text-muted-foreground">/mes</span>
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="px-6 py-4 bg-muted/40 space-y-3">
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  {msi.length > 0 && `Meses sin intereses disponibles a ${msi.join(" y ")} meses. `}
+                  {conInteres.length > 0 &&
+                    `De ${Math.min(...conInteres)} a ${Math.max(...conInteres)} meses el financiamiento genera intereses según el plazo. `}
+                  Pagos procesados con terminal bancaria, sujeto a aprobación de tu banco.
+                  Montos ilustrativos sobre ${fmtMXN(price)} MXN; el monto final se confirma en tu valoración.
+                </p>
+                <WhatsAppCtaButton
+                  url={getWhatsAppUrl({
+                    type: service.type,
+                    name: service.name,
+                    priceDisplay: hero?.price_display,
+                  })}
+                  label="Quiero financiar mi procedimiento"
+                  className="w-full"
+                />
+              </div>
+            </div>
+          </section>
         );
       })()}
 
@@ -447,6 +604,36 @@ export default function MedicalServiceLandingPage({
         </section>
       )}
 
+      {/* ─── HOSPITALES ──────────────────────────────── */}
+      {hospitals.length > 0 && (
+        <section id="hospitales" className="w-full py-4 px-4 md:px-8 max-w-6xl mx-auto space-y-8">
+          <div className="space-y-3 text-center">
+            <span className="text-xs font-bold tracking-widest uppercase text-primary">
+              {hospitals.length === 1 ? "Tu hospital" : "Nuestros hospitales"}
+            </span>
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground leading-snug">
+              {hospitals.length === 1 ? "Dónde se realiza" : "Dónde puedes realizarlo"}
+            </h2>
+          </div>
+
+          {/* El ancho se acota segun la cantidad para que 1 o 2 cards no queden sueltas
+              en una grid de 3 columnas. */}
+          <div
+            className={`grid gap-4 mx-auto ${
+              hospitals.length === 1
+                ? "max-w-sm"
+                : hospitals.length === 2
+                  ? "sm:grid-cols-2 max-w-3xl"
+                  : "sm:grid-cols-2 lg:grid-cols-3"
+            }`}
+          >
+            {hospitals.map((hospital) => (
+              <HospitalCardSimple key={hospital.id} hospital={hospital} />
+            ))}
+          </div>
+        </section>
+      )}
+
       {/* ─── FAQ ───────────────────────────────────────────────────── */}
       {faqGroup && faqGroup.faq.length > 0 && (
         <section className="w-full py-4 px-4 md:px-8 max-w-6xl mx-auto space-y-6">
@@ -499,13 +686,23 @@ export default function MedicalServiceLandingPage({
           <p className="text-white/80 text-sm md:text-base max-w-xl">
             {t?.cta_subtitle ?? "Agenda tu valoración sin compromiso. Un especialista te guiará en cada etapa del proceso."}
           </p>
-          {serviceRates[0]?.doctor?.contactButton && (
+          {service.type === "procedure" ? (
+            <WhatsAppCtaButton
+              url={getWhatsAppUrl({
+                type: service.type,
+                name: service.name,
+                priceDisplay: hero?.price_display,
+              })}
+              label={t?.cta_button ?? "Agendar mi valoración"}
+              className="bg-white text-primary hover:bg-white/90 font-semibold"
+            />
+          ) : serviceRates[0]?.doctor?.contactButton ? (
             <ContactButton
               contactButton={serviceRates[0].doctor.contactButton}
               label={t?.cta_button ?? "Agendar mi valoración"}
               className="bg-white text-primary hover:bg-white/90 font-semibold"
             />
-          )}
+          ) : null}
         </div>
       </section>
 

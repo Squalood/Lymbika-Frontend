@@ -1,5 +1,6 @@
 import { DoctorType } from "./doctor";
 import { FaqType } from "./faq";
+import { HospitalType } from "./hospital";
 
 // ─── Landing page component types ───────────────────────────────────────────
 
@@ -117,4 +118,5 @@ export type MedicalServiceType = {
   faq_group?: FaqGroupType | null;
   landingTexts?: LandingTextsType | null;
   service_rates?: ServiceRateWithDoctorType[];
+  hospitals?: HospitalType[] | null;
 };
