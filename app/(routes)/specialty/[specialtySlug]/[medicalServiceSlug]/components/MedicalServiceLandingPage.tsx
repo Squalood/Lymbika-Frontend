@@ -53,6 +53,9 @@ const PLAZOS_FINANCIAMIENTO = [
   { meses: 18, sobretasa: 0.15, sinIntereses: false },
 ];
 
+// IVA sobre la comision bancaria (8% en zona fronteriza).
+const IVA_COMISION = 0.08;
+
 // Piso para mostrar el bloque de financiamiento: no aplica en consultas ni estudios baratos.
 const FINANCIAMIENTO_MIN_PRICE = 10000;
 
@@ -410,7 +413,11 @@ export default function MedicalServiceLandingPage({
         if (service.type !== "procedure" || price < FINANCIAMIENTO_MIN_PRICE) return null;
 
         const rows = PLAZOS_FINANCIAMIENTO.map((plazo) => {
-          const total = plazo.sinIntereses ? price : price * (1 + plazo.sobretasa);
+          // El banco retiene su comision sobre el monto bruto cobrado, no sobre el neto.
+          // Hay que dividir entre (1 - tasa) para que Lymbika reciba el precio completo:
+          // multiplicar por (1 + tasa) deja siempre un faltante de precio x tasa^2.
+          const tasaEfectiva = plazo.sobretasa * (1 + IVA_COMISION);
+          const total = plazo.sinIntereses ? price : price / (1 - tasaEfectiva);
           return { ...plazo, monthly: Math.round(total / plazo.meses) };
         });
         const cheapest = rows.reduce((min, r) => (r.monthly < min.monthly ? r : min), rows[0]);
