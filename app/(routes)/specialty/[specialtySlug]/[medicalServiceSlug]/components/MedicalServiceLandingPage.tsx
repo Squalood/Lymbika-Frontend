@@ -42,16 +42,18 @@ const ICON_MAP: Record<string, LucideIcon> = {
   HeartHandshake, Home, Leaf, ShieldCheck, UserCheck, PillBottle, ClipboardCheck,
 };
 
-// Plazos de la terminal bancaria (Banregio).
-// sinIntereses: true  -> Lymbika absorbe la sobretasa (sale del margen). El paciente NO paga interés.
-// sinIntereses: false -> la sobretasa se suma al pago del paciente.
+// Esquema de financiamiento de la clinica. Sobretasa de Banregio por plazo.
+// Todos los plazos llevan sobretasa: no hay meses sin intereses.
 const PLAZOS_FINANCIAMIENTO = [
-  { meses: 3, sobretasa: 0.035, sinIntereses: true },
-  { meses: 6, sobretasa: 0.055, sinIntereses: true },
-  { meses: 9, sobretasa: 0.085, sinIntereses: false },
-  { meses: 12, sobretasa: 0.115, sinIntereses: false },
-  { meses: 18, sobretasa: 0.15, sinIntereses: false },
+  { meses: 3, sobretasa: 0.035 },
+  { meses: 6, sobretasa: 0.055 },
+  { meses: 9, sobretasa: 0.085 },
+  { meses: 12, sobretasa: 0.115 },
+  { meses: 18, sobretasa: 0.15 },
 ];
+
+// Comision fija de la terminal, se suma a la sobretasa del plazo.
+const COMISION_TERMINAL = 0.04;
 
 // IVA sobre la comision bancaria (8% en zona fronteriza).
 const IVA_COMISION = 0.08;
@@ -412,19 +414,25 @@ export default function MedicalServiceLandingPage({
         // Solo procedimientos con precio suficiente. Consultas y estudios no muestran financiamiento.
         if (service.type !== "procedure" || price < FINANCIAMIENTO_MIN_PRICE) return null;
 
+        // Formula de la clinica: total = precio / (1 - (sobretasa + 0.04) x 1.08).
+        // Se divide, no se multiplica, porque el banco retiene su comision sobre el monto
+        // bruto cobrado: multiplicar dejaria a Lymbika siempre por debajo del neto.
         const rows = PLAZOS_FINANCIAMIENTO.map((plazo) => {
-          // El banco retiene su comision sobre el monto bruto cobrado, no sobre el neto.
-          // Hay que dividir entre (1 - tasa) para que Lymbika reciba el precio completo:
-          // multiplicar por (1 + tasa) deja siempre un faltante de precio x tasa^2.
-          const tasaEfectiva = plazo.sobretasa * (1 + IVA_COMISION);
-          const total = plazo.sinIntereses ? price : price / (1 - tasaEfectiva);
-          return { ...plazo, monthly: Math.round(total / plazo.meses) };
+          const tasaEfectiva = (plazo.sobretasa + COMISION_TERMINAL) * (1 + IVA_COMISION);
+          const bruto = price / (1 - tasaEfectiva);
+          // El banco cobra mensualidades iguales, asi que el total real es
+          // mensualidad x meses. Se deriva de ahi para que la tabla no se
+          // contradiga: si el paciente multiplica, le tiene que cuadrar.
+          // Ceil y no round: redondear hacia abajo deja el neto por debajo del precio.
+          const monthly = Math.ceil(bruto / plazo.meses);
+          return { ...plazo, monthly, total: monthly * plazo.meses };
         });
         const cheapest = rows.reduce((min, r) => (r.monthly < min.monthly ? r : min), rows[0]);
         // La copia se deriva de PLAZOS_FINANCIAMIENTO para que no se desincronice de la tabla.
         const maxMeses = Math.max(...rows.map((r) => r.meses));
-        const msi = rows.filter((r) => r.sinIntereses).map((r) => r.meses);
-        const conInteres = rows.filter((r) => !r.sinIntereses).map((r) => r.meses);
+        const sobretasasTexto = PLAZOS_FINANCIAMIENTO
+          .map((plazo) => `${plazo.meses}m ${(plazo.sobretasa * 100).toFixed(1)}%`)
+          .join(", ");
 
         return (
           <section id="financiamiento" className="w-full py-4 px-4 md:px-8 max-w-6xl mx-auto space-y-8">
@@ -452,33 +460,58 @@ export default function MedicalServiceLandingPage({
                 </div>
               </div>
 
-              <div className="bg-card divide-y">
-                {rows.map((r) => (
-                  <div key={r.meses} className="flex items-center justify-between px-6 py-4">
-                    <div className="flex items-center gap-3">
-                      <span className="font-semibold text-foreground text-sm w-20">{r.meses} meses</span>
-                      {r.sinIntereses ? (
-                        <span className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full bg-primary/10 text-primary">
-                          <Check className="w-3 h-3" /> Sin intereses
-                        </span>
-                      ) : (
-                        <span className="text-xs text-muted-foreground">con intereses</span>
-                      )}
-                    </div>
-                    <span className="text-lg font-bold text-foreground">
-                      ${fmtMXN(r.monthly)}<span className="text-xs font-normal text-muted-foreground">/mes</span>
-                    </span>
-                  </div>
-                ))}
+              {/* Contado: no pasa por terminal, asi que no lleva sobretasa. */}
+              <div className="flex items-center justify-between gap-3 px-6 py-4 bg-green-50 border-b border-green-100">
+                <span className="text-sm font-semibold text-green-800">
+                  Contado, transferencia o débito
+                </span>
+                <span className="text-lg font-bold text-green-800 shrink-0">${fmtMXN(price)}</span>
               </div>
+
+              {/* Tabla real: con grids separados por fila las columnas auto se
+                  dimensionan por su propio contenido y no coinciden con el encabezado. */}
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b bg-muted/30">
+                    <th scope="col" className="w-full pl-6 pr-3 py-3 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                      Plazo
+                    </th>
+                    <th scope="col" className="px-3 py-3 text-right text-xs font-semibold uppercase tracking-wider text-muted-foreground whitespace-nowrap">
+                      Total
+                    </th>
+                    <th scope="col" className="pl-3 pr-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-muted-foreground whitespace-nowrap">
+                      Mensualidad
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="bg-card divide-y">
+                  {rows.map((r) => {
+                    const destacado = r.meses === cheapest.meses;
+                    return (
+                      <tr key={r.meses} className={destacado ? "bg-primary/5" : ""}>
+                        <th scope="row" className={`w-full pl-6 pr-3 py-4 text-left text-sm font-semibold ${destacado ? "text-primary" : "text-foreground"}`}>
+                          {r.meses} meses
+                        </th>
+                        <td className="px-3 py-4 text-right text-sm text-muted-foreground tabular-nums whitespace-nowrap">
+                          ${fmtMXN(r.total)}
+                        </td>
+                        <td className={`pl-3 pr-6 py-4 text-right text-base font-bold tabular-nums whitespace-nowrap ${destacado ? "text-primary" : "text-foreground"}`}>
+                          ${fmtMXN(r.monthly)}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
 
               <div className="px-6 py-4 bg-muted/40 space-y-3">
                 <p className="text-xs text-muted-foreground leading-relaxed">
-                  {msi.length > 0 && `Meses sin intereses disponibles a ${msi.join(" y ")} meses. `}
-                  {conInteres.length > 0 &&
-                    `De ${Math.min(...conInteres)} a ${Math.max(...conInteres)} meses el financiamiento genera intereses según el plazo. `}
-                  Pagos procesados con terminal bancaria, sujeto a aprobación de tu banco.
-                  Montos ilustrativos sobre ${fmtMXN(price)} MXN; el monto final se confirma en tu valoración.
+                  Pagando de contado, por transferencia o con tarjeta de débito el precio es
+                  ${fmtMXN(price)} MXN sin cargo adicional. Los pagos a plazos con tarjeta de
+                  crédito incluyen la sobretasa del banco ({sobretasasTexto}), más
+                  {" "}{(COMISION_TERMINAL * 100).toFixed(0)}% de terminal y el IVA correspondiente.
+                  Sujeto a aprobación de tu banco. Montos ilustrativos sobre ${fmtMXN(price)} MXN;
+                  el monto final se confirma en tu valoración.
                 </p>
                 <WhatsAppCtaButton
                   url={getWhatsAppUrl({
