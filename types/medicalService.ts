@@ -81,11 +81,21 @@ export type ServiceRateType = {
     description: string;
     image: { url: string } | null;
     type: "consultation" | "procedure" | "study";
-  };
+    // Requiere populate[medical_service][populate][specialty]=true
+    specialty?: { slug: string } | null;
+  } | null;
   doctor?: { doctorName: string } | null;
   package_label: string | null;
   package_items: string[] | null;
   package_note: string | null;
+  // ─── Campos comerciales — PENDIENTES de crear en Strapi (service-rate) ───
+  // Van en service-rate y no en medical-service porque son decisiones por
+  // clínica: el mismo procedimiento se ordena/destaca distinto en cada una.
+  // Mientras no existan llegan undefined y la sección degrada sola.
+  comercialidad?: number | null;   // orden: 1 = más arriba
+  destacado?: boolean | null;      // lo sube a "Los más solicitados" + badge
+  badgePrestigio?: string | null;  // ej. "Somos referencia"
+  requiereCirugia?: boolean | null; // separa "Cirugía" de "Sin cirugía"
 };
 
 export type ServiceRateWithDoctorType = {

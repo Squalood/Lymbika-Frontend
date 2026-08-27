@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Hero from "./components/hero";
+import ServiceSection from "./components/serviceSection";
 import Services from "./components/services";
 import WhyUs from "./components/whyUs";
 import Doctor from "./components/doctor";
@@ -27,7 +28,7 @@ async function getClinicData(slug: string) {
   const [clinicRes, doctorRes, servicesRes] = await Promise.all([
     fetch(`${BASE}/api/clinics?filters[slug][$eq]=${slug}&populate=*`, { next: { revalidate: 3600 } }),
     fetch(`${BASE}/api/clinics?filters[slug][$eq]=${slug}&populate[doctor][populate]=*`, { next: { revalidate: 3600 } }),
-    fetch(`${BASE}/api/clinics?filters[slug][$eq]=${slug}&populate[service_rates][populate][medical_service][populate]=image&populate[service_rates][populate][doctor]=true`, { next: { revalidate: 3600 } }),
+    fetch(`${BASE}/api/clinics?filters[slug][$eq]=${slug}&populate[service_rates][populate][medical_service][populate][image]=true&populate[service_rates][populate][medical_service][populate][specialty]=true&populate[service_rates][populate][doctor]=true`, { next: { revalidate: 3600 } }),
   ]);
 
   const [clinicJson, doctorJson, servicesJson] = await Promise.all([
@@ -66,6 +67,10 @@ export default async function ClinicPage({ params }: Props) {
   const serviceRates = servicesClinic?.service_rates ?? [];
   const t = clinic.pageTexts ?? es.clinics;
 
+  // Las clinicas con procedimientos muestran ServiceSection; las que no
+  // tienen ninguno caen al listado legacy (Services), que solo pinta consultas.
+  const hasProcedures = serviceRates.some((s) => s.medical_service?.type === "procedure");
+
   const theme = clinic.colorPage ? colorThemes[clinic.colorPage] : undefined;
   const themeStyle = theme
     ? ({ "--primary": theme.primary, "--primary-foreground": theme.primaryForeground, "--clinic-dark-bg": theme.darkBg } as React.CSSProperties)
@@ -75,7 +80,11 @@ export default async function ClinicPage({ params }: Props) {
     <div className="relative" style={themeStyle}>
       <ClinicBreadcrumb clinicTitle={clinic.title} texts={t.breadcrumb} />
       <Hero data={clinic} serviceCount={serviceRates.length} testimonialCount={clinic.testimonials.length} texts={t.hero} />
-      {serviceRates.length > 0 && <Services services={serviceRates} texts={t.services} />}
+      {hasProcedures ? (
+        <ServiceSection services={serviceRates} texts={t.services} />
+      ) : (
+        <Services services={serviceRates} texts={t.services} />
+      )}
       <WhyUs features={clinic.features} texts={t.whyUs} />
       <Doctor data={doctor} doctorPageSlug={clinic.doctorPage?.slug} texts={t.doctor} />
       <VideoSection clinic={clinic} texts={t.video} />

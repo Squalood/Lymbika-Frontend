@@ -60,17 +60,21 @@ const DoctorPrice = ({ doctor }: InfoDoctorProps) => {
             {TYPE_LABELS[type] ?? type}
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {group.map((rate) => (
+            {group.map((rate) => {
+              const ms = rate.medical_service;
+              // El agrupado de arriba ya descarta los rates sin relacion.
+              if (!ms) return null;
+              return (
               <div
                 key={rate.id}
                 className="flex flex-col rounded-2xl border border-gray-100 bg-white shadow-sm overflow-hidden"
               >
                 {/* Image */}
                 <div className="relative w-full h-40 bg-gray-100 shrink-0">
-                  {rate.medical_service.image?.url ? (
+                  {ms.image?.url ? (
                     <Image
-                      src={rate.medical_service.image.url}
-                      alt={rate.medical_service.name}
+                      src={ms.image.url}
+                      alt={ms.name}
                       fill
                       className="object-cover"
                     />
@@ -88,7 +92,7 @@ const DoctorPrice = ({ doctor }: InfoDoctorProps) => {
                 {/* Content */}
                 <div className="flex flex-col flex-1 p-4 gap-1">
                   <p className="font-semibold text-gray-800 leading-snug">
-                    {rate.medical_service.name}
+                    {ms.name}
                   </p>
                   {rate.notes && (
                     <p className="text-xs text-gray-400">{rate.notes}</p>
@@ -108,7 +112,8 @@ const DoctorPrice = ({ doctor }: InfoDoctorProps) => {
                   </div>
                 </div>
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       ))}

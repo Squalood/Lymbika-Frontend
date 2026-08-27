@@ -28,7 +28,10 @@ type ServicesProps = {
   texts: ServiceTexts;
 };
 
-const TYPE_ORDER: MedicalServiceType["type"][] = ["consultation", "procedure", "study"];
+// Solo consultas. Los procedimientos los pinta `serviceSection`, y esta
+// sección únicamente se monta en clínicas que no tienen ninguno (ver page.tsx).
+// Para volver a incluir estudios basta con agregarlos a esta lista.
+const TYPE_ORDER: MedicalServiceType["type"][] = ["consultation"];
 
 export default function Services({ services, texts }: ServicesProps) {
   const { ref, inView } = useInView({
@@ -45,6 +48,9 @@ export default function Services({ services, texts }: ServicesProps) {
   const groups = TYPE_ORDER
     .map((type) => ({ type, items: services.filter((s) => s.medical_service?.type === type) }))
     .filter(({ items }) => items.length > 0);
+
+  // Sin nada que listar no se pinta el encabezado suelto.
+  if (groups.length === 0) return null;
 
   return (
     <section id="servicios" className="section bg-accent/50 py-8 md:py-12">

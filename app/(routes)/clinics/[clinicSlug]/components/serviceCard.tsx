@@ -40,6 +40,9 @@ const ServiceCard = (props: ServiceCardProps) => {
   const { service, texts, index = 0, inView = true } = props;
   const ms = service.medical_service;
 
+  // Strapi devuelve rates huerfanos con la relacion vacia; no hay nada que pintar.
+  if (!ms) return null;
+
   const typeLabels: Record<string, string> = {
     consultation: texts.typeConsultation,
     procedure: texts.typeProcedure,
