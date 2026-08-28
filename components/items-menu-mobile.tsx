@@ -9,6 +9,7 @@ import {
   UsersRound,
   SquareActivity,
   ChevronRight,
+  Stethoscope,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -54,7 +55,7 @@ const ItemsMenuMobile = ({ user, navContent }: NavbarProps) => {
   const { lovedItems } = UseLovedProducts();
 
   const menuItemClass =
-    "flex items-center gap-3 px-4 py-3 hover:bg-accent rounded-md transition-colors";
+    "flex items-center gap-3 px-4 py-3 hover:bg-accent rounded-md transition-colors text-sm";
   const subItemClass =
     "flex items-center gap-2 px-4 py-2 hover:bg-accent rounded-md transition-colors text-sm";
 
@@ -86,16 +87,11 @@ const ItemsMenuMobile = ({ user, navContent }: NavbarProps) => {
                 <Link href="/membership" className={menuItemClass}>
                   {navContent?.membership_item_title ?? "Membresías"}
                 </Link>
-                <Link href="/healthHubs" className={menuItemClass}>
-                  {navContent?.doctors_link ?? "¿Eres doctor?"}
-                </Link>
                 <Link href="/specialty" className={menuItemClass}>
                   {navContent?.services_item_title ?? "Especialidades médicas"}
                 </Link>
               </div>
             </div>
-
-            <Separator className="my-4" />
 
             {/* Accordion Sections */}
             <div className="px-4">
@@ -177,6 +173,22 @@ const ItemsMenuMobile = ({ user, navContent }: NavbarProps) => {
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
+            </div>
+
+            <Separator className="my-4" />
+
+            {/* Médicos y Hospitales */}
+            <div className="px-4">
+              <Link
+                href="/healthHubs"
+                className="flex items-center gap-2 px-2 py-3 text-sm hover:bg-accent rounded-md transition-colors"
+              >
+                <Stethoscope className="w-4 h-4" />
+                <span className="flex-1">
+                  {navContent?.doctors_link ?? "¿Eres doctor?"}
+                </span>
+                <ChevronRight className="w-4 h-4 text-muted-foreground" />
+              </Link>
             </div>
 
             <Separator className="my-4" />
