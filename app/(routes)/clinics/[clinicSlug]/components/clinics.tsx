@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ClinicType } from "@/types/clinic";
+import { cldImage } from "@/lib/cloudinary";
 import { ChevronRight, Stethoscope, HeartPulse, Brain, ScanHeart, LucideIcon, Hospital, Ribbon, Venus, Baby, Sparkles, Shell, ClipboardPlus, Syringe, Dumbbell, Laugh, BriefcaseMedical, PillBottle, Bone, Bandage, Dna, Ambulance } from "lucide-react";
 import Autoplay from "embla-carousel-autoplay";
 import {
@@ -68,7 +69,7 @@ export default function Clinics({ data, title }: ClinicsListProps) {
               href={`/clinics/${clinic.slug}`}
               className="group relative flex flex-col rounded-xl bg-cover bg-center text-white flex-[1_1_60%] sm:flex-[1_1_40%] sm:hover:flex-[2_1_58%] h-44 md:h-60 transition-all duration-500 ease-in-out overflow-hidden"
               style={{
-                backgroundImage: `url(${clinic.heroImage?.url || "/placeholder.jpg"})`,
+                backgroundImage: `url(${clinic.heroImage?.url ? cldImage(clinic.heroImage.url, { width: 1080 }) : "/placeholder.jpg"})`,
               }}
             >
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/40 to-transparent z-0 rounded-xl" />

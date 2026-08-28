@@ -17,6 +17,7 @@ import { ContactButton } from "@/components/contact-button";
 import { WhatsAppCtaButton } from "@/components/whatsapp-cta-button";
 import HospitalCardSimple from "@/app/(routes)/hospitals/components/hospitalCardSimple";
 import { WHATSAPP_NUMBER } from "@/lib/constants";
+import { cldVideo, cldVideoPoster } from "@/lib/cloudinary";
 import {
   Carousel,
   CarouselContent,
@@ -129,14 +130,15 @@ export default function MedicalServiceLandingPage({
         {hero?.hero_video?.url ? (
           <video
             className="absolute inset-0 w-full h-full object-cover object-top"
-            src={imgUrl(hero.hero_video.url)}
-            autoPlay muted loop playsInline
+            src={cldVideo(imgUrl(hero.hero_video.url))}
+            poster={cldVideoPoster(imgUrl(hero.hero_video.url))}
+            autoPlay muted loop playsInline preload="metadata"
           />
         ) : hero?.hero_image?.url ? (
           <Image
             src={imgUrl(hero.hero_image.url)}
             alt={service.name}
-            fill className="object-cover object-top" priority
+            fill sizes="100vw" className="object-cover object-top" priority
           />
         ) : (
           <div className="absolute inset-0 bg-gray-900" />
