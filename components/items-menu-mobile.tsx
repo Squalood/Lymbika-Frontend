@@ -10,6 +10,7 @@ import {
   SquareActivity,
   ChevronRight,
   Stethoscope,
+  Scissors,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -33,6 +34,7 @@ import { useCart } from "@/hooks/use-cart";
 import { UseLovedProducts } from "@/hooks/use-loved-products";
 import { LoggedInUser } from "./custom/UserLogin";
 import { useGetClinics } from "@/api/useGetClinics";
+import { useGetFeaturedSurgeries, FeaturedSurgeryType } from "@/api/useGetFeaturedSurgeries";
 import { ClinicType } from "@/types/clinic";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
@@ -51,6 +53,7 @@ interface NavbarProps {
 const ItemsMenuMobile = ({ user, navContent }: NavbarProps) => {
   const { loading, result }: ResponseType = useGetCategories();
   const { clinics } = useGetClinics();
+  const { surgeries, loading: loadingSurgeries } = useGetFeaturedSurgeries();
   const cart = useCart();
   const { lovedItems } = UseLovedProducts();
 
@@ -96,6 +99,32 @@ const ItemsMenuMobile = ({ user, navContent }: NavbarProps) => {
             {/* Accordion Sections */}
             <div className="px-4">
               <Accordion type="multiple" className="w-full">
+                {/* Cirugías */}
+                {(loadingSurgeries || surgeries.length > 0) && (
+                  <AccordionItem value="surgeries" className="border-none">
+                    <AccordionTrigger className="px-2 py-3 hover:no-underline hover:bg-accent rounded-md">
+                      <div className="flex items-center gap-2 font-semibold">
+                        <Scissors className="w-4 h-4" />
+                        {navContent?.surgeries_trigger ?? "Cirugías"}
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-0">
+                      <div className="space-y-1 pl-2 mt-1">
+                        {surgeries.map((surgery: FeaturedSurgeryType) => (
+                          <Link
+                            key={surgery.id}
+                            href={`/specialty/${surgery.specialtySlug}/${surgery.slug}`}
+                            className={subItemClass}
+                          >
+                            <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                            {surgery.name}
+                          </Link>
+                        ))}
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                )}
+
                 {/* Clínicas */}
                 <AccordionItem value="clinics" className="border-none">
                   <AccordionTrigger className="px-2 py-3 hover:no-underline hover:bg-accent rounded-md">

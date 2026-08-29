@@ -10,7 +10,6 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 import {ResponseType} from '@/types/response';
 import { useGetCategories } from "@/api/getCategories"
@@ -18,7 +17,9 @@ import { Skeleton } from "./ui/skeleton"
 import Image from "next/image"
 import { usePathname, useRouter } from "next/navigation"
 import { useGetClinics } from "@/api/useGetClinics"
+import { useGetFeaturedSurgeries } from "@/api/useGetFeaturedSurgeries"
 import ClinicsList from "./clinicsList"
+import SurgeriesList from "./surgeriesList"
 import CategoryList from "./categoryList"
 import { NavbarSectionType } from "@/types/single-types/navbar"
 
@@ -29,6 +30,7 @@ type MenuListProps = {
 const MenuList = ({ navContent }: MenuListProps) => {
   const { loading, result,}:ResponseType = useGetCategories();
   const { clinics } = useGetClinics();
+  const { surgeries } = useGetFeaturedSurgeries();
   const pathname = usePathname();
   const router = useRouter();
 
@@ -92,6 +94,20 @@ const MenuList = ({ navContent }: MenuListProps) => {
           </NavigationMenuContent>
         </NavigationMenuItem>
 
+        {surgeries.length > 0 && (
+          <NavigationMenuItem>
+            <NavigationMenuTrigger className={navStyle}>
+              {navContent?.surgeries_trigger ?? "Cirugías"}
+            </NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <SurgeriesList
+                surgeries={surgeries}
+                title={navContent?.surgeries_featured_title}
+              />
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        )}
+
         <NavigationMenuItem>
           <NavigationMenuTrigger className={navStyle}>
             {navContent?.clinics_trigger ?? "Clínicas"}
@@ -112,14 +128,6 @@ const MenuList = ({ navContent }: MenuListProps) => {
           <NavigationMenuContent>
             <CategoryList category={result}/>
           </NavigationMenuContent>
-        </NavigationMenuItem>
-
-        <NavigationMenuItem>
-          <NavigationMenuLink asChild>
-            <Link href={`/healthHubs/`} className={`${navigationMenuTriggerStyle()} ${navStyle}`}>
-              {navContent?.doctors_link ?? "¿Eres doctor?"}
-            </Link>
-          </NavigationMenuLink>
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>

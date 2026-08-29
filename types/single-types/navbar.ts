@@ -17,6 +17,10 @@ export type NavbarSectionType = {
   clinics_featured_title: string;
   clinics_others_title: string;
   pharmacy_trigger: string;
+  // Pendiente de crear en Strapi (navbar-section). Mientras no exista llega
+  // undefined y el menú cae al literal "Cirugías".
+  surgeries_trigger?: string;
+  surgeries_featured_title?: string;
   doctors_link: string;
   mobile_menu_title: string;
   mobile_account_section: string;

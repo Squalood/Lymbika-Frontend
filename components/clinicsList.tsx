@@ -40,10 +40,21 @@ export default function ClinicsList({ clinics, featuredTitle, othersTitle }: Cli
   // Clínicas no destacadas para la lista lateral
   const sidebarClinics = clinics.filter(clinic => clinic.featuredClinic !== true);
 
+  // Entre más clínicas haya en la lista lateral, más columnas y más ancho le
+  // damos: con 6 se parte en 2 columnas de 3 en vez de una tira larga.
+  const sidebarCols =
+    sidebarClinics.length > 6 ? "grid-cols-3"
+    : sidebarClinics.length === 6 ? "grid-cols-2"
+    : "grid-cols-1";
+  const [mainWidth, sidebarWidth] =
+    sidebarClinics.length > 6 ? ["w-1/2", "w-1/2"]
+    : sidebarClinics.length === 6 ? ["w-3/5", "w-2/5"]
+    : ["w-3/4", "w-1/4"];
+
   return (
     <div className="w-[900px] p-4 flex gap-2">
-      {/* Grid principal - 75% */}
-      <div className={`${sidebarClinics.length <= 6 ? "w-3/4" : "w-1/2"} my-auto`}>
+      {/* Grid principal  */}
+      <div className={`${mainWidth} my-auto`}>
         <h2 className="py-2 text-base text-muted-foreground">{featuredTitle ?? "Clinicas destacadas"}</h2>
         <div className={`grid gap-2 ${gridClinics.length === 1 ? "grid-cols-1" : gridClinics.length === 2 ? "grid-cols-2" : "grid-cols-3"}`}>
           {gridClinics.map((clinic) => {
@@ -79,11 +90,11 @@ export default function ClinicsList({ clinics, featuredTitle, othersTitle }: Cli
         </div>
       </div>
 
-      {/* Lista lateral - 25% */}
+      {/* Lista lateral  */}
       {sidebarClinics.length > 0 && (
-        <div className={`${sidebarClinics.length <= 6 ? "w-1/4" : "w-1/2"} border-l border-border pl-3`}>
+        <div className={`${sidebarWidth} border-l border-border pl-3`}>
           <h2 className="py-2 text-base text-muted-foreground">{othersTitle ?? "Otras Clinicas"}</h2>
-          <ul className={`grid gap-1 ${sidebarClinics.length > 6 ? "grid-cols-3" : "grid-cols-1"}`}>
+          <ul className={`grid gap-1 ${sidebarCols}`}>
             {sidebarClinics.map((clinic) => {
               const IconComponent = iconMap[clinic.icon as keyof typeof iconMap] || Laugh;
               return (
