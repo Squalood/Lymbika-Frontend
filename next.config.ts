@@ -5,19 +5,17 @@ const nextConfig: NextConfig = {
     root: __dirname,
   },
   images: {
-    // El resize lo hace Cloudinary, no el optimizador de Next. Ver lib/cloudinary-loader.ts
+    // El resize no lo hace el optimizador de Next: con Cloudinary se pide por
+    // URL y con CloudFront la variante ya existe subida. Ver lib/media.ts
     loader: "custom",
-    loaderFile: "./lib/cloudinary-loader.ts",
-    // Menos anchos = menos variantes distintas que generar y mejor cache-hit en el CDN.
-    deviceSizes: [640, 828, 1080, 1920],
-    imageSizes: [64, 128, 256, 384],
+    loaderFile: "./lib/media-loader.ts",
+    // Estos anchos son exactamente las variantes que hay en el bucket. Si se
+    // agrega uno aqui hay que generarlo y subirlo, o esas imagenes daran 404.
+    deviceSizes: [640, 1080, 1920],
+    imageSizes: [128, 384],
     remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "res.cloudinary.com",
-        port: "",
-        pathname: "/**",
-      },
+      { protocol: "https", hostname: "res.cloudinary.com", port: "", pathname: "/**" },
+      { protocol: "https", hostname: "*.cloudfront.net", port: "", pathname: "/**" },
     ],
   },
 };
