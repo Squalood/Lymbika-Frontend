@@ -105,3 +105,6 @@ Abrir [http://localhost:3000](http://localhost:3000) en el navegador.
 ## Despliegue
 
 La app está preparada para desplegarse en [Vercel](https://vercel.com). Consulta la [documentación de despliegue de Next.js](https://nextjs.org/docs/app/building-your-application/deploying) para más opciones.
+
+
+este repo es privado
