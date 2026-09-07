@@ -15,6 +15,7 @@ import { MedicalServiceType } from "@/types/medicalService";
 import { Button } from "@/components/ui/button";
 import { ContactButton } from "@/components/contact-button";
 import { WhatsAppCtaButton } from "@/components/whatsapp-cta-button";
+import { getPackageItems } from "@/lib/packageItems";
 import HospitalCardSimple from "@/app/(routes)/hospitals/components/hospitalCardSimple";
 import { WHATSAPP_NUMBER } from "@/lib/constants";
 import { urlVideo, urlPoster } from "@/lib/media";
@@ -313,7 +314,7 @@ export default function MedicalServiceLandingPage({
 
       {/* ─── PACKAGE ───────────────────────────────────────────────── */}
       {(() => {
-        const packageRates = serviceRates.filter((r) => r.package_items && r.package_items.length > 0);
+        const packageRates = serviceRates.filter((r) => getPackageItems(r).length > 0);
         if (packageRates.length === 0) return null;
         return (
         <section id="package" className="w-full py-4 px-4 md:px-8 max-w-6xl mx-auto space-y-8">
@@ -328,7 +329,9 @@ export default function MedicalServiceLandingPage({
 
           <Carousel opts={{ align: "center", loop: false }} className="w-full relative">
             <CarouselContent className="-ml-4">
-              {packageRates.map((rate, i) => (
+              {packageRates.map((rate, i) => {
+                const packageItems = getPackageItems(rate);
+                return (
                 <CarouselItem key={rate.id ?? i} className="pl-4 basis-[88%] sm:basis-1/2 mx-auto">
                   <div className="rounded-2xl overflow-hidden border bg-white shadow-sm flex flex-col h-full">
                     {/* Header oscuro */}
@@ -352,10 +355,10 @@ export default function MedicalServiceLandingPage({
                     </div>
 
                     {/* Items incluidos */}
-                    {rate.package_items && rate.package_items.length > 0 && (
+                    {packageItems.length > 0 && (
                       <div className="flex-1 px-6 py-5">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
-                          {rate.package_items.map((item: string, j: number) => (
+                          {packageItems.map((item, j) => (
                             <div key={j} className="flex items-start gap-2.5">
                               <Check className="w-4 h-4 mt-0.5 text-primary shrink-0" />
                               <p className="text-sm text-foreground">{item}</p>
@@ -391,7 +394,8 @@ export default function MedicalServiceLandingPage({
                     </div>
                   </div>
                 </CarouselItem>
-              ))}
+                );
+              })}
             </CarouselContent>
             {packageRates.length > 1 && (
               <>
@@ -406,7 +410,7 @@ export default function MedicalServiceLandingPage({
 
       {/* ─── FINANCIAMIENTO ───────────────────────────── */}
       {(() => {
-        const packageRates = serviceRates.filter((r) => r.package_items && r.package_items.length > 0);
+        const packageRates = serviceRates.filter((r) => getPackageItems(r).length > 0);
         const source = packageRates.length > 0 ? packageRates : serviceRates;
         // Se toma el precio más bajo para que el encabezado "Desde $X/mes" sea verdadero
         // cuando hay varios paquetes con precios distintos.

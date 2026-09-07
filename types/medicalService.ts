@@ -67,6 +67,13 @@ export type LandingTextsType = {
   cta_button: string | null;
 };
 
+// ─── Package items (componente repetible plus.plus) ─────────────────────
+
+export type PackageItemType = {
+  id: number;
+  text: string | null;
+};
+
 // ─── Service Rate ────────────────────────────────────────────────────────────
 
 export type ServiceRateType = {
@@ -86,7 +93,9 @@ export type ServiceRateType = {
   } | null;
   doctor?: { doctorName: string } | null;
   package_label: string | null;
+  /** Campo json anterior. Sustituido por `items`, se conserva como respaldo. */
   package_items: string[] | null;
+  items?: PackageItemType[] | null;
   package_note: string | null;
   // ─── Campos comerciales — PENDIENTES de crear en Strapi (service-rate) ───
   // Van en service-rate y no en medical-service porque son decisiones por
@@ -105,7 +114,9 @@ export type ServiceRateWithDoctorType = {
   notes: string | null;
   doctor: DoctorType;
   package_label: string | null;
+  /** Campo json anterior. Sustituido por `items`, se conserva como respaldo. */
   package_items: string[] | null;
+  items?: PackageItemType[] | null;
   package_note: string | null;
 };
 
