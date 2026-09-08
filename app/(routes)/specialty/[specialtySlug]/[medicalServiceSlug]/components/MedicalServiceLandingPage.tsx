@@ -16,6 +16,13 @@ import { Button } from "@/components/ui/button";
 import { ContactButton } from "@/components/contact-button";
 import { WhatsAppCtaButton } from "@/components/whatsapp-cta-button";
 import { getPackageItems } from "@/lib/packageItems";
+import {
+  COMISION_TERMINAL,
+  FINANCIAMIENTO_MIN_PRICE,
+  MAX_MESES,
+  SOBRETASAS_TEXTO,
+  planesFinanciamiento,
+} from "@/lib/financiamiento";
 import HospitalCardSimple from "@/app/(routes)/hospitals/components/hospitalCardSimple";
 import { WHATSAPP_NUMBER } from "@/lib/constants";
 import { urlVideo, urlPoster } from "@/lib/media";
@@ -43,25 +50,6 @@ const ICON_MAP: Record<string, LucideIcon> = {
   Presentation, ChartNoAxesCombined, Handshake, Globe,
   HeartHandshake, Home, Leaf, ShieldCheck, UserCheck, PillBottle, ClipboardCheck,
 };
-
-// Esquema de financiamiento de la clinica. Sobretasa de Banregio por plazo.
-// Todos los plazos llevan sobretasa: no hay meses sin intereses.
-const PLAZOS_FINANCIAMIENTO = [
-  { meses: 3, sobretasa: 0.035 },
-  { meses: 6, sobretasa: 0.055 },
-  { meses: 9, sobretasa: 0.085 },
-  { meses: 12, sobretasa: 0.115 },
-  { meses: 18, sobretasa: 0.15 },
-];
-
-// Comision fija de la terminal, se suma a la sobretasa del plazo.
-const COMISION_TERMINAL = 0.04;
-
-// IVA sobre la comision bancaria (8% en zona fronteriza).
-const IVA_COMISION = 0.08;
-
-// Piso para mostrar el bloque de financiamiento: no aplica en consultas ni estudios baratos.
-const FINANCIAMIENTO_MIN_PRICE = 10000;
 
 const fmtMXN = (n: number) => n.toLocaleString("es-MX", { maximumFractionDigits: 0 });
 
@@ -420,25 +408,8 @@ export default function MedicalServiceLandingPage({
         // Solo procedimientos con precio suficiente. Consultas y estudios no muestran financiamiento.
         if (service.type !== "procedure" || price < FINANCIAMIENTO_MIN_PRICE) return null;
 
-        // Formula de la clinica: total = precio / (1 - (sobretasa + 0.04) x 1.08).
-        // Se divide, no se multiplica, porque el banco retiene su comision sobre el monto
-        // bruto cobrado: multiplicar dejaria a Lymbika siempre por debajo del neto.
-        const rows = PLAZOS_FINANCIAMIENTO.map((plazo) => {
-          const tasaEfectiva = (plazo.sobretasa + COMISION_TERMINAL) * (1 + IVA_COMISION);
-          const bruto = price / (1 - tasaEfectiva);
-          // El banco cobra mensualidades iguales, asi que el total real es
-          // mensualidad x meses. Se deriva de ahi para que la tabla no se
-          // contradiga: si el paciente multiplica, le tiene que cuadrar.
-          // Ceil y no round: redondear hacia abajo deja el neto por debajo del precio.
-          const monthly = Math.ceil(bruto / plazo.meses);
-          return { ...plazo, monthly, total: monthly * plazo.meses };
-        });
+        const rows = planesFinanciamiento(price);
         const cheapest = rows.reduce((min, r) => (r.monthly < min.monthly ? r : min), rows[0]);
-        // La copia se deriva de PLAZOS_FINANCIAMIENTO para que no se desincronice de la tabla.
-        const maxMeses = Math.max(...rows.map((r) => r.meses));
-        const sobretasasTexto = PLAZOS_FINANCIAMIENTO
-          .map((plazo) => `${plazo.meses}m ${(plazo.sobretasa * 100).toFixed(1)}%`)
-          .join(", ");
 
         return (
           <section id="financiamiento" className="w-full py-4 px-4 md:px-8 max-w-6xl mx-auto space-y-8">
@@ -450,7 +421,7 @@ export default function MedicalServiceLandingPage({
                 Págalo a plazos con tu tarjeta
               </h2>
               <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-                Difiere tu procedimiento hasta en {maxMeses} meses con tu tarjeta de crédito.
+                Difiere tu procedimiento hasta en {MAX_MESES} meses con tu tarjeta de crédito.
                 Sin trámites de buró: se procesa en tu valoración.
               </p>
             </div>
@@ -514,7 +485,7 @@ export default function MedicalServiceLandingPage({
                 <p className="text-xs text-muted-foreground leading-relaxed">
                   Pagando de contado, por transferencia o con tarjeta de débito el precio es
                   ${fmtMXN(price)} MXN sin cargo adicional. Los pagos a plazos con tarjeta de
-                  crédito incluyen la sobretasa del banco ({sobretasasTexto}), más
+                  crédito incluyen la sobretasa del banco ({SOBRETASAS_TEXTO}), más
                   {" "}{(COMISION_TERMINAL * 100).toFixed(0)}% de terminal y el IVA correspondiente.
                   Sujeto a aprobación de tu banco. Montos ilustrativos sobre ${fmtMXN(price)} MXN;
                   el monto final se confirma en tu valoración.
