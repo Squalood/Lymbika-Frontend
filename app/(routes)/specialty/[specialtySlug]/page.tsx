@@ -1,10 +1,11 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { ServiceType } from "@/types/service";
-import { MedicalServiceType } from "@/types/medicalService";
+import { MedicalServiceType, MedicalServiceCatalogItem } from "@/types/medicalService";
+import { getPackageItems } from "@/lib/packageItems";
 import SpecialtyTitle from "./components/specialtyTitle";
 import SpecialtyInfo from "./components/specialtyInfo";
-import MedicalServicesCatalog, { MedicalServiceCatalogItem } from "./components/medicalServicesCatalog";
+import MedicalServicesCatalog from "./components/medicalServicesCatalog";
 
 const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
 
@@ -15,7 +16,7 @@ async function getSpecialtyData(slug: string): Promise<{
   const [servicesRes, ratesRes] = await Promise.all([
     fetch(`${BASE}/api/services?populate=*`, { next: { revalidate: 3600 } }),
     fetch(
-      `${BASE}/api/service-rates?populate[medical_service][fields][0]=name&populate[medical_service][fields][1]=slug&populate[medical_service][fields][2]=type&populate[medical_service][fields][3]=description&populate[medical_service][populate][image][fields][0]=url&populate[medical_service][populate][specialty][fields][0]=slug&pagination[pageSize]=100`,
+      `${BASE}/api/service-rates?populate[medical_service][fields][0]=name&populate[medical_service][fields][1]=slug&populate[medical_service][fields][2]=type&populate[medical_service][fields][3]=description&populate[medical_service][populate][image][fields][0]=url&populate[medical_service][populate][specialty][fields][0]=slug&populate[items][fields][0]=text&pagination[pageSize]=500`,
       { next: { revalidate: 3600 } }
     ),
   ]);
@@ -33,11 +34,16 @@ async function getSpecialtyData(slug: string): Promise<{
   for (const rate of rates) {
     const ms: MedicalServiceType = rate.medical_service;
     if (!ms?.slug || ms.specialty?.slug !== slug) continue;
+    // `items` primero, `package_items` como respaldo. Ver lib/packageItems.
+    const packageItems = getPackageItems(rate);
+    const conceptos = packageItems.length > 0 ? packageItems : null;
+
     const existing = map.get(ms.slug);
     if (!existing) {
-      map.set(ms.slug, { service: ms, minPrice: rate.price });
+      map.set(ms.slug, { service: ms, minPrice: rate.price, packageItems: conceptos });
     } else if (rate.price < existing.minPrice) {
       existing.minPrice = rate.price;
+      existing.packageItems = conceptos;
     }
   }
 

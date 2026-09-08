@@ -120,6 +120,16 @@ export type ServiceRateWithDoctorType = {
   package_note: string | null;
 };
 
+// ─── Catalogo ────────────────────────────────────────────────────────────────
+
+/** Un servicio agrupado para las tarjetas del catalogo: el precio mas bajo de
+ *  sus tarifas y los conceptos del paquete de esa tarifa. */
+export type MedicalServiceCatalogItem = {
+  service: MedicalServiceType;
+  minPrice: number;
+  packageItems: string[] | null;
+};
+
 // ─── Medical Service ─────────────────────────────────────────────────────────
 
 export type MedicalServiceType = {

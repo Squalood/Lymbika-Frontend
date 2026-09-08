@@ -1,13 +1,7 @@
 'use client';
 import { useEffect, useState } from "react";
-import { MedicalServiceType } from "@/types/medicalService";
+import { MedicalServiceType, MedicalServiceCatalogItem } from "@/types/medicalService";
 import { getPackageItems } from "@/lib/packageItems";
-
-export type MedicalServiceCatalogItem = {
-  service: MedicalServiceType;
-  minPrice: number;
-  packageItems: string[] | null;
-};
 
 export function useGetMedicalServiceCatalog() {
   const [items, setItems] = useState<MedicalServiceCatalogItem[]>([]);

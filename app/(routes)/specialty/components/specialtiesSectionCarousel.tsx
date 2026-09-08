@@ -3,7 +3,7 @@
 import * as LucideIcons from "lucide-react";
 import { Stethoscope } from "lucide-react";
 import { ServiceType, ServiceIconType } from "@/types/service";
-import SkeletonGalleryCol3 from "@/components/skeleton/skeletonGalleryCol3";
+import SpecialtyPillsSkeleton from "@/components/skeleton/specialtyPillsSkeleton";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -26,7 +26,7 @@ const SpecialtiesSectionCarousel = ({ services, loading, availableSlugs, activeS
       <p className="text-sm text-gray-500 mb-6">{description ?? "Encuentra al especialista que necesitas"}</p>
 
       {loading ? (
-        <SkeletonGalleryCol3 grid={6} />
+        <SpecialtyPillsSkeleton count={8} />
       ) : (
         <div className="flex gap-2 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap">
           <button

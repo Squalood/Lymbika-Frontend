@@ -1,36 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { MedicalServiceType } from "@/types/medicalService";
+import { MedicalServiceCatalogItem } from "@/types/medicalService";
 import MedicalServiceCard from "../../components/medicalServiceCard";
-import { Button } from "@/components/ui/button";
-
-export type MedicalServiceCatalogItem = {
-  service: MedicalServiceType;
-  minPrice: number;
-};
-
-const TYPE_LABELS: Record<MedicalServiceType["type"], string> = {
-  consultation: "Consultas",
-  procedure: "Procedimientos",
-  study: "Estudios",
-};
-
-const TYPE_ORDER: MedicalServiceType["type"][] = ["consultation", "procedure", "study"];
-
-const getItemClass = (index: number): string => {
-  if (index < 4) return "";
-  if (index < 6) return "hidden sm:block";
-  if (index < 8) return "hidden lg:block";
-  return "hidden";
-};
-
-const getButtonClass = (total: number): string | null => {
-  if (total <= 4) return null;
-  if (total <= 6) return "block sm:hidden";
-  if (total <= 8) return "block lg:hidden";
-  return "block";
-};
+import { ShowMoreButton } from "@/components/show-more-button";
+import { TYPE_LABELS, TYPE_ORDER } from "@/lib/medicalServiceTypes";
+import { REVEAL_SERVICIOS, getItemClass, getButtonClass } from "@/lib/gridReveal";
 
 type Props = {
   items: MedicalServiceCatalogItem[];
@@ -54,7 +29,7 @@ const MedicalServicesCatalog = ({ items, specialtySlug }: Props) => {
         TYPE_ORDER.filter((type) => items.some((item) => item.service.type === type)).map((type) => {
           const typeItems = items.filter((item) => item.service.type === type);
           const isExpanded = expanded[type];
-          const buttonClass = getButtonClass(typeItems.length);
+          const buttonClass = getButtonClass(REVEAL_SERVICIOS, typeItems.length);
 
           return (
             <section key={type}>
@@ -63,23 +38,25 @@ const MedicalServicesCatalog = ({ items, specialtySlug }: Props) => {
                 {typeItems.map((item, index) => (
                   <div
                     key={item.service.id}
-                    className={`h-full ${isExpanded ? "" : getItemClass(index)}`}
+                    className={`h-full ${isExpanded ? "" : getItemClass(REVEAL_SERVICIOS, index)}`}
                   >
                     <MedicalServiceCard
                       service={item.service}
                       href={`/specialty/${specialtySlug}/${item.service.slug}`}
                       minPrice={item.minPrice}
+                      packageItems={item.packageItems}
                     />
                   </div>
                 ))}
               </div>
               {buttonClass && (
                 <div className={`mt-4 ${buttonClass}`}>
-                  <Button variant="default" size="sm" onClick={() => toggle(type)}>
-                    {isExpanded
-                      ? "Mostrar menos"
-                      : `Mostrar más (${typeItems.length - (typeItems.length <= 6 ? 4 : typeItems.length <= 8 ? 6 : 8)} más)`}
-                  </Button>
+                  <ShowMoreButton
+                    breakpoints={REVEAL_SERVICIOS}
+                    total={typeItems.length}
+                    expanded={!!isExpanded}
+                    onToggle={() => toggle(type)}
+                  />
                 </div>
               )}
             </section>

@@ -3,7 +3,7 @@ import { useGetCategories } from "@/api/getCategories";
 import { CategoryType } from "@/types/category";
 import {ResponseType} from '@/types/response';
 import Link from "next/link";
-import SkeletonGalleryCol3 from "./skeleton/skeletonGalleryCol3";
+import CategoryGridSkeleton from "./skeleton/categoryGridSkeleton";
 import { CATEGORY_ICONS } from "@/lib/categoryIcons";
 
 const ChooseCategoryAlt = ({ title }: { title?: string }) => {
@@ -13,7 +13,7 @@ const ChooseCategoryAlt = ({ title }: { title?: string }) => {
         <div className="sm:max-w-6xl py-4 mx-2 lg:mx-auto sm:py-16">
             <h3 className="px-2 pb-4 text-3xl sm:pb-8">{title ?? "Categorías de la Farmacia"}</h3>
             {loading &&
-                <SkeletonGalleryCol3 grid={6} />
+                <CategoryGridSkeleton grid={6} />
             }
             {!loading && (() => {
                 const withIcon = result?.filter((c: CategoryType) => c.icon) ?? [];

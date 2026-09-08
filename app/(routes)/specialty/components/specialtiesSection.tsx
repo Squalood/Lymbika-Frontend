@@ -6,20 +6,8 @@ import { ResponseType } from "@/types/response";
 import { ServiceType } from "@/types/service";
 import SkeletonGalleryCol3 from "@/components/skeleton/skeletonGalleryCol3";
 import SpecialtyCard from "./specialtyCard";
-import { Button } from "@/components/ui/button";
-
-// 2 filas por breakpoint: mobile cols=1 → 2, sm/lg cols=3 → 6
-const getItemClass = (index: number): string => {
-  if (index < 6) return "";
-  if (index < 6) return "hidden sm:block";
-  return "hidden";
-};
-
-const getButtonClass = (total: number): string | null => {
-  if (total <= 6) return null;
-  if (total <= 6) return "block sm:hidden";
-  return "block";
-};
+import { ShowMoreButton } from "@/components/show-more-button";
+import { REVEAL_ESPECIALIDADES, getItemClass, getButtonClass } from "@/lib/gridReveal";
 
 const SpecialtiesSection = () => {
   const { result: servicesResult, loading: servicesLoading }: ResponseType = useGetServices();
@@ -40,7 +28,7 @@ const SpecialtiesSection = () => {
           <>
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-3 sm:gap-3 px-4">
               {primaryServices.map((service, index) => (
-                <div key={service.id} className={primaryExpanded ? "" : getItemClass(index)}>
+                <div key={service.id} className={primaryExpanded ? "" : getItemClass(REVEAL_ESPECIALIDADES, index)}>
                   <SpecialtyCard
                     name={service.serviceName}
                     icon={service.icon}
@@ -49,13 +37,14 @@ const SpecialtiesSection = () => {
                 </div>
               ))}
             </div>
-            {getButtonClass(primaryServices.length) && (
-              <div className={`mt-4 px-4 ${getButtonClass(primaryServices.length)}`}>
-                <Button variant="default" size="sm" onClick={() => setPrimaryExpanded((p) => !p)}>
-                  {primaryExpanded
-                    ? "Mostrar menos"
-                    : `Mostrar más (${primaryServices.length - (primaryServices.length <= 6 ? 2 : 6)} más)`}
-                </Button>
+            {getButtonClass(REVEAL_ESPECIALIDADES, primaryServices.length) && (
+              <div className={`mt-4 px-4 ${getButtonClass(REVEAL_ESPECIALIDADES, primaryServices.length)}`}>
+                <ShowMoreButton
+                  breakpoints={REVEAL_ESPECIALIDADES}
+                  total={primaryServices.length}
+                  expanded={primaryExpanded}
+                  onToggle={() => setPrimaryExpanded((p) => !p)}
+                />
               </div>
             )}
           </>
@@ -71,7 +60,7 @@ const SpecialtiesSection = () => {
           <>
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-3 sm:gap-3 px-4">
               {specialtyServices.map((service, index) => (
-                <div key={service.id} className={specialtyExpanded ? "" : getItemClass(index)}>
+                <div key={service.id} className={specialtyExpanded ? "" : getItemClass(REVEAL_ESPECIALIDADES, index)}>
                   <SpecialtyCard
                     name={service.serviceName}
                     icon={service.icon}
@@ -80,13 +69,14 @@ const SpecialtiesSection = () => {
                 </div>
               ))}
             </div>
-            {getButtonClass(specialtyServices.length) && (
-              <div className={`mt-4 px-4 ${getButtonClass(specialtyServices.length)}`}>
-                <Button variant="default" size="sm" onClick={() => setSpecialtyExpanded((p) => !p)}>
-                  {specialtyExpanded
-                    ? "Mostrar menos"
-                    : `Mostrar más (${specialtyServices.length - (specialtyServices.length <= 6 ? 2 : 6)} más)`}
-                </Button>
+            {getButtonClass(REVEAL_ESPECIALIDADES, specialtyServices.length) && (
+              <div className={`mt-4 px-4 ${getButtonClass(REVEAL_ESPECIALIDADES, specialtyServices.length)}`}>
+                <ShowMoreButton
+                  breakpoints={REVEAL_ESPECIALIDADES}
+                  total={specialtyServices.length}
+                  expanded={specialtyExpanded}
+                  onToggle={() => setSpecialtyExpanded((p) => !p)}
+                />
               </div>
             )}
           </>
