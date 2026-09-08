@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useGetServices } from "@/api/getService";
 import { ResponseType } from "@/types/response";
 import { ServiceType } from "@/types/service";
-import SkeletonGalleryCol3 from "@/components/skeleton/skeletonGalleryCol3";
+import SpecialtiesGridSkeleton from "@/components/skeleton/specialtyCardSkeleton";
 import SpecialtyCard from "./specialtyCard";
 import { ShowMoreButton } from "@/components/show-more-button";
 import { REVEAL_ESPECIALIDADES, getItemClass, getButtonClass } from "@/lib/gridReveal";
@@ -23,7 +23,7 @@ const SpecialtiesSection = () => {
       <div className="bg-gray-100 py-6 rounded-2xl mx-2">
         <h3 className="px-6 pb-4 text-2xl sm:text-3xl sm:pb-8">Atención Primaria</h3>
         {servicesLoading ? (
-          <div className="px-4"><SkeletonGalleryCol3 grid={4} /></div>
+          <SpecialtiesGridSkeleton total={4} />
         ) : (
           <>
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-3 sm:gap-3 px-4">
@@ -55,7 +55,7 @@ const SpecialtiesSection = () => {
       <div>
         <h3 className="px-6 pb-4 text-2xl sm:text-3xl sm:pb-8">Especialidades</h3>
         {servicesLoading ? (
-          <SkeletonGalleryCol3 grid={6} />
+          <SpecialtiesGridSkeleton total={11} />
         ) : (
           <>
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-3 sm:gap-3 px-4">

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useGetMedicalServiceCatalog } from "@/api/useGetMedicalServiceCatalog";
-import SkeletonGalleryCol3 from "@/components/skeleton/skeletonGalleryCol3";
+import MedicalServicesCatalogSkeleton from "@/components/skeleton/medicalServicesCatalogSkeleton";
 import MedicalServiceCard from "./medicalServiceCard";
 import { ShowMoreButton } from "@/components/show-more-button";
 import { TYPE_LABELS, TYPE_ORDER } from "@/lib/medicalServiceTypes";
@@ -21,7 +21,7 @@ const MedicalServicesCatalogSection = () => {
     <div className="space-y-8">
       <h3 className="px-6 text-2xl sm:text-3xl">Servicios médicos</h3>
       {loading ? (
-        <SkeletonGalleryCol3 grid={8} />
+        <MedicalServicesCatalogSkeleton />
       ) : (
         TYPE_ORDER.filter((type) => filtered.some((item) => item.service.type === type)).map((type) => {
           const typeItems = filtered.filter((item) => item.service.type === type);

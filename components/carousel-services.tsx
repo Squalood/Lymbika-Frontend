@@ -39,7 +39,7 @@ const CarouselServices = ({ title, subTitle, description, allLabel, emptyLabel, 
     <div className="max-w-6xl mx-auto px-4 py-8 sm:py-12 space-y-8">
       <SpecialtiesSectionCarousel
         services={services}
-        loading={servicesLoading}
+        loading={servicesLoading || itemsLoading}
         availableSlugs={availableSlugs}
         activeSlug={activeSpecialtySlug}
         onSelect={setActiveSpecialtySlug}

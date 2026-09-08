@@ -1,7 +1,7 @@
 "use client";
 
 import { MedicalServiceCatalogItem } from "@/types/medicalService";
-import MedicalServiceCardSkeleton from "@/components/skeleton/medicalServiceCardSkeleton";
+import { MedicalServiceCardsCarouselSkeleton } from "@/components/skeleton/medicalServiceCardSkeleton";
 import MedicalServiceCard from "./medicalServiceCard";
 import {
   Carousel,
@@ -36,7 +36,7 @@ const MedicalServicesCatalogCarousel = ({ items, loading, activeSpecialtySlug, t
     <div className="space-y-4">
       <h2 className="text-2xl font-semibold text-gray-900 mb-1">{title ?? "Cirugías, procedimientos y consultas"}</h2>
       {loading ? (
-        <MedicalServiceCardSkeleton count={4} />
+        <MedicalServiceCardsCarouselSkeleton count={4} />
       ) : filtered.length === 0 ? (
         <p className="text-sm text-gray-500 px-4">{emptyLabel ?? "No hay servicios disponibles para esta especialidad."}</p>
       ) : (
