@@ -10,7 +10,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { FeaturedSurgeryType } from "@/api/useGetFeaturedSurgeries";
-import SurgeryCard from "./surgeryCard";
+import MedicalServiceCard from "@/app/(routes)/specialty/components/medicalServiceCard";
 
 type SurgeriesListProps = {
   surgeries: FeaturedSurgeryType[];
@@ -45,9 +45,14 @@ export default function SurgeriesList({
           alineamos a la izquierda en vez de estirarlas a todo el ancho. */}
       <Carousel opts={{ align: "start", loop: surgeries.length > 3 }}>
         <CarouselContent className="-ml-3">
-          {surgeries.map((surgery) => (
-            <CarouselItem key={surgery.id} className="pl-3 basis-1/3">
-              <SurgeryCard surgery={surgery} />
+          {surgeries.map((item) => (
+            <CarouselItem key={item.service.id} className="pl-3 basis-1/3">
+              <MedicalServiceCard
+                service={item.service}
+                href={`/specialty/${item.service.specialty!.slug}/${item.service.slug}`}
+                minPrice={item.minPrice}
+                packageItems={item.packageItems}
+              />
             </CarouselItem>
           ))}
         </CarouselContent>

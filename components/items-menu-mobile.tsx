@@ -110,14 +110,14 @@ const ItemsMenuMobile = ({ user, navContent }: NavbarProps) => {
                     </AccordionTrigger>
                     <AccordionContent className="pb-0">
                       <div className="space-y-1 pl-2 mt-1">
-                        {surgeries.map((surgery: FeaturedSurgeryType) => (
+                        {surgeries.map((item: FeaturedSurgeryType) => (
                           <Link
-                            key={surgery.id}
-                            href={`/specialty/${surgery.specialtySlug}/${surgery.slug}`}
+                            key={item.service.id}
+                            href={`/specialty/${item.service.specialty!.slug}/${item.service.slug}`}
                             className={subItemClass}
                           >
                             <ChevronRight className="w-4 h-4 text-muted-foreground" />
-                            {surgery.name}
+                            {item.service.name}
                           </Link>
                         ))}
                       </div>

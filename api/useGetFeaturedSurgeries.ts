@@ -1,13 +1,16 @@
 'use client';
 import { useEffect, useState } from "react";
+import { MedicalServiceType } from "@/types/medicalService";
 
+/**
+ * Misma forma que MedicalServiceCatalogItem (ver useGetMedicalServiceCatalog)
+ * para poder alimentar MedicalServiceCard sin adaptadores, más el orden
+ * comercial que decide la posición en el menú.
+ */
 export type FeaturedSurgeryType = {
-  id: number;
-  name: string;
-  slug: string;
-  specialtySlug: string;
-  description: string;
-  imageUrl: string | null;
+  service: MedicalServiceType;
+  minPrice: number;
+  packageItems: string[] | null;
   comercialidad: number | null;
 };
 
@@ -21,7 +24,7 @@ export function useGetFeaturedSurgeries() {
       setLoading(true);
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/service-rates?filters[destacado][$eq]=true&filters[requiereCirugia][$eq]=true&filters[medical_service][has_landing_page][$eq]=true&fields[0]=comercialidad&populate[medical_service][fields][0]=name&populate[medical_service][fields][1]=slug&populate[medical_service][fields][2]=description&populate[medical_service][populate][image][fields][0]=url&populate[medical_service][populate][specialty][fields][0]=slug&pagination[pageSize]=100`
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/service-rates?filters[destacado][$eq]=true&filters[requiereCirugia][$eq]=true&filters[medical_service][has_landing_page][$eq]=true&fields[0]=comercialidad&fields[1]=price&fields[2]=package_items&populate[medical_service][fields][0]=name&populate[medical_service][fields][1]=slug&populate[medical_service][fields][2]=description&populate[medical_service][fields][3]=type&populate[medical_service][populate][image][fields][0]=url&populate[medical_service][populate][specialty][fields][0]=slug&pagination[pageSize]=100`
         );
         const json = await res.json();
 
@@ -31,28 +34,37 @@ export function useGetFeaturedSurgeries() {
         }
 
         // Una cirugía puede tener tarifa en varias clínicas. Agrupamos por
-        // medical_service y nos quedamos con la comercialidad más alta
-        // (número más bajo) de todas sus tarifas.
+        // medical_service y nos quedamos con el precio más bajo (y el paquete
+        // de esa tarifa) más la comercialidad más alta (número más bajo).
         const map = new Map<string, FeaturedSurgeryType>();
         for (const rate of json.data) {
           const ms = rate.medical_service;
-          const specialtySlug = ms?.specialty?.slug;
           // Sin especialidad no hay URL que construir:
           // /specialty/[specialtySlug]/[medicalServiceSlug]
-          if (!ms?.slug || !specialtySlug) continue;
+          if (!ms?.slug || !ms.specialty?.slug) continue;
+
+          const service: MedicalServiceType = {
+            ...ms,
+            name: (ms.name ?? "").trim(),
+            description: (ms.description ?? "").trim(),
+          };
 
           const existing = map.get(ms.slug);
           if (!existing) {
             map.set(ms.slug, {
-              id: ms.id,
-              name: (ms.name ?? "").trim(),
-              slug: ms.slug,
-              specialtySlug,
-              description: (ms.description ?? "").trim(),
-              imageUrl: ms.image?.url ?? null,
+              service,
+              minPrice: rate.price,
+              packageItems: rate.package_items ?? null,
               comercialidad: rate.comercialidad ?? null,
             });
-          } else if (
+            continue;
+          }
+
+          if (rate.price < existing.minPrice) {
+            existing.minPrice = rate.price;
+            existing.packageItems = rate.package_items ?? null;
+          }
+          if (
             rate.comercialidad != null &&
             (existing.comercialidad === null ||
               rate.comercialidad < existing.comercialidad)
@@ -70,7 +82,7 @@ export function useGetFeaturedSurgeries() {
             if (b.comercialidad === null) return -1;
             return a.comercialidad - b.comercialidad;
           }
-          return a.name.localeCompare(b.name, "es");
+          return a.service.name.localeCompare(b.service.name, "es");
         });
 
         setSurgeries(sorted);
