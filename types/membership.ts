@@ -7,7 +7,7 @@ export type MembershipType = {
   priceP: number;
   priceF: number;
   description: string;
-  button: {
+  button?: {
     label: string;
     icon: string; 
     variant: "default" | "outline";

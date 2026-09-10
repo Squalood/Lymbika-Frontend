@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Check, Star, Stethoscope, PersonStanding, Pill } from "lucide-react";
 import { MembershipType } from "@/types/membership";
 import { cn } from "@/lib/utils";
+import { formatPrice } from "@/lib/formatPrice";
 import PlanToggle from "./PlanToggle";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 
@@ -95,7 +96,7 @@ const PlansMemberPageAlt = ({ plans, title, description }: PlansMemberPageAltPro
                           isFeatured ? "text-primary" : "text-white"
                         )}
                       >
-                        ${price}
+                        {formatPrice(price ?? 0, 0)}
                       </span>
                       <span
                         className={cn(

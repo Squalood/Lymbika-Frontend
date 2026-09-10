@@ -8,6 +8,7 @@
   import PlanToggle from "./PlanToggle";
   import { MembershipType } from "@/types/membership";
   import { cn } from "@/lib/utils";
+  import { formatPrice } from "@/lib/formatPrice";
 
   interface PlansMemberPageProps {
     plans: MembershipType[];
@@ -18,6 +19,10 @@
       text: string;
       tag?: string;
     };
+    togglePersonalLabel?: string;
+    toggleFamilyLabel?: string;
+    featuredLabel?: string;
+    pricePeriod?: string;
   }
 
   const iconMap = {
@@ -28,7 +33,16 @@
     Pill: <Pill size={20} className="stroke-primary" />
   } as const;
 
-  const PlansMemberPage = ({ plans, title, description, badge }: PlansMemberPageProps) =>  {
+  const PlansMemberPage = ({
+    plans,
+    title,
+    description,
+    badge,
+    togglePersonalLabel,
+    toggleFamilyLabel,
+    featuredLabel = "MÁS POPULAR",
+    pricePeriod = "/ mes",
+  }: PlansMemberPageProps) =>  {
     const [isFamilyPlan, setIsFamilyPlan] = useState(false);
 
     return (
@@ -60,7 +74,12 @@
           )}
         </div>
 
-        <PlanToggle isFamilyPlan={isFamilyPlan} setIsFamilyPlan={setIsFamilyPlan} />
+        <PlanToggle
+          isFamilyPlan={isFamilyPlan}
+          setIsFamilyPlan={setIsFamilyPlan}
+          personalLabel={togglePersonalLabel}
+          familyLabel={toggleFamilyLabel}
+        />
 
         <Carousel opts={{ startIndex: Math.max(plans.findIndex(p => p.featured), 0) }}>
           <CarouselContent>
@@ -76,7 +95,7 @@
                     {isFeatured && (
                       <div className="absolute top-0 left-1/2 -translate-x-1/2 z-10">
                         <span className="bg-primary text-primary-foreground text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1 whitespace-nowrap">
-                          <Star size={11} fill="currentColor" /> MÁS POPULAR
+                          <Star size={11} fill="currentColor" /> {featuredLabel}
                         </span>
                       </div>
                     )}
@@ -94,9 +113,9 @@
                         <div className="flex flex-col gap-8 flex-1">
                           <div className="flex items-end gap-1">
                             <span className="text-5xl font-bold">
-                              ${isFamilyPlan ? plan.priceF ?? 0 : plan.priceP ?? 0}
+                              {formatPrice(isFamilyPlan ? plan.priceF ?? 0 : plan.priceP ?? 0, 0)}
                             </span>
-                            <span className="text-sm text-muted-foreground mb-1.5">/ mes</span>
+                            <span className="text-sm text-muted-foreground mb-1.5">{pricePeriod}</span>
                           </div>
                           <div className="flex flex-col gap-3">
                             {plan.features.map((feature, fIdx) => (
@@ -107,14 +126,19 @@
                             ))}
                           </div>
                           <div className="flex flex-col items-stretch gap-2 mt-auto">
-                            <Button
-                              variant={isFeatured ? "default" : "outline"}
-                              className="gap-2"
-                              onClick={() => window.open(`${isFamilyPlan ? plan.button.linkF : plan.button.linkP}`, "_blank")}
-                            >
-                              {plan.button.label}
-                              {iconMap[plan.button.icon as keyof typeof iconMap]}
-                            </Button>
+                            {plan.button && (
+                              <Button
+                                variant={isFeatured ? "default" : "outline"}
+                                className="gap-2"
+                                onClick={() => {
+                                  const link = isFamilyPlan ? plan.button?.linkF : plan.button?.linkP;
+                                  if (link) window.open(link, "_blank");
+                                }}
+                              >
+                                {plan.button.label}
+                                {iconMap[plan.button.icon as keyof typeof iconMap]}
+                              </Button>
+                            )}
                             {plan.secondaryButton && (
                               <button
                                 onClick={() => secondaryLink && window.open(secondaryLink, "_blank")}

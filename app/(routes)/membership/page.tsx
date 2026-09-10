@@ -1,74 +1,82 @@
 import { MembershipType } from "@/types/membership";
-import { FaqType } from "@/types/faq";
-import { PageType } from "@/types/pages";
+import { getMembershipPage } from "@/api/getMembershipPage";
 import PlansMemberPage from "./components/plans";
-import FaqComponent from "@/components/faq";
+import MembershipFaq from "./components/membershipFaq";
 
 const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
-const SLUG = "lymbika-membership";
 
-async function getMembershipData() {
-  const [membershipsRes, heroRes, faqRes] = await Promise.all([
-    fetch(`${BASE}/api/memberships?populate=*`, { next: { revalidate: 3600 } }),
-    fetch(
-      `${BASE}/api/pages?filters[slug][$eq]=${SLUG}&populate[hero][populate]=image&populate[badge]=*`,
-      { next: { revalidate: 3600 } }
-    ),
-    fetch(`${BASE}/api/faq-groups?populate=*`, { next: { revalidate: 3600 } }),
-  ]);
+/** Los textos de Strapi llegan con espacios sobrantes y a veces vacíos; en
+ *  ambos casos deben caer al default del componente. */
+const clean = (value?: string | null) => value?.trim() || undefined;
 
-  const [membershipsJson, heroJson, faqJson] = await Promise.all([
-    membershipsRes.json(),
-    heroRes.json(),
-    faqRes.json(),
-  ]);
+/** Fallback: todos los planes publicados, cuando la página no los elige a mano. */
+async function getMemberships(): Promise<MembershipType[]> {
+  const res = await fetch(`${BASE}/api/memberships?populate=*`, {
+    next: { revalidate: 3600 },
+  });
+  if (!res.ok) return [];
+  const json = await res.json();
 
-  const memberships: MembershipType[] = Array.isArray(membershipsJson.data)
-    ? membershipsJson.data
-        .map((item: MembershipType) => ({ ...item, order: item.order ?? 0, featured: item.featured ?? false }))
-        .sort((a: MembershipType, b: MembershipType) => (a.order ?? 0) - (b.order ?? 0) || a.id - b.id)
+  return Array.isArray(json.data)
+    ? json.data
+        .map((item: MembershipType) => ({
+          ...item,
+          order: item.order ?? 0,
+          featured: item.featured ?? false,
+        }))
+        .sort(
+          (a: MembershipType, b: MembershipType) =>
+            (a.order ?? 0) - (b.order ?? 0) || a.id - b.id
+        )
     : [];
+}
 
-  const heroPage: PageType | null = heroJson.data?.[0] ?? null;
-  const faqGroups: FaqType[] = Array.isArray(faqJson.data) ? faqJson.data : [];
-
-  return { memberships, heroPage, faqGroups };
+export async function generateMetadata() {
+  const membershipPage = await getMembershipPage();
+  const title = clean(membershipPage?.seoTitle);
+  if (!title) return {};
+  return {
+    title,
+    description: clean(membershipPage?.seoDescription),
+  };
 }
 
 export default async function Page() {
-  const { memberships, heroPage, faqGroups } = await getMembershipData();
+  const [membershipPage, plans] = await Promise.all([
+    getMembershipPage(),
+    getMemberships(),
+  ]);
 
-  const pageHero = heroPage?.hero;
-  const badge = heroPage?.badge?.[0];
-  const membershipFaqGroup = faqGroups.find((g) => g.slug === "memberships");
+  // Si Strapi falla, la página sigue mostrando las cards con los textos por
+  // defecto en lugar de romperse.
+  const { title, description, badge, texts, faq_group } = membershipPage ?? {};
+
+  // Los planes elegidos a mano en el admin mandan, en el orden en que estén ahí.
+  // Sin relación configurada se usan todos los publicados, por campo `order`.
+  const selected = membershipPage?.memberships ?? [];
+  const plansToRender = selected.length > 0 ? selected : plans;
 
   return (
     <div>
       <PlansMemberPage
-        plans={memberships}
-        title={pageHero?.title}
-        description={pageHero?.description}
-        badge={badge ? { boldText: badge.boldText, text: badge.text, tag: badge.tag } : undefined}
+        plans={plansToRender}
+        title={clean(title)}
+        description={clean(description)}
+        badge={
+          badge
+            ? {
+                boldText: clean(badge.boldText) ?? "",
+                text: clean(badge.text) ?? "",
+                tag: clean(badge.tag),
+              }
+            : undefined
+        }
+        togglePersonalLabel={clean(texts?.toggle_personal)}
+        toggleFamilyLabel={clean(texts?.toggle_family)}
+        featuredLabel={clean(texts?.featured_label)}
+        pricePeriod={clean(texts?.price_period)}
       />
-      {membershipFaqGroup && (
-        <div className="w-full py-8 px-4">
-          <div className="container mx-auto">
-            <div className="flex flex-col">
-              <div className="flex text-center justify-center items-center gap-4 flex-col">
-                <h4 className="text-3xl md:text-5xl tracking-tighter max-w-xl text-center font-semibold">
-                  {membershipFaqGroup.title}
-                </h4>
-                <p className="text-muted-foreground text-lg max-w-2xl">
-                  {membershipFaqGroup.descripction}
-                </p>
-              </div>
-              <div className="w-full mx-auto">
-                <FaqComponent faqGroup={membershipFaqGroup} />
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      {faq_group && <MembershipFaq faqGroup={faq_group} />}
     </div>
   );
 }
