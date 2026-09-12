@@ -30,7 +30,6 @@ export function ProfileForm({ data, className }: { readonly data: UserType; read
 
   return (
     <form className={cn("space-y-4", className)} action={formAction}>
-      <input type="hidden" name="id" value={data.id.toString()} />
 
       <div className="space-y-4 grid">
         <div className="grid grid-cols-3 gap-4">

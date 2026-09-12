@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/formatPrice";
 import { CartItem } from "@/hooks/use-cart";
 import { AuthUserProps } from "./types";
+import { getItemPrice } from "./pricing";
 
 interface CartOrderSummaryProps {
   items: CartItem[];
@@ -19,16 +20,11 @@ interface CartOrderSummaryProps {
   ahorro: number;
   finalTotal: number;
   onCheckout: () => void;
+  procesando?: boolean;
 }
 
 // Nombre del item
 const getItemName = (item: CartItem): string => item.productName;
-
-// Precio final por item
-const getItemPrice = (item: CartItem, user: AuthUserProps | null): number => {
-  const useMemberPrice = user?.mediClubRegular && item.priceMember > 0;
-  return useMemberPrice ? item.priceMember : item.price;
-};
 
 export function CartOrderSummary({
   items,
@@ -40,6 +36,7 @@ export function CartOrderSummary({
   ahorro,
   finalTotal,
   onCheckout,
+  procesando,
 }: CartOrderSummaryProps) {
   return (
     <Card className="w-full">
@@ -136,9 +133,14 @@ export function CartOrderSummary({
           </div>
         </div>
 
-        <Button className="w-full gap-2 h-11 sm:h-12" onClick={onCheckout} size="lg">
-          Proceder al Pago
-          <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
+        <Button
+          className="w-full gap-2 h-11 sm:h-12"
+          onClick={onCheckout}
+          disabled={procesando}
+          size="lg"
+        >
+          {procesando ? "Procesando..." : "Proceder al Pago"}
+          {!procesando && <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />}
         </Button>
 
         <p className="text-xs text-center text-muted-foreground">

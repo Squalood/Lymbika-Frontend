@@ -13,4 +13,5 @@ export interface CartSummaryProps {
   isDelivery: boolean;
   setIsDelivery: (value: boolean) => void;
   onCheckout: () => void;
+  procesando?: boolean;
 }

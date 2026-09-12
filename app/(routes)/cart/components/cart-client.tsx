@@ -5,74 +5,57 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/hooks/use-cart";
-import { loadStripe } from "@stripe/stripe-js";
-import { makePaymentRequest } from "@/api/payment";
 import { toast } from "sonner";
 import * as gtag from "@/lib/gtag";
+import { crearSesionDePago } from "@/app/data/actions/checkout-actions";
 import { CartHeader } from "./cart-header";
 import { CartEmptyState } from "./cart-empty-state";
 import { CartProductsList } from "./cart-products-list";
 import { CartSummary } from "./cart-summary";
 import { CartMobileBar } from "./cart-mobile-bar";
 import { AuthUserProps } from "./types";
-import { ProductType } from "@/types/product";
+import { DELIVERY_COST, getItemPrice } from "./pricing";
 
 
 interface CartClientPageProps {
   user: AuthUserProps | null;
 }
 
-const getItemPrice = (item: ProductType, user: AuthUserProps | null): number => {
-  const useMemberPrice = user?.mediClubRegular && item.priceMember > 0;
-  return useMemberPrice ? item.priceMember : item.price;
-};
-
-const getItemName = (item: ProductType): string => item.productName;
-
 
 export default function CartClientPage({ user }: CartClientPageProps) {
   const router = useRouter();
   const { items, removeAll } = useCart();
   const [isDelivery, setIsDelivery] = useState(false);
+  const [procesando, setProcesando] = useState(false);
 
-  const deliveryCost = isDelivery ? 200 : 0;
+  const deliveryCost = isDelivery ? DELIVERY_COST : 0;
   const totalPrice = items.reduce((total, item) => {
     const price = getItemPrice(item, user);
     return total + (price * item.quantity);
   }, 0);
   const finalTotal = totalPrice + deliveryCost;
 
-  const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "");
-
   const buyStripe = async () => {
-    try {
-      const stripe = await stripePromise;
-      const productsPayload = items.map(item => ({
-        id: item.id,
-        name: getItemName(item), 
-        quantity: item.quantity,
-        price: getItemPrice(item, user), 
-        type: "product",
-      }));
+    setProcesando(true);
 
-      const res = await makePaymentRequest.post("/api/orders", {
-        products: productsPayload,
-        mediClubRegular: user?.mediClubRegular || false,
-        isDelivery, 
-        deliveryCost,
-        userEmail: user?.email || "",
-      });
+    // Solo id y cantidad: el precio lo resuelve el servidor.
+    const res = await crearSesionDePago(
+      items.map(({ id, quantity }) => ({ id, quantity })),
+      isDelivery
+    );
 
-      await stripe?.redirectToCheckout({
-        sessionId: res.data.stripeSession.id,
-      });
-    } catch (error) {
-      console.log(error);
-      removeAll();
+    if ("error" in res) {
+      setProcesando(false);
+      toast.error(res.error);
+      return;
     }
+
+    window.location.href = res.url;
   };
 
   const handleBuyClick = () => {
+    if (procesando) return;
+
     if (!user) {
       toast.warning("Debes estar registrado para completar la compra", {
         action: {
@@ -115,15 +98,17 @@ export default function CartClientPage({ user }: CartClientPageProps) {
               isDelivery={isDelivery}
               setIsDelivery={setIsDelivery}
               onCheckout={handleBuyClick}
+              procesando={procesando}
             />
           </div>
         )}
       </div>
 
       {items.length > 0 && (
-        <CartMobileBar 
-          finalTotal={finalTotal} 
-          onCheckout={handleBuyClick} 
+        <CartMobileBar
+          finalTotal={finalTotal}
+          onCheckout={handleBuyClick}
+          procesando={procesando}
         />
       )}
     </div>

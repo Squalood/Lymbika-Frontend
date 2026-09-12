@@ -10,7 +10,6 @@ interface UserProfile {
   firstName: string;
   lastName: string;
   bio: string;
-  mediClubRegular: boolean;
 }
 
 export interface ProfileState {
@@ -22,28 +21,24 @@ export interface ProfileState {
 export async function updateProfileAction(prevState: ProfileState, formData: FormData) {
   const rawFormData = Object.fromEntries(formData);
 
-  const userId = rawFormData.id as string;
-  if (!userId) {
-    return {
-      ...prevState,
-      strapiErrors: { message: "User ID is missing." } as StrapiErrorsProps,
-      message: "Error: No user ID provided.",
-    };
-  }
-
+  // Solo estos tres campos cruzan. El usuario lo resuelve el backend desde el
+  // token: no se manda ningun id, y mediClubRegular no es editable por nadie
+  // desde aqui — lo pone el flujo de membresia.
   const payload: Partial<UserProfile> = {
     firstName: rawFormData.firstName as string,
     lastName: rawFormData.lastName as string,
     bio: rawFormData.bio as string,
-    mediClubRegular: rawFormData.mediClubRegular === "true",
   };
 
-  const responseData = await mutateData(
-    "PUT",
-    `/api/users/${userId}?populate=*`,
-    payload
-  );
+  const responseData = await mutateData("PUT", "/api/profile", payload);
 
+  if (responseData?.error) {
+    return {
+      ...prevState,
+      strapiErrors: responseData.error as StrapiErrorsProps,
+      message: "Ops! Something went wrong. Please try again.",
+    };
+  }
 
   // ✅ Ajustar la forma en que se extraen los datos
   if (!responseData) {

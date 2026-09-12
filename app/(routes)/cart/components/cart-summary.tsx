@@ -2,16 +2,11 @@ import { CartMediClubCard } from "./cart-mediclub-card";
 import { CartOrderSummary } from "./cart-order-summary";
 import { CartSummaryProps } from "./types";
 import { useCart } from "@/hooks/use-cart";
-import { CartItem } from "@/hooks/use-cart";
+import { DELIVERY_COST, getItemPrice } from "./pricing";
 
-const getItemPrice = (item: CartItem, user: CartSummaryProps["user"]): number => {
-  const useMemberPrice = user?.mediClubRegular && item.priceMember > 0;
-  return useMemberPrice ? item.priceMember : item.price;
-};
-
-export function CartSummary({ user, isDelivery, setIsDelivery, onCheckout }: CartSummaryProps) {
+export function CartSummary({ user, isDelivery, setIsDelivery, onCheckout, procesando }: CartSummaryProps) {
   const { items } = useCart();
-  const deliveryCost = isDelivery ? 200 : 0;
+  const deliveryCost = isDelivery ? DELIVERY_COST : 0;
 
   const subtotal = items.reduce((total, item) => {
     return total + item.price * item.quantity;
@@ -39,6 +34,7 @@ export function CartSummary({ user, isDelivery, setIsDelivery, onCheckout }: Car
           ahorro={ahorro}
           finalTotal={finalTotal}
           onCheckout={onCheckout}
+          procesando={procesando}
         />
       </div>
     </div>
