@@ -8,6 +8,7 @@ import {
   loginUserService,
 } from "@/app/data/services/auth-service";
 import { AuthState } from "@/types/auth";
+import { translateAuthError } from "@/app/data/services/auth-errors";
 
 const config = {
   maxAge: 60 * 60 * 24 * 7, // 1 week
@@ -62,7 +63,10 @@ export async function registerUserAction(
   if (responseData.error) {
     return {
       ...prevState,
-      strapiErrors: responseData.error,
+      strapiErrors: {
+        ...responseData.error,
+        message: translateAuthError(responseData.error.message),
+      },
       zodErrors: null,
       message: "Failed to Register.",
     };
@@ -84,19 +88,20 @@ export async function registerUserAction(
 const schemaLogin = z.object({
   identifier: z
     .string()
+    .trim()
     .min(3, {
-      message: "Identifier must have at least 3 or more characters",
+      message: "Ingresa tu usuario o correo electrónico",
     })
-    .max(20, {
-      message: "Please enter a valid username or email address",
+    .max(254, {
+      message: "Ingresa un usuario o correo electrónico válido",
     }),
   password: z
     .string()
-    .min(6, {
-      message: "Password must have at least 6 or more characters",
+    .min(1, {
+      message: "Ingresa tu contraseña",
     })
     .max(100, {
-      message: "Password must be between 6 and 100 characters",
+      message: "La contraseña no puede exceder 100 caracteres",
     }),
 });
 
@@ -131,7 +136,10 @@ export async function loginUserAction(
   if (responseData.error) {
     return {
       ...prevState,
-      strapiErrors: responseData.error,
+      strapiErrors: {
+        ...responseData.error,
+        message: translateAuthError(responseData.error.message),
+      },
       zodErrors: null,
       message: "Failed to Login.",
     };
