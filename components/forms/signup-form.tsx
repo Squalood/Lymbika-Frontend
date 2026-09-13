@@ -132,6 +132,11 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
                 </svg>
                 Continuar con Google
               </a>
+              <p className="text-center text-xs text-muted-foreground">
+                La vía que elijas queda fijada a tu correo: si te registras con Google
+                tendrás que entrar siempre con Google, y si usas contraseña, siempre con
+                contraseña.
+              </p>
               <div className="text-center text-sm">
                 ¿Ya tienes una cuenta? <Link href="signin" className="underline">Inicia sesión</Link>
               </div>

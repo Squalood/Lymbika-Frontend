@@ -99,6 +99,10 @@ export function SigninForm({ className, callbackUrl, ...props }: SigninFormProps
                 </svg>
                 Continuar con Google
               </a>
+              <p className="text-center text-xs text-muted-foreground">
+                Cada correo entra por una sola vía. Si creaste tu cuenta con contraseña,
+                usa el formulario de arriba; si la creaste con Google, usa este botón.
+              </p>
               <div className="text-center text-sm">
                 ¿No tienes una cuenta? {" "}
                 <Link className="underline" href="/signup">

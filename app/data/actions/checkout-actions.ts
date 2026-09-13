@@ -1,6 +1,7 @@
 "use server";
 
 import { mutateData } from "../services/mutate-data";
+import { AUTH_ERROR_MESSAGES } from "../services/auth-errors";
 
 export interface CheckoutItem {
   id: number;
@@ -32,6 +33,11 @@ export async function crearSesionDePago(
     const res = await mutateData("POST", "/api/orders", payload);
 
     if (res?.error) {
+      // 403: el token es válido pero el rol no tiene marcado Order.create en
+      // Strapi. El mensaje del backend para ese caso es solo "Forbidden".
+      if (res.error.status === 403) {
+        return { error: AUTH_ERROR_MESSAGES.permissions_missing };
+      }
       return { error: res.error.message || "No se pudo iniciar el pago." };
     }
     if (!res?.url) {
@@ -40,7 +46,9 @@ export async function crearSesionDePago(
 
     return { url: res.url };
   } catch {
-    // mutateData lanza si no hay cookie jwt.
-    return { error: "Debes iniciar sesión para completar la compra." };
+    // mutateData lanza si no hay cookie jwt. El texto es a propósito distinto
+    // del que devuelve el controlador de Strapi para el mismo caso, para poder
+    // distinguir en qué lado se cortó.
+    return { error: "Tu sesión no está activa. Inicia sesión y vuelve a intentarlo." };
   }
 }

@@ -7,7 +7,7 @@
  */
 export type AuthErrorCode =
   | "invalid_credentials"
-  | "use_google"
+  | "permissions_missing"
   | "email_taken"
   | "not_confirmed"
   | "blocked"
@@ -21,8 +21,9 @@ export type AuthErrorCode =
 
 export const AUTH_ERROR_MESSAGES: Record<AuthErrorCode, string> = {
   invalid_credentials: "Usuario o contraseña incorrectos.",
-  use_google:
-    "Esta cuenta se creó con Google. Usa el botón «Continuar con Google» para entrar.",
+  permissions_missing:
+    "Esta cuenta no tiene los permisos necesarios para usar el sitio. " +
+    "Avisa al equipo de Lymbika indicando tu correo.",
   email_taken:
     "Ya existe una cuenta con ese correo creada con contraseña. Inicia sesión con tu correo y contraseña.",
   not_confirmed:
@@ -44,15 +45,6 @@ export const AUTH_ERROR_MESSAGES: Record<AuthErrorCode, string> = {
 export function toAuthErrorCode(message: string | undefined): AuthErrorCode {
   const m = (message ?? "").toLowerCase();
 
-  // Strapi responde esto cuando el usuario existe pero se registró con un
-  // proveedor externo, así que no tiene contraseña local.
-  if (
-    m.includes("never set a local password") ||
-    m.includes("provider used during account creation")
-  ) {
-    return "use_google";
-  }
-
   if (m.includes("invalid identifier or password")) return "invalid_credentials";
   if (m.includes("email is already taken")) return "email_taken";
   if (m.includes("not confirmed")) return "not_confirmed";
@@ -66,4 +58,20 @@ export function toAuthErrorCode(message: string | undefined): AuthErrorCode {
 /** Atajo: del mensaje crudo de Strapi al texto que ve el usuario. */
 export function translateAuthError(message: string | undefined): string {
   return AUTH_ERROR_MESSAGES[toAuthErrorCode(message)];
+}
+
+/**
+ * Traduce una respuesta fallida de Strapi a un mensaje para el usuario.
+ *
+ * El 403 merece mensaje propio: significa que el token es válido pero el rol
+ * del usuario no tiene marcado el permiso en el panel de Strapi. Sin esto el
+ * síntoma es una pantalla vacía o un crash, y no hay forma de saber por qué.
+ */
+export function sessionErrorMessage(error: unknown): string {
+  const status = (error as { status?: number } | null)?.status;
+
+  if (status === 403) return AUTH_ERROR_MESSAGES.permissions_missing;
+  if (status === 401) return "Tu sesión expiró. Vuelve a iniciar sesión.";
+
+  return "No pudimos cargar tu sesión. Inténtalo de nuevo en unos segundos.";
 }

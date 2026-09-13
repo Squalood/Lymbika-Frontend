@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Urbanist } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
+import { SessionErrorBanner } from "@/components/auth/session-error-banner";
 import WhatsAppButton from "@/components/whatsapp-button";
 import Footer from "@/components/footer";
 //import { ThemeProvider } from "@/components/theme-provider"
@@ -92,6 +93,7 @@ export default async function RootLayout({children,}: Readonly<{children: React.
         </noscript>
 
         <NextTopLoader/>
+        <SessionErrorBanner error={userData.error} />
         <Navbar user={userData.ok ? userData.data : null} navContent={navContent} />
           {children}
         <Toaster richColors/>

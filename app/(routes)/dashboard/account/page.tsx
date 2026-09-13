@@ -1,4 +1,5 @@
 import { getUserMeLoader } from "@/app/data/services/get-user-me-loader";
+import { sessionErrorMessage } from "@/app/data/services/auth-errors";
 import { ProfileForm } from "@/components/forms/profile-form";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
@@ -24,7 +25,7 @@ export default async function AccountRoute() {
           <ProfileForm data={userData} />
         ) : (
           <p role="alert" className="rounded-md border border-pink-300 bg-pink-50 px-4 py-3 text-sm text-pink-700">
-            No pudimos cargar tu perfil. Vuelve a iniciar sesión e inténtalo de nuevo.
+            {sessionErrorMessage(user.error)}
           </p>
         )}
       </div>
