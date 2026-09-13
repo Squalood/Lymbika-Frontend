@@ -20,7 +20,13 @@ export default async function AccountRoute() {
       </div>
       <h1>Editar Cuenta</h1>
       <div className="mt-8">
-        <ProfileForm data={userData}/>
+        {userData ? (
+          <ProfileForm data={userData} />
+        ) : (
+          <p role="alert" className="rounded-md border border-pink-300 bg-pink-50 px-4 py-3 text-sm text-pink-700">
+            No pudimos cargar tu perfil. Vuelve a iniciar sesión e inténtalo de nuevo.
+          </p>
+        )}
       </div>
     </div>
   );

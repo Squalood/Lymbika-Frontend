@@ -1,6 +1,11 @@
 import { getAuthToken } from "./get-token";
+import type { UserType } from "@/types/user";
 
-export async function getUserMeLoader() {
+type UserMeResult =
+  | { ok: true; data: UserType; error: null }
+  | { ok: false; data: null; error: unknown };
+
+export async function getUserMeLoader(): Promise<UserMeResult> {
 const baseUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}`;
 
   const url = new URL("/api/users/me", baseUrl);
@@ -17,10 +22,18 @@ const baseUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}`;
       },
     });
     const data = await response.json();
-    if (data.error) return { ok: false, data: null, error: data.error };
+    if (data.error) {
+      // Esta llamada corre en el servidor, así que no aparece en el Network del
+      // navegador: sin este log un 401/403 de Strapi es invisible.
+      console.error(
+        `[users-me] Strapi respondió ${response.status}:`,
+        JSON.stringify(data.error)
+      );
+      return { ok: false, data: null, error: data.error };
+    }
     return { ok: true, data: data, error: null };
   } catch (error) {
-    console.log(error);
+    console.error("[users-me] no se pudo contactar a Strapi:", error);
     return { ok: false, data: null, error: error };
   }
 }
