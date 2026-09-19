@@ -31,7 +31,9 @@
       "Bash(curl -s \"https://lymbika-backend.onrender.com/api/service-rates?fields[0]=price&fields[1]=package_items&pagination[pageSize]=5\")",
       "Bash(node -e \"let d='';process.stdin.on\\('data',c=>d+=c\\);process.stdin.on\\('end',\\(\\)=>console.log\\(d.slice\\(0,1000\\)\\)\\)\")",
       "Bash(pkill -f \"next dev\")",
-      "Bash(pkill -f \"next-server\")"
+      "Bash(pkill -f \"next-server\")",
+      "Bash(cd \"C:/Users/ananc/Desktop/Lymbika/e-lymbika/backend-ecommerce\" && echo \"=== archivos creados ===\"; find src/api/stripe-event -type f 2>/dev/null; echo; echo \"=== schema generado ===\"; cat src/api/stripe-event/content-types/stripe-event/schema.json 2>/dev/null || echo \"NO ENCONTRADO - revisar el nombre\")",
+      "Read(//c/Users/ananc/Desktop/Lymbika/e-lymbika/backend-ecommerce/**)"
     ],
     "additionalDirectories": [
       "c:\\Users\\ananc\\Desktop\\Lymbika\\e-lymbika\\frontend-lymbika\\app\\(routes)\\specialty\\[specialtySlug]\\components"
