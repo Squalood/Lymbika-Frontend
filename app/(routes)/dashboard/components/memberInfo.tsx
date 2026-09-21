@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { JSX } from "react";
+import { MEMBERSHIP_NAME } from "@/lib/constants";
 
 type Props = {
   user: UserType;
@@ -81,7 +82,7 @@ const MemberInfo = ({ user }: Props) => {
                     <IdCard size={32} className="text-primary" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold leading-snug">MediClub</h3>
+                    <h3 className="text-xl font-semibold leading-snug">{MEMBERSHIP_NAME}</h3>
                     <p className="text-sm text-muted-foreground">
                       Accede a productos con precio de proveedor.
                     </p>
@@ -89,11 +90,11 @@ const MemberInfo = ({ user }: Props) => {
                 </div>
 
                 {/* Estado de membresía */}
-                {user.mediClubRegular ? (
+                {user.membershipActive ? (
                   <div className="flex flex-col gap-3">
                     <div className="flex items-center gap-2 py-2 px-4 text-sm font-medium text-green-700 bg-green-100 border border-green-300 rounded-full">
                       <CheckCircle size={16} />
-                      <span>Miembro activo de MediClub</span>
+                      <span>Miembro activo de {MEMBERSHIP_NAME}</span>
                     </div>
                     <Button asChild className="w-full">
                       <Link href="https://billing.stripe.com/p/login/aEUcNE58hbHlc3meUU">Administrar tu cuenta</Link>

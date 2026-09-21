@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { formatPrice } from "@/lib/formatPrice";
 import PlanToggle from "./PlanToggle";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import { useSubscribe } from "@/hooks/use-subscribe";
 
 interface PlansMemberPageAltProps {
   plans: MembershipType[];
@@ -22,6 +23,7 @@ const iconMap = {
 
 const PlansMemberPageAlt = ({ plans, title, description }: PlansMemberPageAltProps) => {
   const [isFamilyPlan, setIsFamilyPlan] = useState(false);
+  const { subscribe, pending } = useSubscribe();
 
   return (
     <div className="w-full mt-14">
@@ -45,7 +47,6 @@ const PlansMemberPageAlt = ({ plans, title, description }: PlansMemberPageAltPro
             const isFeatured = plan.featured === true;
             const Icon = iconMap[plan.icon as keyof typeof iconMap];
             const price = isFamilyPlan ? plan.priceF : plan.priceP;
-            const link = isFamilyPlan ? plan.button?.linkF : plan.button?.linkP;
 
             return (
               <CarouselItem
@@ -134,9 +135,8 @@ const PlansMemberPageAlt = ({ plans, title, description }: PlansMemberPageAltPro
 
                   <div className="px-6 pt-5 pb-6 mt-auto">
                     <button
-                      onClick={() => {
-                        if (link) window.open(link, "_blank", "noopener,noreferrer");
-                      }}
+                      onClick={() => subscribe(plan.id, isFamilyPlan)}
+                      disabled={pending}
                       className={cn(
                         "block w-full text-center rounded-[10px] py-2.5 text-sm font-bold transition-all hover:-translate-y-0.5",
                         isFeatured
@@ -144,7 +144,7 @@ const PlansMemberPageAlt = ({ plans, title, description }: PlansMemberPageAltPro
                           : "bg-white/[0.08] text-white border border-white/25 hover:bg-white/[0.14]"
                       )}
                     >
-                      {plan.button?.label ?? "Registrarme →"}
+                      {pending ? "Un momento…" : plan.button?.label ?? "Registrarme →"}
                     </button>
                   </div>
                 </div>

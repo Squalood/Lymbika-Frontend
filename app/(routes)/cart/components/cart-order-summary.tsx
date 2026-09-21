@@ -8,6 +8,7 @@ import { formatPrice } from "@/lib/formatPrice";
 import { CartItem } from "@/hooks/use-cart";
 import { AuthUserProps } from "./types";
 import { getItemPrice } from "./pricing";
+import { MEMBERSHIP_NAME } from "@/lib/constants";
 
 interface CartOrderSummaryProps {
   items: CartItem[];
@@ -109,9 +110,9 @@ export function CartOrderSummary({
             <span className="font-medium">{formatPrice(subtotal)}</span>
           </div>
 
-          {user?.mediClubRegular && ahorro > 0 && (
+          {user?.membershipActive && ahorro > 0 && (
             <div className="flex justify-between text-xs sm:text-sm text-green-600">
-              <span>Ahorro HealthPass</span>
+              <span>Ahorro {MEMBERSHIP_NAME}</span>
               <span className="font-semibold">-{formatPrice(ahorro)}</span>
             </div>
           )}

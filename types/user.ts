@@ -8,7 +8,7 @@ export type UserType = {
   firstName: string;
   lastName: string;
   bio: string;
-  mediClubRegular: boolean;
+  membershipActive: boolean;
   reviews: {
     id: number;
     comment: string;

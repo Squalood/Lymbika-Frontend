@@ -18,12 +18,12 @@ type PrecioDeItem = {
 
 /**
  * Precio que se le muestra al usuario. El precio que realmente se cobra lo
- * decide el servidor leyendo `mediClubRegular` del usuario autenticado.
+ * decide el servidor leyendo `membershipActive` del usuario autenticado.
  */
 export const getItemPrice = (
   item: PrecioDeItem,
   user: AuthUserProps | null
 ): number => {
-  const useMemberPrice = user?.mediClubRegular && item.priceMember > 0;
+  const useMemberPrice = user?.membershipActive && item.priceMember > 0;
   return useMemberPrice ? item.priceMember : item.price;
 };

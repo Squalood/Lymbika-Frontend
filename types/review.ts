@@ -12,7 +12,7 @@ export type ReviewType = {
     username: string;
     firstName: string;
     lastName: string;
-    mediClubRegular: boolean;
+    membershipActive: boolean;
   };
   doctor?: {
     id: number;

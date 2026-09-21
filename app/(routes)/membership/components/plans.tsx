@@ -9,6 +9,7 @@
   import { MembershipType } from "@/types/membership";
   import { cn } from "@/lib/utils";
   import { formatPrice } from "@/lib/formatPrice";
+  import { useSubscribe } from "@/hooks/use-subscribe";
 
   interface PlansMemberPageProps {
     plans: MembershipType[];
@@ -44,6 +45,7 @@
     pricePeriod = "/ mes",
   }: PlansMemberPageProps) =>  {
     const [isFamilyPlan, setIsFamilyPlan] = useState(false);
+    const { subscribe, pending } = useSubscribe();
 
     return (
       <div className="max-w-6xl px-6 lg:px-12 py-8 mx-auto">
@@ -130,13 +132,11 @@
                               <Button
                                 variant={isFeatured ? "default" : "outline"}
                                 className="gap-2"
-                                onClick={() => {
-                                  const link = isFamilyPlan ? plan.button?.linkF : plan.button?.linkP;
-                                  if (link) window.open(link, "_blank");
-                                }}
+                                disabled={pending}
+                                onClick={() => subscribe(plan.id, isFamilyPlan)}
                               >
-                                {plan.button.label}
-                                {iconMap[plan.button.icon as keyof typeof iconMap]}
+                                {pending ? "Un momento…" : plan.button.label}
+                                {!pending && iconMap[plan.button.icon as keyof typeof iconMap]}
                               </Button>
                             )}
                             {plan.secondaryButton && (

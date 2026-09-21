@@ -22,7 +22,7 @@ export async function updateProfileAction(prevState: ProfileState, formData: For
   const rawFormData = Object.fromEntries(formData);
 
   // Solo estos tres campos cruzan. El usuario lo resuelve el backend desde el
-  // token: no se manda ningun id, y mediClubRegular no es editable por nadie
+  // token: no se manda ningun id, y membershipActive no es editable por nadie
   // desde aqui — lo pone el flujo de membresia.
   const payload: Partial<UserProfile> = {
     firstName: rawFormData.firstName as string,

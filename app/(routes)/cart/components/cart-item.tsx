@@ -7,6 +7,7 @@ import { Minus, Plus, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { MEMBERSHIP_NAME } from "@/lib/constants";
 import {
   Tooltip,
   TooltipContent,
@@ -17,7 +18,7 @@ import {
 interface AuthUserProps {
   username: string;
   email: string;
-  mediClubRegular: boolean;
+  membershipActive: boolean;
 }
 
 interface CartItemProps {
@@ -33,7 +34,7 @@ export default function CartItem({ product, user }: CartItemProps) {
       ? product.images[0].url
       : "/placeholder-image.webp";
 
-  const hasDiscount = user?.mediClubRegular && product.priceMember > 0;
+  const hasDiscount = user?.membershipActive && product.priceMember > 0;
   const pricePerUnit = hasDiscount ? product.priceMember : product.price;
   const totalPrice = pricePerUnit * product.quantity;
 
@@ -100,7 +101,7 @@ export default function CartItem({ product, user }: CartItemProps) {
                     {formatPrice(product.price)}
                   </p>
                   <Badge variant="destructive" className="text-xs">
-                    Descuento MediClub
+                    Descuento {MEMBERSHIP_NAME}
                   </Badge>
                 </>
               )}

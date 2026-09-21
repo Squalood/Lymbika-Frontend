@@ -1,7 +1,7 @@
 export interface AuthUserProps {
   username: string;
   email: string;
-  mediClubRegular: boolean;
+  membershipActive: boolean;
 }
 
 export interface CartClientPageProps {

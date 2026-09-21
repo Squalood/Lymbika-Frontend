@@ -12,6 +12,7 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
 import {ResponseType} from '@/types/response';
+import { MEMBERSHIP_NAME } from "@/lib/constants";
 import { useGetCategories } from "@/api/getCategories"
 import { Skeleton } from "./ui/skeleton"
 import Image from "next/image"
@@ -88,7 +89,7 @@ const MenuList = ({ navContent }: MenuListProps) => {
                 {navContent?.doctors_item_description ?? "Del consultorio al negocio. El sistema operativo de tu práctica médica privada."}
               </ListItem>
               <ListItem href="/membership" title={navContent?.membership_item_title ?? "Planes y Membresías"}>
-                {navContent?.membership_item_description ?? "Con nuestra membresía MediClub, accede a medicamentos y productos de la salud a precio de proveedor."}
+                {navContent?.membership_item_description ?? `Con nuestra membresía ${MEMBERSHIP_NAME}, accede a medicamentos y productos de la salud a precio de proveedor.`}
               </ListItem>
             </ul>
           </NavigationMenuContent>
