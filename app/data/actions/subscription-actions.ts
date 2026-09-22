@@ -58,7 +58,21 @@ export async function iniciarSuscripcion(
     const plan = json?.data?.[0];
     if (!plan) return { error: "Ese plan ya no está disponible." };
 
-    const link = tipo === "familiar" ? plan.button?.linkF : plan.button?.linkP;
+    // Atajo de desarrollo: con DEV_PAYMENT_LINK en .env.local se prueba el flujo
+    // con un Payment Link de prueba sin tener que editar el dato en Strapi.
+    // El guard de NODE_ENV hace que no pueda aplicarse en producción ni por
+    // accidente, aunque la variable llegue a estar definida allá.
+    const linkDeDesarrollo =
+      process.env.NODE_ENV !== "production" ? process.env.DEV_PAYMENT_LINK : undefined;
+
+    if (linkDeDesarrollo) {
+      console.warn(
+        `[iniciarSuscripcion] usando DEV_PAYMENT_LINK en vez del link de Strapi (plan ${membershipId}, ${tipo})`
+      );
+    }
+
+    const link =
+      linkDeDesarrollo ?? (tipo === "familiar" ? plan.button?.linkF : plan.button?.linkP);
     if (!link) {
       console.error(
         `[iniciarSuscripcion] la membresía ${membershipId} no tiene link para el plan ${tipo}`
