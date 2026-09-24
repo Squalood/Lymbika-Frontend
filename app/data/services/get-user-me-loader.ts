@@ -20,6 +20,10 @@ const baseUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}`;
         "Content-Type": "application/json",
         Authorization: `Bearer ${authToken}`,
       },
+      // Los datos de sesión no se cachean nunca. Importa además para el
+      // sincronizador de la vuelta del portal, que consulta en bucle hasta ver
+      // el cambio que escribió el webhook.
+      cache: "no-store",
     });
     const data = await response.json();
     if (data.error) {
