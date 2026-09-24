@@ -2,6 +2,7 @@
 
 import { getUserMeLoader } from "../services/get-user-me-loader";
 import { mutateData } from "../services/mutate-data";
+import { AUTH_ERROR_MESSAGES } from "../services/auth-errors";
 
 export type TipoPlan = "personal" | "familiar";
 
@@ -10,101 +11,85 @@ export type SuscripcionResult =
   | { redirectTo: string }
   | { error: string };
 
-// Los Payment Links solo pueden vivir en estos dominios. El link lo pega un
-// admin en Strapi; validarlo evita que un valor mal puesto —o mal
-// intencionado— convierta el botón de suscribirse en un redirect a cualquier
-// sitio con la marca de Lymbika encima.
-const HOSTS_PERMITIDOS = new Set(["buy.stripe.com", "checkout.stripe.com"]);
+// El checkout de Stripe vive aquí; el portal, en otro dominio.
+const HOSTS_CHECKOUT = new Set(["checkout.stripe.com"]);
+
+/** Códigos que devuelve el backend al rechazar un checkout. */
+const MENSAJES_CHECKOUT: Record<string, string> = {
+  suscripcion_activa:
+    "Ya tienes una suscripción activa. Puedes administrarla desde tu cuenta.",
+  plan_sin_precio: "Ese plan todavía no se puede contratar en línea.",
+  plan_mal_configurado:
+    "Ese plan no está bien configurado. Avísanos y lo revisamos.",
+};
 
 /**
- * Resuelve el Payment Link de un plan y le pega la identidad del usuario.
+ * Arranca la contratación de un plan.
  *
- * Recibe el id del plan, nunca la URL: el link se busca en el servidor. Sin
- * `client_reference_id` el webhook no tiene forma de saber a qué cuenta de
- * Strapi corresponde el pago, que es justo por lo que hoy las membresías se
- * activan a mano.
+ * Solo manda el id del plan y el tipo: el precio lo resuelve el backend contra
+ * Strapi y crea la sesión de Stripe. Antes esto abría un Payment Link que un
+ * admin pegaba a mano, sin forma de impedir que alguien se suscribiera dos
+ * veces ni de garantizar que el precio anunciado fuera el que se cobra.
  */
 export async function iniciarSuscripcion(
-  membershipId: number,
+  membershipId: string,
   tipo: TipoPlan
 ): Promise<SuscripcionResult> {
-  if (!Number.isInteger(membershipId) || membershipId <= 0) {
+  // Es el `documentId` de Strapi v5, no el id numerico: ese cambia cada vez
+  // que se republica el plan, y el frontend cachea una hora — con el numerico,
+  // editar un plan en el admin rompia el boton hasta que caducara la cache.
+  if (typeof membershipId !== "string" || !membershipId.trim()) {
     return { error: "Ese plan no está disponible." };
   }
 
-  // ── 1. Sesión ──────────────────────────────────────────────────────────────
+  // Se comprueba la sesión antes de llamar al backend para poder mandar al
+  // login conservando el plan elegido, en vez de devolver un 401 seco.
   const sesion = await getUserMeLoader();
   if (!sesion.ok || !sesion.data?.id) {
     const destino = `/membership?plan=${membershipId}&tipo=${tipo}`;
     return { redirectTo: `/signin?callbackUrl=${encodeURIComponent(destino)}` };
   }
-  const user = sesion.data;
 
-  // ── 2. El link, desde Strapi ───────────────────────────────────────────────
-  // Se filtra por id en el listado: en Strapi v5 la ruta /api/memberships/:id
-  // espera un documentId, y lo que tiene el frontend es el id numérico.
   try {
-    const url = new URL(
-      `/api/memberships?filters[id][$eq]=${membershipId}&populate=button`,
-      process.env.NEXT_PUBLIC_BACKEND_URL
-    );
+    const res = await mutateData("POST", "/api/subscription/checkout", {
+      membershipId,
+      tipo,
+    });
 
-    const res = await fetch(url.toString(), { cache: "no-store" });
-    if (!res.ok) {
-      console.error(`[iniciarSuscripcion] Strapi respondió ${res.status}`);
-      return { error: "No pudimos cargar el plan. Intenta de nuevo." };
+    if (res?.error) {
+      const { status, message, details } = res.error;
+
+      const codigo = details?.code as string | undefined;
+      if (codigo && MENSAJES_CHECKOUT[codigo]) {
+        return { error: MENSAJES_CHECKOUT[codigo] };
+      }
+      // 403 sin código: el rol no tiene marcado Subscription.checkout.
+      if (status === 403) return { error: AUTH_ERROR_MESSAGES.permissions_missing };
+
+      return { error: message || "No pudimos iniciar la suscripción." };
     }
 
-    const json = await res.json();
-    const plan = json?.data?.[0];
-    if (!plan) return { error: "Ese plan ya no está disponible." };
+    if (!res?.url) return { error: "Respuesta inválida del servidor de pagos." };
 
-    // Atajo de desarrollo: con DEV_PAYMENT_LINK en .env.local se prueba el flujo
-    // con un Payment Link de prueba sin tener que editar el dato en Strapi.
-    // El guard de NODE_ENV hace que no pueda aplicarse en producción ni por
-    // accidente, aunque la variable llegue a estar definida allá.
-    const linkDeDesarrollo =
-      process.env.NODE_ENV !== "production" ? process.env.DEV_PAYMENT_LINK : undefined;
-
-    if (linkDeDesarrollo) {
-      console.warn(
-        `[iniciarSuscripcion] usando DEV_PAYMENT_LINK en vez del link de Strapi (plan ${membershipId}, ${tipo})`
-      );
-    }
-
-    const link =
-      linkDeDesarrollo ?? (tipo === "familiar" ? plan.button?.linkF : plan.button?.linkP);
-    if (!link) {
-      console.error(
-        `[iniciarSuscripcion] la membresía ${membershipId} no tiene link para el plan ${tipo}`
-      );
-      return { error: "Ese plan todavía no se puede contratar en línea." };
-    }
-
-    // ── 3. Identidad en el link ──────────────────────────────────────────────
+    // Mismo criterio que el portal: un redirect que sale de un botón de
+    // Lymbika se valida antes de devolverlo.
     let destino: URL;
     try {
-      destino = new URL(link);
+      destino = new URL(res.url);
     } catch {
-      console.error(`[iniciarSuscripcion] link inválido en la membresía ${membershipId}`);
-      return { error: "Ese plan todavía no se puede contratar en línea." };
+      console.error("[iniciarSuscripcion] el backend devolvió una URL inválida");
+      return { error: "No pudimos iniciar la suscripción." };
     }
 
-    if (destino.protocol !== "https:" || !HOSTS_PERMITIDOS.has(destino.hostname)) {
-      console.error(
-        `[iniciarSuscripcion] el link de la membresía ${membershipId} no es de Stripe: ${destino.hostname}`
-      );
-      return { error: "Ese plan todavía no se puede contratar en línea." };
+    if (destino.protocol !== "https:" || !HOSTS_CHECKOUT.has(destino.hostname)) {
+      console.error(`[iniciarSuscripcion] el destino no es de Stripe: ${destino.hostname}`);
+      return { error: "No pudimos iniciar la suscripción." };
     }
-
-    // Lo que el webhook usa para saber de quién es el pago.
-    destino.searchParams.set("client_reference_id", String(user.id));
-    if (user.email) destino.searchParams.set("prefilled_email", user.email);
 
     return { url: destino.toString() };
-  } catch (error) {
-    console.error("[iniciarSuscripcion] fallo al resolver el plan:", error);
-    return { error: "No pudimos iniciar la suscripción. Intenta de nuevo." };
+  } catch {
+    // mutateData lanza si no hay cookie jwt.
+    return { error: "Tu sesión no está activa. Inicia sesión y vuelve a intentarlo." };
   }
 }
 
@@ -112,7 +97,6 @@ export async function iniciarSuscripcion(
 
 export type PortalResult = { url: string } | { error: string };
 
-// El portal vive en otro dominio que los Payment Links.
 const HOSTS_PORTAL = new Set(["billing.stripe.com"]);
 
 /** Códigos que devuelve el backend cuando no hay portal que abrir. */
@@ -156,8 +140,6 @@ export async function abrirPortalDeFacturacion(): Promise<PortalResult> {
 
     if (!res?.url) return { error: "Respuesta inválida del servidor de pagos." };
 
-    // Mismo criterio que iniciarSuscripcion: un redirect que sale del botón de
-    // Lymbika se valida antes de devolverlo.
     let destino: URL;
     try {
       destino = new URL(res.url);
@@ -173,7 +155,6 @@ export async function abrirPortalDeFacturacion(): Promise<PortalResult> {
 
     return { url: destino.toString() };
   } catch {
-    // mutateData lanza si no hay cookie jwt.
     return { error: "Tu sesión no está activa. Inicia sesión y vuelve a intentarlo." };
   }
 }

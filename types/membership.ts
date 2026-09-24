@@ -1,5 +1,7 @@
 export type MembershipType = {
   id: number;
+  /** Identificador estable de Strapi v5. El `id` numerico cambia al republicar. */
+  documentId: string;
   name: string;
   icon: string;
   order?: number;

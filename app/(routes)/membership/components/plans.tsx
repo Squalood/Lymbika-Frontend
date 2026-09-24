@@ -133,7 +133,7 @@
                                 variant={isFeatured ? "default" : "outline"}
                                 className="gap-2"
                                 disabled={pending}
-                                onClick={() => subscribe(plan.id, isFamilyPlan)}
+                                onClick={() => subscribe(plan.documentId, isFamilyPlan)}
                               >
                                 {pending ? "Un momento…" : plan.button.label}
                                 {!pending && iconMap[plan.button.icon as keyof typeof iconMap]}

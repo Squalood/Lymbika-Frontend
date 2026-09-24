@@ -135,7 +135,7 @@ const PlansMemberPageAlt = ({ plans, title, description }: PlansMemberPageAltPro
 
                   <div className="px-6 pt-5 pb-6 mt-auto">
                     <button
-                      onClick={() => subscribe(plan.id, isFamilyPlan)}
+                      onClick={() => subscribe(plan.documentId, isFamilyPlan)}
                       disabled={pending}
                       className={cn(
                         "block w-full text-center rounded-[10px] py-2.5 text-sm font-bold transition-all hover:-translate-y-0.5",

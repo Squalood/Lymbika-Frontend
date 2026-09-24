@@ -17,7 +17,7 @@ export function useSubscribe() {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
 
-  const subscribe = (membershipId: number, isFamilyPlan: boolean) => {
+  const subscribe = (membershipId: string, isFamilyPlan: boolean) => {
     if (pending) return;
 
     startTransition(async () => {
