@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import WhatsAppQrDialog from "./whatsapp-qr-dialog";
 import { useIsDesktop } from "@/hooks/use-is-desktop";
 import { WHATSAPP_URL } from "@/lib/constants";
@@ -21,6 +22,7 @@ export default function WhatsAppButton() {
   const [hidden, setHidden] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const isDesktop = useIsDesktop();
+  const pathname = usePathname();
 
   useEffect(() => {
     setMounted(true);
@@ -31,7 +33,9 @@ export default function WhatsAppButton() {
     return () => observer.disconnect();
   }, []);
 
-  if (!mounted || hidden) return null;
+  // En el flujo "Coordinar mi caso" tapaba el botón Continuar en móvil, y la
+  // confirmación ya trae su propio botón de WhatsApp con el número de caso.
+  if (!mounted || hidden || pathname?.startsWith("/case/")) return null;
 
   return (
     <>

@@ -703,23 +703,15 @@ export default function MedicalServiceLandingPage({
           <p className="text-white/80 text-sm md:text-base max-w-xl">
             {t?.cta_subtitle ?? "Agenda tu valoración sin compromiso. Un especialista te guiará en cada etapa del proceso."}
           </p>
-          {service.type === "procedure" ? (
-            <WhatsAppCtaButton
-              url={getWhatsAppUrl({
-                type: service.type,
-                name: service.name,
-                priceDisplay: hero?.price_display,
-              })}
-              label={t?.cta_button ?? "Agendar mi valoración"}
-              className="bg-white text-primary hover:bg-white/90 font-semibold"
-            />
-          ) : serviceRates[0]?.doctor?.contactButton ? (
-            <ContactButton
-              contactButton={serviceRates[0].doctor.contactButton}
-              label={t?.cta_button ?? "Agendar mi valoración"}
-              className="bg-white text-primary hover:bg-white/90 font-semibold"
-            />
-          ) : null}
+          <Button
+            asChild
+            size="lg"
+            className="bg-white text-primary hover:bg-white/90 font-semibold"
+          >
+            <Link href={`/case/start?servicio=${encodeURIComponent(service.slug)}`}>
+              {t?.cta_button ?? "Quiero que coordinen mi caso"}
+            </Link>
+          </Button>
         </div>
       </section>
 
