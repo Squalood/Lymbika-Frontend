@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Vive Lymbika | Lymbika Healthcare",
   description:
-    "Recorre paso a paso cómo acompañamos a cada paciente: consulta médica, estudios, medicamentos o cirugía, coordinado por nosotros desde WhatsApp.",
+    "Cuéntanos qué está pasando y te ayudamos a entender qué sigue: consulta, estudios, especialista, medicamentos, segunda opinión o cirugía, coordinado por Lymbika.",
   alternates: { canonical: "https://lymbika.com/vive-lymbika" },
 };
 

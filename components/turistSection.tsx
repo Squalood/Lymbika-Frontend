@@ -1,5 +1,9 @@
+import Link from "next/link";
 import YoutubeEmbed from "./YoutubeEmbed";
 import { HomeTestimonial } from "@/types/single-types/home";
+
+const ctaClassName =
+    "inline-block w-fit bg-primary hover:bg-blue-700 transition-colors text-white text-sm font-medium py-3 px-6 rounded-lg";
 
 interface TuristSectionProps {
     label?: string;
@@ -68,14 +72,22 @@ const TuristSection = ({
                         </div>
                     )}
 
-                    <a
-                        href={ctaHref}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-block w-fit bg-primary hover:bg-blue-700 transition-colors text-white text-sm font-medium py-3 px-6 rounded-lg"
-                    >
-                        {ctaText}
-                    </a>
+                    {/* Un enlace interno (p. ej. /case/start) abre en la misma pestaña;
+                        uno externo (WhatsApp) sigue abriendo en otra. Se decide desde Strapi. */}
+                    {ctaHref?.startsWith("/") ? (
+                        <Link href={ctaHref} className={ctaClassName}>
+                            {ctaText}
+                        </Link>
+                    ) : (
+                        <a
+                            href={ctaHref}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={ctaClassName}
+                        >
+                            {ctaText}
+                        </a>
+                    )}
                 </div>
             </div>
         </section>
