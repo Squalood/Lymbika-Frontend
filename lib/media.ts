@@ -106,3 +106,12 @@ export function urlPoster(url: string, width = 1280): string {
   if (esPropia(url)) return `${sinExtension(url)}_poster.webp`;
   return '';
 }
+
+/**
+ * Strapi a veces devuelve rutas relativas (/uploads/...) en lugar de URLs
+ * completas; se les antepone el backend.
+ */
+export function imgUrl(url: string): string {
+  if (!url) return "";
+  return url.startsWith("http") ? url : `${process.env.NEXT_PUBLIC_BACKEND_URL}${url}`;
+}
