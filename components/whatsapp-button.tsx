@@ -36,7 +36,14 @@ export default function WhatsAppButton() {
   // En el flujo "Coordinar mi caso" tapaba el botón Continuar en móvil, y la
   // confirmación ya trae su propio botón de WhatsApp con el número de caso.
   // En /schedules la barra fija de la página ya trae WhatsApp y quedaría encima.
-  if (!mounted || hidden || pathname?.startsWith("/case/") || pathname?.startsWith("/schedules")) return null;
+  if (
+    !mounted ||
+    hidden ||
+    pathname?.startsWith("/case/") ||
+    pathname?.startsWith("/schedules") ||
+    pathname?.startsWith("/dashboard/operations")
+  )
+    return null;
 
   return (
     <>

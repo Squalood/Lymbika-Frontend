@@ -1,4 +1,4 @@
-import { CaseEstado } from "@/types/case";
+import { CaseEstado, CasePriority } from "@/types/case";
 
 /**
  * Vocabulario del paciente para cada estado interno del caso.
@@ -34,3 +34,51 @@ export const SIGUIENTE_PASO_PACIENTE: Record<CaseEstado, string> = {
 export function siguientePasoPaciente(estado: CaseEstado, patientNextStep: string | null) {
   return patientNextStep?.trim() || SIGUIENTE_PASO_PACIENTE[estado];
 }
+
+/** Vocabulario del equipo en /dashboard/operations. El paciente nunca ve estas etiquetas. */
+export const ESTADO_COORDINADOR: Record<CaseEstado, string> = {
+  new: "Nuevo",
+  in_coordination: "En coordinación",
+  in_assessment: "Valoración / estudios",
+  in_decision: "Paciente decidiendo",
+  scheduled: "Programado",
+  in_surgery: "En cirugía",
+  in_follow_up: "Seguimiento",
+  closed_won: "Cerrado con cirugía",
+  closed_lost: "Cerrado sin cirugía",
+};
+
+export const ESTADOS_ORDEN = Object.keys(ESTADO_COORDINADOR) as CaseEstado[];
+
+export const PRIORIDAD: Record<CasePriority, string> = {
+  low: "Baja",
+  normal: "Normal",
+  high: "Alta",
+  urgent: "Urgente",
+};
+
+export const RESPUESTA_SI_NO: Record<string, string> = {
+  yes: "Sí",
+  no: "No",
+  unsure: "No está seguro",
+};
+
+export const ESTUDIOS_PACIENTE: Record<string, string> = {
+  upload_now: "Los subió en el formulario",
+  send_later: "Los enviará después",
+  none: "No tiene estudios",
+};
+
+export const INTENCION_PACIENTE: Record<string, string> = {
+  options: "Saber sus opciones",
+  cost: "Saber cuánto cuesta",
+  assessment: "Agendar una valoración",
+  second_opinion: "Una segunda opinión",
+  schedule: "Ya quiere programar",
+  unsure: "Necesita orientación",
+};
+
+export const ORIGEN_CASO: Record<string, string> = {
+  procedure_page: "Página web",
+  coordinacion: "Alta manual",
+};

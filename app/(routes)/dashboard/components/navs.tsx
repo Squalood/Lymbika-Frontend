@@ -2,11 +2,13 @@
 
 import { logoutAction } from "@/app/data/actions/auth-actions";
 import { UserType } from "@/types/user";
-import { ChevronRight, LogOut, LucideIcon, Settings, SquareUserRound } from "lucide-react";
+import { ChevronRight, ClipboardList, LogOut, LucideIcon, Settings, SquareUserRound } from "lucide-react";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 type Props = {
   userData?: UserType | null;
+  puedeOperar?: boolean;
 };
 
 type CardData = {
@@ -47,11 +49,22 @@ const cards: CardData[] = [
   },
 ];
 
-const Card = ({ title, description, icon:Icon, link, image, isBackgroundCard }: CardData) => {
+const operationsCard: CardData = {
+  title: "Operación",
+  description: "Revisa y coordina los casos de los pacientes.",
+  icon: ClipboardList,
+  image: "",
+  link: "/dashboard/operations",
+};
+
+const Card = ({ title, description, icon:Icon, link, image, isBackgroundCard, anchoDoble }: CardData & { anchoDoble?: boolean }) => {
   if (isBackgroundCard) {
     return (
     <form action={logoutAction}
-        className="group relative flex flex-col w-full min-h-60 bg-center bg-cover rounded-xl hover:shadow-lg transition overflow-hidden sm:col-span-2 lg:col-span-1"
+        className={cn(
+          "group relative flex flex-col w-full min-h-60 bg-center bg-cover rounded-xl hover:shadow-lg transition overflow-hidden lg:col-span-1",
+          anchoDoble && "sm:col-span-2"
+        )}
         style={{ backgroundImage: `url(${image})` }}
         >
         <button type="submit" className="flex flex-col justify-between h-full w-full text-left p-6 hover:bg-black/40 transition text-white">
@@ -86,9 +99,12 @@ const Card = ({ title, description, icon:Icon, link, image, isBackgroundCard }: 
   );
 };
 
-const Navs = ({ userData }: Props) => {
+const Navs = ({ userData, puedeOperar }: Props) => {
+  // Para quien opera casos, Operación es lo primero que necesita.
+  const visibles = puedeOperar ? [operationsCard, ...cards] : cards;
+
   return (
-    <div className="max-w-4xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+    <div className="max-w-6xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
       {/* Title */}
       <div className="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
         <h2 className="text-2xl font-bold md:text-4xl md:leading-tight">
@@ -98,9 +114,16 @@ const Navs = ({ userData }: Props) => {
       </div>
 
       {/* Grid */}
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {cards.map((card, index) => (
-          <Card key={index} {...card} />
+      {/* 3 tarjetas (sin permisos) en 3 columnas; 4 o más, en 4. */}
+      <div
+        className={cn(
+          "grid sm:grid-cols-2 gap-4",
+          visibles.length <= 3 ? "lg:grid-cols-3" : "lg:grid-cols-4"
+        )}
+      >
+        {visibles.map((card, index) => (
+          // En tablet (2 columnas), si son impares Cerrar sesión ocupa la fila completa.
+          <Card key={index} {...card} anchoDoble={visibles.length % 2 === 1} />
         ))}
       </div>
     </div>
