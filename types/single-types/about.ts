@@ -1,3 +1,5 @@
+import { ContactComponent } from "@/types/contact";
+
 export type AboutPageType = {
   mission_title: string;
   mission_description: string;
@@ -9,16 +11,6 @@ export type AboutPageType = {
     label: string;
     icon?: string;
   }[];
-  contact: {
-    title: string;
-    direccionText: string;
-    timeText: string;
-    contactLocation: string;
-    contactScheduleLink: string;
-    contactPhone: string;
-    contactWhatsappLink: string;
-    image: { url: string };
-    description: string;
-  };
+  contact: ContactComponent;
   hero_image: { url: string };
 };

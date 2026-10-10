@@ -1,4 +1,5 @@
 import { LandingPageJson } from "./landingPageJson";
+import { ContactComponent } from "./contact";
 
 export type PageType = {
   id: number;
@@ -69,19 +70,7 @@ export type PageType = {
     icon: string;
   }[];
 
-  Contact: {
-    title: string;
-    direccionText: string;
-    timeText: string;
-    contactLocation: string;
-    contactScheduleLink: string;
-    contactPhone: string;
-    contactWhatsappLink: string;
-    image: {
-      url: string;
-    };
-    description: string;
-  };
+  Contact: ContactComponent;
   imagenRe1: {
     url: string;
   };

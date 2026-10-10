@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-import { SUCURSAL } from "../config";
+import { HORARIO, ZONA_HORARIA } from "../config";
 
 const DIAS = ["el domingo", "el lunes", "el martes", "el miércoles", "el jueves", "el viernes", "el sábado"];
 const DIA_SEMANA: Record<string, number> = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
@@ -11,7 +11,7 @@ const DIA_SEMANA: Record<string, number> = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu
 function ahoraEnSucursal() {
   const partes: Record<string, string> = {};
   new Intl.DateTimeFormat("en-US", {
-    timeZone: SUCURSAL.zonaHoraria,
+    timeZone: ZONA_HORARIA,
     weekday: "short",
     hour: "numeric",
     minute: "numeric",
@@ -27,7 +27,7 @@ function ahoraEnSucursal() {
 
 function estado(): { abierto: boolean; mensaje: string } | null {
   const { dia, hora } = ahoraEnSucursal();
-  const hoy = SUCURSAL.horario[dia];
+  const hoy = HORARIO[dia];
 
   if (hoy && hora >= hoy[0] && hora < hoy[1]) {
     return { abierto: true, mensaje: `Abierto ahora, hasta las ${hoy[1]}:00` };
@@ -37,7 +37,7 @@ function estado(): { abierto: boolean; mensaje: string } | null {
   }
   for (let k = 1; k <= 7; k++) {
     const d = (dia + k) % 7;
-    const h = SUCURSAL.horario[d];
+    const h = HORARIO[d];
     if (h) {
       return {
         abierto: false,

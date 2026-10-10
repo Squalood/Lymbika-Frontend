@@ -1,13 +1,10 @@
 import { MembershipType } from "@/types/membership";
 import { getMembershipPage } from "@/api/getMembershipPage";
 import PlansMemberPage from "./components/plans";
+import { clean } from "@/lib/utils";
 import MembershipFaq from "./components/membershipFaq";
 
 const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
-
-/** Los textos de Strapi llegan con espacios sobrantes y a veces vacíos; en
- *  ambos casos deben caer al default del componente. */
-const clean = (value?: string | null) => value?.trim() || undefined;
 
 /** Fallback: todos los planes publicados, cuando la página no los elige a mano. */
 async function getMemberships(): Promise<MembershipType[]> {

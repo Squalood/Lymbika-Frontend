@@ -1,9 +1,9 @@
 import { Check } from "lucide-react";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { SUCURSAL } from "../config";
+import { ScheduleContent, whatsappHref } from "../config";
 import { CtaLink } from "./CtaLink";
 
-export function ConsultDetails() {
+export function ConsultDetails({ content }: { content: ScheduleContent }) {
   return (
     <section aria-labelledby="t-incluye" className="mx-auto grid max-w-6xl gap-10 px-5 py-10 md:grid-cols-2 md:gap-12 md:px-8 md:py-14">
       <div>
@@ -11,7 +11,7 @@ export function ConsultDetails() {
           Qué incluye tu consulta
         </h2>
         <ul className="grid gap-3">
-          {SUCURSAL.incluye.map((item) => (
+          {content.incluye.map((item) => (
             <li key={item} className="flex gap-3">
               <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
                 <Check className="h-3 w-3" strokeWidth={3} />
@@ -21,13 +21,14 @@ export function ConsultDetails() {
           ))}
         </ul>
         <p className="mt-6 rounded-r-xl border-l-4 border-primary bg-primary/5 px-4 py-3 text-sm">
-          <strong className="text-primary">¿Ya tienes estudios?</strong> Tráelos. Podemos revisarlos contigo.
+          {content.aviso.negritas && <strong className="text-primary">{content.aviso.negritas}</strong>}{" "}
+          {content.aviso.texto}
         </p>
 
         <h3 className="mb-2 mt-9 text-lg font-bold text-primary">Precios</h3>
         <Table>
           <TableBody>
-            {SUCURSAL.precios.map((p) => (
+            {content.precios.map((p) => (
               <TableRow key={p.servicio} className="hover:bg-transparent">
                 <TableCell className="px-0 py-4 align-top">
                   <span className="block font-semibold">{p.servicio}</span>
@@ -41,17 +42,18 @@ export function ConsultDetails() {
           </TableBody>
         </Table>
         <p className="mt-3 text-sm text-muted-foreground">
-          Medicamentos, estudios y especialista se pagan aparte, sólo si los necesitas y tú decides.
+          {content.notaPrecios}
         </p>
       </div>
 
       <div>
         <h2 className="mb-5 text-2xl font-bold text-primary md:text-3xl">¿Qué podemos atender?</h2>
         <ul className="border-t border-border">
-          {SUCURSAL.atendemos.map((motivo) => (
+          {content.atendemos.map((motivo) => (
             <li key={motivo}>
               <CtaLink
                 accion="whatsapp"
+                href={whatsappHref(content, motivo)}
                 ubicacion="motivos"
                 motivo={motivo}
                 ariaLabel={`Preguntar por WhatsApp: ${motivo}`}

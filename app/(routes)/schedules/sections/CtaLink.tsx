@@ -3,15 +3,16 @@
 import { Calendar, MapPin, Phone } from "lucide-react";
 import { whatsappIcon } from "@/components/whatsapp-button";
 import * as gtag from "@/lib/gtag";
-import { SUCURSAL, TEL_HREF, whatsappHref } from "../config";
 
 type Accion = "agendar" | "whatsapp" | "llamar" | "maps";
 
 interface CtaLinkProps {
   accion: Accion;
+  /** Lo arma el servidor con el contenido de Strapi (ver config.ts). */
+  href: string;
   /** Dónde está el botón en la página; viaja en el evento de GA. */
   ubicacion: string;
-  /** Motivo de consulta: se escribe en el mensaje de WhatsApp. */
+  /** Motivo de consulta, sólo para el evento de GA. */
   motivo?: string;
   className?: string;
   ariaLabel?: string;
@@ -27,26 +28,13 @@ const ICONOS: Record<Accion, React.ReactNode> = {
   maps: <MapPin />,
 };
 
-function hrefPara(accion: Accion, motivo?: string) {
-  switch (accion) {
-    case "agendar":
-      return SUCURSAL.calendario;
-    case "whatsapp":
-      return whatsappHref(motivo);
-    case "llamar":
-      return TEL_HREF;
-    case "maps":
-      return SUCURSAL.mapsUrl;
-  }
-}
-
-/** Enlace de acción de la landing: arma el href y registra el clic en GA. */
-export function CtaLink({ accion, ubicacion, motivo, className, ariaLabel, icono, children }: CtaLinkProps) {
+/** Enlace de acción de la landing: abre el destino y registra el clic en GA. */
+export function CtaLink({ accion, href, ubicacion, motivo, className, ariaLabel, icono, children }: CtaLinkProps) {
   const externo = accion !== "llamar";
 
   return (
     <a
-      href={hrefPara(accion, motivo)}
+      href={href}
       target={externo ? "_blank" : undefined}
       rel={externo ? "noopener noreferrer" : undefined}
       aria-label={ariaLabel}
