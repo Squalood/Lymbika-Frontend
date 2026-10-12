@@ -1,8 +1,7 @@
+import Link from "next/link";
 import { Check, MoveRight } from "lucide-react";
 import { MedicalServiceType } from "@/types/medicalService";
 import { Button } from "@/components/ui/button";
-import { ContactButton } from "@/components/contact-button";
-import { WhatsAppCtaButton } from "@/components/whatsapp-cta-button";
 import { getPackageItems } from "@/lib/packageItems";
 import {
   Carousel,
@@ -11,8 +10,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { formatPrice } from "@/lib/formatPrice";
-import { getWhatsAppUrl } from "@/lib/medicalServiceTypes";
 
 export default function Package({ service }: { service: MedicalServiceType }) {
   const serviceRates = service.service_rates ?? [];
@@ -77,24 +74,9 @@ export default function Package({ service }: { service: MedicalServiceType }) {
                   {rate.package_note && (
                     <p className="text-xs text-muted-foreground border-t pt-3">{rate.package_note}</p>
                   )}
-                  {service.type === "procedure" ? (
-                    <WhatsAppCtaButton
-                      url={getWhatsAppUrl({
-                        type: service.type,
-                        name: service.name,
-                        priceDisplay: `${formatPrice(rate.price, 0)} MXN`,
-                        doctorName: rate.doctor?.doctorName,
-                      })}
-                      label={t?.package_cta_button ?? "Agendar valoración"}
-                      className="w-full"
-                    />
-                  ) : rate.doctor?.contactButton ? (
-                    <ContactButton contactButton={rate.doctor.contactButton} className="w-full" />
-                  ) : (
-                    <Button className="w-full gap-2" asChild>
-                      <a href="#contacto">{t?.package_cta_button ?? "Agendar valoración"} <MoveRight className="w-4 h-4" /></a>
-                    </Button>
-                  )}
+                  <Button className="w-full gap-2" asChild>
+                    <Link href="/schedules">{t?.package_cta_button ?? "Agendar valoración"} <MoveRight className="w-4 h-4" /></Link>
+                  </Button>
                 </div>
               </div>
             </CarouselItem>
