@@ -22,6 +22,8 @@ export const ESTADO = "Chihuahua";
 export type ScheduleContent = {
   nombre: string;
   ciudad: string;
+  /** Marca de agua del hero. */
+  logo: string;
   titulo: string;
   subtitulo: string;
   precioEtiqueta: string;
@@ -56,6 +58,7 @@ export type ScheduleContent = {
 export const DEFAULTS: ScheduleContent = {
   nombre: "Farmacia+ Paseo de la Victoria",
   ciudad: "Ciudad Juárez",
+  logo: "https://d37j77u022tl8g.cloudfront.net/logo_isotipo_5ed85daf57.svg",
   titulo: "¿Necesitas consulta médica?",
   subtitulo: "Empieza aquí. Te valoramos y te ayudamos con el siguiente paso.",
   precioEtiqueta: "Valoración presencial",
@@ -149,6 +152,7 @@ export function resolverContenido(page: SchedulesPageType | null): ScheduleConte
   return {
     nombre: clean(page.branchName) ?? d.nombre,
     ciudad: clean(page.city) ?? d.ciudad,
+    logo: clean(page.logo?.url) ?? d.logo,
     titulo: clean(page.title) ?? d.titulo,
     subtitulo: clean(page.description) ?? d.subtitulo,
     precioEtiqueta: clean(page.priceLabel) ?? d.precioEtiqueta,

@@ -8,6 +8,7 @@ const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
  * debe existir en el single type schedules-page.
  */
 const QUERY = [
+  "populate[logo][fields][0]=url",
   "populate[doctor][populate][image][fields][0]=url",
   "populate[benefits]=true",
   "populate[includes]=true",

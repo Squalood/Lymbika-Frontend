@@ -16,6 +16,8 @@ export type SchedulesPageType = {
   /** Nombre de la sucursal: va en el mensaje de WhatsApp y en el JSON-LD. */
   branchName?: string | null
   city?: string | null
+  /** Marca de agua del hero. Se pinta como silueta blanca: mejor SVG o PNG transparente. */
+  logo?: { url: string } | null
   title?: string | null
   description?: string | null
   priceLabel?: string | null

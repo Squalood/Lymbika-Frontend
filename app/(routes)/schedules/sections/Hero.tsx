@@ -11,13 +11,16 @@ export function Hero({ content }: { content: ScheduleContent }) {
   return (
     <section className="w-full px-3 pb-6 md:px-8">
       <div className="relative mx-auto max-w-6xl overflow-hidden rounded-2xl bg-gradient-to-b from-primary to-[#0b1630] px-5 py-8 text-white md:px-10 md:py-12">
-        {/* Marca de agua detrás de los textos, como en el diseño original */}
+        {/* Marca de agua detrás de los textos, como en el diseño original.
+            Es lo más grande arriba del fold, así que Next la toma como LCP:
+            eager para que no espere al lazy loading. */}
         <Image
-          src="https://d37j77u022tl8g.cloudfront.net/logo_isotipo_5ed85daf57.svg"
+          src={content.logo}
           alt=""
           aria-hidden="true"
           width={420}
           height={420}
+          loading="eager"
           className="pointer-events-none absolute -right-[16vw] top-16 z-0 w-[min(78vw,420px)] select-none opacity-10 brightness-0 invert lg:left-[calc(50%-290px)] lg:right-auto lg:top-8 lg:w-[380px]"
         />
 
