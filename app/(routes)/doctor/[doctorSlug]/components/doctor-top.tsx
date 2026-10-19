@@ -15,12 +15,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { useIsDesktop } from "@/hooks/use-is-desktop";
 import WhatsAppQrDialog from "@/components/whatsapp-qr-dialog";
+import { useSiteConfig } from "@/components/site-config-provider";
+import { whatsappLink } from "@/lib/site-config";
 
 export type InfoDoctorProps = {
   doctor: DoctorType;
 };
 
 const DoctorTop = (props: InfoDoctorProps) => {
+  const { whatsappNumber } = useSiteConfig();
   const { doctor } = props;
   const isDesktop = useIsDesktop();
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -41,7 +44,7 @@ const DoctorTop = (props: InfoDoctorProps) => {
 
   const whatsappUrl = doctor.contactButton && !hasEmbedUrl
     ? `https://wa.me/${doctor.contactButton}`
-    : "https://wa.me/526561100446";
+    : whatsappLink(whatsappNumber);
 
   return (
     <div className="flex flex-col">

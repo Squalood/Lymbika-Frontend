@@ -5,7 +5,8 @@ import { motion } from "framer-motion";
 import { Paperclip, TriangleAlert } from "lucide-react";
 import WhatsAppQrDialog from "@/components/whatsapp-qr-dialog";
 import { useIsDesktop } from "@/hooks/use-is-desktop";
-import { WHATSAPP_NUMBER } from "@/lib/constants";
+import { useSiteConfig } from "@/components/site-config-provider";
+import { whatsappLink } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 import { detectarEmergencia } from "@/lib/case/emergency-detection";
 import { CATEGORIES, FAMILY_OPTIONS, type CategoryKey } from "./categories";
@@ -47,6 +48,7 @@ export function NeedForm({ categoria, onClearCategoria }: Props) {
   const [nombre, setNombre] = useState("");
   const [qrUrl, setQrUrl] = useState<string | null>(null);
   const isDesktop = useIsDesktop();
+  const { whatsappNumber } = useSiteConfig();
 
   const placeholder = CATEGORIES[categoria ?? "nose"].placeholder;
   const esEmergencia = detectarEmergencia(relato);
@@ -60,9 +62,7 @@ export function NeedForm({ categoria, onClearCategoria }: Props) {
   function enviar(e: React.FormEvent) {
     e.preventDefault();
     if (faltante) return;
-    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-      armarMensaje(categoria, familiar, nombre, relato)
-    )}`;
+    const url = whatsappLink(whatsappNumber, armarMensaje(categoria, familiar, nombre, relato));
     if (isDesktop) setQrUrl(url);
     else window.open(url, "_blank", "noopener,noreferrer");
   }

@@ -12,7 +12,6 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
 import {ResponseType} from '@/types/response';
-import { MEMBERSHIP_NAME } from "@/lib/constants";
 import { useGetCategories } from "@/api/getCategories"
 import { Skeleton } from "./ui/skeleton"
 import Image from "next/image"
@@ -23,12 +22,14 @@ import ClinicsList from "./clinicsList"
 import SurgeriesList from "./surgeriesList"
 import CategoryList from "./categoryList"
 import { NavbarSectionType } from "@/types/single-types/navbar"
+import { useSiteConfig } from "@/components/site-config-provider";
 
 type MenuListProps = {
   navContent?: NavbarSectionType;
 };
 
 const MenuList = ({ navContent }: MenuListProps) => {
+  const { membershipName } = useSiteConfig();
   const { loading, result,}:ResponseType = useGetCategories();
   const { clinics } = useGetClinics();
   const { surgeries } = useGetFeaturedSurgeries();
@@ -89,7 +90,7 @@ const MenuList = ({ navContent }: MenuListProps) => {
                 {navContent?.doctors_item_description ?? "Del consultorio al negocio. El sistema operativo de tu práctica médica privada."}
               </ListItem>
               <ListItem href="/membership" title={navContent?.membership_item_title ?? "Planes y Membresías"}>
-                {navContent?.membership_item_description ?? `Con nuestra membresía ${MEMBERSHIP_NAME}, accede a medicamentos y productos de la salud a precio de proveedor.`}
+                {navContent?.membership_item_description ?? `Con nuestra membresía ${membershipName}, accede a medicamentos y productos de la salud a precio de proveedor.`}
               </ListItem>
             </ul>
           </NavigationMenuContent>

@@ -11,8 +11,10 @@ import {
 } from "@/lib/financiamiento";
 import { formatPrice } from "@/lib/formatPrice";
 import { getWhatsAppUrl } from "@/lib/medicalServiceTypes";
+import { useSiteConfig } from "@/components/site-config-provider";
 
 export default function Financing({ service }: { service: MedicalServiceType }) {
+  const { whatsappNumber } = useSiteConfig();
   const hero = service.landingHero;
   const serviceRates = service.service_rates ?? [];
   const packageRates = serviceRates.filter((r) => getPackageItems(r).length > 0);
@@ -108,7 +110,7 @@ export default function Financing({ service }: { service: MedicalServiceType }) 
             el monto final se confirma en tu valoración.
           </p>
           <WhatsAppCtaButton
-            url={getWhatsAppUrl({
+            url={getWhatsAppUrl(whatsappNumber, {
               type: service.type,
               name: service.name,
               priceDisplay: hero?.price_display,

@@ -8,7 +8,7 @@ import { formatPrice } from "@/lib/formatPrice";
 import { CartItem } from "@/hooks/use-cart";
 import { AuthUserProps } from "./types";
 import { getItemPrice } from "./pricing";
-import { MEMBERSHIP_NAME } from "@/lib/constants";
+import { useSiteConfig } from "@/components/site-config-provider";
 
 interface CartOrderSummaryProps {
   items: CartItem[];
@@ -39,6 +39,8 @@ export function CartOrderSummary({
   onCheckout,
   procesando,
 }: CartOrderSummaryProps) {
+  const { membershipName } = useSiteConfig();
+
   return (
     <Card className="w-full">
       <CardHeader className="p-4 sm:p-6">
@@ -112,7 +114,7 @@ export function CartOrderSummary({
 
           {user?.membershipActive && ahorro > 0 && (
             <div className="flex justify-between text-xs sm:text-sm text-green-600">
-              <span>Ahorro {MEMBERSHIP_NAME}</span>
+              <span>Ahorro {membershipName}</span>
               <span className="font-semibold">-{formatPrice(ahorro)}</span>
             </div>
           )}

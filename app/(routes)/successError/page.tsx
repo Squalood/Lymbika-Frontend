@@ -2,8 +2,10 @@
 import Link from "next/link";
 import { XCircle, MapPin, Phone } from "lucide-react";
 import WhatsAppTrigger from "@/components/whatsapp-trigger";
+import { useSiteConfig } from "@/components/site-config-provider";
 
 const PageSuccessError = () => {
+  const { mapsUrl } = useSiteConfig();
   return (
     <div className="flex flex-col items-center justify-center min-h-screen px-4 text-center bg-muted">
       <div className="bg-white p-8 rounded-2xl shadow-lg max-w-md w-full">
@@ -22,7 +24,7 @@ const PageSuccessError = () => {
             Contacto de atención
           </WhatsAppTrigger>
 
-          <Link href="https://maps.app.goo.gl/wddxisYk7CM7cGVg6" className="flex items-center gap-2 text-primary hover:underline" target="_blank" rel="noopener noreferrer">
+          <Link href={mapsUrl} className="flex items-center gap-2 text-primary hover:underline" target="_blank" rel="noopener noreferrer">
             <MapPin className="w-4 h-4" />
             Dirección de la farmacia
           </Link>

@@ -4,7 +4,8 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useIsDesktop } from "@/hooks/use-is-desktop";
 import WhatsAppQrDialog from "./whatsapp-qr-dialog";
-import { WHATSAPP_URL } from "@/lib/constants";
+import { useSiteConfig } from "@/components/site-config-provider";
+import { whatsappLink } from "@/lib/site-config";
 
 interface WhatsAppTriggerProps {
   url?: string;
@@ -13,9 +14,10 @@ interface WhatsAppTriggerProps {
 }
 
 export default function WhatsAppTrigger({ url, className, children }: WhatsAppTriggerProps) {
+  const { whatsappNumber } = useSiteConfig();
   const isDesktop = useIsDesktop();
   const [dialogOpen, setDialogOpen] = useState(false);
-  const resolvedUrl = url ?? WHATSAPP_URL;
+  const resolvedUrl = url ?? whatsappLink(whatsappNumber);
 
   if (isDesktop) {
     return (

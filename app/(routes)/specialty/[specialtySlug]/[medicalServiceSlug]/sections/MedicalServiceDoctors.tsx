@@ -5,9 +5,16 @@ import { useGetServiceRatesByMedicalService } from "@/api/useGetServiceRatesByMe
 import { ServiceRateWithDoctorType } from "@/types/medicalService";
 import { Separator } from "@/components/ui/separator";
 import { DoctorBannerCard } from "@/components/doctor-banner-card";
+import { useSiteConfig } from "@/components/site-config-provider";
+import { whatsappLink } from "@/lib/site-config";
 
 const MedicalServiceDoctors = () => {
   const params = useParams();
+  const { whatsappNumber } = useSiteConfig();
+  const solicitarDoctorUrl = whatsappLink(
+    whatsappNumber,
+    "Hola, me gustaría solicitar un doctor para esta especialidad"
+  );
   const medicalServiceSlug = typeof params.medicalServiceSlug === "string" ? params.medicalServiceSlug : "";
 
   const { rates, loading, error } = useGetServiceRatesByMedicalService(medicalServiceSlug);
@@ -31,7 +38,7 @@ const MedicalServiceDoctors = () => {
         <div className="flex flex-col items-center gap-4 py-12 text-center">
           <p className="text-gray-500">Mandanos un mensaje para agendar directamente.</p>
           <a
-            href="https://wa.me/526561100446?text=Hola%2C%20me%20gustar%C3%ADa%20solicitar%20un%20doctor%20para%20esta%20especialidad"
+            href={solicitarDoctorUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-semibold px-5 py-3 rounded-full transition-colors shadow-md"

@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { WHATSAPP_NUMBER } from "@/lib/constants";
+import { useSiteConfig } from "@/components/site-config-provider";
+import { whatsappLink } from "@/lib/site-config";
 
 type Props = {
   caseNumber: string;
@@ -10,9 +11,8 @@ type Props = {
 };
 
 export function CaseConfirmation({ caseNumber, token, uploadFailed }: Props) {
-  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-    `Hola, mi número de caso es ${caseNumber}.`
-  )}`;
+  const { whatsappNumber } = useSiteConfig();
+  const whatsappUrl = whatsappLink(whatsappNumber, `Hola, mi número de caso es ${caseNumber}.`);
 
   return (
     <div className="mx-auto max-w-md space-y-6 text-center">

@@ -5,7 +5,8 @@ import { PatientCaseType } from "@/types/case";
 import { ESTADO_PACIENTE, siguientePasoPaciente } from "@/lib/case/labels";
 import { formatPrice } from "@/lib/formatPrice";
 import { formatLongDate } from "@/lib/formatDate";
-import { WHATSAPP_NUMBER } from "@/lib/constants";
+import { getSiteConfig } from "@/api/getSiteConfig";
+import { whatsappLink } from "@/lib/site-config";
 
 type Props = {
   params: Promise<{ token: string }>;
@@ -34,12 +35,13 @@ function fechaSinHora(fecha: string | null) {
 
 export default async function MiCasoPage({ params }: Props) {
   const { token } = await params;
-  const caso = await getCaseByToken(token);
+  const [caso, config] = await Promise.all([getCaseByToken(token), getSiteConfig()]);
   if (!caso) notFound();
 
-  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+  const whatsappUrl = whatsappLink(
+    config.whatsappNumber,
     `Hola, mi número de caso es ${caso.caseNumber}.`
-  )}`;
+  );
 
   return (
     <main className="min-h-screen bg-muted/30 px-4 py-10 md:py-16">

@@ -5,9 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
 import { useIsDesktop } from "@/hooks/use-is-desktop";
 import WhatsAppQrDialog from "@/components/whatsapp-qr-dialog";
-import { WHATSAPP_URL } from "@/lib/constants";
+import { useSiteConfig } from "@/components/site-config-provider";
+import { whatsappLink } from "@/lib/site-config";
 
 const CTASection = () => {
+  const { whatsappNumber } = useSiteConfig();
   const isDesktop = useIsDesktop();
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -28,7 +30,7 @@ const CTASection = () => {
                     <Button
                         size="lg"
                         className="bg-primary hover:bg-primary/90"
-                        onClick={isDesktop ? () => setDialogOpen(true) : () => window.open(WHATSAPP_URL, "_blank")}
+                        onClick={isDesktop ? () => setDialogOpen(true) : () => window.open(whatsappLink(whatsappNumber), "_blank")}
                     >
                         📲 Mándanos tu receta
                     </Button>

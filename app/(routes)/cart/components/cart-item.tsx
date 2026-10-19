@@ -7,7 +7,7 @@ import { Minus, Plus, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { MEMBERSHIP_NAME } from "@/lib/constants";
+import { useSiteConfig } from "@/components/site-config-provider";
 import {
   Tooltip,
   TooltipContent,
@@ -27,6 +27,7 @@ interface CartItemProps {
 }
 
 export default function CartItem({ product, user }: CartItemProps) {
+  const { membershipName } = useSiteConfig();
   const { removeItem, increaseQuantity, decreaseQuantity } = useCart();
 
   const imageUrl =
@@ -101,7 +102,7 @@ export default function CartItem({ product, user }: CartItemProps) {
                     {formatPrice(product.price)}
                   </p>
                   <Badge variant="destructive" className="text-xs">
-                    Descuento {MEMBERSHIP_NAME}
+                    Descuento {membershipName}
                   </Badge>
                 </>
               )}

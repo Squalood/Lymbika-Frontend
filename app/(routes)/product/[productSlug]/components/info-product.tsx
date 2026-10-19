@@ -8,13 +8,14 @@ import { UseLovedProducts } from "@/hooks/use-loved-products";
 import { formatPrice } from "@/lib/formatPrice";
 import { ProductType } from "@/types/product";
 import { Heart, ShieldAlert } from "lucide-react";
-import { MEMBERSHIP_NAME } from "@/lib/constants";
+import { useSiteConfig } from "@/components/site-config-provider";
 
 export type InfoProductProps = {
     product: ProductType
 }
 
 const InfoProduct = ({ product }: InfoProductProps) => {
+    const { membershipName } = useSiteConfig();
     const { addItem } = useCart();
     const { addLoveItem } = UseLovedProducts();
 
@@ -64,7 +65,7 @@ const InfoProduct = ({ product }: InfoProductProps) => {
                 </div>
                 {hasMemberPrice && (
                     <div>
-                        <p className="text-xs">Precio {MEMBERSHIP_NAME}</p>
+                        <p className="text-xs">Precio {membershipName}</p>
                         <p className="text-2xl text-green-400">{formatPrice(product.priceMember)}</p>
                     </div>
                 )}

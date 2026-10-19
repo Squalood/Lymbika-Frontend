@@ -12,6 +12,9 @@ import { getUserMeLoader } from "./data/services/get-user-me-loader";
 import Script from "next/script";
 import Image from "next/image";
 import { NavbarSectionType } from "@/types/single-types/navbar";
+import { GA_TRACKING_ID } from "@/lib/gtag";
+import { getSiteConfig } from "@/api/getSiteConfig";
+import { SiteConfigProvider } from "@/components/site-config-provider";
 
 const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
 
@@ -43,9 +46,10 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({children,}: Readonly<{children: React.ReactNode;}>) {
-  const [userData, navContent] = await Promise.all([
+  const [userData, navContent, siteConfig] = await Promise.all([
     getUserMeLoader(),
     getNavbarContent(),
+    getSiteConfig(),
   ]);
 
   return (
@@ -54,7 +58,7 @@ export default async function RootLayout({children,}: Readonly<{children: React.
 
         {/* Google Analytics */}
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-1CNJ3WPFKE"
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
           strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
@@ -62,7 +66,7 @@ export default async function RootLayout({children,}: Readonly<{children: React.
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-1CNJ3WPFKE');
+            gtag('config', '${GA_TRACKING_ID}');
           `}
         </Script>
 
@@ -92,14 +96,16 @@ export default async function RootLayout({children,}: Readonly<{children: React.
           />
         </noscript>
 
-        <NextTopLoader/>
-        <SessionErrorBanner error={userData.error} />
-        <Navbar user={userData.ok ? userData.data : null} navContent={navContent} />
-          {children}
-        <Toaster richColors/>
-        <Footer />
+        <SiteConfigProvider config={siteConfig}>
+          <NextTopLoader/>
+          <SessionErrorBanner error={userData.error} />
+          <Navbar user={userData.ok ? userData.data : null} navContent={navContent} />
+            {children}
+          <Toaster richColors/>
+          <Footer />
 
-        <WhatsAppButton />
+          <WhatsAppButton />
+        </SiteConfigProvider>
       </body>
     </html>
   );

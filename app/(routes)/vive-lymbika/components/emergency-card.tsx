@@ -1,12 +1,15 @@
 import { Phone } from "lucide-react";
-import { WHATSAPP_NUMBER } from "@/lib/constants";
-
-const AMBULANCE_WHATSAPP = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-  "Hola. Necesito ayuda para coordinar una ambulancia."
-)}`;
+import { useSiteConfig } from "@/components/site-config-provider";
+import { whatsappLink } from "@/lib/site-config";
 
 /** Siempre a un toque y sin crear caso antes. Lymbika no atiende emergencias. */
 export function EmergencyCard() {
+  const { whatsappNumber } = useSiteConfig();
+  const ambulanceWhatsapp = whatsappLink(
+    whatsappNumber,
+    "Hola. Necesito ayuda para coordinar una ambulancia."
+  );
+
   return (
     <section className="rounded-[22px] bg-[#FDECEC] p-5">
       <h2 className="text-lg font-semibold text-[#9B1C1C]">¿Necesitas ayuda urgente?</h2>
@@ -22,7 +25,7 @@ export function EmergencyCard() {
         Llamar al 911
       </a>
       <a
-        href={AMBULANCE_WHATSAPP}
+        href={ambulanceWhatsapp}
         target="_blank"
         rel="noopener noreferrer"
         className="mt-2.5 flex w-full items-center justify-center rounded-2xl border border-[#F3C4C4] bg-white px-[22px] py-[15px] text-center text-[15px] font-medium text-[#0C1848] transition-transform duration-300 active:scale-[0.975]"

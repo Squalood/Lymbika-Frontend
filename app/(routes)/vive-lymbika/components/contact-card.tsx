@@ -3,17 +3,16 @@
 import { useState } from "react";
 import WhatsAppQrDialog from "@/components/whatsapp-qr-dialog";
 import { useIsDesktop } from "@/hooks/use-is-desktop";
-import { WHATSAPP_NUMBER } from "@/lib/constants";
+import { useSiteConfig } from "@/components/site-config-provider";
+import { whatsappLink } from "@/lib/site-config";
 import { BTN_WHATS, whatsappIcon } from "./ui";
-
-const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-  "Hola. Quiero contarles qué está pasando."
-)}`;
 
 /** Cierre de la página: la promesa y el atajo a WhatsApp. */
 export function ContactCard() {
   const [qrDialogOpen, setQrDialogOpen] = useState(false);
   const isDesktop = useIsDesktop();
+  const { whatsappNumber } = useSiteConfig();
+  const whatsappUrl = whatsappLink(whatsappNumber, "Hola. Quiero contarles qué está pasando.");
 
   return (
     <section className="rounded-[22px] bg-[#0C1848] p-6 text-center">
@@ -34,7 +33,7 @@ export function ContactCard() {
           </button>
         ) : (
           <a
-            href={WHATSAPP_LINK}
+            href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
             className={BTN_WHATS}
@@ -49,7 +48,7 @@ export function ContactCard() {
         Lymbika Health · Acompañamiento de salud · Ciudad Juárez
       </p>
 
-      <WhatsAppQrDialog open={qrDialogOpen} onOpenChange={setQrDialogOpen} url={WHATSAPP_LINK} />
+      <WhatsAppQrDialog open={qrDialogOpen} onOpenChange={setQrDialogOpen} url={whatsappUrl} />
     </section>
   );
 }

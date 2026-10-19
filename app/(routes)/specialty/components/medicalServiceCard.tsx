@@ -9,6 +9,7 @@ import { formatPrice } from "@/lib/formatPrice";
 import { formatUS } from "@/lib/formatPriceUS";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useSiteConfig } from "@/components/site-config-provider";
 
 const TYPE_LABELS: Record<MedicalServiceType["type"], string> = {
   consultation: "Consulta",
@@ -34,6 +35,7 @@ type Props = {
 };
 
 const MedicalServiceCard = ({ service, href, minPrice, packageItems, priceLabel, ctaLabel, showDetailsLabel, hideDetailsLabel }: Props) => {
+  const { exchangeRateUsd } = useSiteConfig();
   const [showDetails, setShowDetails] = useState(false);
   const hasPackageItems = !!packageItems && packageItems.length > 0;
 
@@ -97,7 +99,7 @@ const MedicalServiceCard = ({ service, href, minPrice, packageItems, priceLabel,
               <>
                 <p className="text-[11px] text-gray-400 uppercase tracking-wide">{priceLabel ?? "Desde"}</p>
                 <p className="text-lg font-bold text-blue-700 leading-tight">{formatPrice(minPrice)}</p>
-                <p className="text-[11px] text-gray-400">~{formatUS(minPrice)} USD</p>
+                <p className="text-[11px] text-gray-400">~{formatUS(minPrice, exchangeRateUsd)} USD</p>
               </>
             )}
           </div>

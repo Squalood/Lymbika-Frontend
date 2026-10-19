@@ -1,4 +1,5 @@
-export const GA_TRACKING_ID = "G-1CNJ3WPFKE" // tu ID
+// Lo usan los <Script> de app/layout.tsx y event(): cambiarlo solo aquí.
+export const GA_TRACKING_ID = "G-1CNJ3WPFKE"
 
 // Enviar evento genérico
 export const event = ({ action, category, label, value }: {

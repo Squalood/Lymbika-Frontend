@@ -8,7 +8,8 @@ import { CalendarCheck, SquareActivity, Star, Stethoscope } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useIsDesktop } from "@/hooks/use-is-desktop";
 import WhatsAppQrDialog from "@/components/whatsapp-qr-dialog";
-import { WHATSAPP_URL } from "@/lib/constants";
+import { useSiteConfig } from "@/components/site-config-provider";
+import { whatsappLink } from "@/lib/site-config";
 import {
   Card,
   CardHeader,
@@ -20,6 +21,7 @@ type ProductDoctorProps = {
 };
 
 const CardDoctor = ({ doctor }: ProductDoctorProps) => {
+  const { whatsappNumber } = useSiteConfig();
   const isDesktop = useIsDesktop();
   const [dialogOpen, setDialogOpen] = useState(false);
   const imageUrl =
@@ -76,7 +78,7 @@ const CardDoctor = ({ doctor }: ProductDoctorProps) => {
         {/* Botón a la derecha */}
         <div className="self-start">
           <Button
-            onClick={(e) => { e.preventDefault(); isDesktop ? setDialogOpen(true) : window.open(WHATSAPP_URL, "_blank"); }}
+            onClick={(e) => { e.preventDefault(); isDesktop ? setDialogOpen(true) : window.open(whatsappLink(whatsappNumber), "_blank"); }}
           >
             <CalendarCheck className="mr-2" />
             Solicitar cita

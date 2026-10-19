@@ -1,5 +1,5 @@
 import { MedicalServiceType } from "@/types/medicalService";
-import { WHATSAPP_NUMBER } from "@/lib/constants";
+import { whatsappLink } from "@/lib/site-config";
 
 export const TYPE_LABELS: Record<MedicalServiceType["type"], string> = {
   consultation: "Consultas",
@@ -38,6 +38,9 @@ function getWhatsAppMessage({
 }
 
 /** Link de WhatsApp con un mensaje prellenado según el tipo de servicio. */
-export function getWhatsAppUrl(opts: Parameters<typeof getWhatsAppMessage>[0]): string {
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(getWhatsAppMessage(opts))}`;
+export function getWhatsAppUrl(
+  whatsappNumber: string,
+  opts: Parameters<typeof getWhatsAppMessage>[0]
+): string {
+  return whatsappLink(whatsappNumber, getWhatsAppMessage(opts));
 }

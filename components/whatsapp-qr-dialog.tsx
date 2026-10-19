@@ -2,6 +2,8 @@
 
 import QRCode from "react-qr-code";
 import Link from "next/link";
+import { useSiteConfig } from "@/components/site-config-provider";
+import { whatsappLink } from "@/lib/site-config";
 import {
   Dialog,
   DialogContent,
@@ -9,7 +11,6 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { WHATSAPP_URL } from "@/lib/constants";
 
 interface WhatsAppQrDialogProps {
   open: boolean;
@@ -21,7 +22,8 @@ interface WhatsAppQrDialogProps {
 }
 
 export default function WhatsAppQrDialog({ open, onOpenChange, url, size = 200 }: WhatsAppQrDialogProps) {
-  const resolvedUrl = url ?? WHATSAPP_URL;
+  const { whatsappNumber } = useSiteConfig();
+  const resolvedUrl = url ?? whatsappLink(whatsappNumber);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

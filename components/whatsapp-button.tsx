@@ -6,7 +6,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import WhatsAppQrDialog from "./whatsapp-qr-dialog";
 import { useIsDesktop } from "@/hooks/use-is-desktop";
-import { WHATSAPP_URL } from "@/lib/constants";
+import { useSiteConfig } from "@/components/site-config-provider";
+import { whatsappLink } from "@/lib/site-config";
 
 export const whatsappIcon = (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 shrink-0">
@@ -18,6 +19,7 @@ const buttonStyle = { position: "fixed" as const, bottom: "24px", right: "12px",
 const buttonClass = "flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white text-sm font-semibold shadow-lg transition-colors duration-200 md:px-4 md:py-3 md:rounded-full p-3 rounded-full";
 
 export default function WhatsAppButton() {
+  const { whatsappNumber } = useSiteConfig();
   const [mounted, setMounted] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -59,7 +61,7 @@ export default function WhatsAppButton() {
           </button>
         ) : (
           <Link
-            href={WHATSAPP_URL}
+            href={whatsappLink(whatsappNumber)}
             target="_blank"
             rel="noopener noreferrer"
             style={buttonStyle}

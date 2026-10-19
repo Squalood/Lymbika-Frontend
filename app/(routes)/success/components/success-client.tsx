@@ -7,6 +7,7 @@ import WhatsAppTrigger from "@/components/whatsapp-trigger";
 import { useCart } from "@/hooks/use-cart";
 import { formatPrice } from "@/lib/formatPrice";
 import { consultarOrden, type OrdenResumen } from "@/app/data/actions/order-actions";
+import { useSiteConfig } from "@/components/site-config-provider";
 
 // El webhook suele llegar en un par de segundos, pero no está garantizado.
 // Se consulta durante 30s antes de rendirse y decir que sigue procesándose.
@@ -21,6 +22,7 @@ type Vista =
   | { tipo: "sin_detalle"; motivo: "sin_sesion" | "desconocida" };
 
 export function SuccessClient({ sessionId }: { sessionId?: string }) {
+  const { mapsUrl } = useSiteConfig();
   const { removeAll } = useCart();
   const [vista, setVista] = useState<Vista>(
     sessionId ? { tipo: "consultando" } : { tipo: "sin_detalle", motivo: "desconocida" }
@@ -89,7 +91,7 @@ export function SuccessClient({ sessionId }: { sessionId?: string }) {
           </WhatsAppTrigger>
 
           <Link
-            href="https://maps.app.goo.gl/wddxisYk7CM7cGVg6"
+            href={mapsUrl}
             className="flex items-center gap-2 text-primary hover:underline"
             target="_blank"
             rel="noopener noreferrer"

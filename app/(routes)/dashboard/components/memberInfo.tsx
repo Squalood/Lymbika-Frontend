@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { JSX } from "react";
-import { MEMBERSHIP_NAME } from "@/lib/constants";
+import { getSiteConfig } from "@/api/getSiteConfig";
 import { cn } from "@/lib/utils";
 import { formatLongDate } from "@/lib/formatDate";
 import {
@@ -86,7 +86,8 @@ const InfoCard = ({ title, description, icon }: CardData) => (
   </div>
 );
 
-const MemberInfo = ({ user, cameFromPortal, firmaMembresia }: Props) => {
+const MemberInfo = async ({ user, cameFromPortal, firmaMembresia }: Props) => {
+  const { membershipName } = await getSiteConfig();
   const estado = resolveMembershipState(user);
   // Se formatea en el servidor: ni Intl ni la fecha cruda cruzan al cliente,
   // así que no hay desajuste de zona horaria entre servidor y navegador.
@@ -121,7 +122,7 @@ const MemberInfo = ({ user, cameFromPortal, firmaMembresia }: Props) => {
                     <IdCard size={32} className="text-primary" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold leading-snug">{MEMBERSHIP_NAME}</h3>
+                    <h3 className="text-xl font-semibold leading-snug">{membershipName}</h3>
                     <p className="text-sm text-muted-foreground">
                       Accede a productos con precio de proveedor.
                     </p>
@@ -137,7 +138,7 @@ const MemberInfo = ({ user, cameFromPortal, firmaMembresia }: Props) => {
                         className={cn("gap-2 py-2 px-4 text-sm w-full justify-center", PILL.active)}
                       >
                         <CheckCircle size={16} />
-                        Miembro activo de {MEMBERSHIP_NAME}
+                        Miembro activo de {membershipName}
                       </Badge>
                       {fechaFin && (
                         <p className="text-sm text-muted-foreground">
@@ -203,7 +204,7 @@ const MemberInfo = ({ user, cameFromPortal, firmaMembresia }: Props) => {
                         className={cn("gap-2 py-2 px-4 text-sm w-full justify-center", PILL.manual)}
                       >
                         <ShieldCheck size={16} />
-                        Miembro activo de {MEMBERSHIP_NAME}
+                        Miembro activo de {membershipName}
                       </Badge>
                       <p className="text-sm text-muted-foreground">
                         Tu membresía la administra el equipo de Lymbika. Para renovarla,

@@ -4,7 +4,6 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useIsDesktop } from "@/hooks/use-is-desktop";
 import WhatsAppQrDialog from "@/components/whatsapp-qr-dialog";
-import { WHATSAPP_URL } from "@/lib/constants";
 import Image from "next/image";
 import { SugeryType } from "@/types/sugery";
 import { useGetSugery } from "@/api/getSugery";
@@ -12,8 +11,11 @@ import SkeletonInfo from "@/components/skeleton/catInfoSkeleton";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Stethoscope, Check, ChevronDown, ChevronUp } from "lucide-react";
+import { useSiteConfig } from "@/components/site-config-provider";
+import { whatsappLink } from "@/lib/site-config";
 
 const SurgeryInfo = () => {
+  const { whatsappNumber } = useSiteConfig();
   const { surgerySlug } = useParams();
   const { result, loading } = useGetSugery();
   const [surgery, setSurgery] = useState<SugeryType | null>(null);
@@ -104,7 +106,7 @@ const SurgeryInfo = () => {
             <div className="flex justify-start">
               <Button
                 className="gap-2"
-                onClick={isDesktop ? () => setDialogOpen(true) : () => window.open(WHATSAPP_URL, "_blank")}
+                onClick={isDesktop ? () => setDialogOpen(true) : () => window.open(whatsappLink(whatsappNumber), "_blank")}
               >
                 <Stethoscope className="w-4 h-4" /> Solicitar Agente Médico
               </Button>
