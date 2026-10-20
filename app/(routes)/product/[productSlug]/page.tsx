@@ -12,7 +12,7 @@ const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 async function getProduct(slug: string): Promise<ProductType | null> {
   const res = await fetch(
-    `${BASE}/api/products?filters[slug][$eq]=${slug}&populate=*`,
+    `${BASE}/api/products?filters[active][$eq]=true&filters[slug][$eq]=${slug}&populate=*`,
     { next: { revalidate: 3600 } }
   );
   const json = await res.json();

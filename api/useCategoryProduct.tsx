@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ProductType } from "@/types/product";
 
 export function useGetCategoryProduct(slug: string | string[], page: number) {
-    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products?populate=*&filters[category][slug][$eq]=${slug}&pagination[page]=${page}&pagination[pageSize]=1000`;
+    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products?filters[active][$eq]=true&populate=*&filters[category][slug][$eq]=${slug}&pagination[page]=${page}&pagination[pageSize]=1000`;
 
     const [result, setResult] = useState<ProductType[]>([]);  // ✅ Se especifica el tipo correcto
     const [loading, setLoading] = useState(true);

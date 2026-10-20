@@ -36,7 +36,7 @@ module.exports = {
     let productRoutes = [];
     try {
       const res = await fetch(
-        `${BASE}/api/products?fields[0]=slug&pagination[pageSize]=2000&pagination[page]=1`
+        `${BASE}/api/products?filters[active][$eq]=true&fields[0]=slug&pagination[pageSize]=2000&pagination[page]=1`
       );
       const json = await res.json();
       if (Array.isArray(json.data)) {
