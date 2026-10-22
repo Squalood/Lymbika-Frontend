@@ -1,30 +1,18 @@
+"use client";
+
 import { DoctorType } from "@/types/doctor";
-import { useEffect, useState } from "react";
+import { ResourceOptions, useSharedResource } from "@/lib/client-resource";
 
-export function useGetDoctors() {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/doctors?populate=*&pagination[pageSize]=100`;
-  const [doctors, setResult] = useState<DoctorType[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+const ENDPOINT = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/doctors?populate=*&pagination[pageSize]=100`;
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await fetch(url);
-        const json = await res.json();
+const VACIO: DoctorType[] = [];
 
-        if (json.data && Array.isArray(json.data)) {
-          setResult(json.data);
-        } else {
-          setResult([]);
-        }
-      } catch (error: any) {
-        setError(error.message || "Error al obtener doctores");
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, [url]);
+const parse = (json: unknown): DoctorType[] => {
+  const data = (json as { data?: unknown })?.data;
+  return Array.isArray(data) ? (data as DoctorType[]) : VACIO;
+};
 
-  return { loading, doctors, error };
+export function useGetDoctors(options?: ResourceOptions) {
+  const { data, loading, error } = useSharedResource(ENDPOINT, parse, VACIO, options);
+  return { loading, doctors: data, error };
 }

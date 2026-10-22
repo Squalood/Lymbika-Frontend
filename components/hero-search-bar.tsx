@@ -41,6 +41,7 @@ const HeroSearchBar = ({
     results,
     searchHref,
     handleChange,
+    handleFocus,
     handleKeyDown,
     goToSearch,
     clearSearch,
@@ -63,6 +64,7 @@ const HeroSearchBar = ({
               aria-label={placeholderText}
               value={searchTerm}
               onChange={(e) => handleChange(e.target.value)}
+              onFocus={handleFocus}
               onKeyDown={handleKeyDown}
               className="w-full min-w-0 bg-transparent text-base font-semibold text-primary outline-none placeholder:text-primary"
             />

@@ -1,35 +1,18 @@
-'use client';
-import { useEffect, useState } from "react";
+"use client";
+
 import { MedicalServiceType } from "@/types/medicalService";
+import { ResourceOptions, useSharedResource } from "@/lib/client-resource";
 
-export function useGetAllMedicalServices() {
-  const [medicalServices, setMedicalServices] = useState<MedicalServiceType[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+const ENDPOINT = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/medical-services?populate[image][fields][0]=url&populate[specialty][fields][0]=slug&pagination[pageSize]=200`;
 
-  useEffect(() => {
-    const fetch_ = async () => {
-      setLoading(true);
-      try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/medical-services?populate[image][fields][0]=url&populate[specialty][fields][0]=slug&pagination[pageSize]=200`
-        );
-        const json = await res.json();
+const VACIO: MedicalServiceType[] = [];
 
-        if (json.data && Array.isArray(json.data)) {
-          setMedicalServices(json.data);
-        } else {
-          setMedicalServices([]);
-        }
-      } catch (err: any) {
-        setError(err.message || "Error al obtener servicios médicos");
-      } finally {
-        setLoading(false);
-      }
-    };
+const parse = (json: unknown): MedicalServiceType[] => {
+  const data = (json as { data?: unknown })?.data;
+  return Array.isArray(data) ? (data as MedicalServiceType[]) : VACIO;
+};
 
-    fetch_();
-  }, []);
-
-  return { medicalServices, loading, error };
+export function useGetAllMedicalServices(options?: ResourceOptions) {
+  const { data, loading, error } = useSharedResource(ENDPOINT, parse, VACIO, options);
+  return { medicalServices: data, loading, error };
 }

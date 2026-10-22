@@ -17,7 +17,7 @@ import { SearchGeneral } from "@/components/searchGeneral";
 import { useGetProducts } from "@/api/getProducts";
 import { useGetDoctors } from "@/api/getDoctor";
 import Autoplay from "embla-carousel-autoplay";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
 type ClinicProductsProps = {
@@ -30,8 +30,10 @@ const ClinicProducts = ({ clinicSlug, clinicTitle }: ClinicProductsProps) => {
 
   const noProducts = !loading && (!result || result.length === 0);
 
-  const { products } = useGetProducts();
-  const { doctors } = useGetDoctors();
+  // Los catálogos del buscador no se piden hasta que alguien toca la barra.
+  const [buscadorActivo, setBuscadorActivo] = useState(false);
+  const { products } = useGetProducts({ enabled: buscadorActivo });
+  const { doctors } = useGetDoctors({ enabled: buscadorActivo });
 
   const { ref, inView } = useInView({
     threshold: 0.1,
@@ -52,6 +54,7 @@ const ClinicProducts = ({ clinicSlug, clinicTitle }: ClinicProductsProps) => {
       {/* Barra de búsqueda */}
       <div className="flex w-10/12 md:w-1/2 mt-2 mb-8 text-black mx-auto">
         <SearchGeneral
+          onActivate={() => setBuscadorActivo(true)}
           allProducts={products}
           allDoctors={doctors}
           allServices={[]}

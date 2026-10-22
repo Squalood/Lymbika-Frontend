@@ -1,89 +1,39 @@
-import { useEffect, useState } from "react";
+"use client";
+
 import { ClinicType } from "@/types/clinic";
+import { ResourceOptions, useSharedResource } from "@/lib/client-resource";
 
-export function useGetClinics() {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/clinics?populate=*&pagination[pageSize]=100`;
-  const [clinics, setClinics] = useState<ClinicType[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+/**
+ * Campos que consumen los menús, el listado de clínicas y el buscador.
+ *
+ * Antes se pedía `populate=*`, que traía servicios, características,
+ * testimonios, el doctor con su rich text, galería, videos y `pageTexts`
+ * entero (medio centenar de cadenas por clínica). Como `menu-list` vive en el
+ * navbar, eso viajaba en cada carga de cada página. Las vistas de detalle de
+ * una clínica NO usan este hook: tienen su propio fetch por slug en servidor.
+ *
+ * El objeto devuelto es un subconjunto de `ClinicType`; el resto de campos
+ * llega como `undefined`. Si una vista necesita uno, añádelo aquí.
+ */
+const CAMPOS = [
+  "fields[0]=title",
+  "fields[1]=slug",
+  "fields[2]=icon",
+  "fields[3]=featuredClinic",
+  "fields[4]=heroSubtitle",
+  "populate[heroImage][fields][0]=url",
+].join("&");
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await fetch(url);
-        const json = await res.json();
+const ENDPOINT = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/clinics?${CAMPOS}&pagination[pageSize]=100`;
 
-        if (Array.isArray(json.data)) {
-          const mapped: ClinicType[] = json.data.map((item: any) => ({
-            id: item.id,
-            title: item.title,
-            slug: item.slug,
-            heroTitle: item.heroTitle,
-            heroSubtitle: item.heroSubtitle,
-            heroImage: {
-              url: item.heroImage?.url || "",
-            },
-            contactLocation: item.contactLocation,
-            contactSchedule: item.contactSchedule,
-            contactPhone: item.contactPhone || "",
-            contactWhatsappLink: item.contactWhatsappLink,
-            icon: item.icon,
+const VACIO: ClinicType[] = [];
 
-            services: item.services?.map((s: any) => ({
-              id: s.id,
-              title: s.title,
-              description: s.description,
-              price: s.price,
-              icon: s.icon,
-            })) || [],
+const parse = (json: unknown): ClinicType[] => {
+  const data = (json as { data?: unknown })?.data;
+  return Array.isArray(data) ? (data as ClinicType[]) : VACIO;
+};
 
-            features: item.features?.map((f: any) => ({
-              id: f.id,
-              title: f.title,
-              description: f.description,
-              icon: f.icon,
-            })) || [],
-
-            testimonials: item.testimonials?.map((t: any) => ({
-              id: t.id,
-              name: t.name,
-              text: t.text,
-              rating: t.rating,
-            })) || [],
-
-            doctor: item.doctor && {
-              id: item.doctor.id,
-              name: item.doctor.name,
-              description: item.doctor.description,
-              image: {
-                url: item.doctor.image?.url || "",
-              },
-              points: item.doctor.points || [],
-              mapsEmbedUrl: item.doctor.mapsEmbedUrl || "",
-            },
-            gallery: item.gallery && {
-              id: item.gallery.id,
-              url: item.gallery.url
-            },
-            videos: item.videos && {
-              id: item.videos.id,
-              videoID: item.videos.videoID
-            },
-            featuredClinic: item.featuredClinic
-          }));
-
-          setClinics(mapped);
-        } else {
-          setClinics([]);
-        }
-
-      } catch (error: any) {
-        setError(error.message || "Error al obtener clínicas");
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, [url]);
-
-  return { clinics, loading, error };
+export function useGetClinics(options?: ResourceOptions) {
+  const { data, loading, error } = useSharedResource(ENDPOINT, parse, VACIO, options);
+  return { clinics: data, loading, error };
 }

@@ -43,8 +43,9 @@ const normalize = (value: string) =>
  * filtrado con debounce, navegación y cierre al hacer click fuera.
  * Los componentes que la usan solo se encargan del diseño.
  *
- * Nota: los datos siempre se piden completos (los hooks de `api/` no pueden
- * llamarse condicionalmente); `include` limita qué se muestra, no qué se pide.
+ * No se descarga nada hasta que el usuario toca la barra (`handleFocus`) o
+ * escribe, y solo los catálogos que pide `include`: una barra que solo busca
+ * cirugías no se trae los ~3.000 productos de la farmacia.
  */
 export function useSearch({
   include = ALL_TYPES,
@@ -54,18 +55,22 @@ export function useSearch({
 }: UseSearchOptions = {}) {
   const router = useRouter();
 
-  const { products } = useGetProducts();
-  const { doctors } = useGetDoctors();
-  const { result: services }: ResponseType = useGetServices();
-  const { result: categories }: ResponseType = useGetCategories();
-  const { medicalServices } = useGetAllMedicalServices();
-  const { clinics } = useGetClinics();
-
   const [searchTerm, setSearchTerm] = useState("");
   const [results, setResults] = useState<SearchableItem[]>([]);
+  const [activo, setActivo] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const enabled = useMemo(() => new Set(include), [include]);
+  const tiposIncluidos = useMemo(() => new Set(include), [include]);
+
+  /** Un catálogo se pide solo si esta barra busca en él y ya hubo interacción. */
+  const pedir = (tipo: SearchableType) => activo && tiposIncluidos.has(tipo);
+
+  const { products } = useGetProducts({ enabled: pedir("product") });
+  const { doctors } = useGetDoctors({ enabled: pedir("doctor") });
+  const { result: services }: ResponseType = useGetServices({ enabled: pedir("service") });
+  const { result: categories }: ResponseType = useGetCategories({ enabled: pedir("category") });
+  const { medicalServices } = useGetAllMedicalServices({ enabled: pedir("medicalService") });
+  const { clinics } = useGetClinics({ enabled: pedir("clinic") });
 
   const filterItems = useDebouncedCallback((term: string) => {
     if (!term.trim()) {
@@ -76,7 +81,7 @@ export function useSearch({
     const q = normalize(term);
     const matches: SearchableItem[] = [];
 
-    if (enabled.has("product")) {
+    if (tiposIncluidos.has("product")) {
       matches.push(
         ...(products ?? [])
           .filter(
@@ -94,7 +99,7 @@ export function useSearch({
       );
     }
 
-    if (enabled.has("doctor")) {
+    if (tiposIncluidos.has("doctor")) {
       matches.push(
         ...(doctors ?? [])
           .filter((d) => normalize(d.doctorName).includes(q))
@@ -109,7 +114,7 @@ export function useSearch({
       );
     }
 
-    if (enabled.has("service")) {
+    if (tiposIncluidos.has("service")) {
       matches.push(
         ...((services ?? []) as ServiceType[])
           .filter((s) => normalize(s.serviceName).includes(q))
@@ -125,7 +130,7 @@ export function useSearch({
       );
     }
 
-    if (enabled.has("category")) {
+    if (tiposIncluidos.has("category")) {
       matches.push(
         ...((categories ?? []) as CategoryType[])
           .filter((c) => normalize(c.categoryName).includes(q))
@@ -140,7 +145,7 @@ export function useSearch({
       );
     }
 
-    if (enabled.has("medicalService")) {
+    if (tiposIncluidos.has("medicalService")) {
       matches.push(
         ...(medicalServices ?? [])
           // Sin especialidad no hay ruta válida (/specialty/<esp>/<servicio>): se omite
@@ -159,7 +164,7 @@ export function useSearch({
       );
     }
 
-    if (enabled.has("clinic")) {
+    if (tiposIncluidos.has("clinic")) {
       matches.push(
         ...(clinics ?? [])
           .filter((cl) => normalize(cl.title).includes(q))
@@ -178,6 +183,22 @@ export function useSearch({
     setResults(matches.slice(0, limit));
   }, debounceMs);
 
+  // Los catálogos se piden al enfocar la barra, así que pueden aterrizar
+  // después de que el usuario ya escribió. Sin esto se quedaría viendo "sin
+  // resultados" sobre unas listas que todavía estaban vacías al filtrar.
+  useEffect(() => {
+    if (searchTerm.trim()) filterItems(searchTerm);
+  }, [
+    products,
+    doctors,
+    services,
+    categories,
+    medicalServices,
+    clinics,
+    searchTerm,
+    filterItems,
+  ]);
+
   // Cierra el preview al hacer click fuera del contenedor
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -192,7 +213,11 @@ export function useSearch({
 
   const searchHref = `${searchPath}?query=${encodeURIComponent(searchTerm)}`;
 
+  /** Dispara la carga de catálogos en cuanto el usuario toca la barra. */
+  const handleFocus = () => setActivo(true);
+
   const handleChange = (value: string) => {
+    setActivo(true);
     setSearchTerm(value);
     filterItems(value);
   };
@@ -225,6 +250,7 @@ export function useSearch({
     results,
     searchHref,
     handleChange,
+    handleFocus,
     handleKeyDown,
     goToSearch,
     clearSearch,

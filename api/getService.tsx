@@ -1,27 +1,20 @@
-import { useEffect, useState } from "react";
+"use client";
+
 import { ServiceType } from "@/types/service";
+import { ResourceOptions, useSharedResource } from "@/lib/client-resource";
 
-export function useGetServices() {
-    // pageSize explicito: sin el, Strapi aplica su defaultLimit de 25 y las
-    // especialidades que sobren desaparecen sin dar error. Hoy hay 15.
-    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/services?populate=*&pagination[pageSize]=100`;
-    const [result, setResult] = useState<ServiceType[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string>("");
+// pageSize explicito: sin el, Strapi aplica su defaultLimit de 25 y las
+// especialidades que sobren desaparecen sin dar error. Hoy hay 15.
+const ENDPOINT = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/services?populate=*&pagination[pageSize]=100`;
 
-    useEffect(() => {
-        (async () => {
-            try {
-                const res = await fetch(url);
-                const json = await res.json();
-                setResult(json.data); // Asegurar que json.data es un array
-                setLoading(false);
-            } catch (error: any) {
-                setError(error.message);
-                setLoading(false);
-            }
-        })();
-    }, [url]);
+const VACIO: ServiceType[] = [];
 
-    return { loading, result, error };
+const parse = (json: unknown): ServiceType[] => {
+  const data = (json as { data?: unknown })?.data;
+  return Array.isArray(data) ? (data as ServiceType[]) : VACIO;
+};
+
+export function useGetServices(options?: ResourceOptions) {
+  const { data, loading, error } = useSharedResource(ENDPOINT, parse, VACIO, options);
+  return { loading, result: data, error };
 }

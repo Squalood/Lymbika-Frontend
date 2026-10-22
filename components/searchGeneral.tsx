@@ -21,6 +21,11 @@ type Props = {
   allCategories: CategoryType[];
   allMedicalServices: MedicalServiceType[];
   allClinics: ClinicType[];
+  /**
+   * Se dispara al enfocar la barra. El padre lo usa para no descargar los
+   * catálogos hasta que el usuario demuestra que va a buscar.
+   */
+  onActivate?: () => void;
 };
 
 type SearchableItem = {
@@ -42,6 +47,7 @@ export function SearchGeneral({
   allCategories,
   allMedicalServices,
   allClinics,
+  onActivate,
 }: Props) {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
@@ -144,6 +150,22 @@ export function SearchGeneral({
     setSearchTerm(searchParams.get("query") || "");
   }, [searchParams]);
 
+  // Los catálogos se piden al enfocar la barra, así que pueden aterrizar
+  // después de que el usuario ya escribió. Sin esto se quedaría viendo "sin
+  // resultados" sobre unas listas que todavía estaban vacías al filtrar.
+  useEffect(() => {
+    if (searchTerm.trim()) filterItems(searchTerm);
+  }, [
+    allProducts,
+    allDoctors,
+    allServices,
+    allCategories,
+    allMedicalServices,
+    allClinics,
+    searchTerm,
+    filterItems,
+  ]);
+
   const clearSearch = () => {
     setSearchTerm("");
     setFilteredResults([]);
@@ -159,6 +181,7 @@ export function SearchGeneral({
         type="text"
         placeholder="Buscar Medicinas, doctores y etc..."
         value={searchTerm}
+        onFocus={onActivate}
         onChange={(e) => {
           setSearchTerm(e.target.value);
           filterItems(e.target.value);

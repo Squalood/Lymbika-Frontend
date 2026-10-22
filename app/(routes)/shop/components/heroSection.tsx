@@ -9,14 +9,17 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ShoppingCart, MapPin, Clock, Shield } from "lucide-react";
 import { PageType } from "@/types/pages";
+import { useState } from "react";
 
 type HeroProps = {
   hero: PageType["hero"] | undefined;
 };
 
 const HeroSection = ({ hero }: HeroProps) => {
-  const { products } = useGetProducts();
-  const { doctors } = useGetDoctors();
+  // Los catálogos del buscador no se piden hasta que alguien toca la barra.
+  const [buscadorActivo, setBuscadorActivo] = useState(false);
+  const { products } = useGetProducts({ enabled: buscadorActivo });
+  const { doctors } = useGetDoctors({ enabled: buscadorActivo });
 
   if (!hero) return null;
   
@@ -64,6 +67,7 @@ const HeroSection = ({ hero }: HeroProps) => {
             {/* Barra de búsqueda */}
             <div className="flex w-full text-black">
               <SearchGeneral 
+                onActivate={() => setBuscadorActivo(true)}
                 allProducts={products} 
                 allDoctors={doctors} 
                 allServices={[]}

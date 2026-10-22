@@ -21,14 +21,18 @@ const MEDICAL_SERVICE_TYPE_LABELS: Record<MedicalServiceType["type"], string> = 
 };
 
 export default function SearchResultsPage() {
-  const { products, loading: loadingProducts } = useGetProducts();
-  const { doctors, loading: loadingDoctors } = useGetDoctors();
-  const { result: services } = useGetServices();
-  const { result: categories } = useGetCategories();
-  const { medicalServices } = useGetAllMedicalServices();
-  const { clinics } = useGetClinics();
-
   const searchParams = useSearchParams();
+
+  // Sin término no hay nada que filtrar, así que no se pide ningún catálogo.
+  const hayConsulta = Boolean(searchParams.get("query")?.trim());
+
+  const { products, loading: loadingProducts } = useGetProducts({ enabled: hayConsulta });
+  const { doctors, loading: loadingDoctors } = useGetDoctors({ enabled: hayConsulta });
+  const { result: services } = useGetServices({ enabled: hayConsulta });
+  const { result: categories } = useGetCategories({ enabled: hayConsulta });
+  const { medicalServices } = useGetAllMedicalServices({ enabled: hayConsulta });
+  const { clinics } = useGetClinics({ enabled: hayConsulta });
+
   const query = searchParams
     .get("query")
     ?.toLowerCase()

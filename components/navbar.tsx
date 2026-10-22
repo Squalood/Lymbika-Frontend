@@ -36,16 +36,19 @@ interface AuthUserProps {
     const cart = useCart();
     const { lovedItems } = UseLovedProducts();
     
-    const { products } = useGetProducts();
-    const { doctors } = useGetDoctors();
-    const { result: services }: ResponseType = useGetServices();
-    const { result: category }: ResponseType = useGetCategories();
-    const { medicalServices } = useGetAllMedicalServices();
-    const { clinics } = useGetClinics();
-    
-
     const [showSearch, setShowSearch] = useState(false);
     const searchRef = useRef<HTMLDivElement>(null)
+
+    // Estos cinco catálogos solo alimentan el buscador, que arranca plegado.
+    // Antes se descargaban en cada carga de cada página aunque nadie buscara, y
+    // el de productos son ~3.000 registros. Ahora se piden al abrir la lupa.
+    const { products } = useGetProducts({ enabled: showSearch });
+    const { doctors } = useGetDoctors({ enabled: showSearch });
+    const { result: services }: ResponseType = useGetServices({ enabled: showSearch });
+    const { result: category }: ResponseType = useGetCategories({ enabled: showSearch });
+    const { medicalServices } = useGetAllMedicalServices({ enabled: showSearch });
+    // Las clínicas no se difieren: MenuList las necesita para el menú principal.
+    const { clinics } = useGetClinics();
 
     const textColor = pathname === "/" ? "text-background" : "text-black";
     const fillColor = lovedItems.length > 0 ? (pathname === "/" ? "fill-background" : "fill-black") : "";
