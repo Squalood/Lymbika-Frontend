@@ -7,6 +7,7 @@ import NavegatorPages from "@/components/navegatorPages";
 import VideoCarousel from "@/components/VideoCarousel";
 import ProductReviews from "./components/product-reviews";
 import { ProductType } from "@/types/product";
+import { resumen, textoPlano } from "@/lib/rich-text";
 
 const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
 
@@ -28,7 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const FRONTEND = process.env.NEXT_PUBLIC_FRONTEND_URL || "https://lymbika.com";
   return {
     title: `${product.productName} | Lymbika`,
-    description: product.description,
+    description: resumen(product.descriptionPro),
     alternates: {
       canonical: `${FRONTEND}/product/${productSlug}`,
     },
@@ -47,7 +48,7 @@ export default async function Page({ params }: Props) {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.productName,
-    description: product.description || product.productName,
+    description: textoPlano(product.descriptionPro) || product.productName,
     ...(product.images?.length > 0 && {
       image: product.images.map((img) =>
         img.url.startsWith("http") ? img.url : `${BASE}${img.url}`

@@ -2,9 +2,20 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { ProductType } from "@/types/product";
 import { CategoryType } from "@/types/category";
+import { camposDeProducto } from "@/lib/product-fields";
 import CategoryClient from "./components/CategoryClient";
 
 const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
+
+// CategoryClient filtra por `tipo`, así que ese campo va además de los de la
+// tarjeta. Ver lib/product-fields.ts para por qué no se usa `populate=*`.
+const CAMPOS = camposDeProducto(["tipo"]);
+
+// El cliente pagina y filtra en memoria, así que la página necesita la
+// categoría completa de una sola vez. El tope es el `maxLimit` del backend
+// (config/api.ts): con el anterior de 1.000, los 26 productos que exceden en
+// "crónicos" (1.026 hoy) no se mostraban nunca y nadie se enteraba.
+const PAGE_SIZE = 5000;
 
 async function getCategoryData(slug: string): Promise<{
   products: ProductType[];
@@ -12,7 +23,7 @@ async function getCategoryData(slug: string): Promise<{
 }> {
   const [productsRes, categoriesRes] = await Promise.all([
     fetch(
-      `${BASE}/api/products?filters[active][$eq]=true&populate=*&filters[category][slug][$eq]=${slug}&pagination[pageSize]=1000`,
+      `${BASE}/api/products?filters[active][$eq]=true&${CAMPOS}&filters[category][slug][$eq]=${encodeURIComponent(slug)}&pagination[pageSize]=${PAGE_SIZE}`,
       { next: { revalidate: 300 } }
     ),
     fetch(`${BASE}/api/categories?populate=*`, { next: { revalidate: 300 } }),
@@ -23,8 +34,19 @@ async function getCategoryData(slug: string): Promise<{
     categoriesRes.json(),
   ]);
 
+  const products: ProductType[] = Array.isArray(productsJson.data) ? productsJson.data : [];
+
+  // Si la categoría vuelve a crecer por encima del tope, que quede dicho en los
+  // logs en vez de desaparecer productos en silencio como pasó con el 1.000.
+  const total = productsJson?.meta?.pagination?.total;
+  if (typeof total === "number" && total > products.length) {
+    console.warn(
+      `[category/${slug}] la categoría tiene ${total} productos y solo se trajeron ${products.length}. Sube PAGE_SIZE (y maxLimit en el backend si hace falta).`
+    );
+  }
+
   return {
-    products: Array.isArray(productsJson.data) ? productsJson.data : [],
+    products,
     categories: Array.isArray(categoriesJson.data) ? categoriesJson.data : [],
   };
 }

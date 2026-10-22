@@ -50,11 +50,10 @@ const InfoProduct = ({ product }: InfoProductProps) => {
                 </div>
             )}
 
-            {Array.isArray(product.descriptionPro) && product.descriptionPro.length > 0 ? (
-                <RichTextRenderer content={product.descriptionPro} />
-            ) : (
-                <p>{product.description}</p>
-            )}
+            {/* El renderer ya avisa si el rich text viene vacio; el campo
+                `description` de texto plano que servia de respaldo se retiro
+                de Strapi al migrar todo a `descriptionPro`. */}
+            <RichTextRenderer content={product.descriptionPro} />
 
             <Separator className="my-4" />
 

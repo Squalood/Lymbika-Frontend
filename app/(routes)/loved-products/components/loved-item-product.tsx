@@ -117,12 +117,6 @@ const LovedItemsProduct = ({ product }: LovedItemsProductProps) => {
                   </div>
                 )}
 
-                {/* Descripción breve si existe */}
-                {product.description && (
-                  <p className="text-sm text-muted-foreground line-clamp-2 hidden sm:block">
-                    {product.description}
-                  </p>
-                )}
               </div>
             </div>
 

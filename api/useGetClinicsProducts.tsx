@@ -1,24 +1,20 @@
-import { useEffect, useState } from "react";
+"use client";
 
-export function useGetClinicsProducts(slug: string) {
-    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products?filters[active][$eq]=true&filters[clinics][slug][$eq]=${slug}&populate=*`;
-    const [result, setResult] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState("");
+import { ProductType } from "@/types/product";
+import { ResourceOptions, useSharedResource } from "@/lib/client-resource";
+import { camposDeProducto } from "@/lib/product-fields";
 
-    useEffect(() => {
-        (async() => {
-            try {
-                const res = await fetch (url);
-                const json = await res.json();
-                setResult(json.data);
-                setLoading(false);
-            } catch (error: any){
-                setError(error);
-                setLoading(false);
-            }
-        })();
-    }, [url]);
+const CAMPOS = camposDeProducto();
 
-    return { loading, result, error};
+const VACIO: ProductType[] = [];
+
+const parse = (json: unknown): ProductType[] => {
+  const data = (json as { data?: unknown })?.data;
+  return Array.isArray(data) ? (data as ProductType[]) : VACIO;
+};
+
+export function useGetClinicsProducts(slug: string, options?: ResourceOptions) {
+  const endpoint = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products?filters[active][$eq]=true&filters[clinics][slug][$eq]=${encodeURIComponent(slug)}&${CAMPOS}`;
+  const { data, loading, error } = useSharedResource(endpoint, parse, VACIO, options);
+  return { loading, result: data, error };
 }

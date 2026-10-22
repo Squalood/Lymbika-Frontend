@@ -5,7 +5,6 @@ export type ProductType = {
   id: number;
   productName: string;
   slug: string;
-  description: string;
   descriptionPro: RichTextNode[]; 
   active: boolean;
   price: number;
