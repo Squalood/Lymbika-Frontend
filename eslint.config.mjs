@@ -10,6 +10,9 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
+  // Salida de build y archivos generados: sin esto ESLint revisa .next/ y
+  // reporta miles de errores que no son del código.
+  { ignores: [".next/**", "out/**", "public/**", "next-env.d.ts"] },
   ...compat.extends("next/core-web-vitals", "next/typescript"),
 ];
 
