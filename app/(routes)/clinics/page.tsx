@@ -1,6 +1,12 @@
+import type { Metadata } from "next";
 import { ClinicType } from "@/types/clinic";
 import { CAMPOS_CLINICA } from "@/lib/clinic-fields";
 import Clinics from "./[clinicSlug]/components/clinics";
+
+export const metadata: Metadata = {
+  title: "Clínicas | Lymbika Healthcare",
+  alternates: { canonical: "/clinics" },
+};
 
 const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
 

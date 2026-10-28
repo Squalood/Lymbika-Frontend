@@ -1,7 +1,13 @@
+import type { Metadata } from "next";
 import { AboutPageType } from "@/types/single-types/about";
 import AboutPage from "./components/aboutPage";
 import SlideImage from "./components/slideimage";
 import LymbikaLocation from "./components/location";
+
+export const metadata: Metadata = {
+  title: "Nosotros | Lymbika Healthcare",
+  alternates: { canonical: "/about" },
+};
 
 const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
 

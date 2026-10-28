@@ -53,6 +53,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${clinic.title} | Lymbika Healthcare`,
     description: clinic.heroSubtitle,
+    alternates: { canonical: `/clinics/${clinicSlug}` },
   };
 }
 

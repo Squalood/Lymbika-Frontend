@@ -1,10 +1,10 @@
-"use client";
-
-import { useParams } from "next/navigation";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import MedicalServiceDoctors from "./sections/MedicalServiceDoctors";
-import { useGetMedicalServiceBySlug } from "@/api/useGetMedicalServiceBySlug";
+import { getMedicalServiceBySlug } from "@/api/getMedicalServiceBySlug";
+import { imgUrl } from "@/lib/media";
 import Hero from "./sections/Hero";
 import StatsBar from "./sections/StatsBar";
 import Benefits from "./sections/Benefits";
@@ -16,25 +16,37 @@ import Hospitals from "./sections/Hospitals";
 import Faq from "./sections/Faq";
 import Cta from "./sections/Cta";
 
-export default function Page() {
-  const params = useParams();
-  const specialtySlug =
-    typeof params.specialtySlug === "string" ? params.specialtySlug : "";
-  const medicalServiceSlug =
-    typeof params.medicalServiceSlug === "string" ? params.medicalServiceSlug : "";
+type Props = {
+  params: Promise<{ specialtySlug: string; medicalServiceSlug: string }>;
+};
 
-  const { medicalService, loading } = useGetMedicalServiceBySlug(medicalServiceSlug);
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { specialtySlug, medicalServiceSlug } = await params;
+  const service = await getMedicalServiceBySlug(medicalServiceSlug);
+  if (!service) return {};
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="w-8 h-8 border-2 border-blue-700 border-t-transparent rounded-full animate-spin" />
-      </div>
-    );
-  }
+  const description = service.landingHero?.subtitle || service.description || undefined;
+  const image = service.landingHero?.hero_image?.url ?? service.image?.url;
+  return {
+    title: `${service.name} | Lymbika`,
+    description,
+    alternates: { canonical: `/specialty/${specialtySlug}/${medicalServiceSlug}` },
+    openGraph: {
+      title: service.name,
+      description,
+      ...(image && { images: [imgUrl(image)] }),
+    },
+  };
+}
+
+export default async function Page({ params }: Props) {
+  const { specialtySlug, medicalServiceSlug } = await params;
+  const medicalService = await getMedicalServiceBySlug(medicalServiceSlug);
+
+  if (!medicalService) notFound();
 
   // Landing: cada sección decide si se muestra según los datos del servicio.
-  if (medicalService?.has_landing_page) {
+  if (medicalService.has_landing_page) {
     return (
       <div className="min-h-screen bg-background">
         <Hero service={medicalService} />

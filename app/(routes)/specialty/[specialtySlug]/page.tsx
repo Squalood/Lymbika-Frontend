@@ -13,10 +13,13 @@ async function getSpecialtyData(slug: string): Promise<{
   service: ServiceType | null;
   catalogItems: MedicalServiceCatalogItem[];
 }> {
+  // Ambas consultas filtran por la especialidad en Strapi; antes se bajaban
+  // todas las especialidades y hasta 500 tarifas para quedarse con una.
+  const s = encodeURIComponent(slug);
   const [servicesRes, ratesRes] = await Promise.all([
-    fetch(`${BASE}/api/services?populate=*`, { next: { revalidate: 3600 } }),
+    fetch(`${BASE}/api/services?filters[slug][$eq]=${s}&populate=*`, { next: { revalidate: 3600 } }),
     fetch(
-      `${BASE}/api/service-rates?populate[medical_service][fields][0]=name&populate[medical_service][fields][1]=slug&populate[medical_service][fields][2]=type&populate[medical_service][fields][3]=description&populate[medical_service][populate][image][fields][0]=url&populate[medical_service][populate][specialty][fields][0]=slug&populate[items][fields][0]=text&pagination[pageSize]=500`,
+      `${BASE}/api/service-rates?filters[medical_service][specialty][slug][$eq]=${s}&populate[medical_service][fields][0]=name&populate[medical_service][fields][1]=slug&populate[medical_service][fields][2]=type&populate[medical_service][fields][3]=description&populate[medical_service][populate][image][fields][0]=url&populate[medical_service][populate][specialty][fields][0]=slug&populate[items][fields][0]=text&pagination[pageSize]=500`,
       { next: { revalidate: 3600 } }
     ),
   ]);
@@ -59,6 +62,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${service.serviceName} | Lymbika`,
     description: service.description,
+    alternates: { canonical: `/specialty/${specialtySlug}` },
   };
 }
 

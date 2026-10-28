@@ -46,6 +46,11 @@ Stack: Next.js 16 (App Router, turbopack) + React 19 + TypeScript, Tailwind 3 + 
 - **Site config**: teléfono de WhatsApp, dirección, redes, tipo de cambio y nombre de la membresía vienen del single type `site-config`, resuelto campo por campo con respaldo en `lib/constants.ts`. Server: `getSiteConfig()`; client: `useSiteConfig()` (`components/site-config-provider.tsx`, montado en `app/layout.tsx`). No leer `lib/constants.ts` directamente desde componentes.
 - Textos editables: la tendencia es mover copys y labels a single types/componentes de Strapi (home dynamic zone, membership-page, schedules-page, navbar-section) con fallback en código.
 
+## SEO / metadata
+- Dominio oficial **`https://lymbika.com` (sin www)**, en `SITE_URL` de `lib/seo.ts`; es el `metadataBase` de `app/layout.tsx`. www debe redirigir a él desde Amplify.
+- Cada `page.tsx` pone su `title`, `description` y `alternates: { canonical: "/ruta" }` (relativa). **Nunca poner canónica en un `layout.tsx`**: la heredan todas las rutas hijas y Google las toma como copias de la padre (pasó con `specialty/layout.tsx`, que mandaba todas las landings a `/specialty`). En layouts solo va `robots: noindex` para subárboles privados (cart, dashboard, surgery…).
+- Páginas públicas que deben indexarse son server components (sin `"use client"` en el `page.tsx`); lo interactivo va en componentes hijos. Un componente que crea objetos con funciones (ej. `Autoplay()` de embla) necesita `"use client"` propio aunque hoy lo envuelva un client component.
+
 ## Convenciones
 - Código, comentarios y UI en **español** (nombres de funciones/variables nuevas también suelen estar en español: `camposDeProducto`, `crearSesionDePago`, `resolverSiteConfig`). Comentarios JSDoc que explican el *por qué* (con cifras cuando aplica).
 - Alias `@/` desde la raíz. Componentes shadcn con `cn()` de `lib/utils.ts`; colores por variables CSS en `app/globals.css` (primario azul `hsl(227.6 76% 42.5%)`, `--radius: 1rem`), fuente Urbanist. Dark mode existe en CSS pero el ThemeProvider está comentado.

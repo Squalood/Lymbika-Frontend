@@ -16,10 +16,12 @@ import { getHomePage } from "@/api/getHomePage";
 
 export async function generateMetadata() {
   const homePage = await getHomePage();
-  if (!homePage?.seoTitle) return {};
+  const canonical = { alternates: { canonical: "/" } };
+  if (!homePage?.seoTitle) return canonical;
   return {
     title: homePage.seoTitle,
     description: homePage.seoDescription,
+    ...canonical,
   };
 }
 

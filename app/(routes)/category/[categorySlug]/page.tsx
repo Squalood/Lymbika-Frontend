@@ -60,6 +60,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!categoryName) return {};
   return {
     title: `${categoryName} | Lymbika`,
+    alternates: { canonical: `/category/${categorySlug}` },
   };
 }
 

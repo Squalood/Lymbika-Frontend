@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getSchedulesPage } from "@/api/getSchedulesPage";
 import { clean } from "@/lib/utils";
+import { SITE_URL } from "@/lib/seo";
 import { ESTADO, HORARIO, ScheduleContent, resolverContenido, telHref, whatsappHref } from "./config";
 import { Hero } from "./sections/Hero";
 import { BenefitsStrip } from "./sections/BenefitsStrip";
@@ -10,7 +11,7 @@ import { Location } from "./sections/Location";
 import { Disclaimer } from "./sections/Disclaimer";
 import { StickyBar } from "./sections/StickyBar";
 
-const URL = "https://lymbika.com/schedules";
+const URL = `${SITE_URL}/schedules`;
 const DIAS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 export async function generateMetadata(): Promise<Metadata> {

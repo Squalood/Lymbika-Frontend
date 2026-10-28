@@ -1,3 +1,5 @@
+"use client";
+
 import { CreditCard } from "lucide-react";
 import { MedicalServiceType } from "@/types/medicalService";
 import { WhatsAppCtaButton } from "@/components/whatsapp-cta-button";

@@ -8,6 +8,7 @@ import VideoCarousel from "@/components/VideoCarousel";
 import ProductReviews from "./components/product-reviews";
 import { ProductType } from "@/types/product";
 import { resumen, textoPlano } from "@/lib/rich-text";
+import { SITE_URL } from "@/lib/seo";
 
 const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
 
@@ -26,13 +27,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { productSlug } = await params;
   const product = await getProduct(productSlug);
   if (!product) return {};
-  const FRONTEND = process.env.NEXT_PUBLIC_FRONTEND_URL || "https://lymbika.com";
   return {
     title: `${product.productName} | Lymbika`,
     description: resumen(product.descriptionPro),
-    alternates: {
-      canonical: `${FRONTEND}/product/${productSlug}`,
-    },
+    alternates: { canonical: `/product/${productSlug}` },
   };
 }
 
@@ -41,8 +39,6 @@ export default async function Page({ params }: Props) {
   const product = await getProduct(productSlug);
 
   if (!product) notFound();
-
-  const FRONTEND = process.env.NEXT_PUBLIC_FRONTEND_URL || "https://lymbika.com";
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -59,7 +55,7 @@ export default async function Page({ params }: Props) {
       priceCurrency: "MXN",
       ...(product.price > 0 && { price: product.price }),
       availability: "https://schema.org/InStock",
-      url: `${FRONTEND}/product/${product.slug}`,
+      url: `${SITE_URL}/product/${product.slug}`,
     },
     ...(product.category?.categoryName && {
       category: product.category.categoryName,

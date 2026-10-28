@@ -15,6 +15,7 @@ import { NavbarSectionType } from "@/types/single-types/navbar";
 import { GA_TRACKING_ID } from "@/lib/gtag";
 import { getSiteConfig } from "@/api/getSiteConfig";
 import { SiteConfigProvider } from "@/components/site-config-provider";
+import { SITE_URL } from "@/lib/seo";
 
 const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
 
@@ -34,15 +35,25 @@ async function getNavbarContent(): Promise<NavbarSectionType | undefined> {
 
 const urbanist = Urbanist({ subsets: ["latin"], display: "swap" });
 
+// Valores por defecto para todo el sitio. Cada page.tsx pone su propio
+// título, descripción y canónica relativa ("/shop"); `metadataBase` la
+// completa con el dominio. Las canónicas no van en layouts: las heredan
+// todas las rutas hijas y Google las toma como copias de la página padre.
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "Lymbika Healthcare",
-  description: "Agencia de salud",
+  description:
+    "Farmacia en línea, doctores, clínicas, cirugías y membresía de salud con Lymbika Healthcare.",
+  openGraph: {
+    siteName: "Lymbika Healthcare",
+    locale: "es_MX",
+    type: "website",
+  },
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.ico",
     apple: "/apple-touch-icon.png",
   },
-      
 };
 
 export default async function RootLayout({children,}: Readonly<{children: React.ReactNode;}>) {

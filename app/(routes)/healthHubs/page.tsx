@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { PageType } from "@/types/pages";
 import MedicalHero from "./components/heroSection";
 import Section1 from "./components/section1";
@@ -7,6 +8,11 @@ import PlansSection from "./components/plansSection";
 import Section4 from "./components/section4";
 import FaqSection from "./components/faqSection";
 import CTASection from "./components/ctaSection";
+
+export const metadata: Metadata = {
+  title: "¿Eres doctor? | Lymbika Healthcare",
+  alternates: { canonical: "/healthHubs" },
+};
 
 const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
 

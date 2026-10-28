@@ -1,10 +1,11 @@
-"use client";
-
+import type { Metadata } from "next";
 import HospitaSection from "./components/hospitalsSection";
 
-export default function Page() {
+export const metadata: Metadata = {
+  title: "Hospitales | Lymbika Healthcare",
+  alternates: { canonical: "/hospitals" },
+};
 
-  return (
-      <HospitaSection />
-  );
+export default function Page() {
+  return <HospitaSection />;
 }

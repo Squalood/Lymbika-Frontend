@@ -31,10 +31,12 @@ async function getMemberships(): Promise<MembershipType[]> {
 export async function generateMetadata() {
   const membershipPage = await getMembershipPage();
   const title = clean(membershipPage?.seoTitle);
-  if (!title) return {};
+  const canonical = { alternates: { canonical: "/membership" } };
+  if (!title) return canonical;
   return {
     title,
     description: clean(membershipPage?.seoDescription),
+    ...canonical,
   };
 }
 

@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { ClinicType } from "@/types/clinic";
 import { urlImagen } from "@/lib/media";
