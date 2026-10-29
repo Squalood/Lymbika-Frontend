@@ -5,12 +5,12 @@ import FaqComponent from "@/components/faq";
 import FaqSkeleton from "@/components/skeleton/faqSkeleton";
 import { FaqType } from "@/types/faq";
 
-type SurgeryFaqProps = {
+type FaqSectionProps = {
   title?: string
   faqGroup?: FaqType | null
 }
 
-const SurgeryFaq = ({ title, faqGroup: faqGroupProp }: SurgeryFaqProps) => {
+const FaqSection = ({ title, faqGroup: faqGroupProp }: FaqSectionProps) => {
     const { loading, faqGroups, error } = useGetFaqGroups();
 
     const resolvedGroup: FaqType | undefined =
@@ -42,4 +42,4 @@ const SurgeryFaq = ({ title, faqGroup: faqGroupProp }: SurgeryFaqProps) => {
     );
 }
 
-export default SurgeryFaq;
+export default FaqSection;

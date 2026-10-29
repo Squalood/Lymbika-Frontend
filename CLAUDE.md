@@ -21,7 +21,7 @@ Stack: Next.js 16 (App Router, turbopack) + React 19 + TypeScript, Tailwind 3 + 
 - Ramas: `main` (prod), `test`, `ci/build-check`.
 
 ## Mapa de carpetas
-- `app/(routes)/` — páginas: `shop`, `category/[categorySlug]`, `product/[productSlug]`, `cart`, `success`/`successError`, `loved-products`, `search`, `doctor-catalog`, `doctor/[doctorSlug]`, `clinics/[clinicSlug]`, `hospitals`, `healthHubs`, `surgery/[surgerySlug]`, `specialty/[specialtySlug]/[medicalServiceSlug]` (landing de servicio médico en `sections/`), `membership`, `case/start` + `case/[token]`, `schedules` (landing de la sucursal; `config.ts` con horario/zona), `vive-lymbika`, `about`, `privacidad`, `review`, `dashboard` (`account`, `summaries`, `operations` = admin de casos por rol).
+- `app/(routes)/` — páginas: `shop`, `category/[categorySlug]`, `product/[productSlug]`, `cart`, `success`/`successError`, `loved-products`, `search`, `doctor-catalog`, `doctor/[doctorSlug]`, `clinics/[clinicSlug]`, `hospitals`, `healthHubs`, `specialty/[specialtySlug]/[medicalServiceSlug]` (landing de servicio médico en `sections/`), `membership`, `case/start` + `case/[token]`, `schedules` (landing de la sucursal; `config.ts` con horario/zona), `vive-lymbika`, `about`, `privacidad`, `review`, `dashboard` (`account`, `summaries`, `operations` = admin de casos por rol).
   Cada ruta guarda sus piezas en su propia `components/` (o `sections/`).
 - `app/(auth)/signin|signup`; callbacks de Google en `app/api/auth/google/route.ts`, `app/auth/google`, `app/connect/google/redirect` (tres rutas, mismo handler; ver `docs/autenticacion.md`).
 - `app/data/actions/` — Server Actions (`"use server"`): auth, checkout, subscription, case, case-admin, reviews, profile, orders. `app/data/services/` — `mutate-data.ts`, `get-token.ts`, `get-user-me-loader.ts`, `auth-errors.ts` (errores de Strapi traducidos).
@@ -48,7 +48,7 @@ Stack: Next.js 16 (App Router, turbopack) + React 19 + TypeScript, Tailwind 3 + 
 
 ## SEO / metadata
 - Dominio oficial **`https://lymbika.com` (sin www)**, en `SITE_URL` de `lib/seo.ts`; es el `metadataBase` de `app/layout.tsx`. www debe redirigir a él desde Amplify.
-- Cada `page.tsx` pone su `title`, `description` y `alternates: { canonical: "/ruta" }` (relativa). **Nunca poner canónica en un `layout.tsx`**: la heredan todas las rutas hijas y Google las toma como copias de la padre (pasó con `specialty/layout.tsx`, que mandaba todas las landings a `/specialty`). En layouts solo va `robots: noindex` para subárboles privados (cart, dashboard, surgery…).
+- Cada `page.tsx` pone su `title`, `description` y `alternates: { canonical: "/ruta" }` (relativa). **Nunca poner canónica en un `layout.tsx`**: la heredan todas las rutas hijas y Google las toma como copias de la padre (pasó con `specialty/layout.tsx`, que mandaba todas las landings a `/specialty`). En layouts solo va `robots: noindex` para subárboles privados (cart, dashboard…).
 - Páginas públicas que deben indexarse son server components (sin `"use client"` en el `page.tsx`); lo interactivo va en componentes hijos. Un componente que crea objetos con funciones (ej. `Autoplay()` de embla) necesita `"use client"` propio aunque hoy lo envuelva un client component.
 
 ## Convenciones

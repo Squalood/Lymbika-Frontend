@@ -4,6 +4,14 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: __dirname,
   },
+  // /surgery se retiró (oct-2026): las cirugías viven en /specialty. Se
+  // redirige para no romper enlaces viejos compartidos o en anuncios.
+  async redirects() {
+    return [
+      { source: "/surgery", destination: "/specialty", permanent: true },
+      { source: "/surgery/:path*", destination: "/specialty", permanent: true },
+    ];
+  },
   images: {
     // El resize no lo hace el optimizador de Next: con Cloudinary se pide por
     // URL y con CloudFront la variante ya existe subida. Ver lib/media.ts

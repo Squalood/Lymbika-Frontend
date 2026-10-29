@@ -3,7 +3,7 @@ import CarouselTextBanner from "@/components/carousel-text-banner";
 import ChooseCategory from "@/components/choose-category";
 import TopContact from "@/components/top-contact";
 import HospitaSection from "./(routes)/hospitals/components/hospitalsSection";
-import SurgeryFaq from "./(routes)/surgery/components/surgeryFaq";
+import FaqSection from "@/components/faq-section";
 import TuristSection from "@/components/turistSection";
 import ClinicsClientWrapper from "./(routes)/clinics/ClinicsClientWrapper";
 import PromoCarousel from "@/components/promosection";
@@ -129,7 +129,7 @@ export default async function Home() {
           case "home.choose-category":
             return <ChooseCategory key={sectionKey} title={section.title} />;
           case "home.surgery-faq":
-            return <SurgeryFaq key={sectionKey} title={section.title} faqGroup={section.faq_group} />;
+            return <FaqSection key={sectionKey} title={section.title} faqGroup={section.faq_group} />;
           default:
             return null;
         }
