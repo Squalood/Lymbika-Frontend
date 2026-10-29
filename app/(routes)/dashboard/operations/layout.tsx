@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { ShieldAlert } from "lucide-react";
-import { verificarAcceso } from "@/app/data/services/case-admin-service";
+import { doctorAsignado, verificarAcceso } from "@/app/data/services/case-admin-service";
 
 export const metadata: Metadata = {
   title: "Operación | Lymbika",
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
  * Strapi que el rol del usuario tenga permiso sobre `case`.
  */
 export default async function OperacionLayout({ children }: { children: React.ReactNode }) {
-  const acceso = await verificarAcceso();
+  const [acceso, doctor] = await Promise.all([verificarAcceso(), doctorAsignado()]);
 
   if (acceso === "sin-sesion") redirect("/signin?callbackUrl=/dashboard/operations");
 
@@ -39,7 +39,10 @@ export default async function OperacionLayout({ children }: { children: React.Re
       <div className="border-b bg-background">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
           <Link href="/dashboard/operations" className="font-semibold">
-            Operación <span className="font-normal text-muted-foreground">· Casos</span>
+            Operación{" "}
+            <span className="font-normal text-muted-foreground">
+              · {doctor ? `Casos de ${doctor.doctorName.trim()}` : "Casos"}
+            </span>
           </Link>
           <Link
             href="/dashboard/operations/new"

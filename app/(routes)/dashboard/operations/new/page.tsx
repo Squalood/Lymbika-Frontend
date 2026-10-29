@@ -1,10 +1,13 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import { catalogosDelCaso } from "@/app/data/services/case-admin-service";
+import { catalogosDelCaso, doctorAsignado } from "@/app/data/services/case-admin-service";
 import { NuevoCasoForm } from "../components/nuevo-caso-form";
 
 export default async function NuevoCasoPage() {
-  const { procedimientos } = await catalogosDelCaso();
+  const [{ procedimientos }, doctor] = await Promise.all([
+    catalogosDelCaso(),
+    doctorAsignado(),
+  ]);
 
   return (
     <div className="mx-auto max-w-2xl space-y-5">
@@ -19,6 +22,7 @@ export default async function NuevoCasoPage() {
         <p className="text-sm text-muted-foreground">
           Para pacientes que llegaron por WhatsApp o teléfono. El número de caso y el enlace de
           Mi caso se generan solos.
+          {doctor && " El caso queda asignado a ti."}
         </p>
       </div>
       <NuevoCasoForm procedimientos={procedimientos} />

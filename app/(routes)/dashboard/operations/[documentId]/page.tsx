@@ -2,7 +2,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ExternalLink, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { catalogosDelCaso, obtenerCaso } from "@/app/data/services/case-admin-service";
+import {
+  catalogosDelCaso,
+  doctorAsignado,
+  obtenerCaso,
+} from "@/app/data/services/case-admin-service";
 import {
   ESTUDIOS_PACIENTE,
   INTENCION_PACIENTE,
@@ -32,7 +36,11 @@ function Dato({ label, valor }: { label: string; valor?: string | null }) {
 
 export default async function CasoOperacionPage({ params }: Props) {
   const { documentId } = await params;
-  const [caso, catalogos] = await Promise.all([obtenerCaso(documentId), catalogosDelCaso()]);
+  const [caso, catalogos, doctor] = await Promise.all([
+    obtenerCaso(documentId),
+    catalogosDelCaso(),
+    doctorAsignado(),
+  ]);
   if (!caso) notFound();
 
   const token = caso.patientLink?.split("/case/")[1] ?? null;
@@ -125,6 +133,7 @@ export default async function CasoOperacionPage({ params }: Props) {
           doctores={catalogos.doctores}
           hospitales={catalogos.hospitales}
           procedimientos={catalogos.procedimientos}
+          puedeReasignar={!doctor}
         />
       </div>
     </div>

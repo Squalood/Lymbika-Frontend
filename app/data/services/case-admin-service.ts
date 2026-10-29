@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { getAuthToken } from "./get-token";
 import { AdminCaseType, CaseEstado, OpcionCatalogo } from "@/types/case";
 import { ESTADOS_ORDEN } from "@/lib/case/labels";
@@ -8,6 +9,7 @@ import { ESTADOS_ORDEN } from "@/lib/case/labels";
  * Usa la sesión del usuario (cookie `jwt`) contra el core REST de `case`. Quién
  * puede entrar lo decide Strapi: cualquier rol con permisos find/findOne/
  * create/update sobre `case`. Aquí no se revisa ningún nombre de rol a mano.
+ * Si el usuario tiene un doctor ligado, Strapi solo le devuelve sus casos.
  */
 
 const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
@@ -26,12 +28,29 @@ async function getStrapi(path: string) {
 
 export type Acceso = "ok" | "sin-sesion" | "sin-permiso";
 
-/** 200 = coordinador, 401 = sesión vencida, 403 = usuario sin el rol. */
+export type DoctorAsignado = { documentId: string; doctorName: string };
+
+/** Una sola consulta por render: la piden el layout, el dashboard y las páginas. */
+const consultarAcceso = cache(() =>
+  getStrapi("/api/cases?pagination[pageSize]=1&fields[0]=caseNumber")
+);
+
+/** 200 = equipo (coordinación o especialista), 401 = sesión vencida, 403 = usuario sin el rol. */
 export async function verificarAcceso(): Promise<Acceso> {
-  const { status } = await getStrapi("/api/cases?pagination[pageSize]=1&fields[0]=caseNumber");
+  const { status } = await consultarAcceso();
   if (status === 200) return "ok";
   if (status === 401) return "sin-sesion";
   return "sin-permiso";
+}
+
+/**
+ * Doctor ligado al usuario (campo `doctor` del user en Strapi). Si existe,
+ * Strapi ya le filtra los casos a los suyos y no le deja reasignarlos; aquí
+ * solo sirve para ajustar la vista. null = coordinación, ve todo.
+ */
+export async function doctorAsignado(): Promise<DoctorAsignado | null> {
+  const { json } = await consultarAcceso();
+  return json?.meta?.doctorAsignado ?? null;
 }
 
 export type FiltrosBandeja = {
@@ -97,7 +116,7 @@ export async function listarCasos(filtros: FiltrosBandeja) {
   const { status, json } = await getStrapi(`/api/cases?${params}`);
   if (status !== 200 || !json) return { casos: [] as FilaBandeja[], total: 0, paginas: 1 };
   return {
-    casos: json.data as FilaBandeja[],
+    casos: (json.data ?? []) as FilaBandeja[],
     total: json.meta?.pagination?.total ?? 0,
     paginas: json.meta?.pagination?.pageCount ?? 1,
   };

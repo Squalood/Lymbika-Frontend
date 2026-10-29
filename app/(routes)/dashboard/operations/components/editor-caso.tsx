@@ -19,6 +19,8 @@ type Props = {
   doctores: OpcionCatalogo[];
   hospitales: OpcionCatalogo[];
   procedimientos: OpcionCatalogo[];
+  /** false para un especialista: Strapi descarta el cambio de `selected_doctor`. */
+  puedeReasignar: boolean;
 };
 
 const selectClass =
@@ -64,7 +66,13 @@ function Casilla({ id, checked, onChange, children }: {
   );
 }
 
-export function EditorCaso({ caso, doctores, hospitales, procedimientos }: Props) {
+export function EditorCaso({
+  caso,
+  doctores,
+  hospitales,
+  procedimientos,
+  puedeReasignar,
+}: Props) {
   const router = useRouter();
   const [guardando, startTransition] = useTransition();
   const [cambios, setCambios] = useState(false);
@@ -227,10 +235,19 @@ export function EditorCaso({ caso, doctores, hospitales, procedimientos }: Props
 
       <Seccion titulo="Plan">
         <div className="grid gap-4 sm:grid-cols-2">
-          <Campo label="Especialista" htmlFor="doctor" ayuda="El paciente lo ve en Mi caso.">
+          <Campo
+            label="Especialista"
+            htmlFor="doctor"
+            ayuda={
+              puedeReasignar
+                ? "El paciente lo ve en Mi caso."
+                : "Para reasignar el caso, pídelo a coordinación."
+            }
+          >
             <select
               id="doctor"
               className={selectClass}
+              disabled={!puedeReasignar}
               value={f.doctor}
               onChange={(e) => set("doctor", e.target.value)}
             >

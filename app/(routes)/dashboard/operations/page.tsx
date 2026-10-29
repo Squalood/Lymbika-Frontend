@@ -3,6 +3,7 @@ import { ArrowLeft, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   contarPorEstado,
+  doctorAsignado,
   listarCasos,
   type FiltrosBandeja,
 } from "@/app/data/services/case-admin-service";
@@ -47,9 +48,10 @@ export default async function BandejaPage({ searchParams }: Props) {
       ? (estadoParam as FiltrosBandeja["estado"])
       : null;
 
-  const [{ casos, total, paginas }, conteos] = await Promise.all([
+  const [{ casos, total, paginas }, conteos, doctor] = await Promise.all([
     listarCasos({ estado, q, page }),
     contarPorEstado(),
+    doctorAsignado(),
   ]);
 
   return (
@@ -63,7 +65,9 @@ export default async function BandejaPage({ searchParams }: Props) {
       <div>
         <h1 className="text-2xl font-bold">Bandeja de casos</h1>
         <p className="text-sm text-muted-foreground">
-          Todos los casos que llegan por la página o que da de alta el equipo.
+          {doctor
+            ? "Los casos en los que eres el especialista asignado."
+            : "Todos los casos que llegan por la página o que da de alta el equipo."}
         </p>
       </div>
 
@@ -118,7 +122,7 @@ export default async function BandejaPage({ searchParams }: Props) {
               <tr>
                 <th className="px-4 py-3 font-medium">Paciente</th>
                 <th className="px-4 py-3 font-medium">Procedimiento</th>
-                <th className="px-4 py-3 font-medium">Especialista</th>
+                {!doctor && <th className="px-4 py-3 font-medium">Especialista</th>}
                 <th className="px-4 py-3 font-medium">Estado</th>
                 <th className="px-4 py-3 font-medium">Siguiente paso</th>
                 <th className="px-4 py-3 font-medium">Recibido</th>
@@ -148,9 +152,11 @@ export default async function BandejaPage({ searchParams }: Props) {
                       <span className="text-muted-foreground">Sin procedimiento</span>
                     )}
                   </td>
-                  <td className="px-4 py-3 align-top">
-                    <EspecialistaBadge nombre={c.selected_doctor?.doctorName} />
-                  </td>
+                  {!doctor && (
+                    <td className="px-4 py-3 align-top">
+                      <EspecialistaBadge nombre={c.selected_doctor?.doctorName} />
+                    </td>
+                  )}
                   <td className="px-4 py-3 align-top">
                     <EstadoBadge estado={c.estado} />
                   </td>
