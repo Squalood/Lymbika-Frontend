@@ -9,7 +9,13 @@ const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
  */
 const QUERY = [
   "populate[logo][fields][0]=url",
-  "populate[doctor][populate][image][fields][0]=url",
+  "populate[doctors][fields][0]=doctorName",
+  "populate[doctors][fields][1]=slug",
+  "populate[doctors][fields][2]=credentials",
+  "populate[doctors][fields][3]=calendarLink",
+  "populate[doctors][fields][4]=priceCon",
+  "populate[doctors][populate][mainImage][fields][0]=url",
+  "populate[doctors][populate][image][fields][0]=url",
   "populate[benefits]=true",
   "populate[includes]=true",
   "populate[tip]=true",
@@ -23,7 +29,8 @@ export async function getSchedulesPage(): Promise<SchedulesPageType | null> {
   try {
     const res = await fetch(
       `${BASE}/api/schedules-page?${QUERY}`,
-      { next: { revalidate: 3600 } }
+      // TEMPORAL para probar en local: regresar a { next: { revalidate: 3600 } } antes del commit.
+      { cache: "no-store" }
     );
     // 404 = el single type todavía no existe en Strapi; no es un error de query.
     if (res.status === 404) return null;

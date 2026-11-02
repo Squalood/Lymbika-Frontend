@@ -1,6 +1,6 @@
 import { WHATSAPP_NUMBER } from "@/lib/constants";
 import { clean } from "@/lib/utils";
-import { SchedulesPageType } from "@/types/single-types/schedules-page";
+import { SchedulesDoctor, SchedulesPageType } from "@/types/single-types/schedules-page";
 
 /**
  * Horario estructurado de la sucursal. Se queda en código: de aquí salen el
@@ -136,15 +136,34 @@ function telefonoConLada(valor?: string | null) {
   return digitos.length === 10 ? `52${digitos}` : digitos;
 }
 
-/** Mezcla el single type de Strapi con los defaults, campo por campo. */
-export function resolverContenido(page: SchedulesPageType | null): ScheduleContent {
+/**
+ * Doctor de la variante. Sin slug, el primero de la relación (o undefined:
+ * sale el médico de DEFAULTS). Con slug, sólo vale uno ligado al single type;
+ * null = no existe y la página responde 404, para que no se pueda montar la
+ * landing de la sucursal con cualquier doctor del catálogo.
+ */
+export function elegirDoctor(page: SchedulesPageType | null, slug?: string): SchedulesDoctor | null | undefined {
+  const doctores = (page?.doctors ?? []).filter((doc) => clean(doc.slug) && clean(doc.doctorName));
+  if (slug === undefined) return doctores[0];
+  return doctores.find((doc) => doc.slug === slug) ?? null;
+}
+
+/**
+ * Mezcla el single type de Strapi con los defaults, campo por campo. El
+ * doctor de la variante manda en médico, precio y calendario; lo que no traiga
+ * cae a la sucursal.
+ */
+export function resolverContenido(page: SchedulesPageType | null, doctor?: SchedulesDoctor | null): ScheduleContent {
   const d = DEFAULTS;
   if (!page) return d;
-  const { contact, doctor, tip } = page;
+  const { contact, tip } = page;
+  const precio = precioTexto(doctor?.priceCon) || precioTexto(page.price) || d.precio;
 
   const precios = (page.prices ?? [])
     .filter((p) => clean(p.name))
     .map((p) => ({ servicio: clean(p.name)!, precio: precioTexto(p.price), nota: clean(p.description) ?? "" }));
+  // La primera fila es la consulta: con el precio de la variante, la tabla no contradice al hero.
+  if (precios[0]?.precio) precios[0].precio = precio;
   const pasos = (page.steps ?? [])
     .filter((p) => clean(p.title))
     .map((p) => ({ titulo: clean(p.title)!, texto: clean(p.description) ?? "" }));
@@ -156,9 +175,13 @@ export function resolverContenido(page: SchedulesPageType | null): ScheduleConte
     titulo: clean(page.title) ?? d.titulo,
     subtitulo: clean(page.description) ?? d.subtitulo,
     precioEtiqueta: clean(page.priceLabel) ?? d.precioEtiqueta,
-    precio: precioTexto(page.price) || d.precio,
-    medico: clean(doctor?.name)
-      ? { nombre: clean(doctor?.name)!, descripcion: clean(doctor?.description) ?? "", foto: doctor?.image?.url }
+    precio,
+    medico: clean(doctor?.doctorName)
+      ? {
+          nombre: clean(doctor?.doctorName)!,
+          descripcion: clean(doctor?.credentials) ?? "",
+          foto: clean(doctor?.mainImage?.url) ?? clean(doctor?.image?.[0]?.url),
+        }
       : d.medico,
     beneficios: textos(page.benefits, d.beneficios),
     incluye: textos(page.includes, d.incluye),
@@ -179,7 +202,7 @@ export function resolverContenido(page: SchedulesPageType | null): ScheduleConte
       mapsUrl: clean(contact?.contactLocation) ?? d.ubicacion.mapsUrl,
       foto: contact?.image?.url,
     },
-    calendario: clean(contact?.contactScheduleLink) ?? d.calendario,
+    calendario: clean(doctor?.calendarLink) ?? clean(contact?.contactScheduleLink) ?? d.calendario,
     telefono: telefonoConLada(contact?.contactPhone) ?? d.telefono,
     licenciaSanitaria: clean(page.sanitaryLicense) ?? d.licenciaSanitaria,
   };

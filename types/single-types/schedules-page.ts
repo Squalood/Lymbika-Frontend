@@ -7,6 +7,23 @@ type TextItem = {
 }
 
 /**
+ * Doctor de la colección ligado a la landing. Cada uno tiene su variante en
+ * /schedules/[slug]; priceCon y calendarLink vacíos caen a los de la sucursal.
+ */
+export type SchedulesDoctor = {
+  id: number
+  doctorName: string | null
+  slug: string | null
+  /** Cargo y cédula, en una línea. */
+  credentials: string | null
+  /** Link de Google Calendar del doctor. */
+  calendarLink: string | null
+  priceCon: number | null
+  mainImage?: { url: string } | null
+  image?: { url: string }[] | null
+}
+
+/**
  * Single type schedules-page: la landing de consulta de Farmacia+ (/schedules).
  * Cualquier campo vacío cae al valor de app/(routes)/schedules/config.ts.
  */
@@ -22,20 +39,18 @@ export type SchedulesPageType = {
   description?: string | null
   priceLabel?: string | null
   price?: number | null
-  /** Componente doctor.doctor. `description` lleva cargo y cédula. */
-  doctor?: {
-    id: number
-    name: string | null
-    description: string | null
-    image?: { url: string } | null
-  } | null
+  /** Relación a la colección doctor. El primero es el que sale en /schedules. */
+  doctors?: SchedulesDoctor[] | null
   /** Franja debajo del hero (item.pill). */
   benefits?: TextItem[] | null
   /** Qué incluye la consulta (plus.plus). */
   includes?: TextItem[] | null
   /** Aviso "¿Ya tienes estudios?" (badge.badge): boldText va en negritas. */
   tip?: { id: number; boldText: string | null; text: string | null } | null
-  /** Tabla de precios (pricing.plan): name, description y price. Sin price = "Se cotiza". */
+  /**
+   * Tabla de precios (pricing.plan): name, description y price. Sin price = "Se cotiza".
+   * La primera fila es la consulta: si trae precio, se sustituye por el de la variante.
+   */
   prices?: {
     id: number
     name: string | null
