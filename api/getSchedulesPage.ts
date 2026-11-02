@@ -29,8 +29,7 @@ export async function getSchedulesPage(): Promise<SchedulesPageType | null> {
   try {
     const res = await fetch(
       `${BASE}/api/schedules-page?${QUERY}`,
-      // TEMPORAL para probar en local: regresar a { next: { revalidate: 3600 } } antes del commit.
-      { cache: "no-store" }
+      { next: { revalidate: 3600 } }
     );
     // 404 = el single type todavía no existe en Strapi; no es un error de query.
     if (res.status === 404) return null;
