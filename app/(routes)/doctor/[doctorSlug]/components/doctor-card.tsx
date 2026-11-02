@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { DoctorType } from "@/types/doctor";
-import { CalendarCheck, SquareActivity, Star, Stethoscope } from "lucide-react";
+import { CalendarCheck, Star, Stethoscope } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useIsDesktop } from "@/hooks/use-is-desktop";
 import WhatsAppQrDialog from "@/components/whatsapp-qr-dialog";
@@ -59,16 +59,6 @@ const CardDoctor = ({ doctor }: ProductDoctorProps) => {
                 <div key={s.id} className="flex items-center gap-1">
                   <Stethoscope className="w-4 h-4" />
                   <span>{s.serviceName}</span>
-                </div>
-              ))}
-            </div>
-          )}
-          {doctor.surgeries?.length > 0 && (
-            <div className="flex flex-col gap-1">
-              {doctor.surgeries.map((s) => (
-                <div key={s.id} className="flex items-center gap-1">
-                  <SquareActivity className="w-4 h-4" />
-                  <span>{s.surgeryName}</span>
                 </div>
               ))}
             </div>

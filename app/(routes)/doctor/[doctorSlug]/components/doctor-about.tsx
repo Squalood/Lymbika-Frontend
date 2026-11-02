@@ -56,16 +56,6 @@ const DoctorAbout = (props: InfoDoctorProps) => {
             <p>{doctor.location}</p>
           </div>
           <div>
-            <p className="font-semibold mb-1">Cirugías</p>
-            {doctor.surgeries?.length > 0 ? (
-              doctor.surgeries.map((s) => (
-                <span key={s.id} className="block">{s.surgeryName}</span>
-              ))
-            ) : (
-              <span>No disponible</span>
-            )}
-          </div>
-          <div>
             <p className="font-semibold mb-1">Idiomas hablados</p>
             <p>{doctor.languagesSpoken}</p>
           </div>

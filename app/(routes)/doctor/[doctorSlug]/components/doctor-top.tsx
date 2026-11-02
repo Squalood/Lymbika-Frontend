@@ -8,7 +8,6 @@ import {
   CalendarCheck,
   CheckCircle,
   Globe,
-  SquareActivity,
   Stethoscope,
 } from "lucide-react";
 import Image from "next/image";
@@ -101,19 +100,6 @@ const DoctorTop = (props: InfoDoctorProps) => {
                     >
                       <Stethoscope className="w-4 h-4" />
                       <span>{s.serviceName}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-              {doctor.surgeries?.length > 0 && (
-                <div className="flex flex-col gap-1">
-                  {doctor.surgeries.map((s) => (
-                    <div
-                      key={s.id}
-                      className="flex items-center gap-1 text-gray-500 text-sm"
-                    >
-                      <SquareActivity className="w-4 h-4" />
-                      <span>{s.surgeryName}</span>
                     </div>
                   ))}
                 </div>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { DoctorType } from "@/types/doctor";
 
-type CategoryType = "service" | "surgery";
+type CategoryType = "service";
 
 export function useGetDoctorsByCategory(slug: string, type: CategoryType) {
   const [result, setResult] = useState<DoctorType[]>([]);
@@ -10,7 +10,7 @@ export function useGetDoctorsByCategory(slug: string, type: CategoryType) {
 
   // Construye la URL dinámicamente según el tipo
   const url = slug
-    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/doctors?populate=*&pagination[pageSize]=100&filters[${type === "service" ? "services" : "surgeries"}][slug][$eq]=${slug}`
+    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/doctors?populate=*&pagination[pageSize]=100&filters[services][slug][$eq]=${slug}`
     : `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/doctors?populate=*&pagination[pageSize]=100`;
 
   useEffect(() => {

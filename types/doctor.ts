@@ -16,11 +16,6 @@ export type DoctorType = {
       serviceName: string;
       slug: string;
     }[];
-    surgeries: {
-      id: number;
-      surgeryName: string;
-      slug: string;
-    }[];
     about: string;
     languagesSpoken: string;
     location: string;

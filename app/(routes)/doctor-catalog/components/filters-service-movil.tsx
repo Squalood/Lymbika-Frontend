@@ -1,5 +1,4 @@
 import FilterService from "./filter-service";
-import FilterSurgery from "./filter-sugery";
 import { Button } from "@/components/ui/button";
 import {
     DropdownMenu,
@@ -12,19 +11,16 @@ import { Filter, X } from "lucide-react";
 
 type FiltersControlsServiceProps = {
     setFilterService: (serviceName: string) => void;
-    setFilterSurgery: (surgeryName: string) => void;
     serviceFilter: string;
-    surgeryFilter: string;
 };
 
-const FiltersControlsServiceMovil = ({ setFilterService, setFilterSurgery, serviceFilter, surgeryFilter }: FiltersControlsServiceProps) => {
+const FiltersControlsServiceMovil = ({ setFilterService, serviceFilter }: FiltersControlsServiceProps) => {
     const resetFilters = () => {
         setFilterService("");
-        setFilterSurgery("");
     };
 
-    const hasActiveFilters = serviceFilter || surgeryFilter;
-    const activeFiltersCount = [serviceFilter, surgeryFilter].filter(Boolean).length;
+    const hasActiveFilters = Boolean(serviceFilter);
+    const activeFiltersCount = hasActiveFilters ? 1 : 0;
 
     return (
         <div className="sm:w-[200px] sm:mt-5 p-2">
@@ -46,7 +42,6 @@ const FiltersControlsServiceMovil = ({ setFilterService, setFilterSurgery, servi
                     
                     <div className="p-2">
                         <FilterService setFilterService={setFilterService} serviceFilter={serviceFilter} />
-                        <FilterSurgery setFilterSurgery={setFilterSurgery} surgeryFilter={surgeryFilter} />
                     </div>
 
                     {hasActiveFilters && (

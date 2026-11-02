@@ -12,24 +12,18 @@ import FiltersControlsServiceMovil from "./filters-service-movil";
 
 const Catalog = () => {
   const [serviceFilter, setServiceFilter] = useState("");
-  const [surgeryFilter, setSurgeryFilter] = useState("");
 
   // Obtener todos los doctores sin filtrar inicialmente
   const { result, loading, error } = useGetDoctorsByCategory("", "service");
 
   // Título dinámico según filtros
-  const title =
-    serviceFilter ||
-    surgeryFilter ||
-    "Todos los doctores";
+  const title = serviceFilter || "Todos los doctores";
 
   const filteredDoctors =
     Array.isArray(result) && !loading
       ? result.filter((doctor: DoctorType) =>
-          (serviceFilter === "" ||
-            doctor.services?.some((s) => s.serviceName === serviceFilter)) &&
-          (surgeryFilter === "" ||
-            doctor.surgeries?.some((s) => s.surgeryName === surgeryFilter))
+          serviceFilter === "" ||
+            doctor.services?.some((s) => s.serviceName === serviceFilter)
         )
       : [];
 
@@ -42,17 +36,13 @@ const Catalog = () => {
         <div className="hidden sm:block sm:w-1/4">
           <FiltersControlsService
             setFilterService={setServiceFilter}
-            setFilterSurgery={setSurgeryFilter}
             serviceFilter={serviceFilter}
-            surgeryFilter={surgeryFilter}
           />
         </div>
         <div className="mx-8 mt-4 sm:hidden">
           <FiltersControlsServiceMovil
             setFilterService={setServiceFilter}
-            setFilterSurgery={setSurgeryFilter}
             serviceFilter={serviceFilter}
-            surgeryFilter={surgeryFilter}
           />
         </div>
 

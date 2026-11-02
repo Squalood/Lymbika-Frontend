@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { DoctorType } from "@/types/doctor";
-import { SquareActivity, Stethoscope } from "lucide-react";
+import { Stethoscope } from "lucide-react";
 import Image from "next/image";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -43,12 +43,6 @@ const CardDoctor = ({ doctor, actionType = "view", userId }: ProductDoctorProps)
                 <span key={service.id} className="flex items-center gap-1 text-xs text-gray-700 font-medium">
                   <Stethoscope size={14} />
                   {service.serviceName}
-                </span>
-              ))}
-              {doctor.surgeries?.map((surgery) => (
-                <span key={surgery.id} className="flex items-center gap-1 text-xs text-gray-500 font-medium">
-                  <SquareActivity size={14} />
-                  {surgery.surgeryName}
                 </span>
               ))}
             </div>
@@ -95,12 +89,6 @@ const CardDoctor = ({ doctor, actionType = "view", userId }: ProductDoctorProps)
                 <span key={service.id} className="flex items-center gap-1 text-xs text-gray-700 font-medium">
                   <Stethoscope size={14} />
                   {service.serviceName}
-                </span>
-              ))}
-              {doctor.surgeries?.map((surgery) => (
-                <span key={surgery.id} className="flex items-center gap-1 text-xs text-gray-500 font-medium">
-                  <SquareActivity size={14} />
-                  {surgery.surgeryName}
                 </span>
               ))}
             </div>
