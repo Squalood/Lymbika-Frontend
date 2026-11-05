@@ -1,5 +1,5 @@
 "use client"
-import { useGetCategories } from "@/api/getCategories";
+import { useGetCategories } from "@/hooks/use-categories";
 import { CategoryType } from "@/types/category";
 import {ResponseType} from '@/types/response';
 import Link from "next/link";

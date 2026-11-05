@@ -5,7 +5,7 @@ import { PatientCaseType } from "@/types/case";
 import { ESTADO_PACIENTE, siguientePasoPaciente } from "@/lib/case/labels";
 import { formatPrice } from "@/lib/formatPrice";
 import { formatLongDate } from "@/lib/formatDate";
-import { getSiteConfig } from "@/api/getSiteConfig";
+import { getSiteConfig } from "@/lib/strapi/pages";
 import { whatsappLink } from "@/lib/site-config";
 
 type Props = {

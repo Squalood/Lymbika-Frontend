@@ -3,7 +3,7 @@ import { MapPin } from "lucide-react";
 
 import Link from "next/link";
 import WhatsAppTrigger from "@/components/whatsapp-trigger";
-import { getSiteConfig } from "@/api/getSiteConfig";
+import { getSiteConfig } from "@/lib/strapi/pages";
 
 const dataFooter = [
     {

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getSchedulesPage } from "@/api/getSchedulesPage";
+import { getSchedulesPage } from "@/lib/strapi/pages";
 import { elegirDoctor, resolverContenido } from "../config";
 import { SchedulesView, metadataDe } from "../SchedulesView";
 

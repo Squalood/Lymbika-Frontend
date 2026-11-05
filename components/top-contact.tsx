@@ -2,7 +2,7 @@ import { MapPin, Phone } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import WhatsAppTrigger from "@/components/whatsapp-trigger";
-import { getSiteConfig } from "@/api/getSiteConfig";
+import { getSiteConfig } from "@/lib/strapi/pages";
 import { telefonoVisible } from "@/lib/site-config";
 
 const TopContact = async () => {

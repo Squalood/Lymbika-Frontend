@@ -11,7 +11,7 @@ Plataforma web de marketplace y servicios de salud que conecta usuarios con prod
 | **Estilos** | Tailwind CSS 3.4, Radix UI, Framer Motion |
 | **Pagos** | Stripe |
 | **Backend** | API REST (Strapi) alojado en Render |
-| **Imágenes** | Cloudinary + Next.js Image Optimization |
+| **Imágenes** | AWS S3 + CloudFront (variantes WebP pregeneradas, loader propio de next/image) |
 | **Analytics** | Google Analytics (GA4), Facebook Pixel |
 
 ## Funcionalidades principales

@@ -11,27 +11,10 @@ import NextTopLoader from 'nextjs-toploader'
 import { getUserMeLoader } from "./data/services/get-user-me-loader";
 import Script from "next/script";
 import Image from "next/image";
-import { NavbarSectionType } from "@/types/single-types/navbar";
 import { GA_TRACKING_ID } from "@/lib/gtag";
-import { getSiteConfig } from "@/api/getSiteConfig";
+import { getNavbarContent, getSiteConfig } from "@/lib/strapi/pages";
 import { SiteConfigProvider } from "@/components/site-config-provider";
 import { SITE_URL } from "@/lib/seo";
-
-const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
-
-async function getNavbarContent(): Promise<NavbarSectionType | undefined> {
-  try {
-    const res = await fetch(
-      `${BASE}/api/navbar-section?populate=about_brand_image`,
-      { next: { revalidate: 3600 } }
-    );
-    if (!res.ok) return undefined;
-    const json = await res.json();
-    return json.data ?? undefined;
-  } catch {
-    return undefined;
-  }
-}
 
 const urbanist = Urbanist({ subsets: ["latin"], display: "swap" });
 

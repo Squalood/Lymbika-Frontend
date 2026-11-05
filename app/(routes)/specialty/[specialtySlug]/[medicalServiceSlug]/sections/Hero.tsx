@@ -2,7 +2,7 @@ import Image from "next/image";
 import { MoveRight } from "lucide-react";
 import { MedicalServiceType } from "@/types/medicalService";
 import { Button } from "@/components/ui/button";
-import { urlVideo, urlPoster, imgUrl } from "@/lib/media";
+import { urlPoster, imgUrl } from "@/lib/media";
 
 export default function Hero({ service }: { service: MedicalServiceType }) {
   const hero = service.landingHero;
@@ -16,7 +16,7 @@ export default function Hero({ service }: { service: MedicalServiceType }) {
       {hero?.hero_video?.url ? (
         <video
           className="absolute inset-0 w-full h-full object-cover object-top"
-          src={urlVideo(imgUrl(hero.hero_video.url))}
+          src={imgUrl(hero.hero_video.url)}
           poster={urlPoster(imgUrl(hero.hero_video.url))}
           autoPlay muted loop playsInline preload="metadata"
         />

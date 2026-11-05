@@ -18,7 +18,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { useGetCategories } from "@/api/getCategories";
+import { useGetCategories } from "@/hooks/use-categories";
 
 export type datatProps = {
   product: ProductType;

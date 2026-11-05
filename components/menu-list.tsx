@@ -12,12 +12,12 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
 import {ResponseType} from '@/types/response';
-import { useGetCategories } from "@/api/getCategories"
+import { useGetCategories } from "@/hooks/use-categories"
 import { Skeleton } from "./ui/skeleton"
 import Image from "next/image"
 import { usePathname, useRouter } from "next/navigation"
-import { useGetClinics } from "@/api/useGetClinics"
-import { useGetFeaturedSurgeries } from "@/api/useGetFeaturedSurgeries"
+import { useGetClinics } from "@/hooks/use-clinics"
+import { useGetFeaturedSurgeries } from "@/hooks/use-featured-surgeries"
 import ClinicsList from "./clinicsList"
 import SurgeriesList from "./surgeriesList"
 import CategoryList from "./categoryList"

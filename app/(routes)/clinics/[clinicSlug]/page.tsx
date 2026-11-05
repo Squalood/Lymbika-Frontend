@@ -11,8 +11,7 @@ import ClinicGallery from "./components/clinicGallety";
 import VideoSection from "./components/videoSection";
 import ClinicBreadcrumb from "./components/clinicBreadcrumb";
 import FloatingCta from "./components/FloatingCta";
-import { ClinicType } from "@/types/clinic";
-import { ServiceRateType } from "@/types/medicalService";
+import { getClinicData } from "@/lib/strapi/clinics";
 import es from "@/locals/es.json";
 
 const colorThemes: Record<string, { primary: string; primaryForeground: string; darkBg: string }> = {
@@ -21,28 +20,6 @@ const colorThemes: Record<string, { primary: string; primaryForeground: string; 
   green: { primary: "142 71% 45%", primaryForeground: "210 40% 98%", darkBg: "#15803d" },
   red: { primary: "0 84% 60%", primaryForeground: "210 40% 98%", darkBg: "#b91c1c" },
 };
-
-const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
-
-async function getClinicData(slug: string) {
-  const [clinicRes, doctorRes, servicesRes] = await Promise.all([
-    fetch(`${BASE}/api/clinics?filters[slug][$eq]=${slug}&populate=*`, { next: { revalidate: 3600 } }),
-    fetch(`${BASE}/api/clinics?filters[slug][$eq]=${slug}&populate[doctor][populate]=*`, { next: { revalidate: 3600 } }),
-    fetch(`${BASE}/api/clinics?filters[slug][$eq]=${slug}&populate[service_rates][populate][medical_service][populate][image]=true&populate[service_rates][populate][medical_service][populate][specialty]=true&populate[service_rates][populate][doctor]=true`, { next: { revalidate: 3600 } }),
-  ]);
-
-  const [clinicJson, doctorJson, servicesJson] = await Promise.all([
-    clinicRes.json(),
-    doctorRes.json(),
-    servicesRes.json(),
-  ]);
-
-  return {
-    clinic: (clinicJson.data[0] ?? null) as ClinicType | null,
-    doctorClinic: (doctorJson.data[0] ?? null) as ClinicType | null,
-    servicesClinic: (servicesJson.data[0] ?? null) as { service_rates: ServiceRateType[] } | null,
-  };
-}
 
 type Props = { params: Promise<{ clinicSlug: string }> };
 

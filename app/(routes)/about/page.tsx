@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { AboutPageType } from "@/types/single-types/about";
+import { getAboutPage } from "@/lib/strapi/pages";
 import AboutPage from "./components/aboutPage";
 import SlideImage from "./components/slideimage";
 import LymbikaLocation from "./components/location";
@@ -9,20 +9,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "/about" },
 };
 
-const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
-
-async function getAboutPageContent(): Promise<AboutPageType | undefined> {
-  const res = await fetch(
-    `${BASE}/api/about-page?populate[value][populate]=*&populate[contact][populate][image]=true&populate[hero_image]=true`,
-    { next: { revalidate: 300 } }
-  );
-  if (!res.ok) return undefined;
-  const json = await res.json();
-  return json.data ?? undefined;
-}
-
 export default async function Page() {
-  const about = await getAboutPageContent();
+  const about = await getAboutPage();
 
   return (
     <div>

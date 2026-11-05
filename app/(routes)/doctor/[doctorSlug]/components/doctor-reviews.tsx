@@ -1,7 +1,3 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
 import { Separator } from "@/components/ui/separator";
 import { Star } from "lucide-react";
 import DoctorComment from "./doctor-Comment";
@@ -9,44 +5,15 @@ import { ReviewType } from "@/types/review";
 import ReviewForm from "@/components/reviewForm";
 import { DoctorType } from "@/types/doctor";
 import { UserType } from "@/types/user";
-import { getDoctorBySlug } from "@/api/getDoctorBySlugServer";
-import { getDoctorReviews } from "@/api/getDoctorReviewsServer";
 
 type Props = {
-  userData?: UserType | null; // ✅ Acepta nul
+  doctor: DoctorType;
+  /** Las pide la página en el servidor, así salen en el HTML. */
+  reviews: ReviewType[];
+  userData?: UserType | null;
 };
 
-const DoctorReviews = ({ userData }: Props) => {
-  const { doctorSlug } = useParams();
-  const slug = typeof doctorSlug === "string" ? doctorSlug : "";
-
-  const [doctor, setDoctor] = useState<DoctorType | null>(null);
-  const [reviews, setReviews] = useState<ReviewType[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (!slug) return;
-
-    const fetchData = async () => {
-      setLoading(true);
-      const doctorRes = await getDoctorBySlug(slug);
-      const doctorData = doctorRes?.[0];
-      setDoctor(doctorData ?? null);
-
-      if (doctorData?.id) {
-        const reviewsRes = await getDoctorReviews(slug);
-        setReviews(reviewsRes ?? []);
-      }
-
-      setLoading(false);
-    };
-
-    fetchData();
-  }, [slug]);
-
-  if (loading || !doctor) {
-    return <div className="w-full p-6">Cargando reseñas...</div>;
-  }
+const DoctorReviews = ({ doctor, reviews, userData }: Props) => {
 
   if (reviews.length === 0) {
     return (

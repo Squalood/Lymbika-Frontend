@@ -1,8 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { useGetServices } from "@/api/getService";
-import { useGetMedicalServiceCatalog } from "@/api/useGetMedicalServiceCatalog";
+import { useGetServices } from "@/hooks/use-services";
+import { useGetMedicalServiceCatalog } from "@/hooks/use-medical-service-catalog";
 import SpecialtiesSectionCarousel from "@/components/features/medical-services/specialties-section-carousel";
 import MedicalServicesCatalogCarousel from "@/components/features/medical-services/medical-services-catalog-carousel";
 

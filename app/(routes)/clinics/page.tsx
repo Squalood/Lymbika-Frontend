@@ -1,22 +1,11 @@
 import type { Metadata } from "next";
-import { ClinicType } from "@/types/clinic";
-import { CAMPOS_CLINICA } from "@/lib/clinic-fields";
+import { getClinics } from "@/lib/strapi/clinics";
 import Clinics from "@/components/features/clinics/clinics-list";
 
 export const metadata: Metadata = {
   title: "Clínicas | Lymbika Healthcare",
   alternates: { canonical: "/clinics" },
 };
-
-const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
-
-async function getClinics(): Promise<ClinicType[]> {
-  const res = await fetch(`${BASE}/api/clinics?${CAMPOS_CLINICA}&pagination[pageSize]=100`, {
-    next: { revalidate: 3600 },
-  });
-  const json = await res.json();
-  return Array.isArray(json.data) ? json.data : [];
-}
 
 export default async function Page() {
   const clinics = await getClinics();

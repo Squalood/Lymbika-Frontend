@@ -7,14 +7,14 @@ import { useState } from "react";
 import { DoctorType } from "@/types/doctor";
 import FiltersControlsService from "./filters-controls-service";
 import CardDoctor from "@/components/features/doctors/doctor-card";
-import { useGetDoctorsByCategory } from "@/api/getDoctorsByCategory";
+import { useGetDoctors } from "@/hooks/use-doctors";
 import FiltersControlsServiceMovil from "./filters-service-movil";
 
 const Catalog = () => {
   const [serviceFilter, setServiceFilter] = useState("");
 
   // Obtener todos los doctores sin filtrar inicialmente
-  const { result, loading, error } = useGetDoctorsByCategory("", "service");
+  const { doctors: result, loading, error } = useGetDoctors();
 
   // Título dinámico según filtros
   const title = serviceFilter || "Todos los doctores";

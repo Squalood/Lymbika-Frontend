@@ -6,20 +6,10 @@ import { Separator } from "@/components/ui/separator";
 import NavegatorPages from "@/components/navegatorPages";
 import VideoCarousel from "@/components/VideoCarousel";
 import ProductReviews from "./components/product-reviews";
-import { ProductType } from "@/types/product";
+import { getProduct } from "@/lib/strapi/products";
+import { imgUrl } from "@/lib/media";
 import { resumen, textoPlano } from "@/lib/rich-text";
 import { SITE_URL } from "@/lib/seo";
-
-const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
-
-async function getProduct(slug: string): Promise<ProductType | null> {
-  const res = await fetch(
-    `${BASE}/api/products?filters[active][$eq]=true&filters[slug][$eq]=${slug}&populate=*`,
-    { next: { revalidate: 3600 } }
-  );
-  const json = await res.json();
-  return json.data?.[0] ?? null;
-}
 
 type Props = { params: Promise<{ productSlug: string }> };
 
@@ -46,9 +36,7 @@ export default async function Page({ params }: Props) {
     name: product.productName,
     description: textoPlano(product.descriptionPro) || product.productName,
     ...(product.images?.length > 0 && {
-      image: product.images.map((img) =>
-        img.url.startsWith("http") ? img.url : `${BASE}${img.url}`
-      ),
+      image: product.images.map((img) => imgUrl(img.url)),
     }),
     offers: {
       "@type": "Offer",

@@ -94,3 +94,12 @@ export function useSharedResource<T>(
 
   return { data, loading, error };
 }
+
+/**
+ * `parse` para respuestas de colección de Strapi: el arreglo `data`, o [] si
+ * no viene. Se pasa como `parseLista<Tipo>` (misma referencia en cada render).
+ */
+export function parseLista<T>(json: unknown): T[] {
+  const data = (json as { data?: unknown })?.data;
+  return Array.isArray(data) ? (data as T[]) : [];
+}

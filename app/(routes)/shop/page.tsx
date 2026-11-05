@@ -6,39 +6,12 @@ import HeroSection from "./components/heroSection";
 import CTASection from "./components/ctaSection";
 import PromoCarousel from "@/components/promosection";
 import PlanSection from "@/components/features/membership/plans-section";
+import { getShopPage } from "@/lib/strapi/pages";
 export const metadata: Metadata = {
   title: "Farmacia | Lymbika",
   description: "Encuentra medicamentos, suplementos y productos de cuidado personal. Compra en línea con entrega a domicilio.",
   alternates: { canonical: "/shop" },
 };
-
-const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
-
-type ShopPromo = { id: number; title: string; image: { url: string }; link: string }
-type ShopPage = { hero?: { title: string; description: string; buttonText: string; buttonUrl: string; image: { url: string } }; promo: ShopPromo[] }
-
-async function getShopPage(): Promise<{ hero: ShopPage | null; promo: ShopPage | null }> {
-  const [heroRes, promoRes] = await Promise.all([
-    fetch(
-      `${BASE}/api/pages?filters[slug][$eq]=farmacia&populate[hero][populate]=image&populate[promo][populate]=image`,
-      { next: { revalidate: 3600 } }
-    ),
-    fetch(
-      `${BASE}/api/pages?filters[slug][$eq]=farmacia&populate[promo][populate]=*`,
-      { next: { revalidate: 3600 } }
-    ),
-  ]);
-
-  if (!heroRes.ok) console.error("[shop-page] Strapi error (hero):", heroRes.status);
-  if (!promoRes.ok) console.error("[shop-page] Strapi error (promo):", promoRes.status);
-
-  const [heroJson, promoJson] = await Promise.all([heroRes.json(), promoRes.json()]);
-
-  return {
-    hero: heroJson.data?.[0] ?? null,
-    promo: promoJson.data?.[0] ?? null,
-  };
-}
 
 export default async function Page() {
   const { hero, promo } = await getShopPage();

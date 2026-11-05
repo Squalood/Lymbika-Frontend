@@ -1,6 +1,6 @@
 "use client";
 
-import { useGetClinics } from "@/api/useGetClinics";
+import { useGetClinics } from "@/hooks/use-clinics";
 import Clinics from "@/components/features/clinics/clinics-list";
 import ClinicsHomeSkeleton from "@/components/skeleton/clinicsHomeSkeleton";
 

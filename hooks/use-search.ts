@@ -3,12 +3,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
-import { useGetProducts } from "@/api/getProducts";
-import { useGetDoctors } from "@/api/getDoctor";
-import { useGetServices } from "@/api/getService";
-import { useGetCategories } from "@/api/getCategories";
-import { useGetAllMedicalServices } from "@/api/useGetAllMedicalServices";
-import { useGetClinics } from "@/api/useGetClinics";
+import { useGetProducts } from "@/hooks/use-products";
+import { useGetDoctors } from "@/hooks/use-doctors";
+import { useGetServices } from "@/hooks/use-services";
+import { useGetCategories } from "@/hooks/use-categories";
+import { useGetAllMedicalServices } from "@/hooks/use-all-medical-services";
+import { useGetClinics } from "@/hooks/use-clinics";
 import { ResponseType } from "@/types/response";
 import { ServiceType } from "@/types/service";
 import { CategoryType } from "@/types/category";

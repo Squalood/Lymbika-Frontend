@@ -1,32 +1,24 @@
-"use client";
-
-import { useGetMembership } from "@/api/getMembership";
-import { useGetPageHero } from "@/api/getPageHeroBySlug";
-import { useGetPage } from "@/api/getPageBySlug";
 import PlansMemberPage from "@/components/features/membership/plans";
-import PlansSkeleton from "@/components/skeleton/plansSkeleton";
+import { getMemberships, getPage } from "@/lib/strapi/pages";
 
 const SLUG = "lymbika-membership";
 
-const PlanSection = () => {
-  const { loading, Memberships, error } = useGetMembership();
-  const { hero, loading: heroLoading, error: heroError } = useGetPageHero(SLUG);
-  const { page, loading: pageLoading } = useGetPage(SLUG);
+/**
+ * Planes de membresía de la home y la tienda, con el título, la descripción y
+ * el badge de la página "lymbika-membership". Se arma en el servidor: llega
+ * pintada, sin skeleton ni pedidos desde el navegador.
+ */
+export default async function PlanSection() {
+  const [plans, page] = await Promise.all([getMemberships(), getPage(SLUG)]);
+  if (plans.length === 0) return null;
 
-  const pageHero = hero?.[0]?.hero;
-  const badge = page?.[0]?.badge?.[0];
-
-  if (loading || heroLoading || pageLoading) return <PlansSkeleton />;
-  if (error || heroError) return <p className="text-center text-red-500">{error || heroError}</p>;
-
+  const badge = page?.badge?.[0];
   return (
     <PlansMemberPage
-      plans={Memberships}
-      title={pageHero?.title}
-      description={pageHero?.description}
+      plans={plans}
+      title={page?.hero?.title}
+      description={page?.hero?.description}
       badge={badge ? { boldText: badge.boldText, text: badge.text, tag: badge.tag } : undefined}
     />
   );
 }
- 
-export default PlanSection;

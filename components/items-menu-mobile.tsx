@@ -28,13 +28,13 @@ import {
 } from "@/components/ui/accordion";
 import Link from "next/link";
 import { CategoryType } from "@/types/category";
-import { useGetCategories } from "@/api/getCategories";
+import { useGetCategories } from "@/hooks/use-categories";
 import { ResponseType } from "@/types/response";
 import { useCart } from "@/hooks/use-cart";
 import { UseLovedProducts } from "@/hooks/use-loved-products";
 import { LoggedInUser } from "./custom/UserLogin";
-import { useGetClinics } from "@/api/useGetClinics";
-import { useGetFeaturedSurgeries, FeaturedSurgeryType } from "@/api/useGetFeaturedSurgeries";
+import { useGetClinics } from "@/hooks/use-clinics";
+import { useGetFeaturedSurgeries, FeaturedSurgeryType } from "@/hooks/use-featured-surgeries";
 import { ClinicType } from "@/types/clinic";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";

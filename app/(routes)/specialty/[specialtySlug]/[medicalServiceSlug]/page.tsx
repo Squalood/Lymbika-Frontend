@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import MedicalServiceDoctors from "./sections/MedicalServiceDoctors";
-import { getMedicalServiceBySlug } from "@/api/getMedicalServiceBySlug";
+import { getMedicalServiceBySlug } from "@/lib/strapi/medical-services";
 import { imgUrl } from "@/lib/media";
 import Hero from "./sections/Hero";
 import StatsBar from "./sections/StatsBar";

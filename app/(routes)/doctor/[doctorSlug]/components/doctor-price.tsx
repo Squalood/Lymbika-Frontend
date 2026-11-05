@@ -1,6 +1,6 @@
 "use client";
 
-import { useGetServiceRatesByDoctor } from "@/api/useGetServiceRatesByDoctor";
+import { useGetServiceRatesByDoctor } from "@/hooks/use-service-rates-by-doctor";
 import { formatPrice } from "@/lib/formatPrice";
 import { DoctorType } from "@/types/doctor";
 import { ServiceRateType } from "@/types/medicalService";

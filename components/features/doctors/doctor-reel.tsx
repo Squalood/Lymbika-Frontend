@@ -1,6 +1,6 @@
 "use client";
 
-import { useGetDoctors } from "@/api/getDoctor";
+import { useGetDoctors } from "@/hooks/use-doctors";
 import { DoctorType } from "@/types/doctor";
 import CardDoctor from "@/components/features/doctors/doctor-card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";

@@ -1,11 +1,11 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import { useGetProducts } from "@/api/getProducts";
-import { useGetDoctors } from "@/api/getDoctor";
-import { useGetServices } from "@/api/getService";
-import { useGetCategories } from "@/api/getCategories";
-import { useGetAllMedicalServices } from "@/api/useGetAllMedicalServices";
-import { useGetClinics } from "@/api/useGetClinics";
+import { useGetProducts } from "@/hooks/use-products";
+import { useGetDoctors } from "@/hooks/use-doctors";
+import { useGetServices } from "@/hooks/use-services";
+import { useGetCategories } from "@/hooks/use-categories";
+import { useGetAllMedicalServices } from "@/hooks/use-all-medical-services";
+import { useGetClinics } from "@/hooks/use-clinics";
 import Image from "next/image";
 import Link from "next/link";
 import * as LucideIcons from "lucide-react";

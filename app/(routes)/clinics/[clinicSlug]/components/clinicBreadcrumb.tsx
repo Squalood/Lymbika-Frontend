@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
-import { useGetClinics } from "@/api/useGetClinics";
+import { useGetClinics } from "@/hooks/use-clinics";
 
 type ClinicBreadcrumbProps = {
   clinicTitle: string;

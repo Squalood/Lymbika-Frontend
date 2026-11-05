@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useGetMedicalServiceCatalog } from "@/api/useGetMedicalServiceCatalog";
+import { useGetMedicalServiceCatalog } from "@/hooks/use-medical-service-catalog";
 import MedicalServicesCatalogSkeleton from "@/components/skeleton/medicalServicesCatalogSkeleton";
 import MedicalServiceCard from "@/components/features/medical-services/medical-service-card";
 import { ShowMoreButton } from "@/components/show-more-button";

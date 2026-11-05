@@ -1,6 +1,6 @@
 "use client";
 
-import { useGetHospitals } from "@/api/getHospitals";
+import { useGetHospitals } from "@/hooks/use-hospitals";
 import HospitaCarousel from "@/components/features/hospitals/hospital-carousel";
 import HospitalCardSkeleton from "@/components/features/hospitals/hospital-card-skeleton";
 

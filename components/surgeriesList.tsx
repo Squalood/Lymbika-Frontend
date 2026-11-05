@@ -9,7 +9,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { FeaturedSurgeryType } from "@/api/useGetFeaturedSurgeries";
+import { FeaturedSurgeryType } from "@/hooks/use-featured-surgeries";
 import MedicalServiceCard from "@/components/features/medical-services/medical-service-card";
 
 type SurgeriesListProps = {

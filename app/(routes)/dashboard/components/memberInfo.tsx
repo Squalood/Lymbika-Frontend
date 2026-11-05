@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { JSX } from "react";
-import { getSiteConfig } from "@/api/getSiteConfig";
+import { getSiteConfig } from "@/lib/strapi/pages";
 import { cn } from "@/lib/utils";
 import { formatLongDate } from "@/lib/formatDate";
 import {

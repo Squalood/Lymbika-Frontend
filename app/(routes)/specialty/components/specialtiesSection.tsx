@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useGetServices } from "@/api/getService";
+import { useGetServices } from "@/hooks/use-services";
 import { ResponseType } from "@/types/response";
 import { ServiceType } from "@/types/service";
 import SpecialtiesGridSkeleton from "@/components/skeleton/specialtyCardSkeleton";

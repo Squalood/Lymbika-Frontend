@@ -8,43 +8,12 @@ import PlansSection from "./components/plansSection";
 import Section4 from "./components/section4";
 import CTASection from "./components/ctaSection";
 import FaqCard from "@/components/faq-card";
-import { getFaqGroup } from "@/api/getFaqGroups";
+import { getFaqGroup, getHealthHubsData } from "@/lib/strapi/pages";
 
 export const metadata: Metadata = {
   title: "¿Eres doctor? | Lymbika Healthcare",
   alternates: { canonical: "/healthHubs" },
 };
-
-const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
-
-async function getHealthHubsData() {
-  const [pageRes, heroRes, planRes] = await Promise.all([
-    fetch(
-      `${BASE}/api/pages?filters[slug][$eq]=doctores&populate=*`,
-      { next: { revalidate: 3600 } }
-    ),
-    fetch(
-      `${BASE}/api/pages?filters[slug][$eq]=doctores&populate[hero][populate]=image&populate[promo][populate]=image`,
-      { next: { revalidate: 3600 } }
-    ),
-    fetch(
-      `${BASE}/api/pages?filters[slug][$eq]=doctores&populate[plan][populate]=*&populate[ModalPlan][populate][TrustStep]=*`,
-      { next: { revalidate: 3600 } }
-    ),
-  ]);
-
-  const [pageJson, heroJson, planJson] = await Promise.all([
-    pageRes.json(),
-    heroRes.json(),
-    planRes.json(),
-  ]);
-
-  const page: PageType | null = pageJson.data?.[0] ?? null;
-  const heroPage: PageType | null = heroJson.data?.[0] ?? null;
-  const planPages: PageType[] = planJson.data ?? [];
-
-  return { page, heroPage, planPages };
-}
 
 export default async function Page() {
   const [{ page, heroPage, planPages }, faqDoctores] = await Promise.all([

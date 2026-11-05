@@ -12,7 +12,7 @@ import GalleryCarousel from "@/components/galleryCarousel";
 import AlyusSection from "@/components/alyusSection";
 import AreDoctorsSection from "@/components/areDoctorsSection";
 import VideosSection from "@/components/videosSection";
-import { getHomePage } from "@/api/getHomePage";
+import { getHomePage } from "@/lib/strapi/pages";
 
 export async function generateMetadata() {
   const homePage = await getHomePage();

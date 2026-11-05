@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { useGetServiceRatesByMedicalService } from "@/api/useGetServiceRatesByMedicalService";
+import { useGetServiceRatesByMedicalService } from "@/hooks/use-service-rates-by-medical-service";
 import { ServiceRateWithDoctorType } from "@/types/medicalService";
 import { Separator } from "@/components/ui/separator";
 import { DoctorBannerCard } from "@/components/doctor-banner-card";

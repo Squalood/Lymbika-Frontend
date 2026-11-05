@@ -1,4 +1,4 @@
-import { getProductReviews } from "@/api/getProductReviewsServer";
+import { getProductReviews } from "@/lib/strapi/products";
 import { getUserMeLoader } from "@/app/data/services/get-user-me-loader";
 import { ReviewType } from "@/types/review";
 import { Separator } from "@/components/ui/separator";
