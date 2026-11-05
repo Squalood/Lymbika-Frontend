@@ -1,6 +1,6 @@
 "use client";
 
-import { ServiceRateWithDoctorType } from "@/types/medicalService";
+import { ServiceRateWithDoctorType } from "@/types/medical-service";
 import { parseLista, useSharedResource } from "@/lib/client-resource";
 
 const VACIO: ServiceRateWithDoctorType[] = [];

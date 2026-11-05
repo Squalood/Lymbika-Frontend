@@ -4,12 +4,15 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: __dirname,
   },
-  // /surgery se retiró (oct-2026): las cirugías viven en /specialty. Se
-  // redirige para no romper enlaces viejos compartidos o en anuncios.
+  // Rutas viejas que se redirigen para no romper enlaces compartidos, anuncios
+  // ni lo que Google ya tenía indexado.
   async redirects() {
     return [
+      // /surgery se retiró (oct-2026): las cirugías viven en /specialty.
       { source: "/surgery", destination: "/specialty", permanent: true },
       { source: "/surgery/:path*", destination: "/specialty", permanent: true },
+      // /healthHubs se renombró a /for-doctors (nov-2026).
+      { source: "/healthHubs", destination: "/for-doctors", permanent: true },
     ];
   },
   images: {

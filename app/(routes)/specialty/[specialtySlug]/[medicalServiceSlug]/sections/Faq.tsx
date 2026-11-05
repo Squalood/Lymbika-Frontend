@@ -1,4 +1,4 @@
-import { MedicalServiceType } from "@/types/medicalService";
+import { MedicalServiceType } from "@/types/medical-service";
 import FaqCard from "@/components/faq-card";
 
 export default function Faq({ service }: { service: MedicalServiceType }) {

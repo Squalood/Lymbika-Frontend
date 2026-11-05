@@ -1,5 +1,5 @@
 import { ServiceType } from "@/types/service";
-import { MedicalServiceType, MedicalServiceCatalogItem } from "@/types/medicalService";
+import { MedicalServiceType, MedicalServiceCatalogItem } from "@/types/medical-service";
 import { agruparCatalogo, TarifaDeCatalogo } from "@/lib/medical-service-catalog";
 import { strapiLista, strapiPrimero } from "./client";
 

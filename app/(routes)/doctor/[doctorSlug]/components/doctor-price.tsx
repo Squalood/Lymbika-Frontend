@@ -1,9 +1,9 @@
 "use client";
 
 import { useGetServiceRatesByDoctor } from "@/hooks/use-service-rates-by-doctor";
-import { formatPrice } from "@/lib/formatPrice";
+import { formatPrice } from "@/lib/format-price";
 import { DoctorType } from "@/types/doctor";
-import { ServiceRateType } from "@/types/medicalService";
+import { ServiceRateType } from "@/types/medical-service";
 import { Clock } from "lucide-react";
 import Image from "next/image";
 

@@ -2,8 +2,8 @@
 import { useGetCategories } from "@/hooks/use-categories";
 import { CategoryType } from "@/types/category";
 import Link from "next/link";
-import CategoryGridSkeleton from "./skeleton/categoryGridSkeleton";
-import { CATEGORY_ICONS } from "@/lib/categoryIcons";
+import CategoryGridSkeleton from "./skeleton/category-grid-skeleton";
+import { CATEGORY_ICONS } from "@/lib/category-icons";
 
 const ChooseCategoryAlt = ({ title }: { title?: string }) => {
     const { result, loading } = useGetCategories()

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { MedicalServiceType } from "@/types/medicalService";
+import { MedicalServiceType } from "@/types/medical-service";
 import {
   Carousel,
   CarouselContent,

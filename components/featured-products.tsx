@@ -2,9 +2,9 @@
 
 import { useGetFeaturedProducts } from "@/hooks/use-featured-products";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./ui/carousel";
-import SkeletonSchema from "./skeleton/skeletonSchema";
+import SkeletonSchema from "./skeleton/skeleton-schema";
 import { ProductType } from "@/types/product";
-import ProductCard from "./productCard";
+import ProductCard from "./product-card";
 
 const FeaturedProducts = () => {
     const { loading, result } = useGetFeaturedProducts();

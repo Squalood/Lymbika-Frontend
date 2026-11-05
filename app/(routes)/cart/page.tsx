@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { getUserMeLoader } from "@/app/data/services/get-user-me-loader";
 import CartClientPage from "./components/cart-client";
-import CartSkeleton from "@/components/skeleton/CartSkeleton";
+import CartSkeleton from "@/components/skeleton/cart-skeleton";
 
 // Componente asíncrono que carga los datos del usuario
 async function CartWithData() {

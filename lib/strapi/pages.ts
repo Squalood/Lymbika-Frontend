@@ -158,7 +158,7 @@ export async function getShopPage(): Promise<{ hero: ShopPage | null; promo: Sho
   return { hero, promo };
 }
 
-/** Página "doctores" de la colección pages: contenido, hero y planes de /healthHubs. */
+/** Página "doctores" de la colección pages: contenido, hero y planes de /for-doctors. */
 export async function getHealthHubsData() {
   const base = "pages?filters[slug][$eq]=doctores";
   const [page, heroPage, planPages] = await Promise.all([

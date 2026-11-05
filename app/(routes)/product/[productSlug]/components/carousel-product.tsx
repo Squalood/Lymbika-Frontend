@@ -1,8 +1,8 @@
 "use client";
 
-import GalleryModal from "@/components/galleryModal";
-import YoutubeEmbed from "@/components/YoutubeEmbed";
-import TiktokEmbed from "@/components/TiktokEmbed";
+import GalleryModal from "@/components/gallery-modal";
+import YoutubeEmbed from "@/components/youtube-embed";
+import TiktokEmbed from "@/components/tiktok-embed";
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
 import { ProductType } from "@/types/product";
 import { Search } from "lucide-react";

@@ -31,7 +31,7 @@ import { CategoryType } from "@/types/category";
 import { useGetCategories } from "@/hooks/use-categories";
 import { useCart } from "@/hooks/use-cart";
 import { UseLovedProducts } from "@/hooks/use-loved-products";
-import { LoggedInUser } from "./custom/UserLogin";
+import { LoggedInUser } from "./custom/user-login";
 import { useGetClinics } from "@/hooks/use-clinics";
 import { useGetFeaturedSurgeries, FeaturedSurgeryType } from "@/hooks/use-featured-surgeries";
 import { ClinicType } from "@/types/clinic";
@@ -208,7 +208,7 @@ const ItemsMenuMobile = ({ user, navContent }: NavbarProps) => {
             {/* Médicos y Hospitales */}
             <div className="px-4">
               <Link
-                href="/healthHubs"
+                href="/for-doctors"
                 className="flex items-center gap-2 px-2 py-3 text-sm hover:bg-accent rounded-md transition-colors"
               >
                 <Stethoscope className="w-4 h-4" />

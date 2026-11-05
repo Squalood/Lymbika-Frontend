@@ -16,7 +16,7 @@ import { useEffect, useRef, useState } from "react";
 import StarRatingBasic from "@/components/commerce-ui/star-rating-basic";
 import { useActionState } from "react";
 import { toast } from "sonner";
-import { createProductReviewAction } from "@/app/data/actions/createProductReviewAction";
+import { createProductReviewAction } from "@/app/data/actions/create-product-review-action";
 import { SubmitButton } from "@/components/submit-button";
 
 const INITIAL_STATE = {

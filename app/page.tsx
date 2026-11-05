@@ -4,14 +4,14 @@ import ChooseCategory from "@/components/choose-category";
 import TopContact from "@/components/top-contact";
 import HospitaSection from "@/components/features/hospitals/hospitals-section";
 import Faq from "@/components/faq";
-import TuristSection from "@/components/turistSection";
+import TuristSection from "@/components/turist-section";
 import ClinicsClientWrapper from "@/components/features/clinics/clinics-client-wrapper";
 import PromoCarousel from "@/components/promosection";
 import Hero from "@/components/front-page";
-import GalleryCarousel from "@/components/galleryCarousel";
-import AlyusSection from "@/components/alyusSection";
-import AreDoctorsSection from "@/components/areDoctorsSection";
-import VideosSection from "@/components/videosSection";
+import GalleryCarousel from "@/components/gallery-carousel";
+import AlyusSection from "@/components/alyus-section";
+import AreDoctorsSection from "@/components/are-doctors-section";
+import VideosSection from "@/components/videos-section";
 import { getHomePage } from "@/lib/strapi/pages";
 
 export async function generateMetadata() {

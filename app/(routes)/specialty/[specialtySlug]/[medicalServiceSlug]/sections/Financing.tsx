@@ -1,9 +1,9 @@
 "use client";
 
 import { CreditCard } from "lucide-react";
-import { MedicalServiceType } from "@/types/medicalService";
+import { MedicalServiceType } from "@/types/medical-service";
 import { WhatsAppCtaButton } from "@/components/whatsapp-cta-button";
-import { getPackageItems } from "@/lib/packageItems";
+import { getPackageItems } from "@/lib/package-items";
 import {
   COMISION_TERMINAL,
   FINANCIAMIENTO_MIN_PRICE,
@@ -11,8 +11,8 @@ import {
   SOBRETASAS_TEXTO,
   planesFinanciamiento,
 } from "@/lib/financiamiento";
-import { formatPrice } from "@/lib/formatPrice";
-import { getWhatsAppUrl } from "@/lib/medicalServiceTypes";
+import { formatPrice } from "@/lib/format-price";
+import { getWhatsAppUrl } from "@/lib/medical-service-types";
 import { useSiteConfig } from "@/components/site-config-provider";
 
 export default function Financing({ service }: { service: MedicalServiceType }) {

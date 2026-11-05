@@ -1,5 +1,5 @@
 import { ReviewType } from "./review";
-import { ServiceRateType } from "./medicalService";
+import { ServiceRateType } from "./medical-service";
 import { RichTextNode } from "./rich-text";
 
 export type DoctorType = {

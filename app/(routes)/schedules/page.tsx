@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getSchedulesPage } from "@/lib/strapi/pages";
 import { elegirDoctor, resolverContenido } from "./config";
-import { SchedulesView, metadataDe } from "./SchedulesView";
+import { SchedulesView, metadataDe } from "./schedules-view";
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getSchedulesPage();

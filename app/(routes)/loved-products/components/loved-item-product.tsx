@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/tooltip";
 import { useCart } from "@/hooks/use-cart";
 import { UseLovedProducts } from "@/hooks/use-loved-products";
-import { formatPrice } from "@/lib/formatPrice";
+import { formatPrice } from "@/lib/format-price";
 import { cn } from "@/lib/utils";
 import { ProductType } from "@/types/product";
 import { X, ShoppingCart, ArrowRight, ShieldAlert } from "lucide-react";

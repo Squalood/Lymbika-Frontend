@@ -2,7 +2,7 @@
 "use client";
 
 import { Separator } from "@/components/ui/separator";
-import SkeletonSchema from "@/components/skeleton/skeletonSchema";
+import SkeletonSchema from "@/components/skeleton/skeleton-schema";
 import { useState } from "react";
 import { DoctorType } from "@/types/doctor";
 import FiltersControlsService from "./filters-controls-service";

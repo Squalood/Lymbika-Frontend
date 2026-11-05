@@ -1,6 +1,6 @@
 "use client";
 
-import { MedicalServiceType } from "@/types/medicalService";
+import { MedicalServiceType } from "@/types/medical-service";
 import { ResourceOptions, useSharedResource } from "@/lib/client-resource";
 
 /**

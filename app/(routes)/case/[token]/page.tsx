@@ -3,8 +3,8 @@ import { CheckCircle2, Circle, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PatientCaseType } from "@/types/case";
 import { ESTADO_PACIENTE, siguientePasoPaciente } from "@/lib/case/labels";
-import { formatPrice } from "@/lib/formatPrice";
-import { formatLongDate } from "@/lib/formatDate";
+import { formatPrice } from "@/lib/format-price";
+import { formatLongDate } from "@/lib/format-date";
 import { getSiteConfig } from "@/lib/strapi/pages";
 import { whatsappLink } from "@/lib/site-config";
 

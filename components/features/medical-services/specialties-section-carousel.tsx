@@ -3,7 +3,7 @@
 import * as LucideIcons from "lucide-react";
 import { Stethoscope } from "lucide-react";
 import { ServiceType, ServiceIconType } from "@/types/service";
-import SpecialtyPillsSkeleton from "@/components/skeleton/specialtyPillsSkeleton";
+import SpecialtyPillsSkeleton from "@/components/skeleton/specialty-pills-skeleton";
 import { cn } from "@/lib/utils";
 
 type Props = {

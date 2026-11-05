@@ -4,7 +4,7 @@ import { useGetDoctors } from "@/hooks/use-doctors";
 import { DoctorType } from "@/types/doctor";
 import CardDoctor from "@/components/features/doctors/doctor-card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import SkeletonDoctorCardVertical from "@/components/skeleton/skeletonDoctorCardVertical";
+import SkeletonDoctorCardVertical from "@/components/skeleton/skeleton-doctor-card-vertical";
 
 interface DoctorReelProps {
   doctors?: DoctorType[];

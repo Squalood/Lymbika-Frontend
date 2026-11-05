@@ -1,5 +1,5 @@
 import { DoctorType } from "@/types/doctor";
-import DoctorVideos from "./doctorVideos";
+import DoctorVideos from "./doctor-videos";
 import { CheckCircle, ChevronDown } from "lucide-react";
 import RichTextRenderer from "@/components/rich-text-renderer";
 import { useState } from "react";

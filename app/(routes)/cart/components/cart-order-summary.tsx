@@ -4,7 +4,7 @@ import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { formatPrice } from "@/lib/formatPrice";
+import { formatPrice } from "@/lib/format-price";
 import { CartItem } from "@/hooks/use-cart";
 import { AuthUserProps } from "./types";
 import { getItemPrice } from "./pricing";

@@ -1,5 +1,5 @@
 import { ServiceIconType } from "@/types/service";
-import { MedicalServiceType } from "@/types/medicalService";
+import { MedicalServiceType } from "@/types/medical-service";
 
 export type SearchableType =
   | "product"

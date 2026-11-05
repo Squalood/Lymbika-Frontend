@@ -1,4 +1,4 @@
-import { LandingPageJson } from "./landingPageJson";
+import { LandingPageJson } from "./landing-page-json";
 import { ContactComponent } from "./contact";
 
 export type PageType = {

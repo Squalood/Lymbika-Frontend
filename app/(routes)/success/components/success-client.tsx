@@ -5,7 +5,7 @@ import Link from "next/link";
 import { CheckCircle, Clock, XCircle, Loader2, MapPin, Phone } from "lucide-react";
 import WhatsAppTrigger from "@/components/whatsapp-trigger";
 import { useCart } from "@/hooks/use-cart";
-import { formatPrice } from "@/lib/formatPrice";
+import { formatPrice } from "@/lib/format-price";
 import { consultarOrden, type OrdenResumen } from "@/app/data/actions/order-actions";
 import { useSiteConfig } from "@/components/site-config-provider";
 

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getSchedulesPage } from "@/lib/strapi/pages";
 import { elegirDoctor, resolverContenido } from "../config";
-import { SchedulesView, metadataDe } from "../SchedulesView";
+import { SchedulesView, metadataDe } from "../schedules-view";
 
 type Props = { params: Promise<{ doctorSlug: string }> };
 

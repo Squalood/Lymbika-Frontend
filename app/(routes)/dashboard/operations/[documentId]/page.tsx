@@ -14,7 +14,7 @@ import {
   RESPUESTA_SI_NO,
 } from "@/lib/case/labels";
 import { enlaceWhatsApp, haceCuanto } from "@/lib/case/operations";
-import { formatLongDate } from "@/lib/formatDate";
+import { formatLongDate } from "@/lib/format-date";
 import { EstadoBadge, PrioridadBadge, UrgenteBadge } from "../components/estado-badge";
 import { CopiarEnlace } from "../components/copiar-enlace";
 import { DocumentosCaso } from "../components/documentos-caso";

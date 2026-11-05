@@ -1,6 +1,6 @@
 "use client";
 
-import { MedicalServiceType } from "@/types/medicalService";
+import { MedicalServiceType } from "@/types/medical-service";
 import { ResourceOptions, useSharedResource } from "@/lib/client-resource";
 
 const ENDPOINT = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/medical-services?populate[image][fields][0]=url&populate[specialty][fields][0]=slug&pagination[pageSize]=200`;

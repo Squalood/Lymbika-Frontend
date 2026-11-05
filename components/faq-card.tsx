@@ -24,7 +24,7 @@ type FaqCardProps = {
 
 /**
  * FAQ de diseño tarjeta: encabezado oscuro y preguntas numeradas en acordeón.
- * Lo usan la landing de servicio médico y /healthHubs. Para el diseño simple
+ * Lo usan la landing de servicio médico y /for-doctors. Para el diseño simple
  * está Faq. Cada página decide qué textos pasa: no se rellenan solos con los
  * del faq-group.
  */

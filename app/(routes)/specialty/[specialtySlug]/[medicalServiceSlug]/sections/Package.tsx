@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { Check, MoveRight } from "lucide-react";
-import { MedicalServiceType } from "@/types/medicalService";
+import { MedicalServiceType } from "@/types/medical-service";
 import { Button } from "@/components/ui/button";
-import { getPackageItems } from "@/lib/packageItems";
+import { getPackageItems } from "@/lib/package-items";
 import {
   Carousel,
   CarouselContent,

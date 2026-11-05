@@ -1,6 +1,6 @@
 import { getUserMeLoader } from "@/app/data/services/get-user-me-loader";
 import { sessionErrorMessage } from "@/app/data/services/auth-errors";
-import MemberInfo from "../components/memberInfo";
+import MemberInfo from "../components/member-info";
 
 export default async function Page({
     searchParams,

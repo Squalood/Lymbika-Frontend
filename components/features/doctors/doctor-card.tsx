@@ -7,7 +7,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import DoctorReviewCarousel from "@/components/features/doctors/doctor-review-carousel";
 import { Separator } from "@/components/ui/separator";
-import { ReviewForm } from "@/components/reviewForm";
+import { ReviewForm } from "@/components/review-form";
 
 type ProductDoctorProps = {
   doctor: DoctorType;

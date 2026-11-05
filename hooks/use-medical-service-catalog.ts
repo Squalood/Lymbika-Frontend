@@ -1,6 +1,6 @@
 "use client";
 
-import { MedicalServiceCatalogItem } from "@/types/medicalService";
+import { MedicalServiceCatalogItem } from "@/types/medical-service";
 import { useSharedResource } from "@/lib/client-resource";
 import { agruparCatalogo, TarifaDeCatalogo } from "@/lib/medical-service-catalog";
 

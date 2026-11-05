@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { MoveRight } from "lucide-react";
-import { MedicalServiceType } from "@/types/medicalService";
+import { MedicalServiceType } from "@/types/medical-service";
 import { Button } from "@/components/ui/button";
 import { urlPoster, imgUrl } from "@/lib/media";
 

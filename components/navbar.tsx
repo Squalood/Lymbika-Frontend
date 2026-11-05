@@ -6,10 +6,10 @@ import ItemsMenuMobile from "./items-menu-mobile";
 import ToggleTheme from "./toggle-theme";
 import { useCart } from "@/hooks/use-cart";
 import { UseLovedProducts } from "@/hooks/use-loved-products";
-import { LoggedInUser } from "./custom/UserLogin";
+import { LoggedInUser } from "./custom/user-login";
 import { Button } from "./ui/button";
 import { useEffect, useRef, useState } from "react";
-import { SearchGeneral } from "./searchGeneral";
+import { SearchGeneral } from "./search-general";
 import { AnimatePresence, motion } from "framer-motion";
 import { NavbarSectionType } from "@/types/single-types/navbar";
 

@@ -10,9 +10,9 @@ import Image from "next/image";
 import Link from "next/link";
 import * as LucideIcons from "lucide-react";
 import { Stethoscope, Hospital } from "lucide-react";
-import ProductCard from "@/components/productCard";
+import ProductCard from "@/components/product-card";
 import { ProductType } from "@/types/product";
-import { MedicalServiceType } from "@/types/medicalService";
+import { MedicalServiceType } from "@/types/medical-service";
 import { sinAcentos } from "@/lib/utils";
 
 const MEDICAL_SERVICE_TYPE_LABELS: Record<MedicalServiceType["type"], string> = {

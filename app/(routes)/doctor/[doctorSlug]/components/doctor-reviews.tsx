@@ -1,8 +1,8 @@
 import { Separator } from "@/components/ui/separator";
 import { Star } from "lucide-react";
-import DoctorComment from "./doctor-Comment";
+import DoctorComment from "./doctor-comment";
 import { ReviewType } from "@/types/review";
-import ReviewForm from "@/components/reviewForm";
+import ReviewForm from "@/components/review-form";
 import { DoctorType } from "@/types/doctor";
 import { UserType } from "@/types/user";
 

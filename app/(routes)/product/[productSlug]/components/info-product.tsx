@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useCart } from "@/hooks/use-cart";
 import { UseLovedProducts } from "@/hooks/use-loved-products";
-import { formatPrice } from "@/lib/formatPrice";
+import { formatPrice } from "@/lib/format-price";
 import { ProductType } from "@/types/product";
 import { Heart, ShieldAlert } from "lucide-react";
 import { useSiteConfig } from "@/components/site-config-provider";

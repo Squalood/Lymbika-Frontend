@@ -1,7 +1,7 @@
 "use client";
 
-import SpecialtiesSection from "./specialtiesSection";
-import MedicalServicesCatalogSection from "./medicalServicesCatalogSection";
+import SpecialtiesSection from "./specialties-section";
+import MedicalServicesCatalogSection from "./medical-services-catalog-section";
 
 const Specialties = () => {
   return (

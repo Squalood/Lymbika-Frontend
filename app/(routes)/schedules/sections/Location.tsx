@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ScheduleContent, mapsEmbed, telHref, telefonoFmt } from "../config";
-import { CtaLink } from "./CtaLink";
+import { CtaLink } from "./cta-link";
 
 export function Location({ content }: { content: ScheduleContent }) {
   const { ubicacion } = content;

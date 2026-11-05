@@ -1,5 +1,5 @@
-import { MedicalServiceType, MedicalServiceCatalogItem } from "@/types/medicalService";
-import { getPackageItems } from "@/lib/packageItems";
+import { MedicalServiceType, MedicalServiceCatalogItem } from "@/types/medical-service";
+import { getPackageItems } from "@/lib/package-items";
 
 export type TarifaDeCatalogo = Parameters<typeof getPackageItems>[0] & {
   price: number;
@@ -23,7 +23,7 @@ export function agruparCatalogo(
     const ms = tarifa.medical_service;
     if (!ms?.slug) continue;
     if (especialidad && ms.specialty?.slug !== especialidad) continue;
-    // `items` primero, `package_items` como respaldo. Ver lib/packageItems.
+    // `items` primero, `package_items` como respaldo. Ver lib/package-items.
     const conceptos = getPackageItems(tarifa);
     const packageItems = conceptos.length > 0 ? conceptos : null;
 

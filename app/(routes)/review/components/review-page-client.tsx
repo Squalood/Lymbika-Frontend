@@ -1,7 +1,7 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 import { useGetDoctors } from "@/hooks/use-doctors";
-import { Search } from "@/components/searchBar";
+import { Search } from "@/components/search-bar";
 import { sinAcentos } from "@/lib/utils";
 import DoctorReel from "@/components/features/doctors/doctor-reel";
 

@@ -17,7 +17,7 @@ const PAGINAS_FIJAS = [
   ['/hospitals', 0.6],
   ['/schedules', 0.8],
   ['/vive-lymbika', 0.7],
-  ['/healthHubs', 0.6],
+  ['/for-doctors', 0.6],
   ['/about', 0.5],
   ['/privacidad', 0.3],
 ];

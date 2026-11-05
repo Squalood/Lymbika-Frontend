@@ -17,9 +17,9 @@ import Image from "next/image"
 import { usePathname, useRouter } from "next/navigation"
 import { useGetClinics } from "@/hooks/use-clinics"
 import { useGetFeaturedSurgeries } from "@/hooks/use-featured-surgeries"
-import ClinicsList from "./clinicsList"
-import SurgeriesList from "./surgeriesList"
-import CategoryList from "./categoryList"
+import ClinicsList from "./clinics-list"
+import SurgeriesList from "./surgeries-list"
+import CategoryList from "./category-list"
 import { NavbarSectionType } from "@/types/single-types/navbar"
 import { useSiteConfig } from "@/components/site-config-provider";
 
@@ -85,7 +85,7 @@ const MenuList = ({ navContent }: MenuListProps) => {
               <ListItem href="/specialty" title={navContent?.services_item_title ?? "Atención Primaria y Especialidades"}>
                 {navContent?.services_item_description ?? "Tratamientos y servicios con doctores especializados."}
               </ListItem>
-              <ListItem href="/healthHubs" title={navContent?.doctors_item_title ?? "¿Eres doctor?"}>
+              <ListItem href="/for-doctors" title={navContent?.doctors_item_title ?? "¿Eres doctor?"}>
                 {navContent?.doctors_item_description ?? "Del consultorio al negocio. El sistema operativo de tu práctica médica privada."}
               </ListItem>
               <ListItem href="/membership" title={navContent?.membership_item_title ?? "Planes y Membresías"}>

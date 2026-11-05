@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getCategoryData } from "@/lib/strapi/products";
-import CategoryClient from "./components/CategoryClient";
+import CategoryClient from "./components/category-client";
 
 type Props = { params: Promise<{ categorySlug: string }> };
 

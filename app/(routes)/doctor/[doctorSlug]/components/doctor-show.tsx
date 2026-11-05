@@ -8,7 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import DoctorTop from "./doctor-top";
 import DoctorAbout from "./doctor-about";
-import SimpleSchedule from "./simpleSchedule";
+import SimpleSchedule from "./simple-schedule";
 import DoctorPrice from "./doctor-price";
 import DoctorGallery from "./doctor-gallery";
 import { Button } from "@/components/ui/button";

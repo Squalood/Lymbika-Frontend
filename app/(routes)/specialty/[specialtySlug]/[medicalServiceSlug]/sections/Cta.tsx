@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MedicalServiceType } from "@/types/medicalService";
+import { MedicalServiceType } from "@/types/medical-service";
 import { Button } from "@/components/ui/button";
 
 export default function Cta({ service }: { service: MedicalServiceType }) {

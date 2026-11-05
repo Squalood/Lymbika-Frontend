@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Clock, MapPin } from "lucide-react";
 import { DoctorType } from "@/types/doctor";
-import { formatPrice } from "@/lib/formatPrice";
+import { formatPrice } from "@/lib/format-price";
 
 type DoctorBannerCardProps = {
   doctor: Pick<DoctorType, "slug" | "doctorName" | "bannerImage" | "image" | "services">;

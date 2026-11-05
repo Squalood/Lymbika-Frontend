@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { getHiddenCounts, RevealBreakpoint } from "@/lib/gridReveal";
+import { getHiddenCounts, RevealBreakpoint } from "@/lib/grid-reveal";
 
 type Props = {
   breakpoints: RevealBreakpoint[];

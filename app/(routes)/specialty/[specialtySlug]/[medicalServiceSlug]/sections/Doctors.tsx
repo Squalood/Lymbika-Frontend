@@ -1,4 +1,4 @@
-import { MedicalServiceType } from "@/types/medicalService";
+import { MedicalServiceType } from "@/types/medical-service";
 import { DoctorBannerCard } from "@/components/doctor-banner-card";
 
 export default function Doctors({ service }: { service: MedicalServiceType }) {

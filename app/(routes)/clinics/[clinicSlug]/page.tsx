@@ -1,16 +1,16 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Hero from "./components/hero";
-import ServiceSection from "./components/serviceSection";
+import ServiceSection from "./components/service-section";
 import Services from "./components/services";
-import WhyUs from "./components/whyUs";
+import WhyUs from "./components/why-us";
 import Doctor from "./components/doctor";
 import Testimonials from "./components/testimonials";
 import Contact from "./components/contact";
-import ClinicGallery from "./components/clinicGallety";
-import VideoSection from "./components/videoSection";
-import ClinicBreadcrumb from "./components/clinicBreadcrumb";
-import FloatingCta from "./components/FloatingCta";
+import ClinicGallery from "./components/clinic-gallery";
+import VideoSection from "./components/video-section";
+import ClinicBreadcrumb from "./components/clinic-breadcrumb";
+import FloatingCta from "./components/floating-cta";
 import { getClinicData } from "@/lib/strapi/clinics";
 import es from "@/locals/es.json";
 

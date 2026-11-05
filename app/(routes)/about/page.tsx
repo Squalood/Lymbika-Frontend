@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getAboutPage } from "@/lib/strapi/pages";
-import AboutPage from "./components/aboutPage";
+import AboutPage from "./components/about-page";
 import SlideImage from "./components/slideimage";
 import LymbikaLocation from "./components/location";
 

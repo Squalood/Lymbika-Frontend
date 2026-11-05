@@ -1,6 +1,6 @@
 "use client";
 
-import GalleryModal from "@/components/galleryModal";
+import GalleryModal from "@/components/gallery-modal";
 import { DoctorType } from "@/types/doctor";
 import { Search, PlayCircle } from "lucide-react";
 import Image from "next/image";

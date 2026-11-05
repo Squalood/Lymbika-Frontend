@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import SearchPreview from "./searchPreview";
+import SearchPreview from "./search-preview";
 import { cn } from "@/lib/utils";
 import { SearchableItem } from "@/types/search";
 

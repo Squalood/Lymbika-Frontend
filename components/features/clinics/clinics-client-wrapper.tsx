@@ -2,7 +2,7 @@
 
 import { useGetClinics } from "@/hooks/use-clinics";
 import Clinics from "@/components/features/clinics/clinics-list";
-import ClinicsHomeSkeleton from "@/components/skeleton/clinicsHomeSkeleton";
+import ClinicsHomeSkeleton from "@/components/skeleton/clinics-home-skeleton";
 
 export default function ClinicsClientWrapper({ title }: { title?: string }) {
   const { clinics, loading } = useGetClinics();

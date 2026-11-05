@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getSpecialtyData } from "@/lib/strapi/medical-services";
-import SpecialtyTitle from "./components/specialtyTitle";
-import SpecialtyInfo from "./components/specialtyInfo";
-import MedicalServicesCatalog from "./components/medicalServicesCatalog";
+import SpecialtyTitle from "./components/specialty-title";
+import SpecialtyInfo from "./components/specialty-info";
+import MedicalServicesCatalog from "./components/medical-services-catalog";
 
 type Props = { params: Promise<{ specialtySlug: string }> };
 

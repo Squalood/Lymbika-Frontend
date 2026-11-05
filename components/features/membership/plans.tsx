@@ -8,7 +8,7 @@
   import PlanToggle from "@/components/features/membership/plan-toggle";
   import { MembershipType } from "@/types/membership";
   import { cn } from "@/lib/utils";
-  import { formatPrice } from "@/lib/formatPrice";
+  import { formatPrice } from "@/lib/format-price";
   import { useSubscribe } from "@/hooks/use-subscribe";
 
   interface PlansMemberPageProps {

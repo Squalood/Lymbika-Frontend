@@ -1,7 +1,7 @@
 "use client";
 
-import { MedicalServiceCatalogItem } from "@/types/medicalService";
-import { MedicalServiceCardsCarouselSkeleton } from "@/components/skeleton/medicalServiceCardSkeleton";
+import { MedicalServiceCatalogItem } from "@/types/medical-service";
+import { MedicalServiceCardsCarouselSkeleton } from "@/components/skeleton/medical-service-card-skeleton";
 import MedicalServiceCard from "@/components/features/medical-services/medical-service-card";
 import {
   Carousel,

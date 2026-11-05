@@ -2,8 +2,8 @@ import Image from "next/image";
 import { Stethoscope } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScheduleContent, telHref, whatsappHref } from "../config";
-import { CtaLink } from "./CtaLink";
-import { OpenStatus } from "./OpenStatus";
+import { CtaLink } from "./cta-link";
+import { OpenStatus } from "./open-status";
 
 export function Hero({ content }: { content: ScheduleContent }) {
   const { medico } = content;

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import ChooseCategory from "@/components/choose-category";
 import FeaturedProducts from "@/components/featured-products";
-import { FeaturesSection } from "./components/featuresSection";
-import HeroSection from "./components/heroSection";
-import CTASection from "./components/ctaSection";
+import { FeaturesSection } from "./components/features-section";
+import HeroSection from "./components/hero-section";
+import CTASection from "./components/cta-section";
 import PromoCarousel from "@/components/promosection";
 import PlanSection from "@/components/features/membership/plans-section";
 import { getShopPage } from "@/lib/strapi/pages";

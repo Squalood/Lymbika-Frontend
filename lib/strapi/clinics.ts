@@ -1,5 +1,5 @@
 import { ClinicType } from "@/types/clinic";
-import { ServiceRateType } from "@/types/medicalService";
+import { ServiceRateType } from "@/types/medical-service";
 import { CAMPOS_CLINICA } from "@/lib/clinic-fields";
 import { strapiLista, strapiPrimero } from "./client";
 

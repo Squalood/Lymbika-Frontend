@@ -9,8 +9,8 @@ import {
 } from "@/components/ui/carousel";
 import { Badge } from "@/components/ui/badge";
 import { useInView } from "react-intersection-observer";
-import { MedicalServiceType, ServiceRateType } from "@/types/medicalService";
-import ServiceCard from "./serviceCard";
+import { MedicalServiceType, ServiceRateType } from "@/types/medical-service";
+import ServiceCard from "./service-card";
 
 type ServiceTexts = {
   badge: string;

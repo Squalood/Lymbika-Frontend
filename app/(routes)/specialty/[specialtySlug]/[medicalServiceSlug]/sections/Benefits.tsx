@@ -6,7 +6,7 @@ import {
   ScanHeart, HeartPulse, HeartHandshake, Home, Leaf, ShieldCheck,
   UserCheck, PillBottle, ClipboardCheck, LucideIcon,
 } from "lucide-react";
-import { MedicalServiceType } from "@/types/medicalService";
+import { MedicalServiceType } from "@/types/medical-service";
 import {
   Carousel,
   CarouselContent,

@@ -1,7 +1,7 @@
 //cart-item.tsx
 import Image from "next/image";
 import Link from "next/link";
-import { formatPrice } from "@/lib/formatPrice";
+import { formatPrice } from "@/lib/format-price";
 import { CartProduct, useCart } from "@/hooks/use-cart";
 import { Minus, Plus, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
