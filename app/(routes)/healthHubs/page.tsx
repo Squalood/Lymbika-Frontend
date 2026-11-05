@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { PageType } from "@/types/pages";
 import MedicalHero from "./components/heroSection";
 import Section1 from "./components/section1";
 import Section2 from "./components/section2";

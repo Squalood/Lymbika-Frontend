@@ -11,7 +11,6 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
-import {ResponseType} from '@/types/response';
 import { useGetCategories } from "@/hooks/use-categories"
 import { Skeleton } from "./ui/skeleton"
 import Image from "next/image"
@@ -30,7 +29,7 @@ type MenuListProps = {
 
 const MenuList = ({ navContent }: MenuListProps) => {
   const { membershipName } = useSiteConfig();
-  const { loading, result,}:ResponseType = useGetCategories();
+  const { loading, result,} = useGetCategories();
   const { clinics } = useGetClinics();
   const { surgeries } = useGetFeaturedSurgeries();
   const pathname = usePathname();

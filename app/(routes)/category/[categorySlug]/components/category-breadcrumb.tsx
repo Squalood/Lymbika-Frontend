@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ChevronDownIcon, SlashIcon } from "lucide-react";
+import { ChevronDownIcon } from "lucide-react";
 import {
   Breadcrumb,
   BreadcrumbItem,

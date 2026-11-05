@@ -33,6 +33,11 @@ jobs:
       - name: Instalar dependencias
         run: npm ci
 
+      # Antes del build porque tarda segundos: un error de lint falla rápido
+      # sin esperar a que compile. El lint está en cero; que se quede así.
+      - name: Lint
+        run: npm run lint
+
       - name: Build
         env:
           NEXT_PUBLIC_BACKEND_URL: ${{ secrets.NEXT_PUBLIC_BACKEND_URL }}

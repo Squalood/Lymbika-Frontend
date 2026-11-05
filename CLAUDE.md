@@ -17,7 +17,7 @@ Stack: Next.js 16 (App Router, turbopack) + React 19 + TypeScript, Tailwind 3 + 
 
 ## Deploy / CI
 - Producción en **AWS Amplify** (Server Actions corren en Lambda, tope ~6 MB por request → los archivos grandes se suben directo del navegador a Strapi). No es Vercel.
-- `.github/workflows/build.yml`: `npm ci` + `npm run build` en push a `main` y en PRs (Node 20, secrets con las `NEXT_PUBLIC_*`).
+- `.github/workflows/build.yml`: `npm ci` + `npm run lint` + `npm run build` en push a `main` y en PRs. **El lint está en cero y el CI falla con cualquier error nuevo** (Node 20, secrets con las `NEXT_PUBLIC_*`).
 - Ramas: `main` (prod), `test`, `ci/build-check`.
 
 ## Mapa de carpetas

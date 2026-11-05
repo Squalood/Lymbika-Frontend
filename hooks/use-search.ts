@@ -9,7 +9,6 @@ import { useGetServices } from "@/hooks/use-services";
 import { useGetCategories } from "@/hooks/use-categories";
 import { useGetAllMedicalServices } from "@/hooks/use-all-medical-services";
 import { useGetClinics } from "@/hooks/use-clinics";
-import { ResponseType } from "@/types/response";
 import { ServiceType } from "@/types/service";
 import { CategoryType } from "@/types/category";
 import { SearchableItem, SearchableType } from "@/types/search";
@@ -64,8 +63,8 @@ export function useSearch({
 
   const { products } = useGetProducts({ enabled: pedir("product") });
   const { doctors } = useGetDoctors({ enabled: pedir("doctor") });
-  const { result: services }: ResponseType = useGetServices({ enabled: pedir("service") });
-  const { result: categories }: ResponseType = useGetCategories({ enabled: pedir("category") });
+  const { result: services } = useGetServices({ enabled: pedir("service") });
+  const { result: categories } = useGetCategories({ enabled: pedir("category") });
   const { medicalServices } = useGetAllMedicalServices({ enabled: pedir("medicalService") });
   const { clinics } = useGetClinics({ enabled: pedir("clinic") });
 

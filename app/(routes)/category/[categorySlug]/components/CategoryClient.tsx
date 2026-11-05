@@ -10,15 +10,6 @@ import ItemsFilterMobile from "./filter-type-mobile";
 import PaginationControls from "./pagination";
 import { Search } from "@/components/searchBar";
 import ProductCard from "@/components/productCard";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { ChevronDownIcon } from "lucide-react";
-import Link from "next/link";
 import CategoryBreadcrumb from "./category-breadcrumb";
 
 const PRODUCTS_PER_PAGE_MOBILE = 8;

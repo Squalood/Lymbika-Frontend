@@ -1,13 +1,12 @@
 "use client"
 import { useGetCategories } from "@/hooks/use-categories";
 import { CategoryType } from "@/types/category";
-import {ResponseType} from '@/types/response';
 import Link from "next/link";
 import CategoryGridSkeleton from "./skeleton/categoryGridSkeleton";
 import { CATEGORY_ICONS } from "@/lib/categoryIcons";
 
 const ChooseCategoryAlt = ({ title }: { title?: string }) => {
-    const { result, loading }: ResponseType = useGetCategories()
+    const { result, loading } = useGetCategories()
 
     return (
         <div className="sm:max-w-6xl py-4 mx-2 lg:mx-auto sm:py-16">

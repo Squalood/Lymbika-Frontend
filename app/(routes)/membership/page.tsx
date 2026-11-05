@@ -1,4 +1,3 @@
-import { MembershipType } from "@/types/membership";
 import { getMembershipPage, getMemberships } from "@/lib/strapi/pages";
 import PlansMemberPage from "@/components/features/membership/plans";
 import { clean } from "@/lib/utils";

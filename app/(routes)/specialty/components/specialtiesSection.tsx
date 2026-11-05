@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useGetServices } from "@/hooks/use-services";
-import { ResponseType } from "@/types/response";
 import { ServiceType } from "@/types/service";
 import SpecialtiesGridSkeleton from "@/components/skeleton/specialtyCardSkeleton";
 import SpecialtyCard from "./specialtyCard";
@@ -10,7 +9,7 @@ import { ShowMoreButton } from "@/components/show-more-button";
 import { REVEAL_ESPECIALIDADES, getItemClass, getButtonClass } from "@/lib/gridReveal";
 
 const SpecialtiesSection = () => {
-  const { result: servicesResult, loading: servicesLoading }: ResponseType = useGetServices();
+  const { result: servicesResult, loading: servicesLoading } = useGetServices();
   const [primaryExpanded, setPrimaryExpanded] = useState(false);
   const [specialtyExpanded, setSpecialtyExpanded] = useState(false);
 

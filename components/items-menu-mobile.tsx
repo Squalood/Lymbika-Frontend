@@ -29,7 +29,6 @@ import {
 import Link from "next/link";
 import { CategoryType } from "@/types/category";
 import { useGetCategories } from "@/hooks/use-categories";
-import { ResponseType } from "@/types/response";
 import { useCart } from "@/hooks/use-cart";
 import { UseLovedProducts } from "@/hooks/use-loved-products";
 import { LoggedInUser } from "./custom/UserLogin";
@@ -51,7 +50,7 @@ interface NavbarProps {
 }
 
 const ItemsMenuMobile = ({ user, navContent }: NavbarProps) => {
-  const { loading, result }: ResponseType = useGetCategories();
+  const { loading, result } = useGetCategories();
   const { clinics } = useGetClinics();
   const { surgeries, loading: loadingSurgeries } = useGetFeaturedSurgeries();
   const cart = useCart();

@@ -1,14 +1,13 @@
 "use client";
 
 import { useGetFeaturedProducts } from "@/hooks/use-featured-products";
-import { ResponseType } from "@/types/response";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./ui/carousel";
 import SkeletonSchema from "./skeleton/skeletonSchema";
 import { ProductType } from "@/types/product";
 import ProductCard from "./productCard";
 
 const FeaturedProducts = () => {
-    const { loading, result }: ResponseType = useGetFeaturedProducts();
+    const { loading, result } = useGetFeaturedProducts();
 
     return ( 
         <div className="max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-4xl py-4 mx-auto sm:py-8">
