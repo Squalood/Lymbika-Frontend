@@ -2,7 +2,7 @@ import { MembershipType } from "@/types/membership";
 import { getMembershipPage } from "@/api/getMembershipPage";
 import PlansMemberPage from "@/components/features/membership/plans";
 import { clean } from "@/lib/utils";
-import MembershipFaq from "./components/membershipFaq";
+import Faq from "@/components/faq";
 
 const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
 
@@ -75,7 +75,7 @@ export default async function Page() {
         featuredLabel={clean(texts?.featured_label)}
         pricePeriod={clean(texts?.price_period)}
       />
-      {faq_group && <MembershipFaq faqGroup={faq_group} />}
+      {faq_group && <Faq faqGroup={faq_group} />}
     </div>
   );
 }

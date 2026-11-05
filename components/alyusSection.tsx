@@ -1,6 +1,6 @@
 import Link from "next/link"
 import ChatDemo from "@/components/chat-demo"
-import PlanSectionAlt from "@/components/features/membership/plans-section-alt"
+import PlanSection from "@/components/features/membership/plans-section"
 import { HomeFeature, HomeChatMessage } from "@/types/single-types/home"
 import {
   Zap, Shield, Brain, Heart, Clock, Star, Globe, Phone, Lock,
@@ -102,7 +102,7 @@ const AlyusSection = ({
 
         </div>
 
-        <PlanSectionAlt />
+        <PlanSection />
       </div>
     </section>
   );

@@ -1,31 +1,25 @@
-import { useEffect, useState } from "react";
 import { FaqType } from "@/types/faq";
 
-export function useGetFaqGroups() {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/faq-groups?populate=*`;
-  const [faqGroups, setFaqGroups] = useState<FaqType[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await fetch(url);
-        const json = await res.json();
-
-      if (json.data && Array.isArray(json.data)) {
-          setFaqGroups(json.data);
-      } else {
-        setFaqGroups([]);
-      }
-
-      } catch (error: any) {
-        setError(error.message || "Error al obtener FAQs");
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, [url]);
-
-  return { loading, faqGroups, error };
+/**
+ * Un faq-group por slug, desde el servidor (las preguntas salen en el HTML).
+ * Devuelve null si no existe o si Strapi falla: la página sigue sin el FAQ.
+ */
+export async function getFaqGroup(slug: string): Promise<FaqType | null> {
+  try {
+    const res = await fetch(
+      `${BASE}/api/faq-groups?filters[slug][$eq]=${encodeURIComponent(slug)}&populate[faq]=true`,
+      { next: { revalidate: 3600 } }
+    );
+    if (!res.ok) {
+      console.error("[faq-group] Strapi error:", res.status);
+      return null;
+    }
+    const json = await res.json();
+    return json.data?.[0] ?? null;
+  } catch (err) {
+    console.error("[faq-group] fetch failed:", err);
+    return null;
+  }
 }

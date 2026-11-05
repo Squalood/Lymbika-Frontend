@@ -6,8 +6,9 @@ import Section2 from "./components/section2";
 import Section3 from "./components/section3";
 import PlansSection from "./components/plansSection";
 import Section4 from "./components/section4";
-import FaqSection from "./components/faqSection";
 import CTASection from "./components/ctaSection";
+import FaqCard from "@/components/faq-card";
+import { getFaqGroup } from "@/api/getFaqGroups";
 
 export const metadata: Metadata = {
   title: "¿Eres doctor? | Lymbika Healthcare",
@@ -46,9 +47,13 @@ async function getHealthHubsData() {
 }
 
 export default async function Page() {
-  const { page, heroPage, planPages } = await getHealthHubsData();
+  const [{ page, heroPage, planPages }, faqDoctores] = await Promise.all([
+    getHealthHubsData(),
+    getFaqGroup("plan-doctores"),
+  ]);
 
   const json = page?.landingPageJson;
+  const faqTextos = json?.doctoresFaqSection;
   const hero = heroPage?.hero;
 
   return (
@@ -63,7 +68,17 @@ export default async function Page() {
         modalPlan={planPages[0]?.ModalPlan?.[0]}
       />
       <Section4 data={json?.doctoresSection4} />
-      <FaqSection data={json?.doctoresFaqSection} />
+      {faqDoctores && (
+        <FaqCard
+          faqGroup={faqDoctores}
+          align="left"
+          label={faqTextos?.badge}
+          title={faqTextos?.title}
+          cardTitle={faqTextos?.cardTitle}
+          cardSubtitle={faqTextos?.cardSubtitle}
+          notice={faqTextos?.notice}
+        />
+      )}
       <CTASection data={json?.doctoresCtaSection} />
     </div>
   );
