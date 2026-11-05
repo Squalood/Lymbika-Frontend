@@ -2,7 +2,8 @@
 import { useSearchParams } from "next/navigation";
 import { useGetDoctors } from "@/api/getDoctor";
 import { Search } from "@/components/searchBar";
-import DoctorReel from "../../doctor-catalog/components/doctorReel";
+import { sinAcentos } from "@/lib/utils";
+import DoctorReel from "@/components/features/doctors/doctor-reel";
 
 interface ReviewPageClientProps {
   userId?: number;
@@ -12,23 +13,12 @@ export default function ReviewPageClient({ userId }: ReviewPageClientProps) {
   const { doctors, loading } = useGetDoctors();
   const searchParams = useSearchParams();
 
-  const query =
-    searchParams
-      .get("query")
-      ?.toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "") || "";
-
-  const normalize = (text?: string) =>
-    (text || "")
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
+  const query = sinAcentos(searchParams.get("query"));
 
   const filteredDoctors = doctors.filter(
     (d) =>
-      normalize(d.doctorName).includes(query) ||
-      normalize(d.location).includes(query)
+      sinAcentos(d.doctorName).includes(query) ||
+      sinAcentos(d.location).includes(query)
   );
 
   if (loading) return <p className="text-center mt-10">Cargando...</p>;

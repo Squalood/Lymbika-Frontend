@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useGetMedicalServiceCatalog } from "@/api/useGetMedicalServiceCatalog";
 import MedicalServicesCatalogSkeleton from "@/components/skeleton/medicalServicesCatalogSkeleton";
-import MedicalServiceCard from "./medicalServiceCard";
+import MedicalServiceCard from "@/components/features/medical-services/medical-service-card";
 import { ShowMoreButton } from "@/components/show-more-button";
 import { TYPE_LABELS, TYPE_ORDER } from "@/lib/medicalServiceTypes";
 import { REVEAL_SERVICIOS, getItemClass, getButtonClass } from "@/lib/gridReveal";

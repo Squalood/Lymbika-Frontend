@@ -1,6 +1,6 @@
 "use client";
 
-import { useIsMobile } from "@/hooks/use-mobile";
+import { useIsDesktop } from "@/hooks/use-is-desktop";
 import {
   Sheet,
   SheetContent,
@@ -16,7 +16,7 @@ interface BookingDialogProps {
 }
 
 export function BookingDialog({ src, title, trigger }: BookingDialogProps) {
-  const isMobile = useIsMobile();
+  const isMobile = !useIsDesktop();
   const side = isMobile ? "bottom" : "right";
   const contentClass = isMobile
     ? "p-0 overflow-hidden rounded-t-3xl max-h-[90vh] mx-2"

@@ -10,7 +10,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { FeaturedSurgeryType } from "@/api/useGetFeaturedSurgeries";
-import MedicalServiceCard from "@/app/(routes)/specialty/components/medicalServiceCard";
+import MedicalServiceCard from "@/components/features/medical-services/medical-service-card";
 
 type SurgeriesListProps = {
   surgeries: FeaturedSurgeryType[];

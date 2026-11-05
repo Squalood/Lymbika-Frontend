@@ -1,7 +1,5 @@
 "use client";
 
-import { useGetDoctors } from "@/api/getDoctor";
-import { useGetProducts } from "@/api/getProducts";
 import { SearchGeneral } from "@/components/searchGeneral";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
@@ -9,18 +7,16 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ShoppingCart, MapPin, Clock, Shield } from "lucide-react";
 import { PageType } from "@/types/pages";
-import { useState } from "react";
+import { SearchableType } from "@/types/search";
 
 type HeroProps = {
   hero: PageType["hero"] | undefined;
 };
 
-const HeroSection = ({ hero }: HeroProps) => {
-  // Los catálogos del buscador no se piden hasta que alguien toca la barra.
-  const [buscadorActivo, setBuscadorActivo] = useState(false);
-  const { products } = useGetProducts({ enabled: buscadorActivo });
-  const { doctors } = useGetDoctors({ enabled: buscadorActivo });
+// La barra de la tienda solo busca productos y doctores.
+const TIPOS_BUSQUEDA: SearchableType[] = ["product", "doctor"];
 
+const HeroSection = ({ hero }: HeroProps) => {
   if (!hero) return null;
   
   return (
@@ -66,15 +62,7 @@ const HeroSection = ({ hero }: HeroProps) => {
 
             {/* Barra de búsqueda */}
             <div className="flex w-full text-black">
-              <SearchGeneral 
-                onActivate={() => setBuscadorActivo(true)}
-                allProducts={products} 
-                allDoctors={doctors} 
-                allServices={[]}
-                allCategories={[]}
-                allMedicalServices={[]}
-                allClinics={[]}
-              />
+              <SearchGeneral include={TIPOS_BUSQUEDA} />
             </div>
           </div>
 

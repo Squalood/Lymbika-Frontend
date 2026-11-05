@@ -2,7 +2,7 @@
 
 import { useGetDoctors } from "@/api/getDoctor";
 import { DoctorType } from "@/types/doctor";
-import CardDoctor from "./doctor-card";
+import CardDoctor from "@/components/features/doctors/doctor-card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import SkeletonDoctorCardVertical from "@/components/skeleton/skeletonDoctorCardVertical";
 

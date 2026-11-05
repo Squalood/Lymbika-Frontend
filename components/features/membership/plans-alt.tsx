@@ -5,7 +5,7 @@ import { Check, Star, Stethoscope, PersonStanding, Pill } from "lucide-react";
 import { MembershipType } from "@/types/membership";
 import { cn } from "@/lib/utils";
 import { formatPrice } from "@/lib/formatPrice";
-import PlanToggle from "./PlanToggle";
+import PlanToggle from "@/components/features/membership/plan-toggle";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import { useSubscribe } from "@/hooks/use-subscribe";
 

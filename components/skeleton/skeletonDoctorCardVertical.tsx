@@ -1,16 +1,14 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import { useWindowSize } from "@/hooks/useWindowSize";
 
+// Una tarjeta por columna visible (1, 2 o 3, como la grilla): se ocultan con
+// CSS en vez de medir la ventana, así no hace falta JS.
+const VISIBILIDAD = ["flex", "hidden sm:flex", "hidden lg:flex"];
 
 const SkeletonDoctorCardVertical = () => {
-    const { width } = useWindowSize();
-
-    const columns = width >= 1024 ? 3 : width >= 640 ? 2 : 1;
-    
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-            {Array.from({ length: columns }).map((_, idx) => (
-            <div key={idx} className="flex flex-col justify-between my-8 mx-auto">
+            {VISIBILIDAD.map((visible, idx) => (
+            <div key={idx} className={`${visible} flex-col justify-between my-8 mx-auto`}>
                 <div className="flex items-start gap-4 p-6">
                     {/* Imagen circular del doctor */}
                     <Skeleton className="w-24 h-24 rounded-full" />

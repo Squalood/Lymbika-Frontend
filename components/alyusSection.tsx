@@ -1,6 +1,6 @@
 import Link from "next/link"
 import ChatDemo from "@/components/chat-demo"
-import PlanSectionAlt from "@/app/(routes)/membership/components/plansSectionAlt"
+import PlanSectionAlt from "@/components/features/membership/plans-section-alt"
 import { HomeFeature, HomeChatMessage } from "@/types/single-types/home"
 import {
   Zap, Shield, Brain, Heart, Clock, Star, Globe, Phone, Lock,

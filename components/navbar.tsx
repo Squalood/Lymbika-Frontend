@@ -10,14 +10,7 @@ import { LoggedInUser } from "./custom/UserLogin";
 import { Button } from "./ui/button";
 import { useEffect, useRef, useState } from "react";
 import { SearchGeneral } from "./searchGeneral";
-import { useGetProducts } from "@/api/getProducts";
 import { AnimatePresence, motion } from "framer-motion";
-import { useGetDoctors } from "@/api/getDoctor";
-import { useGetServices } from "@/api/getService";
-import { ResponseType } from "@/types/response";
-import { useGetCategories } from "@/api/getCategories";
-import { useGetAllMedicalServices } from "@/api/useGetAllMedicalServices";
-import { useGetClinics } from "@/api/useGetClinics";
 import { NavbarSectionType } from "@/types/single-types/navbar";
 
 interface AuthUserProps {
@@ -38,17 +31,6 @@ interface AuthUserProps {
     
     const [showSearch, setShowSearch] = useState(false);
     const searchRef = useRef<HTMLDivElement>(null)
-
-    // Estos cinco catálogos solo alimentan el buscador, que arranca plegado.
-    // Antes se descargaban en cada carga de cada página aunque nadie buscara, y
-    // el de productos son ~3.000 registros. Ahora se piden al abrir la lupa.
-    const { products } = useGetProducts({ enabled: showSearch });
-    const { doctors } = useGetDoctors({ enabled: showSearch });
-    const { result: services }: ResponseType = useGetServices({ enabled: showSearch });
-    const { result: category }: ResponseType = useGetCategories({ enabled: showSearch });
-    const { medicalServices } = useGetAllMedicalServices({ enabled: showSearch });
-    // Las clínicas no se difieren: MenuList las necesita para el menú principal.
-    const { clinics } = useGetClinics();
 
     const textColor = pathname === "/" ? "text-background" : "text-black";
     const fillColor = lovedItems.length > 0 ? (pathname === "/" ? "fill-background" : "fill-black") : "";
@@ -140,7 +122,8 @@ interface AuthUserProps {
                         transition={{ duration: 0.3 }}
                         className="absolute top-full w-full sm:w-96 z-50 mt-2"
                     >
-                        <SearchGeneral allProducts={products} allDoctors={doctors} allServices={services ?? []} allCategories={category} allMedicalServices={medicalServices} allClinics={clinics} />
+                        {/* Los catálogos se piden hasta que alguien toca la barra (useSearch). */}
+                        <SearchGeneral />
                     </motion.div>
                     )}
                 </AnimatePresence>

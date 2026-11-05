@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { MedicalServiceCatalogItem } from "@/types/medicalService";
-import MedicalServiceCard from "../../components/medicalServiceCard";
+import MedicalServiceCard from "@/components/features/medical-services/medical-service-card";
 import { ShowMoreButton } from "@/components/show-more-button";
 import { TYPE_LABELS, TYPE_ORDER } from "@/lib/medicalServiceTypes";
 import { REVEAL_SERVICIOS, getItemClass, getButtonClass } from "@/lib/gridReveal";

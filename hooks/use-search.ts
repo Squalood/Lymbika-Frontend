@@ -13,6 +13,7 @@ import { ResponseType } from "@/types/response";
 import { ServiceType } from "@/types/service";
 import { CategoryType } from "@/types/category";
 import { SearchableItem, SearchableType } from "@/types/search";
+import { sinAcentos as normalize } from "@/lib/utils";
 
 type UseSearchOptions = {
   /** Tipos de contenido en los que se busca. Por defecto, todos. */
@@ -33,10 +34,6 @@ const ALL_TYPES: SearchableType[] = [
   "medicalService",
   "clinic",
 ];
-
-/** Quita acentos y pasa a minúsculas para comparar sin diacríticos. */
-const normalize = (value: string) =>
-  value.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
 
 /**
  * Concentra toda la lógica de una barra de búsqueda global: carga de datos,

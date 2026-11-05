@@ -13,6 +13,7 @@ import { Stethoscope, Hospital } from "lucide-react";
 import ProductCard from "@/components/productCard";
 import { ProductType } from "@/types/product";
 import { MedicalServiceType } from "@/types/medicalService";
+import { sinAcentos } from "@/lib/utils";
 
 const MEDICAL_SERVICE_TYPE_LABELS: Record<MedicalServiceType["type"], string> = {
   consultation: "Consulta",
@@ -33,20 +34,10 @@ export default function SearchResultsPage() {
   const { medicalServices } = useGetAllMedicalServices({ enabled: hayConsulta });
   const { clinics } = useGetClinics({ enabled: hayConsulta });
 
-  const query = searchParams
-    .get("query")
-    ?.toLowerCase()
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "") || "";
-
-  const normalize = (text?: string) =>
-    (text || "")
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[̀-ͯ]/g, "");
+  const query = sinAcentos(searchParams.get("query"));
 
   const filterByQuery = (name?: string, sal?: string) =>
-    normalize(name).includes(query) || normalize(sal).includes(query);
+    sinAcentos(name).includes(query) || sinAcentos(sal).includes(query);
 
   const filteredProducts = products.filter((p) =>
     filterByQuery(p.productName, p.sal)

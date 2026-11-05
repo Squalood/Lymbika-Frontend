@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ClinicType } from "@/types/clinic";
 import { CAMPOS_CLINICA } from "@/lib/clinic-fields";
-import Clinics from "./[clinicSlug]/components/clinics";
+import Clinics from "@/components/features/clinics/clinics-list";
 
 export const metadata: Metadata = {
   title: "Clínicas | Lymbika Healthcare",

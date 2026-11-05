@@ -3,8 +3,8 @@
 import { useMemo, useState } from "react";
 import { useGetServices } from "@/api/getService";
 import { useGetMedicalServiceCatalog } from "@/api/useGetMedicalServiceCatalog";
-import SpecialtiesSectionCarousel from "@/app/(routes)/specialty/components/specialtiesSectionCarousel";
-import MedicalServicesCatalogCarousel from "@/app/(routes)/specialty/components/medicalServicesCatalogCarousel";
+import SpecialtiesSectionCarousel from "@/components/features/medical-services/specialties-section-carousel";
+import MedicalServicesCatalogCarousel from "@/components/features/medical-services/medical-services-catalog-carousel";
 
 type CarouselServicesProps = {
   title?: string

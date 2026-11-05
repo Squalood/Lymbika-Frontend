@@ -1,5 +1,5 @@
 import { MedicalServiceType } from "@/types/medicalService";
-import HospitalCardSimple from "@/app/(routes)/hospitals/components/hospitalCardSimple";
+import HospitalCardSimple from "@/components/features/hospitals/hospital-card-simple";
 
 export default function Hospitals({ service }: { service: MedicalServiceType }) {
   const hospitals = service.hospitals ?? [];

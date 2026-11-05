@@ -2,7 +2,7 @@
 
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { HospitalType } from "@/types/hospital";
-import HospitalCardSimple from "./hospitalCardSimple";
+import HospitalCardSimple from "@/components/features/hospitals/hospital-card-simple";
 
 interface HospitaSectionProps {
   hospitals: HospitalType[];

@@ -22,12 +22,13 @@ Stack: Next.js 16 (App Router, turbopack) + React 19 + TypeScript, Tailwind 3 + 
 
 ## Mapa de carpetas
 - `app/(routes)/` — páginas: `shop`, `category/[categorySlug]`, `product/[productSlug]`, `cart`, `success`/`successError`, `loved-products`, `search`, `doctor-catalog`, `doctor/[doctorSlug]`, `clinics/[clinicSlug]`, `hospitals`, `healthHubs`, `specialty/[specialtySlug]/[medicalServiceSlug]` (landing de servicio médico en `sections/`), `membership`, `case/start` + `case/[token]`, `schedules` (landing de la sucursal; `config.ts` con horario/zona), `vive-lymbika`, `about`, `privacidad`, `review`, `dashboard` (`account`, `summaries`, `operations` = admin de casos por rol).
-  Cada ruta guarda sus piezas en su propia `components/` (o `sections/`).
+  Cada ruta guarda en su `components/` (o `sections/`) solo lo que usa **esa** ruta. **Regla: si dos rutas (o la home) usan algo, va a `components/features/<dominio>/`; nunca se importa desde la carpeta de otra ruta.**
 - `app/(auth)/signin|signup`; callbacks de Google en `app/api/auth/google/route.ts`, `app/auth/google`, `app/connect/google/redirect` (tres rutas, mismo handler; ver `docs/autenticacion.md`).
 - `app/data/actions/` — Server Actions (`"use server"`): auth, checkout, subscription, case, case-admin, reviews, profile, orders. `app/data/services/` — `mutate-data.ts`, `get-token.ts`, `get-user-me-loader.ts`, `auth-errors.ts` (errores de Strapi traducidos).
 - `api/` — lectura de Strapi: `get*.ts` async para server components; `use*`/`get*.tsx` con `"use client"` son hooks.
-- `components/` — `ui/` (shadcn, no editar a mano salvo necesidad), `forms/`, `auth/`, `skeleton/`, `commerce-ui/`, y componentes de sección sueltos.
-- `hooks/` — `use-cart` y `use-loved-products` (zustand + persist en localStorage), `use-search`, `use-subscribe`, `use-mobile`.
+- `components/` — `ui/` (shadcn, no editar a mano salvo necesidad), `features/<dominio>/` (compartidos por varias rutas: `membership`, `hospitals`, `clinics`, `medical-services`, `doctors`; archivos en kebab-case), `forms/`, `auth/`, `skeleton/`, `commerce-ui/`, y componentes de sección sueltos.
+- `hooks/` — `use-cart` y `use-loved-products` (zustand + persist en localStorage), `use-search` (única lógica de búsqueda: la usan la barra del hero y `SearchGeneral` del navbar/tienda), `use-subscribe`, `use-is-desktop` (único hook de tamaño de pantalla).
+- Utilidades de texto en `lib/utils.ts`: `cn`, `clean`, `sinAcentos` (comparar búsquedas sin acentos; no reimplementarla).
 - `lib/` — `media.ts` + `media-loader.ts`, `product-fields.ts`, `clinic-fields.ts`, `client-resource.ts`, `site-config.ts`, `constants.ts`, `membership-state.ts`, `financiamiento.ts`, `case/`.
 - `types/` — tipos de cada colección; `types/single-types/` para los single types (home, navbar, about, membership-page, schedules-page, site-config).
 - `proxy.ts` — el "middleware" de Next 16: protege `/dashboard` y `/review` (solo verifica que exista la cookie `jwt`).

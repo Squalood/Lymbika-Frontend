@@ -6,7 +6,7 @@ import SkeletonSchema from "@/components/skeleton/skeletonSchema";
 import { useState } from "react";
 import { DoctorType } from "@/types/doctor";
 import FiltersControlsService from "./filters-controls-service";
-import CardDoctor from "./doctor-card";
+import CardDoctor from "@/components/features/doctors/doctor-card";
 import { useGetDoctorsByCategory } from "@/api/getDoctorsByCategory";
 import FiltersControlsServiceMovil from "./filters-service-movil";
 

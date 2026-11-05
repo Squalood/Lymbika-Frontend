@@ -1,6 +1,6 @@
 import { MembershipType } from "@/types/membership";
 import { getMembershipPage } from "@/api/getMembershipPage";
-import PlansMemberPage from "./components/plans";
+import PlansMemberPage from "@/components/features/membership/plans";
 import { clean } from "@/lib/utils";
 import MembershipFaq from "./components/membershipFaq";
 

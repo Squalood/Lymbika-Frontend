@@ -1,8 +1,8 @@
 "use client";
 
 import { useGetHospitals } from "@/api/getHospitals";
-import HospitaCarousel from "./hospitalCarousel";
-import HospitalCardSkeleton from "./hospitalCardSkeleton";
+import HospitaCarousel from "@/components/features/hospitals/hospital-carousel";
+import HospitalCardSkeleton from "@/components/features/hospitals/hospital-card-skeleton";
 
 
 const HospitaSection = ({ title }: { title?: string }) => {

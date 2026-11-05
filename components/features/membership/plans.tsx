@@ -5,7 +5,7 @@
   import { Button } from "@/components/ui/button";
   import { useState } from "react";
   import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
-  import PlanToggle from "./PlanToggle";
+  import PlanToggle from "@/components/features/membership/plan-toggle";
   import { MembershipType } from "@/types/membership";
   import { cn } from "@/lib/utils";
   import { formatPrice } from "@/lib/formatPrice";

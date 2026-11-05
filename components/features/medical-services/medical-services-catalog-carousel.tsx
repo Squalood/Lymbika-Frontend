@@ -2,7 +2,7 @@
 
 import { MedicalServiceCatalogItem } from "@/types/medicalService";
 import { MedicalServiceCardsCarouselSkeleton } from "@/components/skeleton/medicalServiceCardSkeleton";
-import MedicalServiceCard from "./medicalServiceCard";
+import MedicalServiceCard from "@/components/features/medical-services/medical-service-card";
 import {
   Carousel,
   CarouselContent,

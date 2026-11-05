@@ -5,7 +5,7 @@ import { Stethoscope } from "lucide-react";
 import Image from "next/image";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import DoctorReviewCarousel from "./doctorReviewCarousel";
+import DoctorReviewCarousel from "@/components/features/doctors/doctor-review-carousel";
 import { Separator } from "@/components/ui/separator";
 import { ReviewForm } from "@/components/reviewForm";
 

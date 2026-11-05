@@ -5,7 +5,7 @@ import { FeaturesSection } from "./components/featuresSection";
 import HeroSection from "./components/heroSection";
 import CTASection from "./components/ctaSection";
 import PromoCarousel from "@/components/promosection";
-import PlanSection from "../membership/components/plansSection";
+import PlanSection from "@/components/features/membership/plans-section";
 export const metadata: Metadata = {
   title: "Farmacia | Lymbika",
   description: "Encuentra medicamentos, suplementos y productos de cuidado personal. Compra en línea con entrega a domicilio.",

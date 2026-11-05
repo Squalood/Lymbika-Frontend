@@ -1,7 +1,7 @@
 "use client";
 
 import { useGetClinics } from "@/api/useGetClinics";
-import Clinics from "./[clinicSlug]/components/clinics";
+import Clinics from "@/components/features/clinics/clinics-list";
 import ClinicsHomeSkeleton from "@/components/skeleton/clinicsHomeSkeleton";
 
 export default function ClinicsClientWrapper({ title }: { title?: string }) {
