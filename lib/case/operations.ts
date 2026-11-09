@@ -52,6 +52,33 @@ export function inputLocalAIso(valor: string): string | null {
   return new Date(comoUtc.getTime() - desfase).toISOString();
 }
 
+// ── Fechas sin hora (compromiso, próxima revisión) ──────────────────────────
+// Strapi las guarda como "YYYY-MM-DD". Se comparan como texto contra el día de
+// hoy en Juárez: en UTC el día cambia 6-7 h antes y una tarea de hoy saldría
+// vencida desde las 6 p. m.
+
+/** Hoy en Juárez, "YYYY-MM-DD". */
+export function hoyEnJuarez(): string {
+  const p = partesEnZona(new Date());
+  return `${p.year}-${p.month}-${p.day}`;
+}
+
+/** "YYYY-MM-DD" + n días (calendario, sin zona). */
+export function sumarDias(fecha: string, dias: number): string {
+  const d = new Date(`${fecha}T12:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + dias);
+  return d.toISOString().slice(0, 10);
+}
+
+const MESES = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
+
+/** "2026-11-09" → "9 nov" (con año si no es el actual). */
+export function fechaCorta(fecha: string): string {
+  const [anio, mes, dia] = fecha.split("-");
+  const base = `${Number(dia)} ${MESES[Number(mes) - 1]}`;
+  return anio === hoyEnJuarez().slice(0, 4) ? base : `${base} ${anio}`;
+}
+
 /** "hace 5 min", "hace 3 h", "hace 2 días". Solo para componentes de servidor. */
 export function haceCuanto(iso: string): string {
   const minutos = Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 60000));

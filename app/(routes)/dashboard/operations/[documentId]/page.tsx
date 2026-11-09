@@ -5,20 +5,23 @@ import { Button } from "@/components/ui/button";
 import {
   catalogosDelCaso,
   doctorAsignado,
+  listarEquipo,
   obtenerCaso,
 } from "@/app/data/services/case-admin-service";
 import {
   ESTUDIOS_PACIENTE,
   INTENCION_PACIENTE,
-  ORIGEN_CASO,
+  ORIGEN,
   RESPUESTA_SI_NO,
+  SIN_REGISTRAR,
 } from "@/lib/case/labels";
-import { enlaceWhatsApp, haceCuanto } from "@/lib/case/operations";
+import { enlaceWhatsApp, haceCuanto, hoyEnJuarez } from "@/lib/case/operations";
 import { formatLongDate } from "@/lib/format-date";
 import { EstadoBadge, PrioridadBadge, UrgenteBadge } from "../components/estado-badge";
 import { CopiarEnlace } from "../components/copiar-enlace";
 import { DocumentosCaso } from "../components/documentos-caso";
 import { EditorCaso } from "../components/editor-caso";
+import { PanelRapido } from "../components/panel-rapido";
 
 type Props = {
   params: Promise<{ documentId: string }>;
@@ -36,14 +39,18 @@ function Dato({ label, valor }: { label: string; valor?: string | null }) {
 
 export default async function CasoOperacionPage({ params }: Props) {
   const { documentId } = await params;
-  const [caso, catalogos, doctor] = await Promise.all([
+  const [caso, catalogos, doctor, equipo] = await Promise.all([
     obtenerCaso(documentId),
     catalogosDelCaso(),
     doctorAsignado(),
+    listarEquipo(),
   ]);
   if (!caso) notFound();
 
   const token = caso.patientLink?.split("/case/")[1] ?? null;
+  const origen = caso.originType
+    ? [ORIGEN[caso.originType], caso.originDetail].filter(Boolean).join(": ")
+    : `Origen ${SIN_REGISTRAR.toLowerCase()}`;
 
   return (
     <div className="space-y-5">
@@ -63,8 +70,8 @@ export default async function CasoOperacionPage({ params }: Props) {
             {caso.emergencyFlag && <UrgenteBadge />}
           </div>
           <p className="text-sm text-muted-foreground">
-            {caso.caseNumber} · {ORIGEN_CASO[caso.source ?? ""] ?? caso.source ?? "—"} · recibido{" "}
-            {haceCuanto(caso.createdAt)}
+            {caso.caseNumber} · {origen} · recibido {haceCuanto(caso.createdAt)} · última
+            gestión {haceCuanto(caso.updatedAt)}
           </p>
         </div>
         {/* En el teléfono: WhatsApp a lo ancho y los otros dos lado a lado. */}
@@ -94,6 +101,15 @@ export default async function CasoOperacionPage({ params }: Props) {
         </div>
       </div>
 
+      {/* Dónde está, qué sigue, quién y cuándo: se actualiza sin abrir el expediente. */}
+      <PanelRapido
+        key={`panel-${caso.updatedAt}`}
+        caso={caso}
+        equipo={equipo}
+        puedeAsignarCoordinador={!doctor}
+        hoy={hoyEnJuarez()}
+      />
+
       <div className="grid gap-5 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
         {/* Lo que llenó el paciente: solo lectura */}
         <div className="space-y-4">
@@ -104,7 +120,11 @@ export default async function CasoOperacionPage({ params }: Props) {
                 El relato menciona palabras de alarma. Contactar hoy.
               </p>
             )}
-            <p className="whitespace-pre-wrap text-sm leading-relaxed">{caso.narrative}</p>
+            {caso.narrative?.trim() ? (
+              <p className="whitespace-pre-wrap text-sm leading-relaxed">{caso.narrative}</p>
+            ) : (
+              <p className="text-sm text-muted-foreground">Sin relato registrado.</p>
+            )}
             <dl className="grid gap-3 sm:grid-cols-2">
               <Dato label="Procedimiento" valor={caso.medical_service?.name?.trim()} />
               <Dato label="¿Ya lo revisó un médico?" valor={RESPUESTA_SI_NO[caso.reviewedByDoctor ?? ""]} />
@@ -134,6 +154,7 @@ export default async function CasoOperacionPage({ params }: Props) {
           hospitales={catalogos.hospitales}
           procedimientos={catalogos.procedimientos}
           puedeReasignar={!doctor}
+          puedeVerFinanzas={!doctor}
         />
       </div>
     </div>

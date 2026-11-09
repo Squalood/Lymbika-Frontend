@@ -61,6 +61,35 @@ export type CaseIntakePayload = {
 
 export type CasePriority = "low" | "normal" | "high" | "urgent";
 
+export type CaseOrigen =
+  | "campaign"
+  | "node"
+  | "company"
+  | "community"
+  | "doctor"
+  | "referral"
+  | "other"
+  | "pending";
+
+export type CaseCanal = "whatsapp" | "web" | "phone" | "in_person";
+
+export type CaseAporto = "lymbika" | "doctor";
+
+export type CaseMotivoCierre =
+  | "no_contact"
+  | "not_candidate"
+  | "price"
+  | "chose_other"
+  | "not_interested"
+  | "postponed"
+  | "other";
+
+/**
+ * Usuario del equipo (coordinación o especialista). El backend lo arma así a
+ * mano: el rol no puede leer usuarios por el core REST.
+ */
+export type MiembroEquipo = { documentId: string; nombre: string };
+
 /** Archivo de la biblioteca de Strapi tal como llega con populate. */
 export type CaseFileType = {
   id: number;
@@ -73,7 +102,8 @@ export type CaseFileType = {
 
 /**
  * Caso completo para /dashboard/operations. Viene del core REST de
- * Strapi, así que trae todo menos `accessToken`, que es privado.
+ * Strapi, así que trae todo menos `accessToken`, que es privado. A un
+ * especialista no le llegan notas internas ni cotización (las quita el backend).
  */
 export type AdminCaseType = {
   id: number;
@@ -83,8 +113,21 @@ export type AdminCaseType = {
   estado: CaseEstado;
   priority: CasePriority | null;
   patientNextStep: string | null;
-  internalNotes: string | null;
-  narrative: string;
+  internalNotes?: string | null;
+  narrative: string | null;
+  coordinator?: MiembroEquipo | null;
+  nextAction: string | null;
+  nextActionOwner?: MiembroEquipo | null;
+  /** "YYYY-MM-DD", sin hora. */
+  nextActionDue: string | null;
+  blocker: string | null;
+  nextReviewDate: string | null;
+  originType: CaseOrigen | null;
+  originDetail: string | null;
+  channel: CaseCanal | null;
+  referredBy: CaseAporto | null;
+  closeReason: CaseMotivoCierre | null;
+  isTest: boolean | null;
   reviewedByDoctor: YesNoUnsure | null;
   surgeryIndicated: YesNoUnsure | null;
   documentsStatus: DocumentsStatus | null;
@@ -97,9 +140,9 @@ export type AdminCaseType = {
   consentAt: string | null;
   source: string | null;
   landingPath: string | null;
-  quoteAmount: number | string | null;
-  quoteValidUntil: string | null;
-  quotePresented: boolean | null;
+  quoteAmount?: number | string | null;
+  quoteValidUntil?: string | null;
+  quotePresented?: boolean | null;
   surgeryDate: string | null;
   surgeryDateConfirmed: boolean | null;
   followUpTasks?: { id?: number; title: string; done: boolean }[];

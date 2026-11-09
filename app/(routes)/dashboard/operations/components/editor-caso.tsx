@@ -7,12 +7,12 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { guardarCaso, type CasoEditable } from "@/app/data/actions/case-admin-actions";
-import { ESTADO_COORDINADOR, ESTADOS_ORDEN, PRIORIDAD, SIGUIENTE_PASO_PACIENTE } from "@/lib/case/labels";
+import { SIGUIENTE_PASO_PACIENTE } from "@/lib/case/labels";
 import { inputLocalAIso, isoAInputLocal } from "@/lib/case/operations";
-import { AdminCaseType, CaseEstado, CasePriority, OpcionCatalogo } from "@/types/case";
+import { AdminCaseType, OpcionCatalogo } from "@/types/case";
+import { CamposProcedencia, Campo, Casilla, Seccion, selectClass, type Procedencia } from "./campos";
 
 type Props = {
   caso: AdminCaseType;
@@ -21,65 +21,27 @@ type Props = {
   procedimientos: OpcionCatalogo[];
   /** false para un especialista: Strapi descarta el cambio de `selected_doctor`. */
   puedeReasignar: boolean;
+  /** false para un especialista: Strapi no le manda ni le acepta notas internas ni cotización. */
+  puedeVerFinanzas: boolean;
 };
 
-const selectClass =
-  "flex h-10 w-full rounded-md border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
-
-function Seccion({ titulo, children }: { titulo: string; children: React.ReactNode }) {
-  return (
-    <section className="space-y-4 rounded-xl border bg-background p-5">
-      <h2 className="font-semibold">{titulo}</h2>
-      {children}
-    </section>
-  );
-}
-
-function Campo({ label, ayuda, htmlFor, children }: {
-  label: string;
-  ayuda?: string;
-  htmlFor?: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="space-y-1.5">
-      <Label htmlFor={htmlFor}>{label}</Label>
-      {children}
-      {ayuda && <p className="text-xs text-muted-foreground">{ayuda}</p>}
-    </div>
-  );
-}
-
-function Casilla({ id, checked, onChange, children }: {
-  id: string;
-  checked: boolean;
-  onChange: (v: boolean) => void;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="flex items-start gap-2">
-      <Checkbox id={id} checked={checked} onCheckedChange={(v) => onChange(v === true)} className="mt-0.5" />
-      <Label htmlFor={id} className="font-normal leading-snug">
-        {children}
-      </Label>
-    </div>
-  );
-}
-
+/**
+ * Expediente completo, salvo lo que va en el panel rápido de arriba (estado,
+ * prioridad, próxima acción, responsables).
+ */
 export function EditorCaso({
   caso,
   doctores,
   hospitales,
   procedimientos,
   puedeReasignar,
+  puedeVerFinanzas,
 }: Props) {
   const router = useRouter();
   const [guardando, startTransition] = useTransition();
   const [cambios, setCambios] = useState(false);
 
   const [f, setF] = useState(() => ({
-    estado: caso.estado,
-    priority: (caso.priority ?? "normal") as CasePriority,
     patientNextStep: caso.patientNextStep ?? "",
     internalNotes: caso.internalNotes ?? "",
     fullName: caso.fullName,
@@ -95,6 +57,11 @@ export function EditorCaso({
     surgeryDate: isoAInputLocal(caso.surgeryDate),
     surgeryDateConfirmed: Boolean(caso.surgeryDateConfirmed),
     followUpTasks: (caso.followUpTasks ?? []).map((t) => ({ title: t.title, done: Boolean(t.done) })),
+    originType: (caso.originType ?? "") as Procedencia["originType"],
+    originDetail: caso.originDetail ?? "",
+    channel: (caso.channel ?? "") as Procedencia["channel"],
+    referredBy: (caso.referredBy ?? "") as Procedencia["referredBy"],
+    isTest: Boolean(caso.isTest),
   }));
 
   function set<K extends keyof typeof f>(campo: K, valor: (typeof f)[K]) {
@@ -114,8 +81,6 @@ export function EditorCaso({
     }
 
     const datos: CasoEditable = {
-      estado: f.estado,
-      priority: f.priority,
       patientNextStep: f.patientNextStep,
       internalNotes: f.internalNotes,
       fullName: f.fullName,
@@ -131,6 +96,11 @@ export function EditorCaso({
       surgeryDate: inputLocalAIso(f.surgeryDate),
       surgeryDateConfirmed: f.surgeryDateConfirmed,
       followUpTasks: f.followUpTasks.filter((t) => t.title.trim()),
+      originType: f.originType || null,
+      originDetail: f.originDetail,
+      channel: f.channel || null,
+      referredBy: f.referredBy || null,
+      isTest: f.isTest,
     };
 
     startTransition(async () => {
@@ -147,37 +117,7 @@ export function EditorCaso({
 
   return (
     <div className="space-y-4">
-      <Seccion titulo="Coordinación">
-        <div className="grid gap-4 sm:grid-cols-2">
-          <Campo label="Estado" htmlFor="estado">
-            <select
-              id="estado"
-              className={selectClass}
-              value={f.estado}
-              onChange={(e) => set("estado", e.target.value as CaseEstado)}
-            >
-              {ESTADOS_ORDEN.map((e) => (
-                <option key={e} value={e}>
-                  {ESTADO_COORDINADOR[e]}
-                </option>
-              ))}
-            </select>
-          </Campo>
-          <Campo label="Prioridad" htmlFor="prioridad">
-            <select
-              id="prioridad"
-              className={selectClass}
-              value={f.priority}
-              onChange={(e) => set("priority", e.target.value as CasePriority)}
-            >
-              {(Object.keys(PRIORIDAD) as CasePriority[]).map((p) => (
-                <option key={p} value={p}>
-                  {PRIORIDAD[p]}
-                </option>
-              ))}
-            </select>
-          </Campo>
-        </div>
+      <Seccion titulo="Comunicación">
         <Campo
           label="Siguiente paso (lo ve el paciente)"
           htmlFor="siguiente"
@@ -187,18 +127,24 @@ export function EditorCaso({
             id="siguiente"
             rows={2}
             value={f.patientNextStep}
-            placeholder={SIGUIENTE_PASO_PACIENTE[f.estado]}
+            placeholder={SIGUIENTE_PASO_PACIENTE[caso.estado]}
             onChange={(e) => set("patientNextStep", e.target.value)}
           />
         </Campo>
-        <Campo label="Notas internas" htmlFor="notas" ayuda="Solo para el equipo. El paciente no las ve.">
-          <Textarea
-            id="notas"
-            rows={4}
-            value={f.internalNotes}
-            onChange={(e) => set("internalNotes", e.target.value)}
-          />
-        </Campo>
+        {puedeVerFinanzas && (
+          <Campo
+            label="Notas internas"
+            htmlFor="notas"
+            ayuda="Para excepciones y contexto. No las ven el paciente ni el especialista."
+          >
+            <Textarea
+              id="notas"
+              rows={4}
+              value={f.internalNotes}
+              onChange={(e) => set("internalNotes", e.target.value)}
+            />
+          </Campo>
+        )}
         <Casilla id="emergencia" checked={f.emergencyFlag} onChange={(v) => set("emergencyFlag", v)}>
           Posible emergencia
         </Casilla>
@@ -231,6 +177,20 @@ export function EditorCaso({
             ))}
           </select>
         </Campo>
+      </Seccion>
+
+      <Seccion titulo="Procedencia">
+        <CamposProcedencia
+          id="procedencia"
+          valor={f}
+          onChange={(cambios) => {
+            setF((prev) => ({ ...prev, ...cambios }));
+            setCambios(true);
+          }}
+        />
+        <Casilla id="prueba" checked={f.isTest} onChange={(v) => set("isTest", v)}>
+          Caso de prueba (no aparece en la bandeja ni cuenta en los números)
+        </Casilla>
       </Seccion>
 
       <Seccion titulo="Plan">
@@ -276,28 +236,36 @@ export function EditorCaso({
           </Campo>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2">
-          <Campo label="Cotización (MXN)" htmlFor="monto">
-            <Input
-              id="monto"
-              inputMode="decimal"
-              value={f.quoteAmount}
-              placeholder="0.00"
-              onChange={(e) => set("quoteAmount", e.target.value)}
-            />
-          </Campo>
-          <Campo label="Vigente hasta" htmlFor="vigencia">
-            <Input
-              id="vigencia"
-              type="date"
-              value={f.quoteValidUntil}
-              onChange={(e) => set("quoteValidUntil", e.target.value)}
-            />
-          </Campo>
-        </div>
-        <Casilla id="mostrar-cotizacion" checked={f.quotePresented} onChange={(v) => set("quotePresented", v)}>
-          Mostrar la cotización al paciente
-        </Casilla>
+        {puedeVerFinanzas && (
+          <>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Campo label="Cotización (MXN)" htmlFor="monto">
+                <Input
+                  id="monto"
+                  inputMode="decimal"
+                  value={f.quoteAmount}
+                  placeholder="Sin registrar"
+                  onChange={(e) => set("quoteAmount", e.target.value)}
+                />
+              </Campo>
+              <Campo label="Vigente hasta" htmlFor="vigencia">
+                <Input
+                  id="vigencia"
+                  type="date"
+                  value={f.quoteValidUntil}
+                  onChange={(e) => set("quoteValidUntil", e.target.value)}
+                />
+              </Campo>
+            </div>
+            <Casilla
+              id="mostrar-cotizacion"
+              checked={f.quotePresented}
+              onChange={(v) => set("quotePresented", v)}
+            >
+              Mostrar la cotización al paciente
+            </Casilla>
+          </>
+        )}
 
         <div className="grid gap-4 sm:grid-cols-2">
           <Campo label="Fecha de cirugía" htmlFor="fecha" ayuda="Hora de Ciudad Juárez.">

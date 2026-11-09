@@ -1,6 +1,34 @@
 import { cn } from "@/lib/utils";
-import { ESTADO_COORDINADOR, PRIORIDAD } from "@/lib/case/labels";
+import { ESTADO_COORDINADOR, PRIORIDAD, etapaDe, type Etapa } from "@/lib/case/labels";
 import { CaseEstado, CasePriority } from "@/types/case";
+
+const COLOR_ETAPA: Record<Etapa, string> = {
+  valoracion: "bg-indigo-100 text-indigo-800",
+  decision: "bg-amber-100 text-amber-800",
+  programacion: "bg-teal-100 text-teal-800",
+  seguimiento: "bg-emerald-100 text-emerald-800",
+  cerrado: "bg-gray-200 text-gray-700",
+};
+
+/** Etapa (de las 5) con el estado detallado debajo. */
+export function EtapaBadge({ estado }: { estado: CaseEstado }) {
+  const etapa = etapaDe(estado);
+  return (
+    <div className="space-y-0.5">
+      <span
+        className={cn(
+          "inline-flex whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-medium",
+          COLOR_ETAPA[etapa.clave]
+        )}
+      >
+        {etapa.label}
+      </span>
+      {etapa.estados.length > 1 && (
+        <div className="text-xs text-muted-foreground">{ESTADO_COORDINADOR[estado]}</div>
+      )}
+    </div>
+  );
+}
 
 const COLOR_ESTADO: Record<CaseEstado, string> = {
   new: "bg-blue-100 text-blue-800",
@@ -47,20 +75,6 @@ export function UrgenteBadge() {
   return (
     <span className="inline-flex whitespace-nowrap rounded-full bg-red-600 px-2 py-0.5 text-xs font-semibold text-white">
       Posible emergencia
-    </span>
-  );
-}
-
-export function EspecialistaBadge({ nombre }: { nombre?: string | null }) {
-  const asignado = nombre?.trim();
-  return (
-    <span
-      className={cn(
-        "inline-flex whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-medium",
-        asignado ? "bg-sky-100 text-sky-800" : "border border-dashed border-gray-300 text-gray-500"
-      )}
-    >
-      {asignado || "No asignado"}
     </span>
   );
 }
