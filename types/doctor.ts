@@ -25,6 +25,8 @@ export type DoctorType = {
       height: number | null;
     } | null;
     priceCon: number | null;
+    /** Cargo y cédula, en una línea (p. ej. "Médico general. Cédula profesional 1049164"). */
+    credentials?: string | null;
     facebook: string;
     instagram: string;
     tiktok: string;

@@ -21,7 +21,7 @@ const TABS = [
   { key: "gallery", label: "Galería" },
 ] as const;
 
-const DoctorShow = ({ doctor }: { doctor: DoctorType }) => {
+const DoctorShow = ({ doctor, agendaHref }: { doctor: DoctorType; agendaHref?: string }) => {
   const [activeTab, setActiveTab] = useState<(typeof TABS)[number]["key"]>("about");
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const DoctorShow = ({ doctor }: { doctor: DoctorType }) => {
 
   return (
     <div>
-      <DoctorTop doctor={doctor} />
+      <DoctorTop doctor={doctor} agendaHref={agendaHref} />
       <Separator className="my-6" />
 
       {/* Mobile Select */}

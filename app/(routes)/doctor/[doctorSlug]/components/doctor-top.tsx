@@ -5,6 +5,7 @@ import { BookingDialog } from "@/components/booking-dialog";
 import { Button } from "@/components/ui/button";
 import { DoctorType } from "@/types/doctor";
 import {
+  BadgeCheck,
   CalendarCheck,
   CheckCircle,
   Globe,
@@ -16,14 +17,17 @@ import { useIsDesktop } from "@/hooks/use-is-desktop";
 import WhatsAppQrDialog from "@/components/whatsapp-qr-dialog";
 import { useSiteConfig } from "@/components/site-config-provider";
 import { whatsappLink } from "@/lib/site-config";
+import { clean } from "@/lib/utils";
 
 export type InfoDoctorProps = {
   doctor: DoctorType;
+  /** Variante de /schedules del doctor; si viene, reemplaza al calendario y a WhatsApp. */
+  agendaHref?: string;
 };
 
 const DoctorTop = (props: InfoDoctorProps) => {
   const { whatsappNumber } = useSiteConfig();
-  const { doctor } = props;
+  const { doctor, agendaHref } = props;
   const isDesktop = useIsDesktop();
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -104,13 +108,25 @@ const DoctorTop = (props: InfoDoctorProps) => {
                   ))}
                 </div>
               )}
+              {clean(doctor.credentials) && (
+                <div className="flex items-center gap-1 text-gray-500 text-sm">
+                  <BadgeCheck className="w-4 h-4 shrink-0" />
+                  <span>{clean(doctor.credentials)}</span>
+                </div>
+              )}
             </div>
           </div>
         </div>
 
         <div className="flex flex-col items-center justify-center mb-6 md:mb-0 sm:w-48">
-          
-          {embedUrl ? (
+          {agendaHref ? (
+            <Button asChild className="w-1/2 md:w-full mr-0">
+              <Link href={agendaHref}>
+                <CalendarCheck className="mr-2" />
+                Solicitar cita
+              </Link>
+            </Button>
+          ) : embedUrl ? (
             <BookingDialog
               src={embedUrl}
               title={`Solicitar cita — ${doctor.doctorName}`}
