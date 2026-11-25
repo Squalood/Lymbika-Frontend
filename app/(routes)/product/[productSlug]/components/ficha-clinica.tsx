@@ -35,7 +35,7 @@ import type { ProductType, SeguridadEmbarazo } from "@/types/product";
  * Adrian, nov-2026), con un aviso distinto: muchas fichas las propuso la IA y
  * las está revisando el equipo farmacéutico.
  */
-export default function FichaClinica({ product }: { product: ProductType }) {
+export default function FichaClinica({ product, enPestana = false }: { product: ProductType; enPestana?: boolean }) {
   if (!tieneFicha(product)) return null;
 
   const principios = principiosDe(product);
@@ -87,8 +87,11 @@ export default function FichaClinica({ product }: { product: ProductType }) {
   ].filter((s) => s.textos.length);
 
   return (
-    <section className="px-6 sm:px-0 mt-10" aria-labelledby="ficha-titulo">
-      <h2 id="ficha-titulo" className="text-xl font-semibold mb-4">Información del producto</h2>
+    <section className={cn("px-6 sm:px-0", !enPestana && "mt-10")} aria-labelledby="ficha-titulo">
+      {/* Dentro de las pestañas el título lo da "Ficha médica"; se deja para lectores de pantalla. */}
+      <h2 id="ficha-titulo" className={enPestana ? "sr-only" : "text-xl font-semibold mb-4"}>
+        Información del producto
+      </h2>
 
       <div className="grid gap-6 md:grid-cols-2">
         <div className="space-y-5">
