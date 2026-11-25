@@ -4,10 +4,27 @@ import { ReviewType } from "@/types/review";
 import { camposDeProducto } from "@/lib/product-fields";
 import { strapiGet, strapiLista, strapiPrimero } from "./client";
 
-/** Ficha de producto (un solo registro, por eso sí lleva populate=*). */
+/**
+ * Populate de la ficha de producto. Explícito y no `populate=*` porque la ficha
+ * clínica necesita dos niveles (composición → principio activo, de donde salen
+ * embarazo, contraindicaciones, etc.) y `*` solo llega a uno. De paso deja de
+ * traer lotes y stock por farmacia, que la página no usa.
+ */
+const POPULATE_FICHA = [
+  "populate[images][fields][0]=url",
+  "populate[category][fields][0]=categoryName",
+  "populate[category][fields][1]=slug",
+  "populate[videos]=true",
+  "populate[prospecto][fields][0]=url",
+  "populate[prospecto][fields][1]=name",
+  "populate[indicaciones][fields][0]=nombre",
+  "populate[indicaciones][fields][1]=slug",
+  "populate[composicion][populate][principioActivo]=true",
+].join("&");
+
 export function getProduct(slug: string) {
   return strapiPrimero<ProductType>(
-    `products?filters[active][$eq]=true&filters[slug][$eq]=${encodeURIComponent(slug)}&populate=*`,
+    `products?filters[active][$eq]=true&filters[slug][$eq]=${encodeURIComponent(slug)}&${POPULATE_FICHA}`,
     "product"
   );
 }

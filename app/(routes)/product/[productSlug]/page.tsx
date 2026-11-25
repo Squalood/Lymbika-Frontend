@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import CarouselProduct from "./components/carousel-product";
 import InfoProduct from "./components/info-product";
+import FichaClinica from "./components/ficha-clinica";
 import { Separator } from "@/components/ui/separator";
 import NavegatorPages from "@/components/navegator-pages";
 import VideoCarousel from "@/components/video-carousel";
@@ -69,6 +70,7 @@ export default async function Page({ params }: Props) {
             <InfoProduct product={product} />
           </div>
         </div>
+        <FichaClinica product={product} />
         <VideoCarousel videos={product.videos || []} />
         <Separator className="my-8" />
         <ProductReviews productSlug={productSlug} productId={product.id} />
